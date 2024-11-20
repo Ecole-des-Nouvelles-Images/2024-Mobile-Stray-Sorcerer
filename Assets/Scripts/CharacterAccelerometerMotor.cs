@@ -5,12 +5,12 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class CharacterAccelerometerMotor : MonoBehaviour {
-    [SerializeField] private float _xPower = 30;
+    [SerializeField] private float _xPower = 100;
     [SerializeField] private float _yPower = 100;
-    private Rigidbody2D _rb;
+    private Rigidbody _rb;
 
     private void Awake() {
-        _rb = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody>();
     }
 
     public void Mouvement(InputAction.CallbackContext ctx) {
@@ -18,8 +18,8 @@ public class CharacterAccelerometerMotor : MonoBehaviour {
 
         Vector3 vec = ctx.ReadValue<Vector3>();
         vec.x = vec.x * _xPower;
-        vec.z = 0;
-        vec.y = vec.y *_yPower;
+        vec.y = 0;
+        vec.z = vec.z *_yPower;
         _rb.velocity = vec * Time.fixedDeltaTime;
     }
 }
