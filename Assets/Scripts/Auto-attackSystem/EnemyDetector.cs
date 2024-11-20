@@ -12,7 +12,7 @@ public class EnemyDetector : MonoBehaviour
         {
             EnemiesInRange.Add(other.gameObject);
         }
-        DebugList();
+        //DebugList();
     }
 
     private void OnTriggerStay(Collider other)
@@ -24,14 +24,14 @@ public class EnemyDetector : MonoBehaviour
                 if(other.name == EnemiesInRange[i].name)return;
             }
             EnemiesInRange.Add(other.gameObject);
-            DebugList();
+            //DebugList();
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
         EnemiesInRange.Remove(other.gameObject);
-        DebugList();
+        //DebugList();
     }
 
     private void DebugList()

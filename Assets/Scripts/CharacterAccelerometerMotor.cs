@@ -18,8 +18,8 @@ public class CharacterAccelerometerMotor : MonoBehaviour {
 
         Vector3 vec = ctx.ReadValue<Vector3>();
         vec.x = vec.x * _xPower;
-        vec.y = 0;
-        vec.z = vec.z *_yPower;
-        _rb.velocity = vec * Time.fixedDeltaTime;
+        vec.y = vec.y *_yPower;
+        vec.z = 0;
+        _rb.velocity = new Vector3(vec.x,vec.z,vec.y) * Time.fixedDeltaTime;
     }
 }
