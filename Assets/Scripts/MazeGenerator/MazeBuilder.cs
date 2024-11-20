@@ -5,6 +5,8 @@ using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
 
+using Random = System.Random;
+
 namespace MazeGenerator
 {
     public class MazeBuilder : MonoBehaviour
@@ -16,13 +18,17 @@ namespace MazeGenerator
         [SerializeField] private string _seed;
         [SerializeField] private int _scale = 1;
 
+        public static Cell[,] Grid;
+
         public int Seed => HashSeed(_seed);
-        private Cell[,] _grid;
+
         private Stack<Cell> _buildStack = new();
+
+        // --------------------- //
 
         private void Start()
         {
-            _grid = new Cell[_scale, _scale];
+            Grid = new Cell[_scale, _scale];
         }
 
         [ContextMenu("Build Maze")]
@@ -49,32 +55,13 @@ namespace MazeGenerator
             }
         }
 
-        [ContextMenu("Generate Maze")]
-        public void Generate()
+        public static Cell GetCell(int x, int y)
         {
-            Build();
-            Cell origin = GetCell(0, 0);
+            if (x >= Grid.Length || x < 0 ||
+                y >= Grid.Length || y < 0)
+                return null;
 
-            _buildStack.Push(origin);
-
-            while (_buildStack.Count > 0)
-            {
-                Cell current = _buildStack.Pop();
-
-
-            }
-        }
-
-        // --------------------- //
-
-        private Cell GetCell(Vector2Int position)
-        {
-            return _grid[position.x, position.y];
-        }
-
-        private Cell GetCell(int x, int y)
-        {
-            return _grid[x, y];
+            return Grid[x, y];
         }
 
         private int HashSeed(string seed)
