@@ -1,26 +1,22 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace MazeGenerator
 {
-    public class Cell: MonoBehaviour
+    public class Cell
     {
-        public Vector2Int Position { get; set; }
+        public const int CellSize = 20;
 
-        public GameObject WallTop;
-        public GameObject WallRight;
-        public GameObject WallBottom;
-        public GameObject WallLeft;
+        public Vector2Int Position { get; private set; }
+        public GameObject Prefab => MazeBuilder.Instance.GetCellPrefab(this);
 
-        public bool IsVisited { get; set; } = false;
-        public List<Cell> Neighbors { get; set; }
-        public bool HasUnvisitedNeighbors => Neighbors.Exists(neighbor => !neighbor.IsVisited);
+        public bool WallTop { get; set; }
+        public bool WallRight { get; set; }
+        public bool WallBottom { get; set; }
+        public bool WallLeft { get; set; }
 
-        private void Awake()
+        public Cell(int x, int y)
         {
-            Neighbors = new();
+            Position = new Vector2Int(x, y);
         }
-
     }
 }
