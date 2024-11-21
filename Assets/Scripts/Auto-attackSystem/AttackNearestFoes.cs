@@ -18,7 +18,7 @@ namespace Auto_attackSystem {
             cooldownDisplay.fillAmount = Helper.LoadFactorCalculation(_currentCooldownTimer,_cooldown);
             if (!_attackIsReady && _currentCooldownTimer <= 0)_currentCooldownTimer = _cooldown;
             if (!_attackIsReady && _currentCooldownTimer > 0) _currentCooldownTimer -= Time.deltaTime;
-            if (_currentCooldownTimer >= _cooldown) _attackIsReady = true;
+            if (_currentCooldownTimer <= 0) _attackIsReady = true;
             if (_attackIsReady) {
                 SearchNearestFoe();
                 if (_nearestFoe != null) {
