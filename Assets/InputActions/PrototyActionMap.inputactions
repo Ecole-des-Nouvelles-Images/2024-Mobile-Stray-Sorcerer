@@ -6,10 +6,19 @@
             "id": "90b2ed79-d602-4c00-9643-66e293be43e2",
             "actions": [
                 {
-                    "name": "Mouvement",
+                    "name": "MouvementAccelerometer",
                     "type": "Value",
                     "id": "63ed32cc-d6cb-4c02-bbe3-a280eebbbe4d",
                     "expectedControlType": "Vector3",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "MouvementJoystick",
+                    "type": "Value",
+                    "id": "a4ba1307-e72f-4247-a542-bd519d4380f0",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -23,7 +32,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Mouvement",
+                    "action": "MouvementAccelerometer",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -34,7 +43,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Mouvement",
+                    "action": "MouvementAccelerometer",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -45,7 +54,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Mouvement",
+                    "action": "MouvementAccelerometer",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -56,7 +65,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Mouvement",
+                    "action": "MouvementAccelerometer",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -67,7 +76,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Mouvement",
+                    "action": "MouvementAccelerometer",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -78,7 +87,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Mouvement",
+                    "action": "MouvementAccelerometer",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -89,7 +98,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Mouvement",
+                    "action": "MouvementAccelerometer",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -100,9 +109,20 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Mouvement",
+                    "action": "MouvementAccelerometer",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "d029d5f0-d5fb-44d7-ae7c-6b561079abfa",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouvementJoystick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
