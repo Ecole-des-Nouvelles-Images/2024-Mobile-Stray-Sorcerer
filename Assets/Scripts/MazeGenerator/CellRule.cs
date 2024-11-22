@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace MazeGenerator
 {
-    [System.Serializable]
+    [Serializable]
     public struct CellRule
     {
         public bool Top;

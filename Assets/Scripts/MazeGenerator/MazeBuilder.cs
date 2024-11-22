@@ -28,7 +28,7 @@ namespace MazeGenerator
         private void Start()
         {
             _maze = new Maze(_scale);
-            _maze.Initialize(_cellInitialPrefab);
+            _maze.Generate();
             Build();
         }
 
