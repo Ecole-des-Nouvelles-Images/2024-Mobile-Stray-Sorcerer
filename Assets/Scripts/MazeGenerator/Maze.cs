@@ -1,5 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+
+using Random = System.Random;
 
 namespace MazeGenerator
 {
@@ -36,6 +39,7 @@ namespace MazeGenerator
         private void DepthFirstSearchPass()
         {
             Stack<Cell> buildStack = new Stack<Cell>();
+            Random generator = new Random(MazeBuilder.Instance.Seed);
 
             Cell origin = Grid[0, 0];
             origin.Visited = true;
@@ -52,7 +56,7 @@ namespace MazeGenerator
                 }
                 else
                 {
-                    Cell neighbor = neighbors[Random.Range(0, neighbors.Count)];
+                    Cell neighbor = neighbors[generator.Next(0, neighbors.Count)];
                     RemoveWall(current, neighbor);
                     neighbor.Visited = true;
                     buildStack.Push(neighbor);
@@ -104,30 +108,30 @@ namespace MazeGenerator
             return neighbors;
         }
 
-        private void RemoveWall(Cell current, Cell neighbor)
+        private void RemoveWall(Cell current, Cell destination)
         {
-            int x = neighbor.Position.x - current.Position.x;
-            int y = neighbor.Position.y - current.Position.y;
+            Vector2Int currentPos = current.Position;
+            Vector2Int destinationPos = destination.Position;
 
-            if (x == 1)
-            {
-                current.WallRight = false;
-                neighbor.WallLeft = false;
-            }
-            else if (x == -1)
-            {
-                current.WallLeft = false;
-                neighbor.WallRight = false;
-            }
-            else if (y == 1)
-            {
-                current.WallBottom = false;
-                neighbor.WallTop = false;
-            }
-            else if (y == -1)
+            if (destinationPos.y == currentPos.y + 1) // Destination is above
             {
                 current.WallTop = false;
-                neighbor.WallBottom = false;
+                destination.WallBottom = false;
+            }
+            else if (destinationPos.x == currentPos.x + 1) // Destination is on the right
+            {
+                current.WallRight = false;
+                destination.WallLeft = false;
+            }
+            else if (destinationPos.y == currentPos.y - 1) // Destination is below
+            {
+                current.WallBottom = false;
+                destination.WallTop = false;
+            }
+            else if (destinationPos.x == currentPos.x - 1) // Destination is on the left
+            {
+                current.WallLeft = false;
+                destination.WallRight = false;
             }
         }
     }

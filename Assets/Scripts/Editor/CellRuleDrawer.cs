@@ -33,7 +33,7 @@ namespace Editor
             EditorGUI.PropertyField(gameObjectRect, prefab, GUIContent.none);
 
             // Calculate the total height needed for all fields
-            float totalHeight = EditorGUIUtility.singleLineHeight * 5 + EditorGUIUtility.standardVerticalSpacing * 4;
+            float totalHeight = EditorGUIUtility.singleLineHeight * 4 + EditorGUIUtility.standardVerticalSpacing * 4;
 
             // Draw the preview of the prefab in the second column over the entire height
             Rect previewRect = new Rect(position.x + columnWidth, position.y, columnWidth, totalHeight);
@@ -87,7 +87,7 @@ namespace Editor
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
             // Return the total height needed to draw all fields
-            return EditorGUIUtility.singleLineHeight * 5 + EditorGUIUtility.standardVerticalSpacing * 4;
+            return EditorGUIUtility.singleLineHeight * 4 + EditorGUIUtility.standardVerticalSpacing * 4;
         }
     }
 }
