@@ -4,7 +4,7 @@ using Utils;
 
 namespace Player.AutoAttacks {
     public class AttackNearestFoes : MonoBehaviour{
-        [SerializeField] private int firePower = 50;
+        [SerializeField] private int firePower = 5;
         [SerializeField] private EnemyDetector enemyDetector;
         [SerializeField] private Image cooldownDisplay;
         [SerializeField] private GameObject projectilePrefab;
