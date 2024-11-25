@@ -2,13 +2,12 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Utils;
 
-namespace Player
-{
-    public class AccelerometerCharacterMotor : MonoBehaviour
-    {
+namespace Player {
+    public class AccelerometerCharacterMotor : MonoBehaviour {
         [SerializeField] private SwitchControl switchControl;
         [SerializeField] private float xPower = 5000;
         [SerializeField] private float yPower = 5000;
+        
         private Rigidbody _rb;
 
         private void Awake() {
@@ -27,7 +26,6 @@ namespace Player
                 vec.z = 0;
                 _rb.velocity = new Vector3(vec.y*-1,vec.z,vec.x) * Time.fixedDeltaTime;
             }
-
         }
     }
 }
