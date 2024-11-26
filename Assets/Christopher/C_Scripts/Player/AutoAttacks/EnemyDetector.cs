@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Christopher.C.Scripts.Player.AutoAttacks
+namespace Christopher.C_Scripts.Player.AutoAttacks
 {
     public class EnemyDetector : MonoBehaviour
     {

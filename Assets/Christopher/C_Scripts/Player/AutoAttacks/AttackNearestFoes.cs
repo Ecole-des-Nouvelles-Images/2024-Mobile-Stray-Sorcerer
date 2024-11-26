@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Utils;
 
-namespace Christopher.C.Scripts.Player.AutoAttacks {
+namespace Christopher.C_Scripts.Player.AutoAttacks {
     public class AttackNearestFoes : MonoBehaviour{
         [SerializeField] private int firePower = 5;
         [SerializeField] private EnemyDetector enemyDetector;
@@ -13,7 +13,7 @@ namespace Christopher.C.Scripts.Player.AutoAttacks {
         private GameObject _nearestFoe;
         private bool _attackIsReady = true;
         private float _cooldown = 1;
-        private float _currentCooldownTimer = 1;
+        private float _currentCooldownTimer;
      
         void Update() {
             cooldownDisplay.fillAmount = Helper.LoadFactorCalculation(_currentCooldownTimer,_cooldown);
@@ -22,28 +22,38 @@ namespace Christopher.C.Scripts.Player.AutoAttacks {
             if (_currentCooldownTimer <= 0) _attackIsReady = true;
             if (_attackIsReady) {
                 SearchNearestFoe();
-                if (_nearestFoe != null) {
-                    var o = Instantiate(projectilePrefab, projectileOrigin.position, Quaternion.identity);
-                    o.transform.GetComponent<Rigidbody>().AddForce((_nearestFoe.transform.position-o.transform.position)
-                                                                   * firePower, ForceMode.Impulse);
-                    _attackIsReady = false;
-                }
+                if (_nearestFoe != null) DoAttack();
             }
         }
     
         private void SearchNearestFoe() {
             if(enemyDetector.EnemiesInRange.Count == 0)_nearestFoe = null;
             for (int i = 0; i < enemyDetector.EnemiesInRange.Count; i++) {
-                if(_nearestFoe == null)_nearestFoe = enemyDetector.EnemiesInRange[i];
-                if (Helper.DistanceCalculator(transform.position, _nearestFoe.transform.position) >
-                    Helper.DistanceCalculator(transform.position, enemyDetector.EnemiesInRange[i].transform.position)
-                    && Helper.DirectViewBetweenTwoObject(gameObject, enemyDetector.EnemiesInRange[i], false))
+                if (_nearestFoe == null &&
+                    Helper.DirectViewBetweenTwoObject(gameObject, enemyDetector.EnemiesInRange[i], false))
+                {
+                    _nearestFoe = enemyDetector.EnemiesInRange[i];
+                    return;
+                }
+                    
+                if (_nearestFoe != null &&
+                    Helper.DistanceCalculator(transform.position, _nearestFoe.transform.position) >
+                    Helper.DistanceCalculator(transform.position, enemyDetector.EnemiesInRange[i].transform.position) 
+                    &&
+                    Helper.DirectViewBetweenTwoObject(gameObject, enemyDetector.EnemiesInRange[i], false))
                 {
                     _nearestFoe = enemyDetector.EnemiesInRange[i];
                 }
             }
         }
 
+        private void DoAttack()
+        {
+            var o = Instantiate(projectilePrefab, projectileOrigin.position, Quaternion.identity);
+            o.transform.GetComponent<Rigidbody>().AddForce((_nearestFoe.transform.position-o.transform.position)
+                                                           * firePower, ForceMode.Impulse);
+            _attackIsReady = false;
+        }
         
     }
 }
