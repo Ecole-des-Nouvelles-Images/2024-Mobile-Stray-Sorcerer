@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils;
@@ -13,6 +14,8 @@ namespace Player
         [SerializeField] private int basicPowerValue;
         [Header("UI")]
         [SerializeField] private Image characterCurrentHPDisplay;
+        [SerializeField] private Image characterCurrentXPDisplay;
+        [SerializeField] private TMP_Text CurrentLVLdisplay;
 
         private int _currentCharacterLevel;
         private int _currentMaxHealPointValue;
@@ -23,21 +26,26 @@ namespace Player
         private int _ConstitutionUpgradeCounter;
         private int _SpeedUpgradeCounter;
         private int _PowerUpgradeCounter;
+        //current
         private void Start() {
             InitializeCharacterProperty();
         }
 
         private void Update() {
             characterCurrentHPDisplay.fillAmount = Helper.LoadFactorCalculation(_currentHealPointValue,_currentMaxHealPointValue);
+            characterCurrentXPDisplay.fillAmount = Helper.LoadFactorCalculation(_currentExperienceValue,RequireEXP);
+            CurrentLVLdisplay.text = _currentCharacterLevel.ToString();
         }
 
         private void UpgradeCharacter() {
             _currentCharacterLevel++;
             if (_currentCharacterLevel % 5 != 0) {
                 //Display stats to upgrade
+                Debug.Log("Upgrade stat at level -> " + _currentCharacterLevel);
             }
             else {
                 //Display spell upgrade
+                Debug.Log("Unlock spell at level -> " + _currentCharacterLevel);
             }
         }
 
