@@ -18,9 +18,11 @@ namespace Christopher.C_Scripts.Player
         }
 
         public void MouvementJ(InputAction.CallbackContext ctx) {
-            if (ctx.ReadValue<Vector2>().x > 0.15) _currentInputXValue = ctx.ReadValue<Vector2>().x;
+            if (ctx.ReadValue<Vector2>().x > 0.15 || ctx.ReadValue<Vector2>().x < -0.15) 
+                _currentInputXValue = ctx.ReadValue<Vector2>().x;
             else _currentInputXValue = 0;
-            if (ctx.ReadValue<Vector2>().y > 0.15) _currentInputYValue = ctx.ReadValue<Vector2>().y;
+            if (ctx.ReadValue<Vector2>().y > 0.15 || ctx.ReadValue<Vector2>().y < -0.15) 
+                _currentInputYValue = ctx.ReadValue<Vector2>().y;
             else _currentInputYValue = 0;
             _rb.velocity = new Vector3(ctx.ReadValue<Vector2>().x,0,ctx.ReadValue<Vector2>().y).normalized * speed 
                 * Time.fixedDeltaTime;

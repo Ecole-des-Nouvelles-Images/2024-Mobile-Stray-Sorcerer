@@ -49,6 +49,8 @@ namespace Christopher.C_Scripts.Player.AutoAttacks {
 
         private void DoAttack()
         {
+            //animation
+            //son?
             var o = Instantiate(projectilePrefab, projectileOrigin.position, Quaternion.identity);
             o.transform.GetComponent<Rigidbody>().AddForce((_nearestFoe.transform.position-o.transform.position)
                                                            * firePower, ForceMode.Impulse);
