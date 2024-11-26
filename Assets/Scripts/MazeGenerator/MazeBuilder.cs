@@ -1,11 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
 using Utils;
-using Random = System.Random;
 
 namespace MazeGenerator
 {
@@ -16,10 +14,23 @@ namespace MazeGenerator
         [SerializeField] private List<CellRule> _cellRules;
 
         [Header("Settings")]
-        [SerializeField] private string _seed;
+        [SerializeField] private string _seedPhrase;
         [SerializeField] private int _scale = 1;
 
-        public int Seed => HashSeed(_seed);
+        private string _seed;
+        private int _hashSeed;
+
+        public int Seed {
+            get
+            {
+                if (_seed != _seedPhrase) {
+                    _seed = _seedPhrase;
+                    _hashSeed = HashSeed(_seed);
+                }
+
+                return _hashSeed;
+            }
+        }
 
         private Maze _maze;
 
@@ -27,8 +38,6 @@ namespace MazeGenerator
 
         private void Start()
         {
-            _maze = new Maze(_scale);
-            _maze.Generate();
             Build();
         }
 
@@ -36,6 +45,9 @@ namespace MazeGenerator
         public void Build()
         {
             Clear();
+
+            _maze = new Maze(_scale);
+            _maze.Generate();
 
             for (int y = 0; y < _maze.Scale; y++)
             {
@@ -46,7 +58,7 @@ namespace MazeGenerator
                     if (cell != null)
                         Instantiate(cell.Prefab, new Vector3(x * 20, 0, y * 20), Quaternion.identity, transform);
                     else
-                        throw new Exception("Grid's cell should not be null.");
+                        throw new Exception("Error: invalid grid, null cell found.");
                 }
             }
         }
@@ -59,6 +71,8 @@ namespace MazeGenerator
                 DestroyImmediate(transform.GetChild(i).gameObject);
             }
         }
+
+        #region Utils
 
         private int HashSeed(string seed)
         {
@@ -79,5 +93,7 @@ namespace MazeGenerator
 
             return _cellInitialPrefab;
         }
+
+        #endregion
     }
 }
