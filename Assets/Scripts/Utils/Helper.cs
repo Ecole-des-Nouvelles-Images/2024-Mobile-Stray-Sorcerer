@@ -20,7 +20,6 @@ namespace Utils
                        Mathf.Infinity, Physics.AllLayers, QueryTriggerInteraction.Ignore)){
                     Debug.DrawRay(origineObject.transform.position, 
                         (targetObject.transform.position - origineObject.transform.position) * hit.distance, Color.yellow);
-                    Debug.Log("Did Hit");
                     if(hit.collider.gameObject == targetObject) return true;
                     return false;
                 }
@@ -28,14 +27,12 @@ namespace Utils
                 {
                     Debug.DrawRay(origineObject.transform.position, 
                         (targetObject.transform.position - origineObject.transform.position) * 1000, Color.white); 
-                    Debug.Log("Did not Hit");
                     return false;
                 }  
             }
             if(Physics.Raycast(origineObject.transform.position, 
                    targetObject.transform.position - origineObject.transform.position,out hit, 
                    Mathf.Infinity, Physics.AllLayers, QueryTriggerInteraction.Ignore)){
-                Debug.Log("Did Hit");
                 if(hit.collider.gameObject == targetObject) return true;
                 return false;
             }
