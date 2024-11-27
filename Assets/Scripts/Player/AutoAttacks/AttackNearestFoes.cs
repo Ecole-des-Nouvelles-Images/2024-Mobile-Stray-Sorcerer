@@ -6,7 +6,6 @@ namespace Player.AutoAttacks {
     public class AttackNearestFoes : MonoBehaviour{
         [SerializeField] private int firePower = 5;
         [SerializeField] private EnemyDetector enemyDetector;
-        [SerializeField] private Image cooldownDisplay;
         [SerializeField] private GameObject projectilePrefab;
         [SerializeField] private Transform projectileOrigin;
 
@@ -16,7 +15,6 @@ namespace Player.AutoAttacks {
         private float _currentCooldownTimer;
      
         void Update() {
-            // cooldownDisplay.fillAmount = Helper.LoadFactorCalculation(_currentCooldownTimer,_cooldown);
             if (!_attackIsReady && _currentCooldownTimer >= _cooldown)_currentCooldownTimer = 0;
             if (!_attackIsReady && _currentCooldownTimer < _cooldown) _currentCooldownTimer += Time.deltaTime;
             if (_currentCooldownTimer >= _cooldown) _attackIsReady = true;
