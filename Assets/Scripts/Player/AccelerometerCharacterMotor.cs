@@ -17,7 +17,7 @@ namespace Player {
         }
 
         public void MouvementA(InputAction.CallbackContext ctx) {
-            if (ctx.ReadValue<Vector3>().x > 0.15 || ctx.ReadValue<Vector3>().x < -0.15) _currentInputXValue = ctx.ReadValue<Vector3>().x;
+            if (ctx.ReadValue<Vector3>().x > 0.1 || ctx.ReadValue<Vector3>().x < -0.15) _currentInputXValue = ctx.ReadValue<Vector3>().x;
             else _currentInputXValue = 0;
             if (ctx.ReadValue<Vector3>().y > 0.15 || ctx.ReadValue<Vector3>().y < -0.15) _currentInputYValue = ctx.ReadValue<Vector3>().y;
             else _currentInputYValue = 0;
