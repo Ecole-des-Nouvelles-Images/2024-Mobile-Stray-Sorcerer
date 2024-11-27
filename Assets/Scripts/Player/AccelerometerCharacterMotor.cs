@@ -9,6 +9,7 @@ namespace Player {
         
         private Rigidbody _rb;
         private Animator _animatorUnity;
+        private Vector3 _acceltrometerValue;
         private float _currentInputYValue;
         private float _currentInputXValue;
         private void Awake() {
@@ -17,12 +18,16 @@ namespace Player {
         }
 
         public void MouvementA(InputAction.CallbackContext ctx) {
-            if (ctx.ReadValue<Vector3>().x > 0.1 || ctx.ReadValue<Vector3>().x < -0.15) _currentInputXValue = ctx.ReadValue<Vector3>().x;
-            else _currentInputXValue = 0;
-            if (ctx.ReadValue<Vector3>().y > 0.15 || ctx.ReadValue<Vector3>().y < -0.15) _currentInputYValue = ctx.ReadValue<Vector3>().y;
-            else _currentInputYValue = 0;
-            _rb.velocity = new Vector3(_currentInputYValue*-1,0,_currentInputXValue).normalized 
-                           * speed * Time.fixedDeltaTime;
+            _acceltrometerValue = ctx.ReadValue<Vector3>().normalized * 10;
+            if (_acceltrometerValue.x > 0.5 || _acceltrometerValue.x < -0.5) 
+                _currentInputXValue = _acceltrometerValue.x/10;
+            else 
+                _currentInputXValue = 0;
+            if (_acceltrometerValue.y > 0.5 || _acceltrometerValue.y < -0.5)
+                _currentInputYValue = _acceltrometerValue.y/10;
+            else 
+                _currentInputYValue = 0;
+            _rb.velocity = new Vector3(_currentInputYValue*-1,0,_currentInputXValue) * speed * Time.fixedDeltaTime;
             _animatorUnity.SetFloat(AnimatorParameterAccess.VelocityX,_rb.velocity.x);
             animatorImportedAnimation.SetFloat(AnimatorParameterAccess.VelocityX,_rb.velocity.x);
             _animatorUnity.SetFloat(AnimatorParameterAccess.VelocityY,_rb.velocity.z);
