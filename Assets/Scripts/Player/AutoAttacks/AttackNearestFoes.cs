@@ -16,7 +16,7 @@ namespace Player.AutoAttacks {
         private float _currentCooldownTimer;
      
         void Update() {
-            cooldownDisplay.fillAmount = Helper.LoadFactorCalculation(_currentCooldownTimer,_cooldown);
+            // cooldownDisplay.fillAmount = Helper.LoadFactorCalculation(_currentCooldownTimer,_cooldown);
             if (!_attackIsReady && _currentCooldownTimer >= _cooldown)_currentCooldownTimer = 0;
             if (!_attackIsReady && _currentCooldownTimer < _cooldown) _currentCooldownTimer += Time.deltaTime;
             if (_currentCooldownTimer >= _cooldown) _attackIsReady = true;
