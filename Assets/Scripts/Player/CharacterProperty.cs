@@ -1,3 +1,6 @@
+using System;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils;
@@ -5,7 +8,9 @@ using Utils;
 namespace Player
 {
     public class CharacterProperty : MonoBehaviour {
+        
         public int RequireEXP => Mathf.CeilToInt(basicMaxExperienceValue * Mathf.Pow(_currentCharacterLevel, 1.5f));
+        
         [Header("Basic Character Properties")]
         [SerializeField] private int basicMaxHealPointValue;
         [SerializeField] private int basicMaxExperienceValue;
@@ -13,6 +18,8 @@ namespace Player
         [SerializeField] private int basicPowerValue;
         [Header("UI")]
         [SerializeField] private Image characterCurrentHPDisplay;
+        [SerializeField] private Image characterCurrentXPDisplay;
+        [SerializeField] private TMP_Text LevelDisplay;
 
         private int _currentCharacterLevel;
         private int _currentMaxHealPointValue;
@@ -25,14 +32,12 @@ namespace Player
         private int _PowerUpgradeCounter;
         private void Start() {
             InitializeCharacterProperty();
+            characterCurrentXPDisplay.fillAmount = Helper.LoadFactorCalculation(_currentExperienceValue,RequireEXP);
+            LevelDisplay.text = _currentCharacterLevel.ToString();
         }
-
-        private void Update() {
-            characterCurrentHPDisplay.fillAmount = Helper.LoadFactorCalculation(_currentHealPointValue,_currentMaxHealPointValue);
-        }
-
         private void UpgradeCharacter() {
             _currentCharacterLevel++;
+            LevelDisplay.text = _currentCharacterLevel.ToString();
             if (_currentCharacterLevel % 5 != 0) {
                 //Display stats to upgrade
             }
@@ -52,6 +57,7 @@ namespace Player
         
         public void TakeDamage(int damage) {
             _currentHealPointValue -= damage;
+            characterCurrentHPDisplay.gameObject.SetActive(false);
             if (_currentHealPointValue < 0) _currentHealPointValue = 0;
         }
 
@@ -62,6 +68,7 @@ namespace Player
 
         public void GainExperience(int experience) {
             _currentExperienceValue += experience;
+            characterCurrentXPDisplay.fillAmount = Helper.LoadFactorCalculation(_currentExperienceValue,RequireEXP);
             if (_currentExperienceValue >= RequireEXP) {
                 UpgradeCharacter();
                 _currentExperienceValue = 0;

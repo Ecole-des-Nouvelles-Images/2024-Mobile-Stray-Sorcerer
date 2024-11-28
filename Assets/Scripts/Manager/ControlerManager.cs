@@ -6,8 +6,8 @@ namespace Manager {
     public class ControlerManager : SingletonMonoBehaviour<ControlerManager> {
         public bool isAccelerometerControled {get; private set;}
         
-        [SerializeField]private PlayerInput playerInput;
-        [SerializeField]private GameObject TactileJoysticks;
+        [SerializeField] private PlayerInput playerInput;
+        [SerializeField] private GameObject TactileJoysticks;
 
         private void Awake() {
             playerInput.SwitchCurrentActionMap("Accelerometer");
