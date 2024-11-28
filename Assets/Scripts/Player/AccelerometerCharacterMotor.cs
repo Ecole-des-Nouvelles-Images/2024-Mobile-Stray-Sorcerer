@@ -20,8 +20,7 @@ namespace Player {
 
         public void MouvementA(InputAction.CallbackContext ctx) {
             _acceltrometerValue = ctx.ReadValue<Vector3>().normalized;
-            Debug.Log(_acceltrometerValue);
-             if (_acceltrometerValue.x > sensibility) 
+             if (_acceltrometerValue.x > sensibility)
                  _currentInputXValue = _acceltrometerValue.x;
              if (_acceltrometerValue.x < -sensibility) 
                  _currentInputXValue = _acceltrometerValue.x;
