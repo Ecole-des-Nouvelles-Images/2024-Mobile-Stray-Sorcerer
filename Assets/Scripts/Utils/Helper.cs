@@ -8,9 +8,6 @@ namespace Utils
                               (posB.y - posA.y)*(posB.y - posA.y) + (posB.z - posA.z)*(posB.z - posA.z));
         }
 
-        public static float LoadFactorCalculation(float currentValue, float maxValue) {
-            return currentValue / maxValue;
-        }
         public static bool DirectViewBetweenTwoObject(GameObject origineObject, GameObject targetObject, bool displayRaycast) {
             RaycastHit hit;
             if (displayRaycast)
