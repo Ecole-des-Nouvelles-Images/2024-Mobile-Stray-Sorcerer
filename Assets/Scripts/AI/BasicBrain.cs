@@ -1,24 +1,24 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BasicBrain : MonoBehaviour
+namespace AI
 {
-   public GameObject MyTarget;
-   private NavMeshAgent _myNavMeshAgent;
-
-   private void Start()
+   public class BasicBrain : MonoBehaviour
    {
-      _myNavMeshAgent = transform.GetComponent<NavMeshAgent>();
-   }
+      public GameObject MyTarget;
+      private NavMeshAgent _myNavMeshAgent;
 
-   private void Update()
-   {
-      if (MyTarget != null)
+      private void Start()
       {
-         _myNavMeshAgent.SetDestination(MyTarget.transform.position);
+         _myNavMeshAgent = transform.GetComponent<NavMeshAgent>();
+      }
+
+      private void Update()
+      {
+         if (MyTarget != null)
+         {
+            _myNavMeshAgent.SetDestination(MyTarget.transform.position);
+         }
       }
    }
 }

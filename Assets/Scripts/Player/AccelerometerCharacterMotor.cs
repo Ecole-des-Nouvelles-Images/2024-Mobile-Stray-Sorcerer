@@ -2,32 +2,41 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Utils;
 
-namespace Player
-{
-    public class AccelerometerCharacterMotor : MonoBehaviour
-    {
-        [SerializeField] private SwitchControl switchControl;
-        [SerializeField] private float xPower = 5000;
-        [SerializeField] private float yPower = 5000;
+namespace Player {
+    public class AccelerometerCharacterMotor : MonoBehaviour {
+        [SerializeField] private float speed = 500;
+        [SerializeField] private float sensibility = 0.01f;
+        [SerializeField] private Animator animatorImportedAnimation;
+        
         private Rigidbody _rb;
-
+        private Animator _animatorUnity;
+        private Vector3 _acceltrometerValue;
+        private float _currentInputYValue;
+        private float _currentInputXValue;
         private void Awake() {
             _rb = GetComponent<Rigidbody>();
+            _animatorUnity = GetComponent<Animator>();
         }
 
         public void MouvementA(InputAction.CallbackContext ctx) {
-            //Debug.Log(ctx.ReadValue<Vector3>());
-            if (switchControl.IsAccelerometer)
-            {
-                Vector3 vec = ctx.ReadValue<Vector3>();
-                if(ctx.ReadValue<Vector3>().x > 0.15 || ctx.ReadValue<Vector3>().x < -0.15)
-                    vec.x = Mathf.Clamp(vec.x * xPower,-500f,500f);
-                if(ctx.ReadValue<Vector3>().y > 0.15 || ctx.ReadValue<Vector3>().y < -0.15)
-                    vec.y = Mathf.Clamp(vec.y *yPower, -500f,500f);
-                vec.z = 0;
-                _rb.velocity = new Vector3(vec.y*-1,vec.z,vec.x) * Time.fixedDeltaTime;
-            }
-
+            _acceltrometerValue = ctx.ReadValue<Vector3>().normalized;
+             if (_acceltrometerValue.x > sensibility)
+                 _currentInputXValue = _acceltrometerValue.x;
+             if (_acceltrometerValue.x < -sensibility) 
+                 _currentInputXValue = _acceltrometerValue.x;
+             if (_acceltrometerValue.y > sensibility )
+                 _currentInputYValue = _acceltrometerValue.y;
+             if ( _acceltrometerValue.y < -sensibility)
+                 _currentInputYValue = _acceltrometerValue.y;
+           /*if(_acceltrometerValue.x < sensibility || _acceltrometerValue.x > -sensibility)
+              _currentInputXValue = 0;
+            if(_acceltrometerValue.y < sensibility || _acceltrometerValue.y > -sensibility)
+                _currentInputYValue = 0;*/
+            _rb.velocity = new Vector3(_currentInputYValue*-1,0,_currentInputXValue)*speed * Time.fixedDeltaTime;
+            _animatorUnity.SetFloat(AnimatorParameterAccess.VelocityX,_rb.velocity.x);
+            animatorImportedAnimation.SetFloat(AnimatorParameterAccess.VelocityX,_rb.velocity.x);
+            _animatorUnity.SetFloat(AnimatorParameterAccess.VelocityY,_rb.velocity.z);
+            animatorImportedAnimation.SetFloat(AnimatorParameterAccess.VelocityY,_rb.velocity.z);
         }
     }
 }

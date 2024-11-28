@@ -12,7 +12,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
+  companyName: Ecole des Nouvelles Images
   productName: Mobile-Mazing-Survivor
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -161,9 +161,9 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.UnityTechnologies.com.unity.template.urpblank
-    Standalone: com.Unity-Technologies.com.unity.template.urp-blank
-    iPhone: com.Unity-Technologies.com.unity.template.urp-blank
+    Android: ensi.mobile.mazingsurvivor
+    Standalone: ensi.mobile.mazing-survivor
+    iPhone: ensi.mobile.mazing-survivor
   buildNumber:
     Standalone: 0
     VisionOS: 0
@@ -908,7 +908,8 @@ PlayerSettings:
   XboxOneOverrideIdentityName: 
   XboxOneOverrideIdentityPublisher: 
   vrEditorSettings: {}
-  cloudServicesEnabled: {}
+  cloudServicesEnabled:
+    Build: 1
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 
