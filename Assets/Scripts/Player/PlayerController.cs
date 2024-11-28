@@ -5,7 +5,7 @@ using Utils;
 
 namespace Player
 {
-    public class PlayerController : SingletonMonoBehaviour<PlayerController>
+    public class PlayerController : MonoBehaviour
     {
         [Header("Inputs")]
         [SerializeField] private PlayerInput _playerInput;
@@ -58,9 +58,9 @@ namespace Player
                 direction.y = input.y;
 
             _rb.velocity = new Vector3(direction.y * -1, 0, direction.x) * Character.Instance.Speed * _accModifier * Time.fixedDeltaTime;
-            // TODO: Potential rework from BlendTree to regular state
-            _animatorController.SetFloat(AnimatorParameterAccess.VelocityX, _rb.velocity.x);
-            _animatorController.SetFloat(AnimatorParameterAccess.VelocityY, _rb.velocity.z);
+            // TODO: Animations parameters / triggers
+            // _animatorController.SetFloat(AnimatorParameterAccess.VelocityX, _rb.velocity.x);
+            // _animatorController.SetFloat(AnimatorParameterAccess.VelocityY, _rb.velocity.z);
         }
 
         public void JoystickMove(InputAction.CallbackContext ctx)
@@ -68,9 +68,9 @@ namespace Player
             Vector2 value = ctx.ReadValue<Vector2>();
 
             _rb.velocity = new Vector3(value.x, 0, value.y) * Character.Instance.Speed * Time.fixedDeltaTime;
-            // TODO: Potential rework from BlendTree to regular state
-            _animatorController.SetFloat(AnimatorParameterAccess.VelocityX,_rb.velocity.x);
-            _animatorController.SetFloat(AnimatorParameterAccess.VelocityY,_rb.velocity.z);
+            // TODO: Animations parameters / triggers
+            // _animatorController.SetFloat(AnimatorParameterAccess.VelocityX,_rb.velocity.x);
+            // _animatorController.SetFloat(AnimatorParameterAccess.VelocityY,_rb.velocity.z);
         }
     }
 }

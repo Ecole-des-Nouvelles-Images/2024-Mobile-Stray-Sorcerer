@@ -6,11 +6,13 @@ namespace Player
 {
     public class Character : SingletonMonoBehaviour<Character> {
 
-        [Header("Base Stats & progression")]
+        [Header("Base Stats")]
         [SerializeField] private int _baseMaxHP;
         [SerializeField] private float _baseSpeed = 500f;
         [SerializeField] private int _baseEXP;
         [SerializeField] private int _baseSpellDamage;
+
+        [Header("Progression")]
         [SerializeField] private float _speedGrowthFactor = 0.1f;
         [SerializeField] private float _spellDamageGrowthFactor = 0.1f;
 
