@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 using Random = System.Random;
@@ -75,7 +74,7 @@ namespace MazeGenerator
 
         private List<Cell> GetUnvisitedNeighbors(Cell cell)
         {
-            List<Cell> neighbors = new List<Cell>();
+            List<Cell> neighbors = new();
 
             if (cell.Position.y > 0)
             {

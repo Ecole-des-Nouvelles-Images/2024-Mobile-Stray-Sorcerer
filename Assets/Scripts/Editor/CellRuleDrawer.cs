@@ -40,7 +40,7 @@ namespace Editor
             if (prefab.objectReferenceValue != null)
             {
                 Texture2D previewTexture = AssetPreview.GetAssetPreview(prefab.objectReferenceValue as GameObject);
-                if (previewTexture != null)
+                if (previewTexture)
                 {
                     GUI.DrawTexture(previewRect, previewTexture, ScaleMode.ScaleToFit);
                 }
