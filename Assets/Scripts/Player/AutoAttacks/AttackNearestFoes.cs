@@ -11,7 +11,7 @@ namespace Player.AutoAttacks
         [SerializeField] private Transform _projectileOrigin;
 
         [Header("Settings")]
-        [SerializeField] private int _firePower = 5;
+        [SerializeField] private int _projectileVelocity = 5;
 
         private GameObject _nearestFoe;
         private bool _attackIsReady = true;
@@ -54,9 +54,9 @@ namespace Player.AutoAttacks
 
         private void DoAttack()
         {
-            GameObject o = Instantiate(_projectilePrefab, _projectileOrigin.position, Quaternion.identity);
-            o.transform.GetComponent<Rigidbody>().AddForce((_nearestFoe.transform.position - o.transform.position)
-                                                           * _firePower, ForceMode.Impulse);
+            GameObject projectile = Instantiate(_projectilePrefab, _projectileOrigin.position, Quaternion.identity);
+
+            projectile.GetComponent<Rigidbody>().AddForce((_nearestFoe.transform.position - projectile.transform.position) * _projectileVelocity, ForceMode.Impulse);
             _attackIsReady = false;
         }
     }

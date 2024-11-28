@@ -30,7 +30,7 @@ namespace Manager
 
         public void SwitchControlMap()
         {
-            PlayerController.Instance.SwitchController();
+            GameObject.FindWithTag("Player").GetComponent<PlayerController>().SwitchController();
         }
 
         private void ActivateJoystick(bool state)
