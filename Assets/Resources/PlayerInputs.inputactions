@@ -13,15 +13,6 @@
                     "processors": "NormalizeVector3",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "Press",
-                    "type": "Button",
-                    "id": "ddf27967-4cce-4d00-8d0e-d3298d8846c1",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -112,17 +103,6 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "c614b37b-abc6-4d68-9b83-5a07f5b29efe",
-                    "path": "<Touchscreen>/Press",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Press",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         },
@@ -138,15 +118,6 @@
                     "processors": "NormalizeVector2",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "Press",
-                    "type": "Button",
-                    "id": "490ea4ec-2078-4141-898b-e7dd907ef347",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -158,17 +129,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "0c8e6b85-eedc-4172-b7f7-c8993e229667",
-                    "path": "<Touchscreen>/Press",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Press",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

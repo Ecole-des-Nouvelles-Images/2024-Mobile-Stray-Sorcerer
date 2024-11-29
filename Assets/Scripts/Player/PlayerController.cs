@@ -21,7 +21,7 @@ namespace Player
         public static Action<bool> OnControlMapChanged;
 
         private Rigidbody _rb;
-        private bool _isAccelerometerControlled;
+        private bool _isAccelerometerControlled = true;
 
         private void Awake() {
             _rb = GetComponent<Rigidbody>();
