@@ -1629,9 +1629,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3144271330576397058}
   - component: {fileID: 3816570769318853237}
-  - component: {fileID: 5292538125707409141}
   m_Layer: 0
-  m_Name: NS_CharacterModel
+  m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1739,27 +1738,6 @@ MonoBehaviour:
   - {fileID: 3197931030204350954}
   - {fileID: 9162521231668057692}
   - {fileID: 1048513796895361093}
---- !u!95 &5292538125707409141
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4618883604093478760}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4671651137133559274
 GameObject:
   m_ObjectHideFlags: 0
