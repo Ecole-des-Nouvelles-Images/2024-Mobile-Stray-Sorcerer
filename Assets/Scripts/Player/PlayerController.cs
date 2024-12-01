@@ -21,7 +21,7 @@ namespace Player
         public static Action<bool> OnControlMapChanged;
 
         private Rigidbody _rb;
-        private bool _isAccelerometerControlled;
+        private bool _isAccelerometerControlled = true;
 
         private void Awake() {
             _rb = GetComponent<Rigidbody>();
@@ -58,6 +58,12 @@ namespace Player
                 direction.y = input.y;
 
             _rb.velocity = new Vector3(direction.y * -1, 0, direction.x) * Character.Instance.Speed * _accModifier * Time.fixedDeltaTime;
+
+            if (_rb.velocity != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(_rb.velocity, Vector3.up);
+                _rb.MoveRotation(targetRotation);
+            }
             // TODO: Animations parameters / triggers
             // _animatorController.SetFloat(AnimatorParameterAccess.VelocityX, _rb.velocity.x);
             // _animatorController.SetFloat(AnimatorParameterAccess.VelocityY, _rb.velocity.z);
@@ -66,8 +72,13 @@ namespace Player
         public void JoystickMove(InputAction.CallbackContext ctx)
         {
             Vector2 value = ctx.ReadValue<Vector2>();
-
-            _rb.velocity = new Vector3(value.x, 0, value.y) * Character.Instance.Speed * Time.fixedDeltaTime;
+            Vector3 direction = new Vector3(value.x, 0, value.y);
+            _rb.velocity = direction * Character.Instance.Speed * Time.fixedDeltaTime;
+            if (direction != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
+                _rb.MoveRotation(targetRotation);
+            }
             // TODO: Animations parameters / triggers
             // _animatorController.SetFloat(AnimatorParameterAccess.VelocityX,_rb.velocity.x);
             // _animatorController.SetFloat(AnimatorParameterAccess.VelocityY,_rb.velocity.z);

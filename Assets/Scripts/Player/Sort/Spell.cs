@@ -1,15 +1,22 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Player.Sort
 {
     [CreateAssetMenu(fileName = "New Spell", menuName = "SO/Spell")]
     public class Spell : ScriptableObject
     {
-        [SerializeField] private string _name;
-        [SerializeField] private GameObject _prefab;
-        [SerializeField] private bool _pierce;
-        [SerializeField] private bool _bounce;
-        [SerializeField] private bool _explode;
-        [SerializeField] private bool _areaInvoker;
+        public string Name;
+        public AudioClip ThrowingSound;
+        public GameObject ProjectilePrefab;
+        public AudioClip ImpactSound;
+        public GameObject ImpactPrefab;
+        public int Damage;
+        public bool Pierce;
+        public int PierceValue;
+        public bool Bounce;
+        public int BounceValue;
+        public bool AreaInvoker;
+        public GameObject ZonePrefab;
     }
 }

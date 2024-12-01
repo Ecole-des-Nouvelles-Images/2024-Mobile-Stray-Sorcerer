@@ -1,10 +1,16 @@
 using System;
+using Player.Sort;
 using UnityEngine;
 using Utils;
 
 namespace Player
 {
-    public class Character : SingletonMonoBehaviour<Character> {
+    public class Character : SingletonMonoBehaviour<Character>
+    {
+        [Header("SpelldataList")] 
+        public Spell[] Spells;
+
+        public Spell CurrentSpell { get; private set; }
 
         [Header("Base Stats")]
         [SerializeField] private int _baseMaxHP;
@@ -15,11 +21,13 @@ namespace Player
         [Header("Progression")]
         [SerializeField] private float _speedGrowthFactor = 0.1f;
         [SerializeField] private float _spellDamageGrowthFactor = 0.1f;
+        
 
         public static Action<int> OnHpChanged;
         public static Action<int> OnExpChanged;
         public static Action OnLevelUp;
-
+        
+        
         public int Level
         {
             get => _level;
@@ -54,19 +62,26 @@ namespace Player
         public int Constitution { get; private set; }
         public int Swiftness { get; private set; }
         public int Power { get; private set; }
+        
 
         private int _level;
         private int _hp;
         private int _exp;
+        
 
         private void Awake()
         {
+            if (Spells.Length > 0)
+            {
+                CurrentSpell = Spells[0];
+            }
             Level = 1;
             HP = MaxHP;
             EXP = 0;
             Swiftness = 0;
             Constitution = 0;
             Power = 0;
+            
         }
 
         private void LevelUp()
