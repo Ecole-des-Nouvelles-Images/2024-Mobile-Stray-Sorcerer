@@ -7,7 +7,7 @@ namespace Test
     {
         private void OnCollisionEnter(Collision other)
         {
-            if(other.gameObject.CompareTag("Player"))other.gameObject.GetComponent<CharacterProperty>().GainExperience(10);
+            if(other.gameObject.CompareTag("Player"))other.gameObject.GetComponent<Character>().GainEXP(10);
         }
     }
 }
