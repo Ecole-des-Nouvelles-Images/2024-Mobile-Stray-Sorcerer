@@ -11,8 +11,6 @@ namespace UI
         [SerializeField] private Slider _exp;
         [SerializeField] private TMP_Text _level;
 
-        private Character _character = Character.Instance;
-
         private void OnEnable()
         {
             Character.OnHpChanged += UpdateHP;
@@ -39,8 +37,8 @@ namespace UI
 
         private void UpdateLevelAndStats()
         {
-            _level.text = $"Lv. {_character.Level}";
-            _exp.maxValue = _character.RequireEXP;
+            _level.text = $"Lv. {Character.Instance.Level}";
+            _exp.maxValue = Character.Instance.RequireEXP;
 
             // TODO: Update MaxHealth panel
             // TODO: Update PauseOverlay's statistics panel
