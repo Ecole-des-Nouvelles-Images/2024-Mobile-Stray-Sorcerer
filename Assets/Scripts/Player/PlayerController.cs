@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Utils;
 
 namespace Player
 {
@@ -19,6 +18,8 @@ namespace Player
         [SerializeField] private Animator _animatorController;
 
         public static Action<bool> OnControlMapChanged;
+
+        public bool IsStanby { get; set; }
 
         private Rigidbody _rb;
         private bool _isAccelerometerControlled = true;
@@ -45,6 +46,8 @@ namespace Player
 
         public void AccelerometerMove(InputAction.CallbackContext ctx)
         {
+            if (IsStanby) return;
+
             Vector3 input = ctx.ReadValue<Vector3>();
             Vector3 direction = Vector3.zero;
 
@@ -65,6 +68,8 @@ namespace Player
 
         public void JoystickMove(InputAction.CallbackContext ctx)
         {
+            if (IsStanby) return;
+
             Vector2 value = ctx.ReadValue<Vector2>();
 
             _rb.velocity = new Vector3(value.x, 0, value.y) * Character.Instance.Speed * Time.fixedDeltaTime;
