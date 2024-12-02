@@ -11,7 +11,7 @@ namespace Player.Projectile
         {
             if (other.transform.CompareTag("Wall") && IsBounceColideActive == false)
                 IsBounceColideActive = true;
-            if (other.transform.CompareTag("Enemy") || other.transform.CompareTag("Player"))
+            if (other.transform.CompareTag("Enemy") || other.transform.CompareTag("Player") || other.transform.CompareTag("Projectile"))
                 IsBounceColideActive = false;
         }
 
@@ -19,7 +19,7 @@ namespace Player.Projectile
         {
             if (other.transform.CompareTag("Wall") && IsBounceColideActive )
                 IsBounceColideActive = false;
-            if (other.transform.CompareTag("Enemy") || other.transform.CompareTag("Player"))
+            if (other.transform.CompareTag("Enemy") || other.transform.CompareTag("Player") || other.transform.CompareTag("Projectile"))
                 IsBounceColideActive = true;
         }
     }

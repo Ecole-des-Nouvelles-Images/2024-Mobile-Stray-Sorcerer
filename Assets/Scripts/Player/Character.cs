@@ -10,8 +10,6 @@ namespace Player
         [Header("SpelldataList")] 
         public Spell[] Spells;
 
-        public Spell CurrentSpell { get; private set; }
-
         [Header("Base Stats")]
         [SerializeField] private int _baseMaxHP;
         [SerializeField] private float _baseSpeed = 500f;
@@ -22,7 +20,6 @@ namespace Player
         [SerializeField] private float _speedGrowthFactor = 0.1f;
         [SerializeField] private float _spellDamageGrowthFactor = 0.1f;
         
-
         public static Action<int> OnHpChanged;
         public static Action<int> OnExpChanged;
         public static Action OnLevelUp;
@@ -62,11 +59,13 @@ namespace Player
         public int Constitution { get; private set; }
         public int Swiftness { get; private set; }
         public int Power { get; private set; }
-        
+        public Spell CurrentSpell { get; private set; }
 
-        private int _level;
+        private int _level = 1;
         private int _hp;
         private int _exp;
+        
+        private int _spellUnlock;
         
 
         private void Awake()
@@ -86,15 +85,18 @@ namespace Player
 
         private void LevelUp()
         {
-            if (_level % 5 == 0) {
+            Level++;
+            if (Level % 5 == 0) {
                 //TODO: Trigger spell evolution
+                //display unlock panel
+                _spellUnlock++;
+                CurrentSpell = Spells[_spellUnlock];
             }
             else
             {
                 // TODO: Trigger stats selection
+                //display StatUpgrade panel
             }
-
-            Level++;
         }
 
         public void TakeDamage(int damage) {
@@ -115,6 +117,19 @@ namespace Player
         {
             EXP += amount;
             OnExpChanged?.Invoke(EXP);
+        }
+
+        public void ConstitutionUpgrade()
+        {
+            Constitution++;
+        }
+        public void SwiftnessUpgrade()
+        {
+            Swiftness++;
+        }
+        public void PowerUpgrade()
+        {
+            Power++;
         }
     }
 }

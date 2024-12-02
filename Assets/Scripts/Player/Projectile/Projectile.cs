@@ -79,7 +79,6 @@ namespace Player.Projectile
                 else if(_pierce)
                 {
                     _pierceValue --;
-                    Debug.Log(_pierceValue);
                 }
             }
         }

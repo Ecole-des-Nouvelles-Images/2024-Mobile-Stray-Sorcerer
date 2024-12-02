@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9405bd3e76504ee6a3b8f134f99b2e1c, type: 3}
-  m_Name: Teste
+  m_Name: TesteInvoker
   m_EditorClassIdentifier: 
   Name: T
   ThrowingSound: {fileID: 0}
@@ -20,9 +20,9 @@ MonoBehaviour:
   ImpactPrefab: {fileID: 0}
   Damage: 10
   Pierce: 0
-  PierceValue: 0
+  PierceValue: 2
   Bounce: 0
-  BounceValue: 0
+  BounceValue: 3
   AreaInvoker: 1
   ZonePrefab: {fileID: 7720952330303249867, guid: 5278d5c3aaddc9942ac7e4834cadc0c8,
     type: 3}
