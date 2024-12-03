@@ -23,8 +23,19 @@ namespace Player
         public static Action<int> OnHpChanged;
         public static Action<int> OnExpChanged;
         public static Action OnLevelUp;
-        
-        
+        public static Action<bool> OnDisplayUpgrade;
+        public static Action<int> OnUpgradeStat;
+
+        private void OnEnable()
+        {
+            OnUpgradeStat += UpgradeStat;
+        }
+
+        private void OnDisable()
+        {
+            OnUpgradeStat -= UpgradeStat;
+        }
+
         public int Level
         {
             get => _level;
@@ -88,18 +99,19 @@ namespace Player
             Level++;
             if (Level % 5 == 0) {
                 //TODO: Trigger spell evolution
-                //display unlock panel
+                OnDisplayUpgrade?.Invoke(false);
                 _spellUnlock++;
                 CurrentSpell = Spells[_spellUnlock];
             }
             else
             {
                 // TODO: Trigger stats selection
-                //display StatUpgrade panel
+                OnDisplayUpgrade?.Invoke(true);
             }
         }
 
-        public void TakeDamage(int damage) {
+        public void TakeDamage(int damage) 
+        {
             HP -= damage;
             OnHpChanged?.Invoke(HP);
 
@@ -108,7 +120,8 @@ namespace Player
             }
         }
 
-        public void TakeHeal(int amount) {
+        public void TakeHeal(int amount) 
+        {
             HP += amount;
             OnHpChanged?.Invoke(HP);
         }
@@ -119,17 +132,20 @@ namespace Player
             OnExpChanged?.Invoke(EXP);
         }
 
-        public void ConstitutionUpgrade()
+        public void UpgradeStat(int indexStat)
         {
-            Constitution++;
-        }
-        public void SwiftnessUpgrade()
-        {
-            Swiftness++;
-        }
-        public void PowerUpgrade()
-        {
-            Power++;
+            switch (indexStat)
+            {
+                case 1:
+                    Constitution++;
+                    return;
+                case 2:
+                    Swiftness++;
+                    return;
+                case 3:
+                    Power++;
+                    return;
+            }
         }
     }
 }
