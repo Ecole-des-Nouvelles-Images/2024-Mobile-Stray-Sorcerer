@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
+using MazeGenerator;
 using UI;
 using UnityEngine;
 
@@ -7,19 +7,21 @@ namespace Manager
 {
     public class SceneBuilder: MonoBehaviour
     {
+        [SerializeField] private MazeBuilder _maze;
+        // [SerializeField] private FoesManager _foesManager;
+
         private LoadingScreen _loadingScreen;
 
-        public static SceneBuilder FindFrom(GameObject[] sceneRootObjects)
+        private void Awake()
         {
-            foreach (GameObject rootObject in sceneRootObjects)
-            {
-                SceneBuilder sceneBuilder = rootObject.GetComponent<SceneBuilder>();
-
-                if (sceneBuilder)
-                    return sceneBuilder;
+            try {
+                SceneLoader loader = GameObject.FindWithTag("Loader").GetComponent<SceneLoader>();
+                loader.LoadingBuilder = this;
             }
-
-            throw new NullReferenceException("Error: SceneBuilder not found in scene.");
+            catch {
+                Debug.LogError("Caution: Avoid loading this scene directly. Use the SceneLoader instead.");
+                throw;
+            }
         }
 
         public IEnumerator Build(LoadingScreen loadingScreen)
@@ -32,41 +34,43 @@ namespace Manager
 
             yield return StartCoroutine(InstantiateFoes());
 
-            yield return StartCoroutine(BakeLighting());
-
             yield return StartCoroutine(BuildNavMesh());
+
+            GameManager.Instance.StartGame();
+
+            // yield return StartCoroutine(BakeLighting());
 
             // yield return StartCoroutine(ComputeOcclusionCullingData());
         }
 
         private IEnumerator BuildMaze()
         {
-            _loadingScreen.UpdateStatus("> (Simulating) Building maze...");
-            yield return new WaitForSeconds(1.5f);
+            _loadingScreen.UpdateStatus("> Building maze...");
+            yield return StartCoroutine(_maze.Build());
         }
 
         private IEnumerator GenerateProps()
         {
             _loadingScreen.UpdateStatus("> (Simulating) Generating props..");
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(2);
         }
 
         private IEnumerator InstantiateFoes()
         {
             _loadingScreen.UpdateStatus("> (Simulating) Instantiating foes...");
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(2);
+        }
+
+        private IEnumerator BuildNavMesh()
+        {
+            _loadingScreen.UpdateStatus("> Building NavMesh...");
+            yield return StartCoroutine(_maze.InitializeNavMesh(true));
         }
 
         private IEnumerator BakeLighting()
         {
             _loadingScreen.UpdateStatus("> (Simulating) Baking lights...");
-            yield return new WaitForSeconds(1.5f);
-        }
-
-        private IEnumerator BuildNavMesh()
-        {
-            _loadingScreen.UpdateStatus("> (Simulating) Building NavMesh...");
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(2);
         }
 
         private IEnumerator ComputeOcclusionCullingData()

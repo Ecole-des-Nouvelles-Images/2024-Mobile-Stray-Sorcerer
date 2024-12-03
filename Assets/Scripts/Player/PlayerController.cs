@@ -19,7 +19,7 @@ namespace Player
 
         public static Action<bool> OnControlMapChanged;
 
-        public bool IsStanby { get; set; }
+        public bool IsStandby { get; set; } = false;
 
         private Rigidbody _rb;
         private bool _isAccelerometerControlled = true;
@@ -46,7 +46,7 @@ namespace Player
 
         public void AccelerometerMove(InputAction.CallbackContext ctx)
         {
-            if (IsStanby) return;
+            if (IsStandby) return;
 
             Vector3 input = ctx.ReadValue<Vector3>();
             Vector3 direction = Vector3.zero;
@@ -68,7 +68,7 @@ namespace Player
 
         public void JoystickMove(InputAction.CallbackContext ctx)
         {
-            if (IsStanby) return;
+            if (IsStandby) return;
 
             Vector2 value = ctx.ReadValue<Vector2>();
 

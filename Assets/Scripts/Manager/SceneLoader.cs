@@ -4,6 +4,7 @@ using Player;
 using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Utils;
 
 namespace Manager
@@ -18,8 +19,11 @@ namespace Manager
         [SerializeField] private SceneField _tutorialScene;
         [SerializeField] private SceneField _gameScene;
 
-        private SceneField _currentScene = null;
+        public SceneBuilder LoadingBuilder { get; set; }
 
+        public Action OnLaunchGame;
+
+        private SceneField _currentScene = null;
         private Scene _loadingScene;
         private GameObject[] _loadingSceneRootObjects;
 
@@ -29,11 +33,12 @@ namespace Manager
         private void Awake()
         {
             SceneManager.LoadScene(_titleScreen, LoadSceneMode.Additive);
+            _currentScene = _titleScreen;
         }
 
-        public void OnGameStart()
+        public void LaunchGame()
         {
-            Debug.Log("Beginning loading game...");
+            OnLaunchGame.Invoke();
             StartCoroutine(LoadCoroutine(_gameScene, true));
         }
 
@@ -45,17 +50,17 @@ namespace Manager
             {
                 _loadingScene = scene;
                 _loadingSceneRootObjects = _loadingScene.GetRootGameObjects();
-                SceneBuilder sceneBuilder = FindObjectOfType<SceneBuilder>();
 
-                yield return StartCoroutine(EnablePlayerInteractions(false)); // Disable player interactions
-                yield return StartCoroutine(sceneBuilder.Build(_loadingScreen));
+                while (!LoadingBuilder) {
+                    yield return null;
+                }
+
+                yield return StartCoroutine(LoadingBuilder.Build(_loadingScreen));
             }
 
             if (_currentScene != null)
                 yield return StartCoroutine(UnloadSceneCoroutine(_currentScene));
 
-            _loadingScreen.UpdateStatus("> Preparing player...");
-            yield return StartCoroutine(EnablePlayerInteractions(true)); // Re-enable player interactions
 
             _loadingScreen.Show(false);
             _currentScene = _loadingScene;
@@ -97,15 +102,6 @@ namespace Manager
                 _loadingScreen.UpdateStatus($"> Unloading resources... {asyncUnloadOperation.progress * 100}%");
                 yield return null;
             }
-        }
-
-        private IEnumerator EnablePlayerInteractions(bool enable)
-        {
-            _loadingScreen.UpdateStatus("> Preparing Player...");
-
-            FindObjectOfType<PlayerController>().IsStanby = enable;
-
-            yield return null;
         }
     }
 }
