@@ -132,7 +132,7 @@ namespace Player
             OnExpChanged?.Invoke(EXP);
         }
 
-        public void UpgradeStat(int indexStat)
+        private void UpgradeStat(int indexStat)
         {
             switch (indexStat)
             {
