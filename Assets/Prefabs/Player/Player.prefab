@@ -243,7 +243,7 @@ MonoBehaviour:
     m_ActionName: UI/TrackedDeviceOrientation
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Accelerometer
+  m_DefaultActionMap: Tactile
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &6271790819321091823
@@ -262,6 +262,8 @@ MonoBehaviour:
   _accelerometerSensibility: 0.05
   _accModifier: 1
   _animatorController: {fileID: 2109020219723153754}
+  _cameraTransposerMaxOffset: 4
+  _cameraTrackingReactivity: 0.75
 --- !u!114 &6241038597527939444
 MonoBehaviour:
   m_ObjectHideFlags: 0
