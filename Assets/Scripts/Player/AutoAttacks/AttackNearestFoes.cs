@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Utils;
 
@@ -7,9 +8,8 @@ namespace Player.AutoAttacks
     {
         [Header("References")]
         [SerializeField] private EnemyDetector _enemyDetector;
-        [SerializeField] private GameObject _projectilePrefab;
         [SerializeField] private Transform _projectileOrigin;
-
+        
         [Header("Settings")]
         [SerializeField] private int _projectileVelocity = 5;
 
@@ -17,6 +17,12 @@ namespace Player.AutoAttacks
         private bool _attackIsReady = true;
         private float _cooldown = 1;
         private float _currentCooldownTimer;
+        private AudioSource _throwAudioSource;
+
+        private void Awake()
+        {
+            _throwAudioSource = _projectileOrigin.transform.GetComponent<AudioSource>();
+        }
 
         void Update()
         {
@@ -26,7 +32,8 @@ namespace Player.AutoAttacks
             if (_attackIsReady)
             {
                 SearchNearestFoe();
-                if (_nearestFoe) DoAttack();
+                if (_nearestFoe) 
+                    DoAttack();
             }
         }
 
@@ -54,10 +61,11 @@ namespace Player.AutoAttacks
 
         private void DoAttack()
         {
-            GameObject projectile = Instantiate(_projectilePrefab, _projectileOrigin.position, Quaternion.identity);
+            GameObject projectile = Instantiate(Character.Instance.CurrentSpell.ProjectilePrefab, _projectileOrigin.position, Quaternion.identity);
 
             projectile.GetComponent<Rigidbody>().AddForce((_nearestFoe.transform.position - projectile.transform.position) * _projectileVelocity, ForceMode.Impulse);
             _attackIsReady = false;
+            Destroy(projectile, 5f);
         }
     }
 }
