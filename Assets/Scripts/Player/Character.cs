@@ -1,12 +1,16 @@
 using System;
 using Player.Sort;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Utils;
 
 namespace Player
 {
     public class Character : SingletonMonoBehaviour<Character>
     {
+        [Header("References")]
+        public Transform EnnemyRaycastTarget;
+        
         [Header("SpelldataList")] 
         public Spell[] Spells;
 
@@ -14,7 +18,7 @@ namespace Player
         [SerializeField] private int _baseMaxHP;
         [SerializeField] private float _baseSpeed = 500f;
         [SerializeField] private int _baseEXP;
-        [SerializeField] private int _baseSpellDamage;
+        [SerializeField] private float _baseSpellDamageMultiplier;
 
         [Header("Progression")]
         [SerializeField] private float _speedGrowthFactor = 0.1f;
@@ -66,7 +70,7 @@ namespace Player
             }
         }
         public float Speed => _baseSpeed * (1 + Swiftness * _speedGrowthFactor);
-        public float SpellPower => _baseSpellDamage * (1 + Power * _spellDamageGrowthFactor);
+        public float SpellPower => _baseSpellDamageMultiplier * (1 + Power * _spellDamageGrowthFactor);
         public int Constitution { get; private set; }
         public int Swiftness { get; private set; }
         public int Power { get; private set; }
@@ -109,7 +113,21 @@ namespace Player
                 OnDisplayUpgrade?.Invoke(true);
             }
         }
-
+        private void UpgradeStat(int indexStat)
+        {
+            switch (indexStat)
+            {
+                case 1:
+                    Constitution++;
+                    return;
+                case 2:
+                    Swiftness++;
+                    return;
+                case 3:
+                    Power++;
+                    return;
+            }
+        }
         public void TakeDamage(int damage) 
         {
             HP -= damage;
@@ -132,20 +150,10 @@ namespace Player
             OnExpChanged?.Invoke(EXP);
         }
 
-        private void UpgradeStat(int indexStat)
+        public float DamageMultiplier()
         {
-            switch (indexStat)
-            {
-                case 1:
-                    Constitution++;
-                    return;
-                case 2:
-                    Swiftness++;
-                    return;
-                case 3:
-                    Power++;
-                    return;
-            }
+            return _baseSpellDamageMultiplier / 100 * Power;
         }
+        
     }
 }

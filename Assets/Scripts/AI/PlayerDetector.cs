@@ -5,24 +5,31 @@ namespace AI
 {
     public class PlayerDetector : MonoBehaviour
     {
-        [SerializeField] private BasicBrain _brain;
-
+        
+        public bool DetectObject;
+        
         private void OnTriggerEnter(Collider other)
         {
-            if(other.CompareTag("Player"))
-                _brain.PlayerInRange = true;
+            if(other.CompareTag("Player") && DetectObject == false)
+            {
+                DetectObject = true;
+            }
         }
 
         private void OnTriggerStay(Collider other)
         {
-            if(other.CompareTag("Player") && _brain.PlayerInRange == false)
-                _brain.PlayerInRange = true;
+            if(other.CompareTag("Player") && DetectObject == false)
+            {
+                DetectObject = true;
+            }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if(other.CompareTag("Player"))
-                _brain.PlayerInRange = false;
+            if(other.CompareTag("Player") && DetectObject)
+            {
+                DetectObject = false;
+            }
         }
     }
 }

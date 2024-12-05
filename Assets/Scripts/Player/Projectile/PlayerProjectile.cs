@@ -1,11 +1,12 @@
 using System;
+using AI;
 using Player.Sort;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace Player.Projectile
 {
-    public class Projectile : MonoBehaviour
+    public class PlayerProjectile : MonoBehaviour
     {
         [SerializeField] private BounceDetector _bounceDetector;
         private GameObject _impactPrefab;
@@ -27,7 +28,7 @@ namespace Player.Projectile
             _myCollider = transform.GetComponent<Collider>();
             _mySpell = Character.Instance.CurrentSpell;
             _name = _mySpell.Name;
-            _damage = _mySpell.Damage;
+            _damage = (int)(_mySpell.Damage * Character.Instance.DamageMultiplier());
             _pierce = _mySpell.Pierce;
             _pierceValue = _mySpell.PierceValue;
             _bounce = _mySpell.Bounce;
@@ -42,14 +43,11 @@ namespace Player.Projectile
                 _bounceDetector.gameObject.SetActive(true);
             else
                 _bounceDetector.gameObject.SetActive(false);
-            if (_pierce || _bounce)
-            {
-                _myCollider.isTrigger = true;
-            }
+            _myCollider.isTrigger = true;
         }
 
         private void Update() {
-            if(!_bounce && !_pierce && _myCollider.isTrigger)_myCollider.isTrigger = false;
+            //if(!_bounce && !_pierce && _myCollider.isTrigger)_myCollider.isTrigger = false;
             if (_rb.velocity != Vector3.zero)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(_rb.velocity, Vector3.up);
@@ -72,6 +70,8 @@ namespace Player.Projectile
                 _rb.constraints = RigidbodyConstraints.FreezePositionY;
                 CastArea(other.transform);
                 //deal damage
+                if(!_pierce && !_bounce)
+                    Destroy(gameObject);
                 if (_pierce && _pierceValue <= 0)
                 {
                     Destroy(gameObject);
@@ -96,6 +96,7 @@ namespace Player.Projectile
                 _rb.constraints = RigidbodyConstraints.FreezePositionY;
                 //deal damage
                 CastArea(other.transform);
+                other.gameObject.GetComponent<MonsterBrain>().TakeDamage(_damage);
                 Destroy(gameObject);
             }
             if (other.transform.CompareTag("Wall"))
