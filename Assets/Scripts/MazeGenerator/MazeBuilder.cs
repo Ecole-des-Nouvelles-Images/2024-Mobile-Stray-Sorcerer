@@ -1,29 +1,37 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
+using UnityEngine.AI;
+using Unity.AI.Navigation;
+using Unity.EditorCoroutines.Editor;
+
 using Utils;
 
 namespace MazeGenerator
 {
     public class MazeBuilder : SingletonMonoBehaviour<MazeBuilder>
     {
+        [Header("System")]
+        [SerializeField] private NavMeshSurface _navMesh;
+
         [Header("References")]
-        [SerializeField] private GameObject _cellInitialPrefab;
         [SerializeField] private List<CellRule> _cellRules;
 
         [Header("Settings")]
         [SerializeField] private string _seedPhrase;
         [SerializeField] private int _scale = 1;
 
-        private string _seed;
-        private int _hashSeed;
+        private const int _CELL_SIZE = 20;
 
-        public int Seed {
+        public int Seed
+        {
             get
             {
-                if (_seed != _seedPhrase) {
+                if (_seed != _seedPhrase)
+                {
                     _seed = _seedPhrase;
                     _hashSeed = HashSeed(_seed);
                 }
@@ -32,17 +40,11 @@ namespace MazeGenerator
             }
         }
 
+        private string _seed;
+        private int _hashSeed;
         private Maze _maze;
 
-        // --------------------- //
-
-        private void Start()
-        {
-            Build();
-        }
-
-        [ContextMenu("Build Maze")]
-        public void Build()
+        public IEnumerator Build()
         {
             Clear();
 
@@ -56,20 +58,50 @@ namespace MazeGenerator
                     Cell cell = _maze.GetCell(x, y);
 
                     if (cell != null)
-                        Instantiate(cell.Prefab, new Vector3(x * 20, 0, y * 20), Quaternion.identity, transform);
+                        Instantiate(cell.Prefab, new Vector3(x * _CELL_SIZE, 0, y * _CELL_SIZE), Quaternion.identity, transform);
                     else
                         throw new Exception("Error: invalid grid, null cell found.");
+
+                    yield return null;
                 }
             }
         }
 
-        [ContextMenu("Clear Maze")]
-        private void Clear()
+        public IEnumerator InitializeNavMesh(bool forceRebuild = false)
         {
-            for (int i = transform.childCount - 1; i >= 0; i--)
+            Bounds mazeBounds = new (new Vector3(_scale * _CELL_SIZE / 2f, 0, _scale * _CELL_SIZE / 2f), Vector3.one * ((_scale + 1) * _CELL_SIZE));
+            List<NavMeshBuildSource> navMeshSources = new();
+            List<NavMeshBuildMarkup> navMeshMarkups = GetNavMeshBuildModifiers();
+            NavMeshBuildSettings navMeshBuildSettings;
+
+            NavMeshBuilder.CollectSources(transform, LayerMask.GetMask("Default"), NavMeshCollectGeometry.RenderMeshes, 0, navMeshMarkups, navMeshSources);
+
+            yield return null;
+
+            int navAgentTypes = NavMesh.GetSettingsCount();
+            NavMeshData[] navMeshData = new NavMeshData[navAgentTypes];
+
+            for (int navAgentIndex = 0; navAgentIndex < navAgentTypes; navAgentIndex++)
             {
-                DestroyImmediate(transform.GetChild(i).gameObject);
+                navMeshBuildSettings = NavMesh.GetSettingsByIndex(navAgentIndex);
+
+                foreach (string s in navMeshBuildSettings.ValidationReport(mazeBounds)) {
+                    Debug.LogWarning($"NavMeshBuildSettings validation report: {s}");
+                }
+
+                navMeshData[navAgentIndex] = new();
+                AsyncOperation asyncNavMeshBuild = NavMeshBuilder.UpdateNavMeshDataAsync(navMeshData[navAgentIndex], navMeshBuildSettings, navMeshSources, mazeBounds);
+
+                while (!asyncNavMeshBuild.isDone) yield return null;
             }
+
+            if (forceRebuild)
+                NavMesh.RemoveAllNavMeshData();
+
+            for (int dataIndex = 0; dataIndex < navMeshData.Length; dataIndex++)
+                NavMesh.AddNavMeshData(navMeshData[dataIndex]);
+
+            yield return null;
         }
 
         #region Utils
@@ -83,16 +115,58 @@ namespace MazeGenerator
             }
         }
 
+        private List<NavMeshBuildMarkup> GetNavMeshBuildModifiers()
+        {
+            NavMeshModifier[] navMeshModifiers = GetComponentsInChildren<NavMeshModifier>(true);
+            List<NavMeshBuildMarkup> navMeshBuildMarkups = new();
+
+            foreach (NavMeshModifier mod in navMeshModifiers)
+            {
+                NavMeshBuildMarkup markup = new NavMeshBuildMarkup
+                {
+                    root = mod.transform,
+                    area = 1,
+                };
+                navMeshBuildMarkups.Add(markup);
+            }
+
+            return navMeshBuildMarkups;
+        }
+
         public GameObject GetCellPrefab(Cell cell)
         {
             foreach (CellRule rule in _cellRules)
             {
                 if (rule.Top == cell.WallTop && rule.Right == cell.WallRight && rule.Bottom == cell.WallBottom && rule.Left == cell.WallLeft)
-                    return rule.Prefab;
+                {
+                    if (rule.Prefab != null)
+                        return rule.Prefab;
+
+                    throw new NullReferenceException($"Error in cell rules, no prefab for the following rule [Top: {(cell.WallTop ? "\u2714" : "\u2716")}, Right: {(cell.WallRight ? "\u2714" : "\u2716")}, Bottom: {(cell.WallBottom ? "\u2714" : "\u2716")}, Left: {(cell.WallLeft ? "\u2714" : "\u2716")}]");
+                }
             }
 
-            return _cellInitialPrefab;
+            throw new Exception("Discrepancy in cell rules: unknown cell configuration found");
         }
+
+#if UNITY_EDITOR
+
+        [ContextMenu("[EDITOR] Build maze")]
+        public void DebugBuild()
+        {
+            EditorCoroutineUtility.StartCoroutine(Build(), this);
+        }
+
+        [ContextMenu("[EDITOR] Clear maze")]
+        private void Clear()
+        {
+            for (int i = transform.childCount - 1; i >= 0; i--)
+            {
+                DestroyImmediate(transform.GetChild(i).gameObject);
+            }
+        }
+
+#endif
 
         #endregion
     }

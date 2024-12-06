@@ -27,11 +27,11 @@ namespace Utils
                     return false;
                 }  
             }
-            if(Physics.Raycast(origineObject.transform.position, 
-                   targetObject.transform.position - origineObject.transform.position,out hit, 
-                   Mathf.Infinity, Physics.AllLayers, QueryTriggerInteraction.Ignore)){
-                if(hit.collider.gameObject == targetObject) return true;
-                return false;
+            if(Physics.Raycast(origineObject.transform.position,targetObject.transform.position - origineObject.transform.position,out hit, 
+                   Mathf.Infinity, Physics.AllLayers, QueryTriggerInteraction.Ignore) 
+               && hit.collider.gameObject == targetObject)
+            { 
+                return true;
             }
             return false;
         

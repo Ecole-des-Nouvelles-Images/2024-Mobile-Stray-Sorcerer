@@ -37,5 +37,6 @@ namespace Manager
         {
             _joystick.SetActive(state);
         }
+        
     }
 }
