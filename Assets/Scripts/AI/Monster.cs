@@ -38,12 +38,11 @@ namespace AI
       private NavMeshAgent _myNavMeshAgent;
       private float _currentTimeBeforAttack;
       private bool _isAttacking;
-      //private float _playerInRange;
 
       private void Awake()
       {
          _myNavMeshAgent = transform.GetComponent<NavMeshAgent>();
-         _myTarget = Character.Instance.gameObject;
+         _myTarget = null;
          _myRaycastTarget = Character.Instance.EnnemyRaycastTarget.gameObject;
       }
 
@@ -106,6 +105,12 @@ namespace AI
          }
          Instantiate(_xpPrefab, transform.position, Quaternion.identity);
          gameObject.SetActive(false);
+         //Destroy(gameObject);
+      }
+
+      public void DefineTarget(GameObject target)
+      {
+         _myTarget = target;
       }
    }
 }
