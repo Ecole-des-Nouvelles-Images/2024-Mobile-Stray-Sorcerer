@@ -28,7 +28,7 @@ namespace Player.Projectile
             _myCollider = transform.GetComponent<Collider>();
             _mySpell = Character.Instance.CurrentSpell;
             _name = _mySpell.Name;
-            _damage = (int)(_mySpell.Damage * Character.Instance.DamageMultiplier());
+            _damage = (int)(_mySpell.Damage * (1+Character.Instance.DamageMultiplier()));
             _pierce = _mySpell.Pierce;
             _pierceValue = _mySpell.PierceValue;
             _bounce = _mySpell.Bounce;
@@ -69,7 +69,7 @@ namespace Player.Projectile
             {
                 _rb.constraints = RigidbodyConstraints.FreezePositionY;
                 CastArea(other.transform);
-                //deal damage
+                other.transform.GetComponent<Monster>().TakeDamage(_damage);
                 if(!_pierce && !_bounce)
                     Destroy(gameObject);
                 if (_pierce && _pierceValue <= 0)
@@ -94,9 +94,8 @@ namespace Player.Projectile
             if (other.transform.CompareTag("Enemy"))
             {
                 _rb.constraints = RigidbodyConstraints.FreezePositionY;
-                //deal damage
                 CastArea(other.transform);
-                other.gameObject.GetComponent<MonsterBrain>().TakeDamage(_damage);
+                other.gameObject.GetComponent<Monster>().TakeDamage(_damage);
                 Destroy(gameObject);
             }
             if (other.transform.CompareTag("Wall"))

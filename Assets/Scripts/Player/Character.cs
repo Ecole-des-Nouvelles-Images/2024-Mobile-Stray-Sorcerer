@@ -130,6 +130,7 @@ namespace Player
         }
         public void TakeDamage(int damage) 
         {
+            Debug.Log("Player: damage taken" + damage);
             HP -= damage;
             OnHpChanged?.Invoke(HP);
 

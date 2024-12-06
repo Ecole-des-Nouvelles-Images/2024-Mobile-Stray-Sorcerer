@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace AI
 {
-    public class Imp : MonsterBrain
+    public class Imp : Monster
     {
         [Header("attack setting")]
         [SerializeField] private GameObject _originAttack;

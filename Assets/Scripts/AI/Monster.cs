@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 
 namespace AI
 {
-   public abstract class MonsterBrain : MonoBehaviour
+   public abstract class Monster : MonoBehaviour
    {
       
       [Header("Stats")]
@@ -38,7 +38,7 @@ namespace AI
       private NavMeshAgent _myNavMeshAgent;
       private float _currentTimeBeforAttack;
       private bool _isAttacking;
-      //private bool _playerInRange;
+      //private float _playerInRange;
 
       private void Awake()
       {
@@ -50,8 +50,10 @@ namespace AI
       private void Start()
       {
          CurrentHp = _hpMax;
+         _currentHpSlider.value = _hpMax;
          _myNavMeshAgent.speed = _speed;
          _myNavMeshAgent.acceleration = _acceleration;
+         _currentHpSlider.maxValue = _hpMax;
       }
 
       private void Update()
@@ -84,6 +86,7 @@ namespace AI
 
       public void TakeDamage(int damage)
       {
+         Debug.Log("MONSTER: damage taken" + damage);
          _myNavMeshAgent.velocity = Vector3.zero;
          CurrentHp -= damage;
          _currentHpSlider.value = CurrentHp;
@@ -100,9 +103,9 @@ namespace AI
          if (_dropPrefabs.Length > 0)
          {
             Instantiate(_dropPrefabs[Random.Range(0, _dropPrefabs.Length)], transform.position, Quaternion.identity);
-            Instantiate(_xpPrefab, transform.position, Quaternion.identity);
-            gameObject.SetActive(false);
          }
+         Instantiate(_xpPrefab, transform.position, Quaternion.identity);
+         gameObject.SetActive(false);
       }
    }
 }

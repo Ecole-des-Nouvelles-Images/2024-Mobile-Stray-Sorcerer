@@ -5,7 +5,7 @@ using UnityEngine.Serialization;
 
 namespace AI
 {
-    public class Minotaur : MonsterBrain
+    public class Minotaur : Monster
     {
         [SerializeField] private PlayerDetector _damageArea;
         private bool _isDealingDamage;
