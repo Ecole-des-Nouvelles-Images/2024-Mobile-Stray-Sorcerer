@@ -18,7 +18,6 @@ namespace MazeGenerator
         [SerializeField] private NavMeshSurface _navMesh;
 
         [Header("References")]
-        [SerializeField] private GameObject _cellInitialPrefab;
         [SerializeField] private List<CellRule> _cellRules;
 
         [Header("Settings")]
@@ -120,10 +119,15 @@ namespace MazeGenerator
             foreach (CellRule rule in _cellRules)
             {
                 if (rule.Top == cell.WallTop && rule.Right == cell.WallRight && rule.Bottom == cell.WallBottom && rule.Left == cell.WallLeft)
-                    return rule.Prefab;
+                {
+                    if (rule.Prefab != null)
+                        return rule.Prefab;
+
+                    throw new NullReferenceException($"Error in cell rules, no prefab for the following rule [Top: {(cell.WallTop ? "\u2714" : "\u2716")}, Right: {(cell.WallRight ? "\u2714" : "\u2716")}, Bottom: {(cell.WallBottom ? "\u2714" : "\u2716")}, Left: {(cell.WallLeft ? "\u2714" : "\u2716")}]");
+                }
             }
 
-            return _cellInitialPrefab;
+            throw new Exception("Discrepancy in cell rules: unknown cell configuration found");
         }
 
 #if UNITY_EDITOR

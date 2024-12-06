@@ -46,104 +46,96 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _navMesh: {fileID: 5463292146458895819}
-  _cellInitialPrefab: {fileID: 5467087776299253837, guid: f9ba959b2e6e37e488033fd72bedf4a3,
-    type: 3}
   _cellRules:
   - Top: 1
+    Right: 0
+    Bottom: 1
+    Left: 1
+    Prefab: {fileID: 7326675934701390548, guid: 860bf808d604fe24f8e2bb8a703fd4ca,
+      type: 3}
+  - Top: 0
     Right: 1
     Bottom: 1
     Left: 1
-    Prefab: {fileID: 5467087776299253837, guid: f9ba959b2e6e37e488033fd72bedf4a3,
+    Prefab: {fileID: 3219684139384132243, guid: 45d453360ffcba34993a620d4091d86c,
+      type: 3}
+  - Top: 0
+    Right: 0
+    Bottom: 1
+    Left: 1
+    Prefab: {fileID: 2783817917066030149, guid: 894f8db2c415c2e4bb03cbdeac5eb321,
       type: 3}
   - Top: 1
     Right: 1
     Bottom: 1
     Left: 0
-    Prefab: {fileID: 5467087776299253837, guid: 269e5eeb0b4b98047bd338010368cd59,
-      type: 3}
-  - Top: 1
-    Right: 1
-    Bottom: 0
-    Left: 1
-    Prefab: {fileID: 5467087776299253837, guid: 1cdec755406907b408d47c5879409410,
-      type: 3}
-  - Top: 1
-    Right: 1
-    Bottom: 0
-    Left: 0
-    Prefab: {fileID: 5467087776299253837, guid: 03d7b66cce1a4af4eb724bddf1ad63c6,
-      type: 3}
-  - Top: 1
-    Right: 0
-    Bottom: 1
-    Left: 1
-    Prefab: {fileID: 5467087776299253837, guid: dddaaa87202a5694a9d46b52f9c1a606,
+    Prefab: {fileID: 1105176858011788255, guid: fbc3a60c653e5df43bde81348a27ae38,
       type: 3}
   - Top: 1
     Right: 0
     Bottom: 1
     Left: 0
-    Prefab: {fileID: 5467087776299253837, guid: 59233a988b3795e41bb37bc4ca24c739,
+    Prefab: {fileID: 1588779132935977976, guid: c2f4370e9599825458d3def74b567b5f,
+      type: 3}
+  - Top: 0
+    Right: 1
+    Bottom: 1
+    Left: 0
+    Prefab: {fileID: 1034721900707541192, guid: 70c744c75420c70448f3f8b1ce034e9c,
+      type: 3}
+  - Top: 0
+    Right: 0
+    Bottom: 1
+    Left: 0
+    Prefab: {fileID: 4780204459032464869, guid: cb9a1434b2840fe49b17437dc27d290a,
+      type: 3}
+  - Top: 1
+    Right: 1
+    Bottom: 0
+    Left: 1
+    Prefab: {fileID: 2050124791706591472, guid: 9dd7cbcb88dc42041800dd1d9d5c6217,
       type: 3}
   - Top: 1
     Right: 0
     Bottom: 0
     Left: 1
-    Prefab: {fileID: 5467087776299253837, guid: 52a805bb16b34fe42a579be8c97fb2a3,
+    Prefab: {fileID: 3941925730520549854, guid: 216a1b544e4c28d4c90e9981e9590100,
+      type: 3}
+  - Top: 0
+    Right: 1
+    Bottom: 0
+    Left: 1
+    Prefab: {fileID: 1410984957893933490, guid: 8dbb67e9753d1a745a837331006528da,
+      type: 3}
+  - Top: 0
+    Right: 0
+    Bottom: 0
+    Left: 1
+    Prefab: {fileID: 1105061047531402467, guid: d30f7276663c69c47a4c2f6c8430d828,
+      type: 3}
+  - Top: 1
+    Right: 1
+    Bottom: 0
+    Left: 0
+    Prefab: {fileID: 6049583560202338944, guid: 932581346d3a8b742bb2f9b59133e3d1,
       type: 3}
   - Top: 1
     Right: 0
     Bottom: 0
     Left: 0
-    Prefab: {fileID: 5467087776299253837, guid: d68c477a23fe9b74eacd78788da1ee1a,
-      type: 3}
-  - Top: 0
-    Right: 1
-    Bottom: 1
-    Left: 1
-    Prefab: {fileID: 5467087776299253837, guid: 0c0beec688db48c46b461849177ffbab,
-      type: 3}
-  - Top: 0
-    Right: 1
-    Bottom: 1
-    Left: 0
-    Prefab: {fileID: 5467087776299253837, guid: 9bd23c5d673389a49ba616b9f555df5d,
-      type: 3}
-  - Top: 0
-    Right: 1
-    Bottom: 0
-    Left: 1
-    Prefab: {fileID: 5467087776299253837, guid: b53bee109f145ac4197e6969409d67fd,
+    Prefab: {fileID: 6418632943312045638, guid: f8e4f7bf43495324eb0fa45ddfce5049,
       type: 3}
   - Top: 0
     Right: 1
     Bottom: 0
     Left: 0
-    Prefab: {fileID: 5467087776299253837, guid: 459d830f853f1e246960b0970c10e515,
-      type: 3}
-  - Top: 0
-    Right: 0
-    Bottom: 1
-    Left: 1
-    Prefab: {fileID: 5467087776299253837, guid: 77b72f9a6bd8e5b4e8f0672581ca9992,
-      type: 3}
-  - Top: 0
-    Right: 0
-    Bottom: 1
-    Left: 0
-    Prefab: {fileID: 5467087776299253837, guid: 6e9b9cd18616012489c29be1b9f6a084,
-      type: 3}
-  - Top: 0
-    Right: 0
-    Bottom: 0
-    Left: 1
-    Prefab: {fileID: 5467087776299253837, guid: f027ddec79ba0184d87004cb4194a535,
+    Prefab: {fileID: 2069376499893361638, guid: 3bf33e4a95cfad14092938c424ef031b,
       type: 3}
   - Top: 0
     Right: 0
     Bottom: 0
     Left: 0
-    Prefab: {fileID: 5467087776299253837, guid: d75a3b94f287d9c48abe902875999f29,
+    Prefab: {fileID: 8894923272614878121, guid: d0c396ba84fa3264897cb18d08f4e709,
       type: 3}
   _seedPhrase: Original_Seed_Certified
   _scale: 12
@@ -173,8 +165,8 @@ MonoBehaviour:
   m_IgnoreNavMeshObstacle: 1
   m_OverrideTileSize: 0
   m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.26666668
+  m_OverrideVoxelSize: 1
+  m_VoxelSize: 0.1
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 0}
   m_BuildHeightMesh: 0
