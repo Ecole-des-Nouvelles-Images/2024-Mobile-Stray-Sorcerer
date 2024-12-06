@@ -35,7 +35,7 @@ namespace Player
         private void Start()
         {
             _rb = GetComponent<Rigidbody>();
-            _cameraFramingTransposer = GameObject.FindWithTag("MainCamera").GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineFramingTransposer>();
+            _cameraFramingTransposer = GameObject.Find("VCam Player").GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineFramingTransposer>();
         }
 
         public void SwitchController()

@@ -3,10 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
+using UI;
 using UnityEngine;
 using UnityEngine.AI;
 using Unity.AI.Navigation;
+
+#if UNITY_EDITOR
 using Unity.EditorCoroutines.Editor;
+#endif
 
 using Utils;
 
@@ -67,17 +71,20 @@ namespace MazeGenerator
             }
         }
 
-        public IEnumerator InitializeNavMesh(bool forceRebuild = false)
+        public IEnumerator InitializeNavMesh(LoadingScreen loadingScreen, bool forceRebuild = false)
         {
             Bounds mazeBounds = new (new Vector3(_scale * _CELL_SIZE / 2f, 0, _scale * _CELL_SIZE / 2f), Vector3.one * ((_scale + 1) * _CELL_SIZE));
             List<NavMeshBuildSource> navMeshSources = new();
+            loadingScreen.UpdateStatus("> Building NavMesh... [Gathering modifiers...]");
             List<NavMeshBuildMarkup> navMeshMarkups = GetNavMeshBuildModifiers();
             NavMeshBuildSettings navMeshBuildSettings;
 
+            loadingScreen.UpdateStatus("> Building NavMesh... [Gathering sources...]");
             NavMeshBuilder.CollectSources(transform, LayerMask.GetMask("Default"), NavMeshCollectGeometry.RenderMeshes, 0, navMeshMarkups, navMeshSources);
 
             yield return null;
 
+            loadingScreen.UpdateStatus("> Building NavMesh... [Recover settings...]");
             int navAgentTypes = NavMesh.GetSettingsCount();
             NavMeshData[] navMeshData = new NavMeshData[navAgentTypes];
 
@@ -89,7 +96,14 @@ namespace MazeGenerator
                     Debug.LogWarning($"NavMeshBuildSettings validation report: {s}");
                 }
 
-                navMeshData[navAgentIndex] = new();
+                loadingScreen.UpdateStatus("> Building NavMesh... [Applying overrides...]");
+                // Override Settings
+                navMeshBuildSettings.overrideVoxelSize = true;
+                navMeshBuildSettings.voxelSize = 0.2f;
+                navMeshBuildSettings.overrideTileSize = true;
+                navMeshBuildSettings.tileSize = 256;
+
+                navMeshData[navAgentIndex] = new NavMeshData();
                 AsyncOperation asyncNavMeshBuild = NavMeshBuilder.UpdateNavMeshDataAsync(navMeshData[navAgentIndex], navMeshBuildSettings, navMeshSources, mazeBounds);
 
                 while (!asyncNavMeshBuild.isDone) yield return null;
@@ -98,6 +112,7 @@ namespace MazeGenerator
             if (forceRebuild)
                 NavMesh.RemoveAllNavMeshData();
 
+            loadingScreen.UpdateStatus("> Building NavMesh... [Generating data...]");
             for (int dataIndex = 0; dataIndex < navMeshData.Length; dataIndex++)
                 NavMesh.AddNavMeshData(navMeshData[dataIndex]);
 
@@ -157,6 +172,8 @@ namespace MazeGenerator
             EditorCoroutineUtility.StartCoroutine(Build(), this);
         }
 
+#endif
+
         [ContextMenu("[EDITOR] Clear maze")]
         private void Clear()
         {
@@ -165,8 +182,6 @@ namespace MazeGenerator
                 DestroyImmediate(transform.GetChild(i).gameObject);
             }
         }
-
-#endif
 
         #endregion
     }

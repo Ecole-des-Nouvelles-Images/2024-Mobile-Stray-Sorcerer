@@ -24,7 +24,7 @@ namespace Manager
 
         private void Start()
         {
-            _camera = GameObject.FindWithTag("MainCamera").GetComponent<CinemachineVirtualCamera>();
+            _camera = GameObject.Find("VCam Player").GetComponent<CinemachineVirtualCamera>();
             _camera.transform.rotation = Quaternion.identity;
         }
 

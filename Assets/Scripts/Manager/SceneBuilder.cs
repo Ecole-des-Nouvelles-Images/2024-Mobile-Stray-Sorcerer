@@ -64,7 +64,7 @@ namespace Manager
         private IEnumerator BuildNavMesh()
         {
             _loadingScreen.UpdateStatus("> Building NavMesh...");
-            yield return StartCoroutine(_maze.InitializeNavMesh(true));
+            yield return StartCoroutine(_maze.InitializeNavMesh(_loadingScreen, true));
         }
 
         private IEnumerator BakeLighting()
