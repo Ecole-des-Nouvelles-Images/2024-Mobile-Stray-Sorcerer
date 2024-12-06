@@ -69,11 +69,12 @@ namespace MazeGenerator
 
         public IEnumerator InitializeNavMesh(bool forceRebuild = false)
         {
-            Bounds mazeBounds = new (new Vector3(_scale * _CELL_SIZE / 2f, 0, _scale * _CELL_SIZE / 2f), Vector3.one * (_scale * _CELL_SIZE));
+            Bounds mazeBounds = new (new Vector3(_scale * _CELL_SIZE / 2f, 0, _scale * _CELL_SIZE / 2f), Vector3.one * ((_scale + 1) * _CELL_SIZE));
             List<NavMeshBuildSource> navMeshSources = new();
+            List<NavMeshBuildMarkup> navMeshMarkups = GetNavMeshBuildModifiers();
             NavMeshBuildSettings navMeshBuildSettings;
 
-            NavMeshBuilder.CollectSources(transform, LayerMask.GetMask("Default"), NavMeshCollectGeometry.RenderMeshes, 0, new List<NavMeshBuildMarkup>(), navMeshSources);
+            NavMeshBuilder.CollectSources(transform, LayerMask.GetMask("Default"), NavMeshCollectGeometry.RenderMeshes, 0, navMeshMarkups, navMeshSources);
 
             yield return null;
 
@@ -112,6 +113,24 @@ namespace MazeGenerator
                 byte[] hash = sha1.ComputeHash(Encoding.UTF8.GetBytes(seed));
                 return BitConverter.ToInt32(hash, 0);
             }
+        }
+
+        private List<NavMeshBuildMarkup> GetNavMeshBuildModifiers()
+        {
+            NavMeshModifier[] navMeshModifiers = GetComponentsInChildren<NavMeshModifier>(true);
+            List<NavMeshBuildMarkup> navMeshBuildMarkups = new();
+
+            foreach (NavMeshModifier mod in navMeshModifiers)
+            {
+                NavMeshBuildMarkup markup = new NavMeshBuildMarkup
+                {
+                    root = mod.transform,
+                    area = 1,
+                };
+                navMeshBuildMarkups.Add(markup);
+            }
+
+            return navMeshBuildMarkups;
         }
 
         public GameObject GetCellPrefab(Cell cell)
