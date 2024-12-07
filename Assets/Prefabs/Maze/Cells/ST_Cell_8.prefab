@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1223054752900464095}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Mushroom_1
   m_TagString: Untagged
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4860041171839348577}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Torch_3
   m_TagString: Untagged
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
@@ -71,7 +71,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6643112706269764566}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Torch_2
   m_TagString: Untagged
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
@@ -102,7 +102,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8012897157412734389}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Torch_6
   m_TagString: Untagged
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
@@ -133,7 +133,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2352354258744354263}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ST_Cell_8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,7 +168,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4710599300329111026}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Torch_1
   m_TagString: Untagged
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
@@ -201,7 +201,7 @@ GameObject:
   - component: {fileID: 2780573696145323482}
   - component: {fileID: 7344473253854767483}
   - component: {fileID: 7850343105931283095}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ST_Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -282,7 +282,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2096090652946531312}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SpawnAnchor
   m_TagString: Untagged
   m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
@@ -313,7 +313,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7699883129184683810}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Slot_4
   m_TagString: Untagged
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
@@ -344,7 +344,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3531804406718316837}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Slot_1
   m_TagString: Untagged
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
@@ -375,7 +375,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3809627376686261398}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Torchs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -412,7 +412,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6088312530860669880}
-  m_Layer: 0
+  - component: {fileID: 1975381720489083143}
+  - component: {fileID: 4102501786312332428}
+  - component: {fileID: 7341555849675489205}
+  - component: {fileID: 2750515055276049315}
+  m_Layer: 7
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -436,6 +440,90 @@ Transform:
   - {fileID: 3986394164579994640}
   m_Father: {fileID: 2352354258744354263}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1975381720489083143
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3038609986046363963}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 20, y: 1, z: 20}
+  m_Center: {x: 0, y: -0.5, z: 0}
+--- !u!65 &4102501786312332428
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3038609986046363963}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.5, y: 8, z: 20}
+  m_Center: {x: -8.7, y: 4, z: 0}
+--- !u!65 &7341555849675489205
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3038609986046363963}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.5, y: 8, z: 20}
+  m_Center: {x: 8.7, y: 4, z: 0}
+--- !u!65 &2750515055276049315
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3038609986046363963}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 14.7, y: 8, z: 2.5}
+  m_Center: {x: 0, y: 4, z: 8.7}
 --- !u!1 &3582550122780570477
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,7 +533,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9215313010288747684}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PropsAnchors
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -483,7 +571,7 @@ GameObject:
   - component: {fileID: 3342633888914564992}
   - component: {fileID: 8772010410758764629}
   - component: {fileID: 8788153709272423247}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ST_Wall_U
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -584,7 +672,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7520839751511767073}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Torch_5
   m_TagString: Untagged
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
@@ -615,7 +703,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5151246002474515653}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LuminescentMushrooms
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -651,7 +739,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7569836060034432453}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Slot_3
   m_TagString: Untagged
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
@@ -682,7 +770,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8077936434962722418}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Mushroom_4
   m_TagString: Untagged
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
@@ -713,7 +801,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1867727500823479395}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Mushroom_2
   m_TagString: Untagged
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
@@ -744,7 +832,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5715468676017964335}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Mushroom_3
   m_TagString: Untagged
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
@@ -775,7 +863,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9107748004891614769}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LightEmittersAnchors
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -808,7 +896,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3134491052291693730}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Slot_2
   m_TagString: Untagged
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
@@ -839,7 +927,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9069567994389157428}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Torch_4
   m_TagString: Untagged
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
@@ -870,7 +958,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 913718148386620105}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Mushroom_5
   m_TagString: Untagged
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
