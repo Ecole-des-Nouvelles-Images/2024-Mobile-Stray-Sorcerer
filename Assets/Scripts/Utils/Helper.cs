@@ -8,9 +8,6 @@ namespace Utils
                               (posB.y - posA.y)*(posB.y - posA.y) + (posB.z - posA.z)*(posB.z - posA.z));
         }
 
-        public static float LoadFactorCalculation(float currentValue, float maxValue) {
-            return currentValue / maxValue;
-        }
         public static bool DirectViewBetweenTwoObject(GameObject origineObject, GameObject targetObject, bool displayRaycast) {
             RaycastHit hit;
             if (displayRaycast)
@@ -30,11 +27,11 @@ namespace Utils
                     return false;
                 }  
             }
-            if(Physics.Raycast(origineObject.transform.position, 
-                   targetObject.transform.position - origineObject.transform.position,out hit, 
-                   Mathf.Infinity, Physics.AllLayers, QueryTriggerInteraction.Ignore)){
-                if(hit.collider.gameObject == targetObject) return true;
-                return false;
+            if(Physics.Raycast(origineObject.transform.position,targetObject.transform.position - origineObject.transform.position,out hit, 
+                   Mathf.Infinity, Physics.AllLayers, QueryTriggerInteraction.Ignore) 
+               && hit.collider.gameObject == targetObject)
+            { 
+                return true;
             }
             return false;
         

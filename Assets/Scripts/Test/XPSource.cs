@@ -5,9 +5,14 @@ namespace Test
 {
     public class XPSource : MonoBehaviour
     {
-        private void OnCollisionEnter(Collision other)
+        [SerializeField]private int _xpValue = 10;
+        private void OnTriggerEnter(Collider other)
         {
-            if(other.gameObject.CompareTag("Player"))other.gameObject.GetComponent<CharacterProperty>().GainExperience(10);
+            if (other.gameObject.CompareTag("Player"))
+            {
+                Character.Instance.GainEXP(_xpValue);
+                Destroy(gameObject);
+            }
         }
     }
 }
