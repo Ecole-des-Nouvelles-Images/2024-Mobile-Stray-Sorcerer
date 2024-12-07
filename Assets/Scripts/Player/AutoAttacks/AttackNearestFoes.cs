@@ -6,9 +6,12 @@ namespace Player.AutoAttacks
 {
     public class AttackNearestFoes : MonoBehaviour
     {
+        public static readonly int Attack = Animator.StringToHash("attack");
+        
         [Header("References")]
         [SerializeField] private EnemyDetector _enemyDetector;
         [SerializeField] private Transform _projectileOrigin;
+        [SerializeField] private Animator _characterAnimator;
         
         [Header("Settings")]
         [SerializeField] private int _projectileVelocity = 5;
@@ -61,8 +64,8 @@ namespace Player.AutoAttacks
 
         private void DoAttack()
         {
+            _characterAnimator.SetTrigger(Attack);
             GameObject projectile = Instantiate(Character.Instance.CurrentSpell.ProjectilePrefab, _projectileOrigin.position, Quaternion.identity);
-
             projectile.GetComponent<Rigidbody>().AddForce((_nearestFoe.transform.position - projectile.transform.position) * _projectileVelocity, ForceMode.Impulse);
             _attackIsReady = false;
             Destroy(projectile, 5f);

@@ -11,20 +11,15 @@ namespace AI
         
         [SerializeField] private List<GameObject> _monsterPrefabs;
         [SerializeField] private Transform[] _markerList;
-        [SerializeField][Range(0,9)] private int _maxMonsterCount;
         [SerializeField] private Transform _raycastOrigin;
         
-        private int _monsterCount;
         private bool _isTriggered;
         private bool _isChaseTime;
         private List<GameObject> _spawnedMonsters;
 
         private void Awake()
         {
-            if (_maxMonsterCount == 0)
-                _monsterCount = Random.Range(1, _markerList.Length);
-            else
-                _monsterCount = _maxMonsterCount;
+            
         }
 
         private void Start()

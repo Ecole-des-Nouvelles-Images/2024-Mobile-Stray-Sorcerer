@@ -28,6 +28,8 @@ namespace MazeGenerator
         [SerializeField] private string _seedPhrase;
         [SerializeField] private int _scale = 1;
 
+        public int Scale => _scale;
+        
         private const int _CELL_SIZE = 20;
 
         public int Seed

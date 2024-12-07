@@ -833,6 +833,7 @@ GameObject:
   - component: {fileID: 599979300159071811}
   - component: {fileID: 1022866803743155506}
   - component: {fileID: 6741375743386860489}
+  - component: {fileID: 312922016250504253}
   m_Layer: 6
   m_Name: NS_Imp
   m_TagString: Enemy
@@ -955,10 +956,32 @@ MonoBehaviour:
   _myCanvas: {fileID: 1265138967193886078}
   _currentHpSlider: {fileID: 3758485658542358590}
   _triggerAttack: {fileID: 105922859419920634}
+  _monsterAnimator: {fileID: 312922016250504253}
   _originAttack: {fileID: 6990959151078017375}
   _monsterProjectile: {fileID: 4943094133309729547, guid: 3943e78938265f0409d2d2fb9e7da43a,
     type: 3}
   _throwPower: 2
+--- !u!95 &312922016250504253
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7878954833088441822}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c74cff573d2afb44daf9bdf8753f6c90, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7958830221890159290
 GameObject:
   m_ObjectHideFlags: 0
