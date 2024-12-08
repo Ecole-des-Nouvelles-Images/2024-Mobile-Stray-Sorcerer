@@ -44,7 +44,7 @@ namespace AI
         private void Start()
         {
             _squadsQtt = _scale * _scale / 3;
-            //SquadsDistributionInLab();
+            SquadsDistributionInLab();
         }
 
         private void OffsetZoneForPlayer()

@@ -41,7 +41,7 @@ namespace AI
 
       private void OnDisable()
       {
-         throw new NotImplementedException();
+         ClockGame.OnMonstersGrow -= Grow;
       }
 
       public int CurrentHp { get ; private set; }

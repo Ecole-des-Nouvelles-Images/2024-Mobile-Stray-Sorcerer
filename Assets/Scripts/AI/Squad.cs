@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Player;
+using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -8,7 +9,7 @@ namespace AI
 {
     public class Squad : MonoBehaviour
     {
-        
+        [Range(1, 100), SerializeField] private int _procRatio = 40;
         [SerializeField] private List<GameObject> _monsterPrefabs;
         [SerializeField] private Transform[] _markerList;
         [SerializeField] private Transform _raycastOrigin;
@@ -33,6 +34,9 @@ namespace AI
                 PlayerDirectView();
             if (_isTriggered && AllMonstersDied())
             {
+                int dice = Random.Range(1, 100);
+                if (dice <= _procRatio)
+                    Instantiate(PrefabsContainer.Instance.SpeedBoostPrefab, transform.position, quaternion.identity);
                 Destroy(gameObject);
             }
         }
@@ -81,12 +85,11 @@ namespace AI
                     Character.Instance.EnnemyRaycastTarget.position - _raycastOrigin.position, out hit,
                     Mathf.Infinity, layerMask, QueryTriggerInteraction.Ignore))
             {
-                Debug.DrawRay(_raycastOrigin.position, 
-                    (Character.Instance.EnnemyRaycastTarget.position - _raycastOrigin.position) * hit.distance, Color.green);
+                // Debug.DrawRay(_raycastOrigin.position, 
+                //     (Character.Instance.EnnemyRaycastTarget.position - _raycastOrigin.position) * hit.distance, Color.green);
                 
                 if (hit.collider.gameObject == Character.Instance.gameObject)
                 {
-                    Debug.Log("player track begin");
                     for (int i = 0; i < _markerList.Length; i++)
                     {
                         _markerList[i].GetChild(0).gameObject.GetComponent<Monster>()
