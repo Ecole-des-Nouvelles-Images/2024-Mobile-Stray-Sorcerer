@@ -18,9 +18,6 @@ namespace Player
         [Tooltip("Internal modifier specific to the accelerometer")]
         [SerializeField] private float _accModifier = 1f;
 
-        [Header("Animations")]
-        [SerializeField] private Animator _animatorController;
-
         [Header("Settings")]
         [SerializeField] private float _cameraTransposerMaxOffset;
         [SerializeField] private float _cameraTrackingReactivity = 0.5f;

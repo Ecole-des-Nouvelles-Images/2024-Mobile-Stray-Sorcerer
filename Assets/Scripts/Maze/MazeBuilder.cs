@@ -38,6 +38,8 @@ namespace Maze
         [SerializeField] private int _maxLightEmittersPerCell = 4;
         [SerializeField] private int _maxPropsPerCell = 4;
 
+        public int Scale => _scale;
+        
         private const int _CELL_SIZE = 20;
 
         private void Awake()
@@ -289,5 +291,12 @@ namespace Maze
         }
 
         #endregion
+
+        public IEnumerator DefineEntryAndExit()
+        {
+            
+            
+            yield return null;
+        }
     }
 }

@@ -1,8 +1,11 @@
+using System;
 using Player;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
+
+using Utils;
 
 namespace AI
 {
@@ -32,16 +35,6 @@ namespace AI
       [SerializeField] private PlayerDetector _triggerAttack;
       [SerializeField] private Animator _monsterAnimator;
 
-      private void OnEnable()
-      {
-         ClockGame.OnMonstersGrow += Grow;
-      }
-
-      private void OnDisable()
-      {
-         ClockGame.OnMonstersGrow -= Grow;
-      }
-
       public int CurrentHp { get ; private set; }
       
       protected GameObject _myTarget;
@@ -50,12 +43,27 @@ namespace AI
       private NavMeshAgent _myNavMeshAgent;
       private float _currentTimeBeforAttack;
       private bool _isAttacking;
+      
+      private void AssignPlayerDelegate() {
+         _myRaycastTarget = Character.Instance.EnnemyRaycastTarget.gameObject;
+      }
+      
+      private void OnEnable()
+      {
+         ClockGame.OnMonstersGrow += Grow;
+         Character.OnPlayerSpawn += AssignPlayerDelegate;
+      }
 
+      private void OnDisable()
+      {
+         ClockGame.OnMonstersGrow -= Grow;
+         Character.OnPlayerSpawn -= AssignPlayerDelegate;
+      }
+      
       private void Awake()
       {
          _myNavMeshAgent = transform.GetComponent<NavMeshAgent>();
          _myTarget = null;
-         _myRaycastTarget = Character.Instance.EnnemyRaycastTarget.gameObject;
       }
 
       private void Start()

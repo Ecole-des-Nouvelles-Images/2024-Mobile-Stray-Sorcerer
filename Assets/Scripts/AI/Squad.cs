@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Player;
 using Unity.Mathematics;
@@ -80,6 +81,10 @@ namespace AI
         {
             RaycastHit hit;
             LayerMask layerMask = LayerMask.GetMask("Player","Wall");
+
+            if (!Character.Instance)
+                return;
+            
             if (Physics.Raycast(_raycastOrigin.position,
                     Character.Instance.EnnemyRaycastTarget.position - _raycastOrigin.position, out hit,
                     Mathf.Infinity, layerMask, QueryTriggerInteraction.Ignore))

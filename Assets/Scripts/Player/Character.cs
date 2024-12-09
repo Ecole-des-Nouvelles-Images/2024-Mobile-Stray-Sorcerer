@@ -19,13 +19,14 @@ namespace Player
         [SerializeField] private int _baseMaxHP;
         [SerializeField] private float _baseSpeed = 500f;
         [SerializeField] private int _baseEXP;
-        [FormerlySerializedAs("_baseSpellDamageMultiplier")] [SerializeField] private float _baseSpellDamage;
+        [SerializeField] private float _baseSpellDamage;
         [SerializeField] private float _attackCooldown = 3;
 
         [Header("Progression")]
         [SerializeField] private float _cooldownUpgrade = -0.25f;
         [SerializeField] private float _hpGrowthFactor = 0.25f;
-        
+
+        public static Action OnPlayerSpawn;
         public static Action<int> OnHpChanged;
         public static Action<int> OnExpChanged;
         public static Action OnLevelUp;

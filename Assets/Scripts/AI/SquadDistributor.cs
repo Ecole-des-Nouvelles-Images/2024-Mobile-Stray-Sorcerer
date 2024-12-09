@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using MazeGenerator;
+using Maze;
 using Unity.Mathematics;
 using UnityEngine;
 using Utils;
@@ -44,10 +45,10 @@ namespace AI
         private void Start()
         {
             _squadsQtt = _scale * _scale / 3;
-            SquadsDistributionInLab();
+            //SquadsDistributionInLab();
         }
 
-        private void OffsetZoneForPlayer()
+        private IEnumerator OffsetZoneForPlayer()
         {
             for (int i = (int)_playerSpawnPosition.x - _offsetPosition; i < (int)_playerSpawnPosition.x + _offsetPosition + 1; i++)
             {
@@ -57,11 +58,13 @@ namespace AI
                     {
                         _distribution[i, j] = -1;
                     }
+
+                    yield return null;
                 }
             }
         }
 
-        private void SearchEmpty()
+        private IEnumerator SearchEmpty()
         {
             for (int i = 0; i < _distribution.GetLength(0); i++)
             {
@@ -72,17 +75,20 @@ namespace AI
                         Vector2 position = new Vector2(i, j);
                         _emptyPosition.Add(position);
                     }
+                    yield return null;
                 }
             }
         }
 
-        private void SquadDistribution(int squadDistributed)
+        private IEnumerator SquadDistribution(int squadDistributed)
         {
-            if(squadDistributed == _squadsQtt)return;
+            if (squadDistributed == _squadsQtt) yield break;
+            
             int randomPos = Random.Range(0, _emptyPosition.Count - 1);
             _distribution[(int)_emptyPosition[randomPos].x, (int)_emptyPosition[randomPos].y] = 1;
             _emptyPosition.Remove(_emptyPosition[randomPos]);
-            SquadDistribution(squadDistributed+1);
+            
+            yield return StartCoroutine(SquadDistribution(squadDistributed+1));
         }
 
         private void Display()
@@ -99,7 +105,7 @@ namespace AI
             Debug.Log(_debugDistribution);
         }
 
-        private void SquadsCreation()
+        private IEnumerator SquadsCreation()
         {
             for (int i = 0; i < _distribution.GetLength(0); i++)
             {
@@ -108,37 +114,40 @@ namespace AI
                     if (_squadsPrefabs.Length == 0)
                     {
                         Debug.LogError("No prefab for squads in list");
-                        return;
+                        yield break;
                     }
                     if (_distribution[i, j] == 1)
                     {
                         Instantiate(_squadsPrefabs[Random.Range(0, _squadsPrefabs.Length - 1)],
                             new Vector3(i * 20, 0, j * 20), quaternion.identity, _parentSquads);
                     }
+                    
+                    yield return null;
                 }
             }
         }
 
-        public void Reset()
+        public IEnumerator Reset()
         {
             for (int i = 0; i < _distribution.GetLength(0); i++)
             {
                 for (int j = 0; j < _distribution.GetLength(1); j++)
                 {
                     _distribution[i, j] = 0;
+                    yield return null;
                 }
             }
             _emptyPosition.Clear();
             _debugDistribution = new string("");
         }
 
-        public void SquadsDistributionInLab()
+        public IEnumerator SquadsDistributionInLab()
         {
-            Reset();
-            OffsetZoneForPlayer();
-            SearchEmpty();
-            SquadDistribution(0);
-            SquadsCreation();
+            yield return Reset();
+            yield return OffsetZoneForPlayer();
+            yield return SearchEmpty();
+            yield return SquadDistribution(0);
+            yield return SquadsCreation();
         }
     }
 }
