@@ -21,8 +21,8 @@ namespace Maze
     {
         [Header("References")]
         [SerializeField] private List<CellRule> _cellRules;
-        [SerializeField] private GameObject _startCellPrefab;
-        [SerializeField] private GameObject _endCellPrefab;
+        [SerializeField] private GameObject _entryPrefab;
+        [SerializeField] private GameObject _exitPrefab;
 
         [Header("Generation settings")]
         [SerializeField] private bool _useRandomSeed;
@@ -38,16 +38,8 @@ namespace Maze
         [SerializeField] private int _maxLightEmittersPerCell = 4;
         [SerializeField] private int _maxPropsPerCell = 4;
 
+        public GameObject[,] MazeCells { get; private set; }
         public int Scale => _scale;
-        
-        private const int _CELL_SIZE = 20;
-
-        private void Awake()
-        {
-            if (_useRandomSeed)
-                _seedPhrase = GenerateRandomSeed();
-        }
-
         public int Seed
         {
             get
@@ -61,13 +53,19 @@ namespace Maze
                 return _hashSeed;
             }
         }
-
-        public GameObject[,] MazeCells { get; private set; }
-
+        
         private string _seed;
         private int _hashSeed;
         private Maze _maze;
+        
+        private const int _CELL_SIZE = 20;
 
+        private void Awake()
+        {
+            if (_useRandomSeed)
+                _seedPhrase = GenerateRandomSeed();
+        }
+        
         public IEnumerator Build()
         {
             Clear();
@@ -91,7 +89,13 @@ namespace Maze
                 }
             }
         }
-
+        public IEnumerator DefineEntryAndExit()
+        {
+            Vector2Int exitCellPos = _maze.ExitCell.Position;
+            Instantiate(_entryPrefab, MazeCells[0, 0].transform.position, Quaternion.identity,MazeCells[0, 0].transform );
+            Instantiate(_exitPrefab, MazeCells[exitCellPos.x, exitCellPos.y].transform.position, Quaternion.identity,MazeCells[exitCellPos.x, exitCellPos.y].transform );
+            yield return null;
+        }
         public IEnumerator InitializeNavMesh(LoadingScreen loadingScreen, bool forceRebuild = false)
         {
             Bounds mazeBounds = new (new Vector3(_scale * _CELL_SIZE / 2f, 0, _scale * _CELL_SIZE / 2f), Vector3.one * ((_scale + 1) * _CELL_SIZE));
@@ -292,11 +296,6 @@ namespace Maze
 
         #endregion
 
-        public IEnumerator DefineEntryAndExit()
-        {
-            
-            
-            yield return null;
-        }
+       
     }
 }
