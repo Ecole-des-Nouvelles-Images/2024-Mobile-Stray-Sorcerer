@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7275845579133325564}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: SpawnAnchor
   m_TagString: Untagged
   m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
@@ -40,9 +40,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2414604706346361742}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Mushroom_3
-  m_TagString: Untagged
+  m_TagString: Mushroom
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 5756489835167682101}
   - component: {fileID: 1806731372143178108}
   - component: {fileID: 8885525837793046016}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: ST_Wall_Corner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,9 +175,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2663815702523248991}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Slot_2
-  m_TagString: Untagged
+  m_TagString: Props
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -206,9 +206,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6349509307369196163}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Mushroom_2
-  m_TagString: Untagged
+  m_TagString: Mushroom
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -237,10 +237,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 79921011805798216}
-  - component: {fileID: 2240076445731992104}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Model
-  m_TagString: Wall
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -264,27 +263,6 @@ Transform:
   - {fileID: 1912815012217557794}
   m_Father: {fileID: 8813194017447914197}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &2240076445731992104
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1853067587166106524}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 20, y: 1, z: 20}
-  m_Center: {x: 0, y: -0.5, z: 0}
 --- !u!1 &1962243907575786834
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,9 +272,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6182801906788855331}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Torch_1
-  m_TagString: Untagged
+  m_TagString: Torch
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -309,13 +287,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1962243907575786834}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -9.3, y: 6, z: 9.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1826701410883053079}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &2047591666602503699
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,9 +303,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4664652885057721518}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Torch_5
-  m_TagString: Untagged
+  m_TagString: Torch
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -356,10 +334,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8813194017447914197}
-  - component: {fileID: 5624110644385045016}
-  - component: {fileID: 1739401475938142185}
-  - component: {fileID: 2299063063195005138}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: ST_Cell_14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -385,69 +360,6 @@ Transform:
   - {fileID: 3660209966421042233}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5624110644385045016
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2069376499893361638}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2.5, y: 8, z: 20}
-  m_Center: {x: 8.7, y: 4, z: 0}
---- !u!65 &1739401475938142185
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2069376499893361638}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2.5, y: 8, z: 2.5}
-  m_Center: {x: -8.7, y: 4, z: 8.7}
---- !u!65 &2299063063195005138
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2069376499893361638}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2.5, y: 8, z: 2.5}
-  m_Center: {x: -8.7, y: 4, z: -8.7}
 --- !u!1 &2294709870235154192
 GameObject:
   m_ObjectHideFlags: 0
@@ -460,7 +372,7 @@ GameObject:
   - component: {fileID: 2365767905328286749}
   - component: {fileID: 7325214878243139979}
   - component: {fileID: 5295059653280455935}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: ST_Wall_I
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -561,7 +473,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3660209966421042233}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: PropsAnchors
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -596,7 +508,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8470255206179359494}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: LightEmittersAnchors
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -629,9 +541,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1826701410883053079}
-  m_Layer: 7
-  m_Name: Torchs
-  m_TagString: Untagged
+  m_Layer: 0
+  m_Name: Torches
+  m_TagString: Torch
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -669,7 +581,7 @@ GameObject:
   - component: {fileID: 5695402980180521466}
   - component: {fileID: 3442832019409567325}
   - component: {fileID: 2399743278925150666}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: ST_Wall_Corner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -770,9 +682,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6502626822369056256}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Torch_3
-  m_TagString: Untagged
+  m_TagString: Torch
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -785,13 +697,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3129737288363743604}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 9.3, y: 6, z: 4.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1826701410883053079}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &3313482105113971225
 GameObject:
   m_ObjectHideFlags: 0
@@ -801,9 +713,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8152538940519298762}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Torch_4
-  m_TagString: Untagged
+  m_TagString: Torch
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -816,13 +728,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3313482105113971225}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 9.3, y: 6, z: -4.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1826701410883053079}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &4345982088437404630
 GameObject:
   m_ObjectHideFlags: 0
@@ -832,9 +744,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8059946644185403673}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Slot_3
-  m_TagString: Untagged
+  m_TagString: Props
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -865,7 +777,7 @@ GameObject:
   - component: {fileID: 8388858668719303481}
   - component: {fileID: 3717110245594843265}
   - component: {fileID: 3375370234267348504}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: ST_Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -946,9 +858,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2648350980644017591}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Slot_4
-  m_TagString: Untagged
+  m_TagString: Props
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -977,9 +889,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2870352742870730931}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Torch_2
-  m_TagString: Untagged
+  m_TagString: Torch
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -992,13 +904,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5433696036607277507}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -9.7, y: 6, z: 9.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1826701410883053079}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &5668294010798947807
 GameObject:
   m_ObjectHideFlags: 0
@@ -1008,9 +920,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1976440271508236684}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Slot_1
-  m_TagString: Untagged
+  m_TagString: Props
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1039,9 +951,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7896585991998133097}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Mushroom_5
-  m_TagString: Untagged
+  m_TagString: Mushroom
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1070,9 +982,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5253078291092204254}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Mushroom_4
-  m_TagString: Untagged
+  m_TagString: Mushroom
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1101,7 +1013,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7332718972451895803}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: LuminescentMushrooms
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1137,9 +1049,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4620464104944921494}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Torch_6
-  m_TagString: Untagged
+  m_TagString: Torch
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1152,13 +1064,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7994185149655441970}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -9.3, y: 6, z: -9.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1826701410883053079}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &9065186617191340372
 GameObject:
   m_ObjectHideFlags: 0
@@ -1168,9 +1080,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1226758851991551383}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Mushroom_1
-  m_TagString: Untagged
+  m_TagString: Mushroom
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

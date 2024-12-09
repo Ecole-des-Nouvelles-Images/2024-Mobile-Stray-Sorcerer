@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using MazeGenerator;
+using Maze;
 using UI;
 using UnityEngine;
 
@@ -51,8 +51,8 @@ namespace Manager
 
         private IEnumerator GenerateProps()
         {
-            _loadingScreen.UpdateStatus("> (Simulating) Generating props..");
-            yield return new WaitForSeconds(2);
+            _loadingScreen.UpdateStatus("> Generating props..");
+            yield return StartCoroutine(_maze.GenerateProps());
         }
 
         private IEnumerator InstantiateFoes()

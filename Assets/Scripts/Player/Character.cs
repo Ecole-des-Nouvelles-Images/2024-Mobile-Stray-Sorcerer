@@ -1,7 +1,6 @@
 using System;
 using Player.Sort;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Utils;
 
 namespace Player
