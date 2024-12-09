@@ -6,13 +6,15 @@ using System.Security.Cryptography;
 using System.Text;
 using UI;
 using Unity.AI.Navigation;
-using Unity.EditorCoroutines.Editor;
 using UnityEngine;
 using UnityEngine.AI;
 using Utils;
 using Random = System.Random;
+
 #if UNITY_EDITOR
+using Unity.EditorCoroutines.Editor;
 #endif
+
 
 namespace Maze
 {
@@ -145,7 +147,7 @@ namespace Maze
             Random generator = new Random(Seed);
             Transform[] torchSlots;
             Transform[] mushroomSlots;
-            // Transform[] propsSlots;
+            Transform[] propsSlots;
 
             for (int y = 0; y < MazeCells.GetLength(1); y++)
             {
@@ -154,9 +156,10 @@ namespace Maze
                     GameObject cell = MazeCells[x, y];
                     torchSlots = GetChildrenFrom(cell.transform.Find("LightEmittersAnchors/Torches"));
                     mushroomSlots = GetChildrenFrom(cell.transform.Find("LightEmittersAnchors/LuminescentMushrooms"));
-                    // propsSlots = GetChildrenFrom(cell.transform.Find("PropsAnchors"));
+                    propsSlots = GetChildrenFrom(cell.transform.Find("PropsAnchors"));
 
                     InstantiateLights(generator, torchSlots, mushroomSlots);
+                    InstantiateProps(generator, propsSlots);
 
                     yield return null;
                 }
@@ -189,6 +192,45 @@ namespace Maze
                 }
 
                 lightSlotsCount++;
+            }
+        }
+
+        private void InstantiateProps(Random generator, Transform[] propsSlots)
+        {
+            int propsSlotsCount = 0;
+            generator.Shuffle(propsSlots);
+
+            List<Props> PropsSlotData = new();
+
+            foreach (Transform slot in propsSlots)
+            {
+                PropsSlotData.Add(slot.GetComponent<Props>());
+            }
+
+            foreach (Transform slot in propsSlots)
+            {
+                if (propsSlotsCount >= _maxPropsPerCell) break;
+
+                switch (generator.Next(5))
+                {
+                    case 0:
+                        Instantiate(_mushroomsPrefabs[generator.Next(_mushroomsPrefabs.Count)], slot);
+                        break;
+                    case 1:
+                        Instantiate(_mushroomsPrefabs[generator.Next(_mushroomsPrefabs.Count)], slot);
+                        break;
+                    case 2:
+                        Instantiate(_mushroomsPrefabs[generator.Next(_mushroomsPrefabs.Count)], slot);
+                        break;
+                    case 3:
+                        Instantiate(_mushroomsPrefabs[generator.Next(_mushroomsPrefabs.Count)], slot);
+                        break;
+                    case 4:
+                        Instantiate(_mushroomsPrefabs[generator.Next(_mushroomsPrefabs.Count)], slot);
+                        break;
+                }
+
+                propsSlotsCount++;
             }
         }
 

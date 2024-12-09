@@ -19,12 +19,15 @@ namespace Lighting
         private Light _light;
         private SphereCollider _collider;
 
+        private float _initialIntensity;
+
         private void Awake()
         {
             _light = GetComponent<Light>();
             _collider = GetComponent<SphereCollider>();
 
             _light.enabled = false;
+            _initialIntensity = _light.intensity;
             _collider.radius = _playerDetectionRadius;
         }
 
@@ -60,7 +63,6 @@ namespace Lighting
         private IEnumerator SwitchLight(bool on)
         {
             float t = 0f;
-            float initialIntensity = _light.intensity;
 
             if (on)
                 _light.enabled = true;
@@ -68,7 +70,7 @@ namespace Lighting
             while (t < 1)
             {
                 t += Time.deltaTime / _switchDuration;
-                _light.intensity = Mathf.Lerp(initialIntensity, on ? 1 : 0, t);
+                _light.intensity = on ? Mathf.Lerp(0, _initialIntensity, t) : Mathf.Lerp(_initialIntensity, 0, t);
                 yield return null;
             }
 
