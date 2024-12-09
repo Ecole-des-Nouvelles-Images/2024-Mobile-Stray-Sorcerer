@@ -1,10 +1,8 @@
 using System;
 using System.Collections;
-using Player;
 using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using Utils;
 
 namespace Manager

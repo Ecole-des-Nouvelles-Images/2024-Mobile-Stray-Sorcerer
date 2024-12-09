@@ -1,8 +1,6 @@
-using System;
 using AI;
 using Player.Sort;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Player.Projectile
 {
