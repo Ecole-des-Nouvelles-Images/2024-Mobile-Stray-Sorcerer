@@ -1,15 +1,21 @@
 using System;
+using Manager;
+using Player.AutoAttacks;
 using Player.Sort;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Utils;
 
 namespace Player
 {
     public class Character : SingletonMonoBehaviour<Character>
     {
+        public static readonly int Hurt = Animator.StringToHash("hurt");
+        public static readonly int Death = Animator.StringToHash("death");
         [Header("References")]
         public Transform EnnemyRaycastTarget;
-
+        
+        [SerializeField] private Animator _playerAnimator;
         [SerializeField] private GameObject _speedFX;
         
         [Header("SpelldataList")] 
@@ -34,18 +40,6 @@ namespace Player
         public static Action<int> OnUpgradeStat;
         public static Action<bool> OnSpeedBoost;
 
-        private void OnEnable()
-        {
-            OnUpgradeStat += UpgradeStat;
-            OnSpeedBoost += SpeedBoost;
-        }
-
-        private void OnDisable()
-        {
-            OnUpgradeStat -= UpgradeStat;
-            OnSpeedBoost -= SpeedBoost;
-        }
-
         public int Level
         {
             get => _level;
@@ -54,7 +48,6 @@ namespace Player
                 OnLevelUp?.Invoke();
             }
         }
-        
         public int RequireEXP => Mathf.CeilToInt(_baseEXP * Mathf.Pow(Level, 1.5f));
         public int EXP {
             get => _exp;
@@ -84,13 +77,11 @@ namespace Player
             get => _baseSpeed;
             private set => _baseSpeed = value;
         }
-
         public float AttackCooldown
         {
             get => _attackCooldown;
             set => _attackCooldown = value;
         }
-
         public float SpellPower
         {
             get => _baseSpellDamage;
@@ -112,6 +103,17 @@ namespace Player
         private float _boostTime;
         private float _boostDelay = 3;
 
+        private void OnEnable()
+        {
+            OnUpgradeStat += UpgradeStat;
+            OnSpeedBoost += SpeedBoost;
+        }
+
+        private void OnDisable()
+        {
+            OnUpgradeStat -= UpgradeStat;
+            OnSpeedBoost -= SpeedBoost;
+        }
         private void Awake()
         {
             if (Spells.Length > 0)
@@ -206,10 +208,17 @@ namespace Player
             Debug.Log("Player: damage taken" + damage);
             HP -= damage;
             OnHpChanged?.Invoke(HP);
-
             if (_hp <= 0) {
+                Debug.Log("Player: Dead");
+                transform.GetComponent<PlayerController>().enabled = false;
+                transform.GetComponent<PlayerInput>().enabled = false;
+                transform.GetComponent<AttackNearestFoes>().enabled = false;
+                _playerAnimator.SetTrigger(Death);
+                //Invoke("SceneLoader.Instance.LaunchGame()",3);
                 //TODO: Game Over
+                return;
             }
+            _playerAnimator.SetTrigger(Hurt);
         }
 
         public void TakeHeal(int amount) 

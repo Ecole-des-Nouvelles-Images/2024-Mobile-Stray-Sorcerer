@@ -10,10 +10,12 @@ namespace AI
         [SerializeField] private int _throwPower = 2;
         private protected override void DoAttack()
         {
+            Debug.Log("attack");
             GameObject projectile = Instantiate(_monsterProjectile, _originAttack.transform.position, Quaternion.identity);
-            projectile.GetComponent<CreatureProjectile>().Damage = _damage;
-            projectile.GetComponent<Rigidbody>().AddForce((_myRaycastTarget.transform.position - projectile.transform.position) * _throwPower, ForceMode.Impulse);
+            projectile.GetComponent<CreatureProjectile>().ShootToDestination(_myRaycastTarget.transform, _damage, _throwPower);
             Destroy(projectile, 5f);
+            _isAttacking = false;
+            _currentTimeBeforAttack = _attackSpeed;
         }
     }
 }

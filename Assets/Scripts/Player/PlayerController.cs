@@ -39,6 +39,16 @@ namespace Player
             _cameraFramingTransposer = GameObject.Find("VCam Player").GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineFramingTransposer>();
         }
 
+        private void Update()
+        {
+            _characterAnimator.SetBool(IsMoving, _rb.velocity != Vector3.zero);
+            if(_rb.velocity != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(_rb.velocity, Vector3.up);
+                _rb.MoveRotation(targetRotation);
+            }
+        }
+
         public void SwitchController()
         {
             if (_isAccelerometerControlled)
@@ -84,9 +94,9 @@ namespace Player
             Vector2 value = ctx.ReadValue<Vector2>();
 
             _rb.velocity = new Vector3(value.x, 0, value.y) * Character.Instance.Speed * Time.fixedDeltaTime;
-            Quaternion targetRotation = Quaternion.LookRotation(_rb.velocity, Vector3.up);
-            _rb.MoveRotation(targetRotation);
-            _characterAnimator.SetBool(IsMoving, _rb.velocity != Vector3.zero);
+            
+            
+            
 
             if (_currentForwardAmount < 0.4f && value.y >= 0.4f)
             {

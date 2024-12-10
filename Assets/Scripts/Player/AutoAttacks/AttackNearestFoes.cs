@@ -5,7 +5,7 @@ namespace Player.AutoAttacks
 {
     public class AttackNearestFoes : MonoBehaviour
     {
-        public static readonly int Attack = Animator.StringToHash("attack");
+        public static readonly int Doattack = Animator.StringToHash("doAttack");
         
         [Header("References")]
         [SerializeField] private EnemyDetector _enemyDetector;
@@ -14,12 +14,15 @@ namespace Player.AutoAttacks
         
         [Header("Settings")]
         [SerializeField] private int _projectileVelocity = 5;
+        [SerializeField] private float _castDelay = 1;
 
         private GameObject _nearestFoe;
         private bool _attackIsReady = true;
         private float _cooldown = 1;
         private float _currentCooldownTimer;
         private AudioSource _throwAudioSource;
+        private bool _casting;
+        private float _currentDelay;
 
         public float Cooldown => Character.Instance.AttackCooldown;
 
@@ -36,12 +39,20 @@ namespace Player.AutoAttacks
             if (_attackIsReady)
             {
                 SearchNearestFoe();
-                if (_nearestFoe)
+                if (_nearestFoe && !_casting)
                 {
-                    DoAttack();
+                    Debug.Log("delay up");
+                    _currentDelay = _castDelay;
+                    _casting = true;
+                    _characterAnimator.SetTrigger(Doattack);
+                }
+                if (_nearestFoe && _casting )
+                {
+                    Debug.Log("casting");
+                    DelayBeforCast();
                 }
             }
-            if (_nearestFoe!=null && _nearestFoe.activeSelf == false)
+            if (_nearestFoe!= null && _nearestFoe.activeSelf == false)
                 _nearestFoe = null;
         }
 
@@ -67,14 +78,26 @@ namespace Player.AutoAttacks
             }
         }
 
-        private void DoAttack()
+        private void DelayBeforCast()
         {
-            _characterAnimator.SetTrigger(Attack);
+            
+            if(_currentDelay > 0)
+            {
+                _currentDelay -= Time.deltaTime;
+                //Debug.Log(delayTime);
+                return;
+            }
+            CastSpell();
+        }
+
+        private void CastSpell()
+        {
             GameObject projectile = Instantiate(Character.Instance.CurrentSpell.ProjectilePrefab, _projectileOrigin.position, Quaternion.identity);
             projectile.GetComponent<Rigidbody>().AddForce((_nearestFoe.transform.position - projectile.transform.position) * _projectileVelocity, ForceMode.Impulse);
             _attackIsReady = false;
             _currentCooldownTimer = 0;
             Destroy(projectile, 5f);
+            _casting = false;
         }
     }
 }
