@@ -211,8 +211,15 @@ namespace Maze
 
                 foreach (Enum flag in Props.GetFlags(slot.data.PropType))
                 {
-                    // TODO: Implement props generation
-                    return;
+                    if (!slot.data.Prefabs.ContainsKey(flag.ToString())) continue;
+
+                    float propsProbability = slot.data.UseCustomProbabilities ? Props.GLOBAL_PROBABILITY_PER_SLOT : slot.data.Prefabs[flag.ToString()].probability;
+
+                    if (generator.NextDouble() > propsProbability)
+                    {
+                        GameObject propsVariantPrefab = slot.data.Prefabs[flag.ToString()].list[generator.Next(slot.data.Prefabs[flag.ToString()].list.Count)];
+                        Instantiate(propsVariantPrefab, slot.anchor);
+                    }
                 }
             }
         }

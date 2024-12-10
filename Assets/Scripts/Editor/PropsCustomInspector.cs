@@ -59,11 +59,6 @@ namespace Editor
 
             EditorGUILayout.PropertyField(_useCustomProbabilities);
 
-            if (!_useCustomProbabilities.boolValue)
-            {
-                _globalProbabilityPerSlot.floatValue =  EditorGUILayout.Slider("Global Probability Per Slot", _globalProbabilityPerSlot.floatValue, 0, 1);
-            }
-
             serializedObject.ApplyModifiedProperties();
             serializedObject.Update();
 
@@ -75,9 +70,20 @@ namespace Editor
 
             if (_useCustomProbabilities.boolValue)
             {
-                EditorGUILayout.HelpBox("Custom probabilities are enabled.\nThe sum of all probabilities must be between 0 and 1.", MessageType.Warning);
-                EditorGUILayout.Space(20);
+                EditorGUILayout.HelpBox(
+                    "Custom probabilities are enabled.\n" +
+                    "Each props types have custom probabilities to be generated which influence the generation. Object spawn follow type-order priority.\n" +
+                    "Probabilities must be between 0 and 1.", MessageType.Warning);
             }
+            else
+            {
+                EditorGUILayout.HelpBox(
+                    "Global probability per slot is currently in-use.\n" +
+                    "Each props type have the same probability to spawn.\n" +
+                    "Current value is hardcoded to 0.5", MessageType.Info);
+            }
+
+            EditorGUILayout.Space(10);
 
             if (type.HasFlag(Props.Type.Barrel))
             {
@@ -175,10 +181,10 @@ namespace Editor
 
             props.Prefabs = new()
             {
-                { "Barrel", props.BarrelPrefabs },
-                { "Crates", props.CratesPrefabs },
-                { "Banner", props.BannerPrefabs },
-                { "Rubble", props.RubblePrefabs },
+                { "Barrel", (props.BarrelPrefabs, props.BarrelProbability) },
+                { "Crates", (props.CratesPrefabs, props.CratesProbability) },
+                { "Banner", (props.BannerPrefabs, props.BannerProbability) },
+                { "Rubble", (props.RubblePrefabs, props.RubbleProbability) },
                 // { "BrazierColumn", props.BrazierColumnPrefabs }
             };
         }

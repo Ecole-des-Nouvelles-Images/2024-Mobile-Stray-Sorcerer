@@ -21,7 +21,6 @@ namespace Maze
 
         [SerializeField] private Type _propType;
         [SerializeField] private bool _useCustomProbabilities = false;
-        [SerializeField] private float _globalProbabilityPerSlot = 0.5f;
 
         [SerializeField] private List<GameObject> _barrelPrefabs = new ();
         [SerializeField] [Range(0,1)] private float _barrelProbability = 0.5f;
@@ -34,15 +33,23 @@ namespace Maze
         // [SerializeField] private List<GameObject> _brazierColumnPrefabs = new ();
         // [SerializeField] [Range(0,1)] private float _brazierColumnProbability = 0.5f;
 
-        public Dictionary<string, List<GameObject>> Prefabs = new();
+        public const float GLOBAL_PROBABILITY_PER_SLOT = 0.5f;
+
+        public Dictionary<string, (List<GameObject> list, float probability)> Prefabs = new();
 
         public Type PropType => _propType;
+        public bool UseCustomProbabilities => _useCustomProbabilities;
 
         public List<GameObject> BarrelPrefabs => _barrelPrefabs;
+        public float BarrelProbability => _barrelProbability;
         public List<GameObject> CratesPrefabs => _cratesPrefabs;
+        public float CratesProbability => _cratesProbability;
         public List<GameObject> BannerPrefabs => _bannerPrefabs;
+        public float BannerProbability => _bannerProbability;
         public List<GameObject> RubblePrefabs => _rubblePrefabs;
+        public float RubbleProbability => _rubbleProbability;
         // public List<GameObject> BrazierColumnPrefabs => _brazierColumnPrefabs;
+        // public float BrazierColumnProbability => _brazierColumnProbability;
 
         public static IEnumerable<Enum> GetFlags(Enum e)
         {
