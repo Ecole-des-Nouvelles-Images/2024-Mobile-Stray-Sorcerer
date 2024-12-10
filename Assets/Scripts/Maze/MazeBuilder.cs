@@ -195,42 +195,25 @@ namespace Maze
             }
         }
 
-        private void InstantiateProps(Random generator, Transform[] propsSlots)
+        private void InstantiateProps(Random generator, Transform[] propsAnchors)
         {
-            int propsSlotsCount = 0;
-            generator.Shuffle(propsSlots);
+            generator.Shuffle(propsAnchors);
 
-            List<Props> PropsSlotData = new();
+            List<(Transform anchor, Props data)> propsSlots = new();
 
-            foreach (Transform slot in propsSlots)
-            {
-                PropsSlotData.Add(slot.GetComponent<Props>());
+            foreach (Transform slot in propsAnchors) {
+                propsSlots.Add(new (slot, slot.GetComponent<Props>()));
             }
 
-            foreach (Transform slot in propsSlots)
+            foreach ((Transform anchor, Props data) slot in propsSlots)
             {
-                if (propsSlotsCount >= _maxPropsPerCell) break;
+                if (!slot.data) throw new NullReferenceException($"Props generation error: no Props component found on anchor in {slot.anchor.parent.parent.name}");
 
-                switch (generator.Next(5))
+                foreach (Enum flag in Props.GetFlags(slot.data.PropType))
                 {
-                    case 0:
-                        Instantiate(_mushroomsPrefabs[generator.Next(_mushroomsPrefabs.Count)], slot);
-                        break;
-                    case 1:
-                        Instantiate(_mushroomsPrefabs[generator.Next(_mushroomsPrefabs.Count)], slot);
-                        break;
-                    case 2:
-                        Instantiate(_mushroomsPrefabs[generator.Next(_mushroomsPrefabs.Count)], slot);
-                        break;
-                    case 3:
-                        Instantiate(_mushroomsPrefabs[generator.Next(_mushroomsPrefabs.Count)], slot);
-                        break;
-                    case 4:
-                        Instantiate(_mushroomsPrefabs[generator.Next(_mushroomsPrefabs.Count)], slot);
-                        break;
+                    // TODO: Implement props generation
+                    return;
                 }
-
-                propsSlotsCount++;
             }
         }
 

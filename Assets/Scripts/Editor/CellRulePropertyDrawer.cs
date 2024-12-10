@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Editor
 {
     [CustomPropertyDrawer(typeof(CellRule))]
-    public class CellRuleDrawer : PropertyDrawer
+    public class CellRulePropertyDrawer : PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
