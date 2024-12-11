@@ -1,5 +1,6 @@
 ﻿using System.Collections;
-using MazeGenerator;
+using AI;
+using Maze;
 using UI;
 using UnityEngine;
 
@@ -30,12 +31,14 @@ namespace Manager
 
             yield return StartCoroutine(BuildMaze());
 
+            yield return StartCoroutine(GenerateMazeEnds());
+
             yield return StartCoroutine(GenerateProps());
-
-            yield return StartCoroutine(InstantiateFoes());
-
+            
             yield return StartCoroutine(BuildNavMesh());
-
+            
+            yield return StartCoroutine(InstantiateFoes());
+            
             GameManager.Instance.StartGame();
 
             // yield return StartCoroutine(BakeLighting());
@@ -48,17 +51,23 @@ namespace Manager
             _loadingScreen.UpdateStatus("> Building maze...");
             yield return StartCoroutine(_maze.Build());
         }
+        
+        private IEnumerator GenerateMazeEnds()
+        {
+            _loadingScreen.UpdateStatus("> Adding entry and exit");
+            yield return StartCoroutine(_maze.DefineEntryAndExit());
+        }
 
         private IEnumerator GenerateProps()
         {
-            _loadingScreen.UpdateStatus("> (Simulating) Generating props..");
-            yield return new WaitForSeconds(2);
+            _loadingScreen.UpdateStatus("> Generating props..");
+            yield return StartCoroutine(_maze.GenerateProps());
         }
 
         private IEnumerator InstantiateFoes()
         {
-            _loadingScreen.UpdateStatus("> (Simulating) Instantiating foes...");
-            yield return new WaitForSeconds(2);
+            _loadingScreen.UpdateStatus("> Instantiating foes...");
+            yield return StartCoroutine(SquadDistributor.Instance.SquadsDistributionInLab());
         }
 
         private IEnumerator BuildNavMesh()

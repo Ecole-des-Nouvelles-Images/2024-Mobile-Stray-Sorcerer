@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using Utils;
 
@@ -6,9 +5,12 @@ namespace Player.AutoAttacks
 {
     public class AttackNearestFoes : MonoBehaviour
     {
+        public static readonly int Attack = Animator.StringToHash("attack");
+        
         [Header("References")]
         [SerializeField] private EnemyDetector _enemyDetector;
         [SerializeField] private Transform _projectileOrigin;
+        [SerializeField] private Animator _characterAnimator;
         
         [Header("Settings")]
         [SerializeField] private int _projectileVelocity = 5;
@@ -19,22 +21,28 @@ namespace Player.AutoAttacks
         private float _currentCooldownTimer;
         private AudioSource _throwAudioSource;
 
+        public float Cooldown => Character.Instance.AttackCooldown;
+
         private void Awake()
         {
             _throwAudioSource = _projectileOrigin.transform.GetComponent<AudioSource>();
+            _currentCooldownTimer = Cooldown;
         }
 
         void Update()
         {
-            if (!_attackIsReady && _currentCooldownTimer >= _cooldown) _currentCooldownTimer = 0;
-            if (!_attackIsReady && _currentCooldownTimer < _cooldown) _currentCooldownTimer += Time.deltaTime;
-            if (_currentCooldownTimer >= _cooldown) _attackIsReady = true;
+            if (!_attackIsReady && _currentCooldownTimer < Cooldown) _currentCooldownTimer += Time.deltaTime;
+            if (_currentCooldownTimer >= Cooldown) _attackIsReady = true;
             if (_attackIsReady)
             {
                 SearchNearestFoe();
-                if (_nearestFoe) 
+                if (_nearestFoe)
+                {
                     DoAttack();
+                }
             }
+            if (_nearestFoe!=null && _nearestFoe.activeSelf == false)
+                _nearestFoe = null;
         }
 
         private void SearchNearestFoe()
@@ -61,10 +69,11 @@ namespace Player.AutoAttacks
 
         private void DoAttack()
         {
+            _characterAnimator.SetTrigger(Attack);
             GameObject projectile = Instantiate(Character.Instance.CurrentSpell.ProjectilePrefab, _projectileOrigin.position, Quaternion.identity);
-
             projectile.GetComponent<Rigidbody>().AddForce((_nearestFoe.transform.position - projectile.transform.position) * _projectileVelocity, ForceMode.Impulse);
             _attackIsReady = false;
+            _currentCooldownTimer = 0;
             Destroy(projectile, 5f);
         }
     }

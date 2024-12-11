@@ -98,7 +98,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 116
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!136 &4303244075133254104
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -118,10 +118,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1
+  m_Radius: 1.16
+  m_Height: 5.46
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 2.7, z: -0.18}
 --- !u!95 &2109020219723153754
 Animator:
   serializedVersion: 5
@@ -132,7 +132,7 @@ Animator:
   m_GameObject: {fileID: 2957208007348032430}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2609e7df42b1b4c42b58b58218b672db, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -258,10 +258,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f988c205b2d74b879307b94925936253, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _characterAnimator: {fileID: 2109020219723153754}
   _playerInput: {fileID: 5113971699548707540}
   _accelerometerSensibility: 0.05
   _accModifier: 1
-  _animatorController: {fileID: 2109020219723153754}
   _cameraTransposerMaxOffset: 4
   _cameraTrackingReactivity: 0.75
 --- !u!114 &6241038597527939444
@@ -277,13 +277,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnnemyRaycastTarget: {fileID: 8952022329472469971}
-  Spells: []
+  _speedFX: {fileID: 0}
+  Spells:
+  - {fileID: 11400000, guid: 5588d812e91ae1949aa68f0389861438, type: 2}
+  - {fileID: 11400000, guid: eeb3d74f1918b5b4293582b33e9e3923, type: 2}
+  - {fileID: 11400000, guid: bca1ebf128ee2a64b9f7a6d67c48041e, type: 2}
+  - {fileID: 11400000, guid: 08e981b34e332a94cb805a9f5ce03816, type: 2}
+  - {fileID: 11400000, guid: fcbdda051a718c34b80fd57c584e71d1, type: 2}
   _baseMaxHP: 100
   _baseSpeed: 500
   _baseEXP: 10
-  _baseSpellDamageMultiplier: 0
-  _speedGrowthFactor: 0.1
-  _spellDamageGrowthFactor: 0.1
+  _baseSpellDamage: 0
+  _attackCooldown: 3
+  _cooldownUpgrade: -0.25
+  _hpGrowthFactor: 0.25
 --- !u!114 &2572253980652607018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,6 +305,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyDetector: {fileID: 8110544592888082731}
   _projectileOrigin: {fileID: 2951394289232929336}
+  _characterAnimator: {fileID: 2109020219723153754}
   _projectileVelocity: 5
 --- !u!1 &8202094201407593886
 GameObject:

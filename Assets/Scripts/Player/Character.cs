@@ -1,7 +1,6 @@
 using System;
 using Player.Sort;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Utils;
 
 namespace Player
@@ -10,34 +9,41 @@ namespace Player
     {
         [Header("References")]
         public Transform EnnemyRaycastTarget;
+
+        [SerializeField] private GameObject _speedFX;
         
         [Header("SpelldataList")] 
-        public Spell[] Spells;
+        [SerializeField] private Spell[] Spells;
 
         [Header("Base Stats")]
         [SerializeField] private int _baseMaxHP;
         [SerializeField] private float _baseSpeed = 500f;
         [SerializeField] private int _baseEXP;
-        [SerializeField] private float _baseSpellDamageMultiplier;
+        [SerializeField] private float _baseSpellDamage;
+        [SerializeField] private float _attackCooldown = 3;
 
         [Header("Progression")]
-        [SerializeField] private float _speedGrowthFactor = 0.1f;
-        [SerializeField] private float _spellDamageGrowthFactor = 0.1f;
-        
+        [SerializeField] private float _cooldownUpgrade = -0.25f;
+        [SerializeField] private float _hpGrowthFactor = 0.25f;
+
+        public static Action OnPlayerSpawn;
         public static Action<int> OnHpChanged;
         public static Action<int> OnExpChanged;
         public static Action OnLevelUp;
         public static Action<bool> OnDisplayUpgrade;
         public static Action<int> OnUpgradeStat;
+        public static Action<bool> OnSpeedBoost;
 
         private void OnEnable()
         {
             OnUpgradeStat += UpgradeStat;
+            OnSpeedBoost += SpeedBoost;
         }
 
         private void OnDisable()
         {
             OnUpgradeStat -= UpgradeStat;
+            OnSpeedBoost -= SpeedBoost;
         }
 
         public int Level
@@ -48,6 +54,7 @@ namespace Player
                 OnLevelUp?.Invoke();
             }
         }
+        
         public int RequireEXP => Mathf.CeilToInt(_baseEXP * Mathf.Pow(Level, 1.5f));
         public int EXP {
             get => _exp;
@@ -61,7 +68,10 @@ namespace Player
                 }
             }
         }
-        public int MaxHP => _baseMaxHP + Constitution;
+        public int MaxHP {
+            get => _baseMaxHP;
+            private set => _baseMaxHP = value;
+        }
         public int HP {
             get => _hp;
             set {
@@ -69,19 +79,38 @@ namespace Player
                 OnHpChanged?.Invoke(_hp);
             }
         }
-        public float Speed => _baseSpeed * (1 + Swiftness * _speedGrowthFactor);
-        public float SpellPower => _baseSpellDamageMultiplier * (1 + Power * _spellDamageGrowthFactor);
+        public float Speed
+        {
+            get => _baseSpeed;
+            private set => _baseSpeed = value;
+        }
+
+        public float AttackCooldown
+        {
+            get => _attackCooldown;
+            set => _attackCooldown = value;
+        }
+
+        public float SpellPower
+        {
+            get => _baseSpellDamage;
+            private set => _baseSpellDamage = value;
+        }
+
         public int Constitution { get; private set; }
         public int Swiftness { get; private set; }
         public int Power { get; private set; }
         public Spell CurrentSpell { get; private set; }
+        public bool IsBoosted { get; private set; }
 
         private int _level = 1;
         private int _hp;
         private int _exp;
-        
+        private bool _isBoosted;
+        private bool _isDelay;
         private int _spellUnlock;
-        
+        private float _boostTime;
+        private float _boostDelay = 3;
 
         private void Awake()
         {
@@ -96,6 +125,23 @@ namespace Player
             Constitution = 0;
             Power = 0;
             
+        }
+
+        private void Update()
+        {
+            //timer for speed boost
+            if (_isDelay && _boostTime < _boostDelay)
+            {
+                _boostTime += Time.deltaTime;
+            }
+            if (_isDelay && _boostTime >= _boostDelay)
+            {
+                _isDelay = false;
+                _boostTime = 0;
+                Speed /= 2;
+                _speedFX.SetActive(false);
+                _isBoosted = false;
+            }
         }
 
         private void LevelUp()
@@ -119,15 +165,42 @@ namespace Player
             {
                 case 1:
                     Constitution++;
+                    MaxHP = (int)(MaxHP*(1 + _hpGrowthFactor));
                     return;
                 case 2:
                     Swiftness++;
+                    AttackCooldown += _cooldownUpgrade;
+                    Debug.Log("attack cooldown:"+AttackCooldown+" vitesse:"+Swiftness);
                     return;
                 case 3:
                     Power++;
+                    SpellPower *= Power;
                     return;
             }
         }
+
+        private void SpeedBoost(bool isActive)
+        {
+            if(isActive && _isBoosted == false)
+            {
+                Speed *= 2;
+                _speedFX.SetActive(true);
+                _isBoosted = true;
+                return;
+            }
+            if(isActive && _isBoosted)
+            {
+                _boostTime = 0;
+                return;
+            }
+
+            if (!_isDelay)
+            {
+                _isDelay = true;
+            }
+            
+        }
+        
         public void TakeDamage(int damage) 
         {
             Debug.Log("Player: damage taken" + damage);
@@ -149,11 +222,6 @@ namespace Player
         {
             EXP += amount;
             OnExpChanged?.Invoke(EXP);
-        }
-
-        public float DamageMultiplier()
-        {
-            return _baseSpellDamageMultiplier / 100 * Power;
         }
         
     }
