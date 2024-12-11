@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3259689555314804954}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Mushroom_4
   m_TagString: Mushroom
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6128551804516273163}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Torch_6
   m_TagString: Torch
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
@@ -71,7 +71,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5144957322591235252}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PropsAnchors
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2993834070014320001}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ST_Cell_6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141,7 +141,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8020394820763154331}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SpawnAnchor
   m_TagString: Untagged
   m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
@@ -172,7 +172,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 488502282374244418}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Torch_4
   m_TagString: Torch
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
@@ -205,7 +205,7 @@ GameObject:
   - component: {fileID: 8331040196458920650}
   - component: {fileID: 3372753848036531223}
   - component: {fileID: 5650882877296226916}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ST_Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -286,8 +286,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2018835921110390413}
-  - component: {fileID: 7646188596567970153}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Slot_2
   m_TagString: Props
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
@@ -309,33 +308,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5144957322591235252}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7646188596567970153
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1756987582976204957}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12670aba1d7a461ea78b84d768669ec3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _propType: 11
-  _useCustomProbabilities: 1
-  _barrelPrefabs:
-  - {fileID: 57692885948172916, guid: e7d4a486564550848a5f801e19c3dedd, type: 3}
-  _barrelProbability: 0.3
-  _cratesPrefabs:
-  - {fileID: 6528511368108797977, guid: ab3c7e4cfd94c2847bef4e747256186c, type: 3}
-  - {fileID: 374079292440503641, guid: b282c95959fee134295b0a4eda8aad3b, type: 3}
-  _cratesProbability: 0.4
-  _bannerPrefabs: []
-  _bannerProbability: 0.5
-  _rubblePrefabs:
-  - {fileID: 1444527824407496252, guid: 5e2797aff17af2044993cf14fc8b483c, type: 3}
-  - {fileID: 262584985082976757, guid: fc4470c371bc4db46b55197a0c0d360e, type: 3}
-  _rubbleProbability: 0.5
 --- !u!1 &1855128510394258866
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,7 +317,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 178513282415073533}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Mushroom_1
   m_TagString: Mushroom
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
@@ -376,7 +348,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1257670107792608111}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Mushroom_2
   m_TagString: Mushroom
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
@@ -407,7 +379,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2271367450101194331}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Mushroom_5
   m_TagString: Mushroom
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
@@ -441,7 +413,7 @@ GameObject:
   - component: {fileID: 3271035668045896364}
   - component: {fileID: 5771252911579340826}
   - component: {fileID: 6480377233845273331}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ST_Wall_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -542,7 +514,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3288112096380181740}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LuminescentMushrooms
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -577,7 +549,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5629821297771294729}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Torches
   m_TagString: Torch
   m_Icon: {fileID: 0}
@@ -614,7 +586,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8733403178090135799}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Torch_5
   m_TagString: Torch
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
@@ -645,8 +617,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7760895612693188990}
-  - component: {fileID: 4619634020989840334}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Slot_1
   m_TagString: Props
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
@@ -668,33 +639,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5144957322591235252}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4619634020989840334
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5932333025074011368}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12670aba1d7a461ea78b84d768669ec3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _propType: 11
-  _useCustomProbabilities: 1
-  _barrelPrefabs:
-  - {fileID: 57692885948172916, guid: e7d4a486564550848a5f801e19c3dedd, type: 3}
-  _barrelProbability: 0.3
-  _cratesPrefabs:
-  - {fileID: 6528511368108797977, guid: ab3c7e4cfd94c2847bef4e747256186c, type: 3}
-  - {fileID: 374079292440503641, guid: b282c95959fee134295b0a4eda8aad3b, type: 3}
-  _cratesProbability: 0.4
-  _bannerPrefabs: []
-  _bannerProbability: 0.5
-  _rubblePrefabs:
-  - {fileID: 1444527824407496252, guid: 5e2797aff17af2044993cf14fc8b483c, type: 3}
-  - {fileID: 262584985082976757, guid: fc4470c371bc4db46b55197a0c0d360e, type: 3}
-  _rubbleProbability: 0.5
 --- !u!1 &6154704159199343692
 GameObject:
   m_ObjectHideFlags: 0
@@ -707,7 +651,7 @@ GameObject:
   - component: {fileID: 4639563400018417216}
   - component: {fileID: 83174382086620448}
   - component: {fileID: 7048161263566477213}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ST_Wall_Corner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -808,7 +752,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 478959386785622694}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Torch_2
   m_TagString: Torch
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
@@ -839,7 +783,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 553882349149005707}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Torch_1
   m_TagString: Torch
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
@@ -870,9 +814,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7645397492775708180}
-  m_Layer: 0
+  - component: {fileID: 168671109711393416}
+  - component: {fileID: 247873484022128212}
+  - component: {fileID: 737670245174156993}
+  - component: {fileID: 1275867011104303618}
+  m_Layer: 7
   m_Name: Model
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -895,6 +843,90 @@ Transform:
   - {fileID: 4119981307574688171}
   m_Father: {fileID: 2993834070014320001}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &168671109711393416
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7856568308315485465}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 20, y: 8, z: 2.5}
+  m_Center: {x: 0, y: 4, z: -8.75}
+--- !u!65 &247873484022128212
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7856568308315485465}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.5, y: 8, z: 2.5}
+  m_Center: {x: -8.75, y: 4, z: 8.75}
+--- !u!65 &737670245174156993
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7856568308315485465}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 20, y: 0.4, z: 20}
+  m_Center: {x: 0, y: -0.2, z: 0}
+--- !u!65 &1275867011104303618
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7856568308315485465}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 20, y: 0.4, z: 20}
+  m_Center: {x: 0, y: -0.2, z: 0}
 --- !u!1 &8158541423091673952
 GameObject:
   m_ObjectHideFlags: 0
@@ -904,7 +936,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8820202957034149163}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Torch_3
   m_TagString: Torch
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
@@ -935,8 +967,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2078650400929666478}
-  - component: {fileID: 5893816278060494209}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Slot_3
   m_TagString: Props
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
@@ -958,33 +989,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5144957322591235252}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5893816278060494209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8784419920154121608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12670aba1d7a461ea78b84d768669ec3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _propType: 11
-  _useCustomProbabilities: 1
-  _barrelPrefabs:
-  - {fileID: 57692885948172916, guid: e7d4a486564550848a5f801e19c3dedd, type: 3}
-  _barrelProbability: 0.3
-  _cratesPrefabs:
-  - {fileID: 6528511368108797977, guid: ab3c7e4cfd94c2847bef4e747256186c, type: 3}
-  - {fileID: 374079292440503641, guid: b282c95959fee134295b0a4eda8aad3b, type: 3}
-  _cratesProbability: 0.4
-  _bannerPrefabs: []
-  _bannerProbability: 0.5
-  _rubblePrefabs:
-  - {fileID: 1444527824407496252, guid: 5e2797aff17af2044993cf14fc8b483c, type: 3}
-  - {fileID: 262584985082976757, guid: fc4470c371bc4db46b55197a0c0d360e, type: 3}
-  _rubbleProbability: 0.5
 --- !u!1 &8812587611883444713
 GameObject:
   m_ObjectHideFlags: 0
@@ -994,8 +998,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3755150295840212420}
-  - component: {fileID: 1650211078100150615}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Slot_4
   m_TagString: Props
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
@@ -1017,33 +1020,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5144957322591235252}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1650211078100150615
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8812587611883444713}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12670aba1d7a461ea78b84d768669ec3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _propType: 11
-  _useCustomProbabilities: 1
-  _barrelPrefabs:
-  - {fileID: 57692885948172916, guid: e7d4a486564550848a5f801e19c3dedd, type: 3}
-  _barrelProbability: 0.3
-  _cratesPrefabs:
-  - {fileID: 6528511368108797977, guid: ab3c7e4cfd94c2847bef4e747256186c, type: 3}
-  - {fileID: 374079292440503641, guid: b282c95959fee134295b0a4eda8aad3b, type: 3}
-  _cratesProbability: 0.4
-  _bannerPrefabs: []
-  _bannerProbability: 0.5
-  _rubblePrefabs:
-  - {fileID: 1444527824407496252, guid: 5e2797aff17af2044993cf14fc8b483c, type: 3}
-  - {fileID: 262584985082976757, guid: fc4470c371bc4db46b55197a0c0d360e, type: 3}
-  _rubbleProbability: 0.5
 --- !u!1 &8925494204319033971
 GameObject:
   m_ObjectHideFlags: 0
@@ -1053,7 +1029,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6249647189021206135}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LightEmittersAnchors
   m_TagString: Untagged
   m_Icon: {fileID: 0}

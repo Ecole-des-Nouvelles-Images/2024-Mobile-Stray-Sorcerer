@@ -1,15 +1,22 @@
 using System;
+using Manager;
+using Player.AutoAttacks;
 using Player.Sort;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using Utils;
 
 namespace Player
 {
     public class Character : SingletonMonoBehaviour<Character>
     {
+        public static readonly int Hurt = Animator.StringToHash("hurt");
+        public static readonly int Death = Animator.StringToHash("death");
         [Header("References")]
         public Transform EnnemyRaycastTarget;
-
+        
+        [SerializeField] private Animator _playerAnimator;
         [SerializeField] private GameObject _speedFX;
         
         [Header("SpelldataList")] 
@@ -25,26 +32,19 @@ namespace Player
         [Header("Progression")]
         [SerializeField] private float _cooldownUpgrade = -0.25f;
         [SerializeField] private float _hpGrowthFactor = 0.25f;
+        
+        [Header("Timers")]
+        [SerializeField] private float _rebootDelay = 3;
+        [SerializeField] private float _boostDelay = 3;
 
         public static Action OnPlayerSpawn;
+        public static Action OnRebootGame;
         public static Action<int> OnHpChanged;
         public static Action<int> OnExpChanged;
         public static Action OnLevelUp;
         public static Action<bool> OnDisplayUpgrade;
         public static Action<int> OnUpgradeStat;
         public static Action<bool> OnSpeedBoost;
-
-        private void OnEnable()
-        {
-            OnUpgradeStat += UpgradeStat;
-            OnSpeedBoost += SpeedBoost;
-        }
-
-        private void OnDisable()
-        {
-            OnUpgradeStat -= UpgradeStat;
-            OnSpeedBoost -= SpeedBoost;
-        }
 
         public int Level
         {
@@ -54,7 +54,6 @@ namespace Player
                 OnLevelUp?.Invoke();
             }
         }
-        
         public int RequireEXP => Mathf.CeilToInt(_baseEXP * Mathf.Pow(Level, 1.5f));
         public int EXP {
             get => _exp;
@@ -84,13 +83,11 @@ namespace Player
             get => _baseSpeed;
             private set => _baseSpeed = value;
         }
-
         public float AttackCooldown
         {
             get => _attackCooldown;
             set => _attackCooldown = value;
         }
-
         public float SpellPower
         {
             get => _baseSpellDamage;
@@ -102,16 +99,35 @@ namespace Player
         public int Power { get; private set; }
         public Spell CurrentSpell { get; private set; }
         public bool IsBoosted { get; private set; }
+        
+        public bool IsDead { get; private set; }
 
         private int _level = 1;
         private int _hp;
         private int _exp;
         private bool _isBoosted;
         private bool _isDelay;
+        private bool _isDead;
+        private bool _rebootGame;
         private int _spellUnlock;
         private float _boostTime;
-        private float _boostDelay = 3;
+        private float _currentRebootTime;
 
+        private void OnEnable()
+        {
+            OnPlayerSpawn += PlayerSpawn;
+            OnUpgradeStat += UpgradeStat;
+            OnSpeedBoost += SpeedBoost;
+            OnRebootGame += RebootGame;
+        }
+
+        private void OnDisable()
+        {
+            OnPlayerSpawn -= PlayerSpawn;
+            OnUpgradeStat -= UpgradeStat;
+            OnSpeedBoost -= SpeedBoost;
+            OnRebootGame -= RebootGame;
+        }
         private void Awake()
         {
             if (Spells.Length > 0)
@@ -124,9 +140,10 @@ namespace Player
             Swiftness = 0;
             Constitution = 0;
             Power = 0;
-            
+            _currentRebootTime = _rebootDelay;
         }
-
+        
+        
         private void Update()
         {
             //timer for speed boost
@@ -141,6 +158,17 @@ namespace Player
                 Speed /= 2;
                 _speedFX.SetActive(false);
                 _isBoosted = false;
+            }
+            //timer befor reboot
+            if (IsDead && _currentRebootTime > 0 )
+            {
+                _currentRebootTime -= Time.deltaTime;
+                Debug.Log("delay death");
+            }
+
+            if (_currentRebootTime <= 0)
+            {
+                OnPlayerSpawn?.Invoke();
             }
         }
 
@@ -200,16 +228,39 @@ namespace Player
             }
             
         }
-        
+
+        private void PlayerSpawn()
+        {
+            Debug.Log("Player Spawn");
+            HP = MaxHP;
+            transform.position = new Vector3(0,0,0);
+            transform.GetComponent<PlayerController>().enabled = true;
+            transform.GetComponent<PlayerInput>().enabled = true;
+            transform.GetComponent<AttackNearestFoes>().enabled = true;
+            _currentRebootTime = _rebootDelay;
+            IsDead = false;
+        }
+        private void RebootGame()
+        {
+            SceneLoader.Instance.LaunchGame();
+        }
         public void TakeDamage(int damage) 
         {
             Debug.Log("Player: damage taken" + damage);
             HP -= damage;
             OnHpChanged?.Invoke(HP);
-
             if (_hp <= 0) {
+                Debug.Log("Player: Dead");
+                transform.GetComponent<PlayerController>().enabled = false;
+                transform.GetComponent<PlayerInput>().enabled = false;
+                transform.GetComponent<AttackNearestFoes>().enabled = false;
+                _playerAnimator.SetTrigger(Death);
+                IsDead = true;
+                _currentRebootTime = _rebootDelay;
                 //TODO: Game Over
+                return;
             }
+            _playerAnimator.SetTrigger(Hurt);
         }
 
         public void TakeHeal(int amount) 
@@ -221,6 +272,7 @@ namespace Player
         public void GainEXP(int amount)
         {
             EXP += amount;
+            Debug.Log(EXP);
             OnExpChanged?.Invoke(EXP);
         }
         

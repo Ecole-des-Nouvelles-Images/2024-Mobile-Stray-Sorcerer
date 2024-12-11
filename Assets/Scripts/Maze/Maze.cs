@@ -6,6 +6,7 @@ namespace Maze
 {
     public class Maze
     {
+        public Cell ExitCell { get; private set; }
         public Cell[,] Grid { get ; private set;}
 
         public int Scale { get; private set; }
@@ -38,6 +39,7 @@ namespace Maze
         {
             Stack<Cell> buildStack = new Stack<Cell>();
             Random generator = new Random(MazeBuilder.Instance.Seed);
+            int stackCapacity = 0;
 
             Cell origin = Grid[0, 0];
             origin.Visited = true;
@@ -58,6 +60,12 @@ namespace Maze
                     RemoveWall(current, neighbor);
                     neighbor.Visited = true;
                     buildStack.Push(neighbor);
+
+                    if (buildStack.Count > stackCapacity)
+                    {
+                        stackCapacity = buildStack.Count;
+                        ExitCell = neighbor;
+                    }
                 }
             }
         }

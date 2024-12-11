@@ -58,7 +58,7 @@ namespace AI
             for (int i = 0; i < _markerList.Length; i++)
             {
                 var monster= Instantiate(GetRandomMonster(), _markerList[i].position, _markerList[i].rotation,_markerList[i]);
-                monster.SetActive(false);
+                monster.SetActive(true);
             }
         }
 

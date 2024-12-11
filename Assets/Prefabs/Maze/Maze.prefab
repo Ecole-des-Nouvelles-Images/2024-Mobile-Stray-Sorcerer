@@ -136,8 +136,10 @@ MonoBehaviour:
     Left: 0
     Prefab: {fileID: 8894923272614878121, guid: d0c396ba84fa3264897cb18d08f4e709,
       type: 3}
-  _startCellPrefab: {fileID: 0}
-  _endCellPrefab: {fileID: 0}
+  _entryPrefab: {fileID: 4215752388076229513, guid: 5a399b676fd2e3c47a63a5ff2835ba01,
+    type: 3}
+  _exitPrefab: {fileID: 3171220579103577920, guid: 40ee0242d2eb6f840baad562e6b1603f,
+    type: 3}
   _useRandomSeed: 1
   _seedPhrase: Original_Seed_Certified
   _scale: 12
