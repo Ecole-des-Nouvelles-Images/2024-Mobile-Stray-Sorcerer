@@ -40,6 +40,7 @@ namespace Player
         public static Action OnPlayerSpawn;
         public static Action OnRebootGame;
         public static Action<int> OnHpChanged;
+        public static Action<int> OnMaxHpChanged;
         public static Action<int> OnExpChanged;
         public static Action OnLevelUp;
         public static Action<bool> OnDisplayUpgrade;
@@ -69,7 +70,11 @@ namespace Player
         }
         public int MaxHP {
             get => _baseMaxHP;
-            private set => _baseMaxHP = value;
+            private set
+            {
+                _baseMaxHP = value;
+                OnMaxHpChanged?.Invoke(_baseMaxHP);
+            }
         }
         public int HP {
             get => _hp;
@@ -193,7 +198,8 @@ namespace Player
             {
                 case 1:
                     Constitution++;
-                    MaxHP = (int)(MaxHP*(1 + _hpGrowthFactor));
+                    MaxHP = _baseMaxHP + 2 * Constitution;
+                    TakeHeal(2);
                     return;
                 case 2:
                     Swiftness++;
