@@ -4,6 +4,7 @@ using Player.AutoAttacks;
 using Player.Sort;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using Utils;
 
 namespace Player
@@ -31,8 +32,13 @@ namespace Player
         [Header("Progression")]
         [SerializeField] private float _cooldownUpgrade = -0.25f;
         [SerializeField] private float _hpGrowthFactor = 0.25f;
+        
+        [Header("Timers")]
+        [SerializeField] private float _rebootDelay = 3;
+        [SerializeField] private float _boostDelay = 3;
 
         public static Action OnPlayerSpawn;
+        public static Action OnRebootGame;
         public static Action<int> OnHpChanged;
         public static Action<int> OnExpChanged;
         public static Action OnLevelUp;
@@ -93,26 +99,34 @@ namespace Player
         public int Power { get; private set; }
         public Spell CurrentSpell { get; private set; }
         public bool IsBoosted { get; private set; }
+        
+        public bool IsDead { get; private set; }
 
         private int _level = 1;
         private int _hp;
         private int _exp;
         private bool _isBoosted;
         private bool _isDelay;
+        private bool _isDead;
+        private bool _rebootGame;
         private int _spellUnlock;
         private float _boostTime;
-        private float _boostDelay = 3;
+        private float _currentRebootTime;
 
         private void OnEnable()
         {
+            OnPlayerSpawn += PlayerSpawn;
             OnUpgradeStat += UpgradeStat;
             OnSpeedBoost += SpeedBoost;
+            OnRebootGame += RebootGame;
         }
 
         private void OnDisable()
         {
+            OnPlayerSpawn -= PlayerSpawn;
             OnUpgradeStat -= UpgradeStat;
             OnSpeedBoost -= SpeedBoost;
+            OnRebootGame -= RebootGame;
         }
         private void Awake()
         {
@@ -126,9 +140,10 @@ namespace Player
             Swiftness = 0;
             Constitution = 0;
             Power = 0;
-            
+            _currentRebootTime = _rebootDelay;
         }
-
+        
+        
         private void Update()
         {
             //timer for speed boost
@@ -143,6 +158,17 @@ namespace Player
                 Speed /= 2;
                 _speedFX.SetActive(false);
                 _isBoosted = false;
+            }
+            //timer befor reboot
+            if (IsDead && _currentRebootTime > 0 )
+            {
+                _currentRebootTime -= Time.deltaTime;
+                Debug.Log("delay death");
+            }
+
+            if (_currentRebootTime <= 0)
+            {
+                OnPlayerSpawn?.Invoke();
             }
         }
 
@@ -202,7 +228,22 @@ namespace Player
             }
             
         }
-        
+
+        private void PlayerSpawn()
+        {
+            Debug.Log("Player Spawn");
+            HP = MaxHP;
+            transform.position = new Vector3(0,0,0);
+            transform.GetComponent<PlayerController>().enabled = true;
+            transform.GetComponent<PlayerInput>().enabled = true;
+            transform.GetComponent<AttackNearestFoes>().enabled = true;
+            _currentRebootTime = _rebootDelay;
+            IsDead = false;
+        }
+        private void RebootGame()
+        {
+            SceneLoader.Instance.LaunchGame();
+        }
         public void TakeDamage(int damage) 
         {
             Debug.Log("Player: damage taken" + damage);
@@ -214,7 +255,8 @@ namespace Player
                 transform.GetComponent<PlayerInput>().enabled = false;
                 transform.GetComponent<AttackNearestFoes>().enabled = false;
                 _playerAnimator.SetTrigger(Death);
-                //Invoke("SceneLoader.Instance.LaunchGame()",3);
+                IsDead = true;
+                _currentRebootTime = _rebootDelay;
                 //TODO: Game Over
                 return;
             }
@@ -230,6 +272,7 @@ namespace Player
         public void GainEXP(int amount)
         {
             EXP += amount;
+            Debug.Log(EXP);
             OnExpChanged?.Invoke(EXP);
         }
         

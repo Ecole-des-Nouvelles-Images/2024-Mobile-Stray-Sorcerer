@@ -41,14 +41,12 @@ namespace Player.AutoAttacks
                 SearchNearestFoe();
                 if (_nearestFoe && !_casting)
                 {
-                    Debug.Log("delay up");
                     _currentDelay = _castDelay;
                     _casting = true;
                     _characterAnimator.SetTrigger(Doattack);
                 }
                 if (_nearestFoe && _casting )
                 {
-                    Debug.Log("casting");
                     DelayBeforCast();
                 }
             }

@@ -105,7 +105,7 @@ namespace Maze
             NavMeshBuildSettings navMeshBuildSettings;
 
             loadingScreen.UpdateStatus("> Building NavMesh... [Gathering sources...]");
-            NavMeshBuilder.CollectSources(transform, LayerMask.GetMask("Default"), NavMeshCollectGeometry.RenderMeshes, 0, navMeshMarkups, navMeshSources);
+            NavMeshBuilder.CollectSources(transform, LayerMask.GetMask("Wall"), NavMeshCollectGeometry.RenderMeshes, 0, navMeshMarkups, navMeshSources);
 
             yield return null;
 
