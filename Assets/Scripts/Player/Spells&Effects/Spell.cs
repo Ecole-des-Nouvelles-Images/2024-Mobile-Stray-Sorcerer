@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Player.Sort
+namespace Player.Spells_Effects
 {
     [CreateAssetMenu(fileName = "New Spell", menuName = "SO/Spell")]
     public class Spell : ScriptableObject

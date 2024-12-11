@@ -1,8 +1,8 @@
-using System;
 using System.Collections.Generic;
 using Player;
 using Unity.Mathematics;
 using UnityEngine;
+using Utils;
 using Random = UnityEngine.Random;
 
 namespace AI

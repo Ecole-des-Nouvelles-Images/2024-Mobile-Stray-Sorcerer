@@ -38,7 +38,7 @@ namespace Maze
         [Header("Props repartition")]
         [SerializeField] [Range(0,1)] private float _lightEmitterProbabilityPerSlot = 0.5f;
         [SerializeField] private int _maxLightEmittersPerCell = 4;
-        [SerializeField] private int _maxPropsPerCell = 4;
+        // [SerializeField] private int _maxPropsPerCell = 4;
 
         public GameObject[,] MazeCells { get; private set; }
         public int Scale => _scale;
