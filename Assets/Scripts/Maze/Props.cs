@@ -55,5 +55,19 @@ namespace Maze
         {
             return Enum.GetValues(e.GetType()).Cast<Enum>().Where(v => !Equals((int)(object)v, 0) && e.HasFlag(v));
         }
+
+        public void UpdateDictionary()
+        {
+            Props props = this;
+
+            props.Prefabs = new()
+            {
+                { "Barrel", (props.BarrelPrefabs, props.BarrelProbability) },
+                { "Crates", (props.CratesPrefabs, props.CratesProbability) },
+                { "Banner", (props.BannerPrefabs, props.BannerProbability) },
+                { "Rubble", (props.RubblePrefabs, props.RubbleProbability) },
+                // { "BrazierColumn", props.BrazierColumnPrefabs }
+            };
+        }
     }
 }

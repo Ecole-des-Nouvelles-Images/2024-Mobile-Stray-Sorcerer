@@ -209,6 +209,8 @@ namespace Maze
             {
                 if (!slot.data) throw new NullReferenceException($"Props generation error: no Props component found on anchor in {slot.anchor.parent.parent.name}");
 
+                slot.data.UpdateDictionary();
+
                 foreach (Enum flag in Props.GetFlags(slot.data.PropType))
                 {
                     if (!slot.data.Prefabs.ContainsKey(flag.ToString())) continue;
@@ -219,6 +221,7 @@ namespace Maze
                     {
                         GameObject propsVariantPrefab = slot.data.Prefabs[flag.ToString()].list[generator.Next(slot.data.Prefabs[flag.ToString()].list.Count)];
                         Instantiate(propsVariantPrefab, slot.anchor);
+                        break;
                     }
                 }
             }
