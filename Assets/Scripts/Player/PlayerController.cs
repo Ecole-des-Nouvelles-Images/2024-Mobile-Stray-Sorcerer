@@ -9,6 +9,7 @@ namespace Player
     public class PlayerController : MonoBehaviour
     {
         public static readonly int IsMoving = Animator.StringToHash("isMoving");
+
         [Header("Reference")]
         [SerializeField] private Animator _characterAnimator;
         

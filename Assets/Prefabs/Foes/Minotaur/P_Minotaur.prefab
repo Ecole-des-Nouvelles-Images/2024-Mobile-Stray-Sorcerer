@@ -762,7 +762,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 7091089533065285377}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 2.7
+  m_Radius: 1.6
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -818,7 +818,6 @@ MonoBehaviour:
   _speed: 5
   _acceleration: 8
   _attackSpeed: 1
-  _rangeValue: 5
   _dropPrefabs: []
   _xpPrefab: {fileID: 4142232093223311040, guid: ca6a7beae40fe2743a0a87b9e0037a84,
     type: 3}

@@ -612,6 +612,8 @@ MonoBehaviour:
   _attackCooldown: 4
   _cooldownUpgrade: -0.25
   _hpGrowthFactor: 0.25
+  _rebootDelay: 3
+  _boostDelay: 3
 --- !u!136 &3733465006450829829
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -631,7 +633,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.5
+  m_Radius: 2
   m_Height: 4.5
   m_Direction: 1
   m_Center: {x: 0, y: 3, z: 0}
@@ -6057,11 +6059,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7668410596004860252, guid: 56d035ed23a2a684a9cb9989826cf34c,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 2609e7df42b1b4c42b58b58218b672db, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

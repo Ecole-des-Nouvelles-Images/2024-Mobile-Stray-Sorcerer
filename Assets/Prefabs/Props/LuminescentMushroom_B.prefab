@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a17f5ed0c2e1bf941b22c5fe67035647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerDetectionRadius: 8
+  _playerDetectionRadius: 20
   _useAnimation: 1
   _switchDuration: 0.8
 --- !u!114 &2471112665358667466
@@ -84,7 +84,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 8
+  m_Radius: 20
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!108 &693978243240793964
 Light:
@@ -104,7 +104,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 0.7
