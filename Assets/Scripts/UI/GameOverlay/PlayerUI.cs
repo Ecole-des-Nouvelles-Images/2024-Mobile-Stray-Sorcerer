@@ -1,10 +1,9 @@
-using System;
 using Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI
+namespace UI.GameOverlay
 {
     public class PlayerUI: MonoBehaviour
     {
