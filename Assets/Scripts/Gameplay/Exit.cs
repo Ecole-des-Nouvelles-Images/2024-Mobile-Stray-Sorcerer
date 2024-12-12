@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Maze
+namespace Gameplay
 {
     public class Exit : MonoBehaviour
     {
@@ -39,7 +39,7 @@ namespace Maze
 
         private void CallScene()
         {
-            SceneManager.LoadScene("setup");
+            SceneManager.LoadScene("Setup");
             _timer = 0;
         }
     }

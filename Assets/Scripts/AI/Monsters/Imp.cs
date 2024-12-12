@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace AI
+namespace AI.Monsters
 {
     public class Imp : Monster
     {

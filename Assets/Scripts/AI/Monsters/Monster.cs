@@ -3,11 +3,10 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Utils;
 using Random = UnityEngine.Random;
 
-using Utils;
-
-namespace AI
+namespace AI.Monsters
 {
    public abstract class Monster : MonoBehaviour
    {

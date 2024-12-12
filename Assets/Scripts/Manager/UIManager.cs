@@ -25,10 +25,19 @@ namespace Manager
         [Space(10)]
         [SerializeField] private GameObject _pausePanel;
         [SerializeField] private GameObject _optionsPanel;
+        [Space(10)]
 
-        [Header("Joysticks")]
+        [Header("Sliders")]
+        [SerializeField] private Slider _musicSlider;
+        [SerializeField] private Slider _SFXSlider;
+        [SerializeField] private Slider _luminositySlider;
+
+        [Header("Buttons")]
+        [SerializeField] private Button _optionsReturnButton;
         [SerializeField] private Toggle _joystickOptionL;
         [SerializeField] private Toggle _joystickOptionR;
+
+        [Header("Joysticks")]
         [Space(5)]
         [SerializeField] private GameObject _joystickL;
         [SerializeField] private GameObject _currentSpellL;
@@ -43,6 +52,12 @@ namespace Manager
 
         private void Awake()
         {
+            Debug.Log("Hardcoded luminosity slider values");
+            _luminositySlider.maxValue = 2;
+            _luminositySlider.minValue = 0;
+            _luminositySlider.value = 0.7f;
+            UpdateLuminosity();
+
             CurrentControlSide = _defaultControlSide;
             SwitchJoystickSide();
         }
@@ -75,12 +90,14 @@ namespace Manager
         {
             if (!InOptions)
             {
+                _optionsReturnButton.interactable = true;
                 _pausePanel.transform.DOLocalMoveX(-1500f, _panelSlideDuration).SetUpdate(true).SetEase(Ease.InOutCubic);
                 _optionsPanel.transform.DOLocalMoveX(0f, _panelSlideDuration).SetUpdate(true).SetEase(Ease.InOutCubic);
                 InOptions = true;
             }
             else
             {
+                _optionsReturnButton.interactable = false;
                 _pausePanel.transform.DOLocalMoveX(0f, _panelSlideDuration).SetUpdate(true).SetEase(Ease.InOutCubic);
                 _optionsPanel.transform.DOLocalMoveX(1500f, _panelSlideDuration).SetUpdate(true).SetEase(Ease.InOutCubic);
                 InOptions = false;
@@ -111,6 +128,24 @@ namespace Manager
                 _currentSpellL.SetActive(true);
                 CurrentControlSide = ControlSide.Right;
             }
+        }
+
+        public void UpdateLuminosity()
+        {
+            float value = _luminositySlider.value;
+            RenderSettings.ambientIntensity = value;
+        }
+
+        public void UpdateMusicVolume()
+        {
+            float value = _musicSlider.value;
+            // AudioManager.Instance.UpdateMusicVolume(value);
+        }
+
+        public void UpdateSFXVolume()
+        {
+            float value = _SFXSlider.value;
+            // AudioManager.Instance.UpdateSFXVolume(value);
         }
     }
 }

@@ -1,7 +1,7 @@
 using Player;
 using UnityEngine;
 
-namespace AI
+namespace AI.Monsters
 {
     public class Minotaur : Monster
     {
