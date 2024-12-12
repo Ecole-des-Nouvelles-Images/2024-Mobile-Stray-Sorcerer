@@ -489,7 +489,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsDead: 0
   _damage: 2
-  _hpMax: 60
+  _hpMax: 25
   _hpGrowingFactor: 25
   _damageGrowingFactor: 50
   _speed: 7
@@ -505,7 +505,7 @@ MonoBehaviour:
   _originAttack: {fileID: 6990959151078017375}
   _monsterProjectile: {fileID: 4943094133309729547, guid: 3943e78938265f0409d2d2fb9e7da43a,
     type: 3}
-  _throwPower: 4
+  _throwPower: 8
 --- !u!1 &8299544820273679528
 GameObject:
   m_ObjectHideFlags: 0

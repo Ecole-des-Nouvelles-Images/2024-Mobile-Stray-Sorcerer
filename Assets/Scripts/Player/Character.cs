@@ -116,6 +116,9 @@ namespace Player
         private int _spellUnlock;
         private float _boostTime;
         private float _currentRebootTime;
+        private PlayerController _myPlayerController;
+        private PlayerInput _myPlayerInput;
+        private AttackNearestFoes _myAttackNearestFoesComponent;
 
         private void OnEnable()
         {
@@ -145,6 +148,9 @@ namespace Player
             Constitution = 0;
             Power = 0;
             _currentRebootTime = _rebootDelay;
+            _myPlayerController = transform.GetComponent<PlayerController>();
+            _myPlayerInput = transform.GetComponent<PlayerInput>();
+            _myAttackNearestFoesComponent = transform.GetComponent<AttackNearestFoes>();
         }
         
         
@@ -239,9 +245,9 @@ namespace Player
             Debug.Log("Player Spawn");
             HP = MaxHP;
             transform.position = new Vector3(0,0,0);
-            transform.GetComponent<PlayerController>().enabled = true;
-            transform.GetComponent<PlayerInput>().enabled = true;
-            transform.GetComponent<AttackNearestFoes>().enabled = true;
+            _myPlayerController.enabled = true;
+            _myPlayerInput.enabled = true;
+            _myAttackNearestFoesComponent.enabled = true;
             _currentRebootTime = _rebootDelay;
             IsDead = false;
         }
@@ -256,13 +262,12 @@ namespace Player
             OnHpChanged?.Invoke(HP);
             if (_hp <= 0) {
                 Debug.Log("Player: Dead");
-                transform.GetComponent<PlayerController>().enabled = false;
-                transform.GetComponent<PlayerInput>().enabled = false;
-                transform.GetComponent<AttackNearestFoes>().enabled = false;
+                _myPlayerController.enabled = false;
+                _myPlayerInput.enabled = false;
+                _myAttackNearestFoesComponent.enabled = false;
                 _playerAnimator.SetTrigger(Death);
                 IsDead = true;
                 _currentRebootTime = _rebootDelay;
-                //TODO: Game Over
                 return;
             }
             _playerAnimator.SetTrigger(Hurt);
