@@ -6,13 +6,15 @@ using System.Security.Cryptography;
 using System.Text;
 using UI;
 using Unity.AI.Navigation;
-using Unity.EditorCoroutines.Editor;
 using UnityEngine;
 using UnityEngine.AI;
 using Utils;
 using Random = System.Random;
+
 #if UNITY_EDITOR
+using Unity.EditorCoroutines.Editor;
 #endif
+
 
 namespace Maze
 {
@@ -36,7 +38,7 @@ namespace Maze
         [Header("Props repartition")]
         [SerializeField] [Range(0,1)] private float _lightEmitterProbabilityPerSlot = 0.5f;
         [SerializeField] private int _maxLightEmittersPerCell = 4;
-        [SerializeField] private int _maxPropsPerCell = 4;
+        // [SerializeField] private int _maxPropsPerCell = 4;
 
         public GameObject[,] MazeCells { get; private set; }
         public int Scale => _scale;
@@ -149,7 +151,7 @@ namespace Maze
             Random generator = new Random(Seed);
             Transform[] torchSlots;
             Transform[] mushroomSlots;
-            // Transform[] propsSlots;
+            Transform[] propsSlots;
 
             for (int y = 0; y < MazeCells.GetLength(1); y++)
             {
@@ -158,9 +160,10 @@ namespace Maze
                     GameObject cell = MazeCells[x, y];
                     torchSlots = GetChildrenFrom(cell.transform.Find("LightEmittersAnchors/Torches"));
                     mushroomSlots = GetChildrenFrom(cell.transform.Find("LightEmittersAnchors/LuminescentMushrooms"));
-                    // propsSlots = GetChildrenFrom(cell.transform.Find("PropsAnchors"));
+                    propsSlots = GetChildrenFrom(cell.transform.Find("PropsAnchors"));
 
                     InstantiateLights(generator, torchSlots, mushroomSlots);
+                    InstantiateProps(generator, propsSlots);
 
                     yield return null;
                 }
@@ -193,6 +196,38 @@ namespace Maze
                 }
 
                 lightSlotsCount++;
+            }
+        }
+
+        private void InstantiateProps(Random generator, Transform[] propsAnchors)
+        {
+            generator.Shuffle(propsAnchors);
+
+            List<(Transform anchor, Props data)> propsSlots = new();
+
+            foreach (Transform slot in propsAnchors) {
+                propsSlots.Add(new (slot, slot.GetComponent<Props>()));
+            }
+
+            foreach ((Transform anchor, Props data) slot in propsSlots)
+            {
+                if (!slot.data) throw new NullReferenceException($"Props generation error: no Props component found on anchor in {slot.anchor.parent.parent.name}");
+
+                slot.data.UpdateDictionary();
+
+                foreach (Enum flag in Props.GetFlags(slot.data.PropType))
+                {
+                    if (!slot.data.Prefabs.ContainsKey(flag.ToString())) continue;
+
+                    float propsProbability = slot.data.UseCustomProbabilities ? Props.GLOBAL_PROBABILITY_PER_SLOT : slot.data.Prefabs[flag.ToString()].probability;
+
+                    if (generator.NextDouble() > propsProbability)
+                    {
+                        GameObject propsVariantPrefab = slot.data.Prefabs[flag.ToString()].list[generator.Next(slot.data.Prefabs[flag.ToString()].list.Count)];
+                        Instantiate(propsVariantPrefab, slot.anchor);
+                        break;
+                    }
+                }
             }
         }
 

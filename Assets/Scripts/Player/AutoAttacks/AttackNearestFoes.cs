@@ -5,7 +5,7 @@ namespace Player.AutoAttacks
 {
     public class AttackNearestFoes : MonoBehaviour
     {
-        public static readonly int Doattack = Animator.StringToHash("doAttack");
+        public static readonly int DoAttack = Animator.StringToHash("doAttack");
         
         [Header("References")]
         [SerializeField] private EnemyDetector _enemyDetector;
@@ -18,7 +18,6 @@ namespace Player.AutoAttacks
 
         private GameObject _nearestFoe;
         private bool _attackIsReady = true;
-        private float _cooldown = 1;
         private float _currentCooldownTimer;
         private AudioSource _throwAudioSource;
         private bool _casting;
@@ -43,7 +42,7 @@ namespace Player.AutoAttacks
                 {
                     _currentDelay = _castDelay;
                     _casting = true;
-                    _characterAnimator.SetTrigger(Doattack);
+                    _characterAnimator.SetTrigger(DoAttack);
                 }
                 if (_nearestFoe && _casting )
                 {

@@ -1,5 +1,5 @@
 using AI;
-using Player.Sort;
+using Player.Spells_Effects;
 using UnityEngine;
 
 namespace Player.Projectile

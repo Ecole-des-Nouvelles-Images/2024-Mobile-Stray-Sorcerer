@@ -1,46 +1,46 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Exit : MonoBehaviour
+namespace Maze
 {
-    [SerializeField] private float _delay;
+    public class Exit : MonoBehaviour
+    {
+        [SerializeField] private float _delay;
 
-    private bool _exit;
-    private float _timer;
+        private bool _exit;
+        private float _timer;
     
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
+        private void OnTriggerEnter(Collider other)
         {
-            _exit = true;
+            if (other.CompareTag("Player"))
+            {
+                _exit = true;
+            }
         }
-    }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
+        private void OnTriggerExit(Collider other)
         {
-            _exit = false;
+            if (other.CompareTag("Player"))
+            {
+                _exit = false;
+                _timer = 0;
+            }
+        }
+
+        private void Update()
+        {
+            if(_exit && _timer < _delay)
+                _timer += Time.deltaTime;
+            if (_timer >= _delay)
+            {
+                CallScene();
+            }
+        }
+
+        private void CallScene()
+        {
+            SceneManager.LoadScene("setup");
             _timer = 0;
         }
-    }
-
-    private void Update()
-    {
-        if(_exit && _timer < _delay)
-            _timer += Time.deltaTime;
-        if (_timer >= _delay)
-        {
-            CallScene();
-        }
-    }
-
-    private void CallScene()
-    {
-        SceneManager.LoadScene("setup");
-        _timer = 0;
     }
 }
