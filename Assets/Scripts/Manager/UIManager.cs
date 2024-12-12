@@ -1,12 +1,13 @@
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 using DG.Tweening;
 
-using Player;
-using UnityEngine.Serialization;
 using Utils;
 
 namespace Manager
 {
+    [Serializable]
     public enum ControlSide
     {
         Left,
@@ -26,6 +27,9 @@ namespace Manager
         [SerializeField] private GameObject _optionsPanel;
 
         [Header("Joysticks")]
+        [SerializeField] private Toggle _joystickOptionL;
+        [SerializeField] private Toggle _joystickOptionR;
+        [Space(5)]
         [SerializeField] private GameObject _joystickL;
         [SerializeField] private GameObject _currentSpellL;
         [Space(5)]
@@ -40,17 +44,7 @@ namespace Manager
         private void Awake()
         {
             CurrentControlSide = _defaultControlSide;
-            SwitchJoystickSide(false);
-        }
-
-        private void OnEnable()
-        {
-            PlayerController.OnControlMapChanged += SwitchJoystickSide;
-        }
-
-        private void OnDisable()
-        {
-            PlayerController.OnControlMapChanged -= SwitchJoystickSide;
+            SwitchJoystickSide();
         }
 
         public void SwitchPausePanel()
@@ -93,21 +87,29 @@ namespace Manager
             }
         }
 
-        private void SwitchJoystickSide(bool state)
+        public void SwitchJoystickSide()
         {
-            if (CurrentControlSide == ControlSide.Left)
+            if (CurrentControlSide == ControlSide.Right)
             {
-                _joystickL.SetActive(state);
-                _currentSpellL.SetActive(!state);
-                _joystickR.SetActive(!state);
-                _currentSpellR.SetActive(state);
+                _joystickOptionL.interactable = false;
+                _joystickOptionR.interactable = true;
+                _joystickOptionR.isOn = false;
+                _joystickL.SetActive(true);
+                _currentSpellL.SetActive(false);
+                _joystickR.SetActive(false);
+                _currentSpellR.SetActive(true);
+                CurrentControlSide = ControlSide.Left;
             }
             else
             {
-                _joystickR.SetActive(state);
-                _currentSpellR.SetActive(!state);
-                _joystickL.SetActive(!state);
-                _currentSpellL.SetActive(state);
+                _joystickOptionR.interactable = false;
+                _joystickOptionL.interactable = true;
+                _joystickOptionL.isOn = false;
+                _joystickR.SetActive(true);
+                _currentSpellR.SetActive(false);
+                _joystickL.SetActive(false);
+                _currentSpellL.SetActive(true);
+                CurrentControlSide = ControlSide.Right;
             }
         }
     }
