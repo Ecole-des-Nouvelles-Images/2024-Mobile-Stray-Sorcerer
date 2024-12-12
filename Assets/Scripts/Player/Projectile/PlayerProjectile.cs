@@ -1,8 +1,6 @@
-using System;
 using AI;
-using Player.Sort;
+using Player.Spells_Effects;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Player.Projectile
 {
@@ -28,7 +26,7 @@ namespace Player.Projectile
             _myCollider = transform.GetComponent<Collider>();
             _mySpell = Character.Instance.CurrentSpell;
             _name = _mySpell.Name;
-            _damage = (int)(_mySpell.Damage * (1+Character.Instance.DamageMultiplier()));
+            _damage = _mySpell.Damage + (int)Character.Instance.SpellPower;
             _pierce = _mySpell.Pierce;
             _pierceValue = _mySpell.PierceValue;
             _bounce = _mySpell.Bounce;
@@ -47,7 +45,6 @@ namespace Player.Projectile
         }
 
         private void Update() {
-            //if(!_bounce && !_pierce && _myCollider.isTrigger)_myCollider.isTrigger = false;
             if (_rb.velocity != Vector3.zero)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(_rb.velocity, Vector3.up);
