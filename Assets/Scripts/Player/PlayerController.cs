@@ -8,14 +8,16 @@ namespace Player
 {
     public class PlayerController : MonoBehaviour
     {
+        public static readonly int IsMoving = Animator.StringToHash("isMoving");
+
+        [Header("Reference")]
+        [SerializeField] private Animator _characterAnimator;
+        
         [Header("Inputs")]
         [SerializeField] private PlayerInput _playerInput;
         [SerializeField] private float _accelerometerSensibility = 0.01f;
         [Tooltip("Internal modifier specific to the accelerometer")]
         [SerializeField] private float _accModifier = 1f;
-
-        [Header("Animations")]
-        [SerializeField] private Animator _animatorController;
 
         [Header("Settings")]
         [SerializeField] private float _cameraTransposerMaxOffset;
@@ -36,6 +38,16 @@ namespace Player
         {
             _rb = GetComponent<Rigidbody>();
             _cameraFramingTransposer = GameObject.Find("VCam Player").GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineFramingTransposer>();
+        }
+
+        private void Update()
+        {
+            _characterAnimator.SetBool(IsMoving, _rb.velocity != Vector3.zero);
+            if(_rb.velocity != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(_rb.velocity, Vector3.up);
+                _rb.MoveRotation(targetRotation);
+            }
         }
 
         public void SwitchController()
@@ -83,6 +95,9 @@ namespace Player
             Vector2 value = ctx.ReadValue<Vector2>();
 
             _rb.velocity = new Vector3(value.x, 0, value.y) * Character.Instance.Speed * Time.fixedDeltaTime;
+            
+            
+            
 
             if (_currentForwardAmount < 0.4f && value.y >= 0.4f)
             {

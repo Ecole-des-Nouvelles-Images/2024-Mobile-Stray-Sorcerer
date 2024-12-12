@@ -1,30 +1,26 @@
-using System;
 using System.Collections.Generic;
 using Player;
+using Unity.Mathematics;
 using UnityEngine;
+using Utils;
 using Random = UnityEngine.Random;
 
 namespace AI
 {
     public class Squad : MonoBehaviour
     {
-        
+        [Range(1, 100), SerializeField] private int _procRatio = 40;
         [SerializeField] private List<GameObject> _monsterPrefabs;
         [SerializeField] private Transform[] _markerList;
-        [SerializeField][Range(0,9)] private int _maxMonsterCount;
         [SerializeField] private Transform _raycastOrigin;
         
-        private int _monsterCount;
         private bool _isTriggered;
         private bool _isChaseTime;
         private List<GameObject> _spawnedMonsters;
 
         private void Awake()
         {
-            if (_maxMonsterCount == 0)
-                _monsterCount = Random.Range(1, _markerList.Length);
-            else
-                _monsterCount = _maxMonsterCount;
+            
         }
 
         private void Start()
@@ -38,6 +34,9 @@ namespace AI
                 PlayerDirectView();
             if (_isTriggered && AllMonstersDied())
             {
+                int dice = Random.Range(1, 100);
+                if (dice <= _procRatio)
+                    Instantiate(PrefabsContainer.Instance.SpeedBoostPrefab, transform.position, quaternion.identity);
                 Destroy(gameObject);
             }
         }
@@ -59,7 +58,7 @@ namespace AI
             for (int i = 0; i < _markerList.Length; i++)
             {
                 var monster= Instantiate(GetRandomMonster(), _markerList[i].position, _markerList[i].rotation,_markerList[i]);
-                monster.SetActive(false);
+                monster.SetActive(true);
             }
         }
 
@@ -82,16 +81,19 @@ namespace AI
         {
             RaycastHit hit;
             LayerMask layerMask = LayerMask.GetMask("Player","Wall");
+
+            if (!Character.Instance)
+                return;
+            
             if (Physics.Raycast(_raycastOrigin.position,
                     Character.Instance.EnnemyRaycastTarget.position - _raycastOrigin.position, out hit,
                     Mathf.Infinity, layerMask, QueryTriggerInteraction.Ignore))
             {
-                Debug.DrawRay(_raycastOrigin.position, 
-                    (Character.Instance.EnnemyRaycastTarget.position - _raycastOrigin.position) * hit.distance, Color.green);
+                // Debug.DrawRay(_raycastOrigin.position, 
+                //     (Character.Instance.EnnemyRaycastTarget.position - _raycastOrigin.position) * hit.distance, Color.green);
                 
                 if (hit.collider.gameObject == Character.Instance.gameObject)
                 {
-                    Debug.Log("player track begin");
                     for (int i = 0; i < _markerList.Length; i++)
                     {
                         _markerList[i].GetChild(0).gameObject.GetComponent<Monster>()

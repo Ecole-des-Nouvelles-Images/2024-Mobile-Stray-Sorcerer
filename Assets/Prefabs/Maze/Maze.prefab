@@ -45,7 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 839ee2b5220c0e843b909ea80b636cad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _navMesh: {fileID: 5463292146458895819}
   _cellRules:
   - Top: 1
     Right: 0
@@ -137,8 +136,23 @@ MonoBehaviour:
     Left: 0
     Prefab: {fileID: 8894923272614878121, guid: d0c396ba84fa3264897cb18d08f4e709,
       type: 3}
+  _entryPrefab: {fileID: 4215752388076229513, guid: 5a399b676fd2e3c47a63a5ff2835ba01,
+    type: 3}
+  _exitPrefab: {fileID: 3171220579103577920, guid: 40ee0242d2eb6f840baad562e6b1603f,
+    type: 3}
+  _useRandomSeed: 1
   _seedPhrase: Original_Seed_Certified
   _scale: 12
+  _torchPrefab: {fileID: 4515738675459609741, guid: b56026d2a18f6a140bc7f291c697b742,
+    type: 3}
+  _mushroomsPrefabs:
+  - {fileID: 6397042897882944833, guid: b4b6079aa79d53f458ec8d8792583a58, type: 3}
+  - {fileID: 2562658600912330258, guid: 6cd4e7f50dde1b245a8468a67ec1d8d1, type: 3}
+  - {fileID: 7470336578908919230, guid: 7ecfcbbcb98af254fb8dfb37472d7ca9, type: 3}
+  - {fileID: 1990157042045925942, guid: 695c9051427dfeb4ea9660df2da7743e, type: 3}
+  _lightEmitterProbabilityPerSlot: 0.5
+  _maxLightEmittersPerCell: 4
+  _maxPropsPerCell: 4
 --- !u!114 &5463292146458895819
 MonoBehaviour:
   m_ObjectHideFlags: 0
