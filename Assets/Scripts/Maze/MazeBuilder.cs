@@ -91,13 +91,32 @@ namespace Maze
                 }
             }
         }
+
         public IEnumerator DefineEntryAndExit()
         {
             Vector2Int exitCellPos = _maze.ExitCell.Position;
-            Instantiate(_entryPrefab, MazeCells[0, 0].transform.position, Quaternion.identity,MazeCells[0, 0].transform );
+            GameObject entry = MazeCells[0, 0];
+            GameObject exit = MazeCells[exitCellPos.x, exitCellPos.y];
+
+            List<GameObject> objectsToSanitize = new();
+            
+            Instantiate(_entryPrefab, MazeCells[0, 0].transform.position, Quaternion.identity, MazeCells[0, 0].transform );
             Instantiate(_exitPrefab, MazeCells[exitCellPos.x, exitCellPos.y].transform.position, Quaternion.identity,MazeCells[exitCellPos.x, exitCellPos.y].transform );
+
+            objectsToSanitize.AddRange(GetChildrenObjectsFrom(entry.transform.Find("PropsAnchors")).ToList());
+            objectsToSanitize.AddRange(GetChildrenObjectsFrom(entry.transform.Find("LightEmittersAnchors")).ToList());
+
+            objectsToSanitize.AddRange(GetChildrenObjectsFrom(exit.transform.Find("PropsAnchors")).ToList());
+            objectsToSanitize.AddRange(GetChildrenObjectsFrom(exit.transform.Find("LightEmittersAnchors")).ToList());
+
+            for (int i = 0; i < objectsToSanitize.Count; i++)
+            {
+                Destroy(objectsToSanitize[i].gameObject);
+            }
+
             yield return null;
         }
+
         public IEnumerator InitializeNavMesh(LoadingScreen loadingScreen, bool forceRebuild = false)
         {
             Bounds mazeBounds = new (new Vector3(_scale * _CELL_SIZE / 2f, 0, _scale * _CELL_SIZE / 2f), Vector3.one * ((_scale + 1) * _CELL_SIZE));
@@ -172,8 +191,16 @@ namespace Maze
 
         private void InstantiateLights(Random generator, Transform[] torchSlots, Transform[] mushroomSlots)
         {
-            Transform[] emittersSlots = torchSlots.Concat(mushroomSlots).ToArray();
+            if (torchSlots == null && mushroomSlots == null) return;
+
+            Transform[] emittersSlots = Array.Empty<Transform>();
             int lightSlotsCount = 0;
+
+            if (torchSlots != null)
+                emittersSlots = emittersSlots.Concat(torchSlots).ToArray();
+
+            if (mushroomSlots != null)
+                emittersSlots = emittersSlots.Concat(mushroomSlots).ToArray();
 
             generator.Shuffle(emittersSlots);
 
@@ -201,6 +228,8 @@ namespace Maze
 
         private void InstantiateProps(Random generator, Transform[] propsAnchors)
         {
+            if (propsAnchors == null) return;
+
             generator.Shuffle(propsAnchors);
 
             List<(Transform anchor, Props data)> propsSlots = new();
@@ -299,12 +328,28 @@ namespace Maze
         public Transform[] GetChildrenFrom(Transform obj)
         {
             if (!obj)
-                throw new Exception("Unexpected null object from method \"InstantiateLights()\" searches");
+                return null;
+
             Transform[] children = new Transform[obj.childCount];
 
             for (int i = 0; i < obj.childCount; i++)
             {
                 children[i] = obj.GetChild(i);
+            }
+
+            return children;
+        }
+
+        public GameObject[] GetChildrenObjectsFrom(Transform obj)
+        {
+            if (!obj)
+                return null;
+
+            GameObject[] children = new GameObject[obj.childCount];
+
+            for (int i = 0; i < obj.childCount; i++)
+            {
+                children[i] = obj.GetChild(i).gameObject;
             }
 
             return children;

@@ -3,11 +3,10 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Utils;
 using Random = UnityEngine.Random;
 
-using Utils;
-
-namespace AI
+namespace AI.Monsters
 {
    public abstract class Monster : MonoBehaviour
    {
@@ -27,13 +26,9 @@ namespace AI
       [SerializeField] private float _speed;
       [SerializeField] private float _acceleration;
       [SerializeField] protected float _attackSpeed = 1;
-      // [SerializeField] private int _rangeValue;
       [Header("Drop")]
       [SerializeField] private GameObject[] _dropPrefabs;
       [SerializeField] private GameObject _xpPrefab;
-      [Header("UI")]
-      [SerializeField] private Canvas _myCanvas;
-      [SerializeField] private Slider _currentHpSlider;
       [Header("References")]
       [SerializeField] private PlayerDetector _triggerAttack;
       [SerializeField] private Animator _monsterAnimator;
@@ -42,42 +37,33 @@ namespace AI
       
       protected GameObject _myTarget;
       protected GameObject _myRaycastTarget;
-      
-      private NavMeshAgent _myNavMeshAgent;
+      protected Rigidbody _rb;
+      protected NavMeshAgent _myNavMeshAgent;
       protected float _currentTimeBeforAttack;
       protected bool _isAttacking;
-      
-      // private void AssignPlayerDelegate() {
-      //    _myRaycastTarget = Character.Instance.EnnemyRaycastTarget.gameObject;
-      // }
-      
       private void OnEnable()
       {
          ClockGame.OnMonstersGrow += Grow;
-         // Character.OnPlayerSpawn += AssignPlayerDelegate;
       }
 
       private void OnDisable()
       {
          ClockGame.OnMonstersGrow -= Grow;
-         // Character.OnPlayerSpawn -= AssignPlayerDelegate;
       }
       
       private void Awake()
       {
-         // if(_myRaycastTarget == null)
-         //    _myRaycastTarget = Character.Instance.EnnemyRaycastTarget.gameObject;
          _myNavMeshAgent = transform.GetComponent<NavMeshAgent>();
          _myTarget = null;
+         _rb = GetComponent<Rigidbody>();
       }
 
       private void Start()
       {
          CurrentHp = _hpMax;
-         _currentHpSlider.value = _hpMax;
          _myNavMeshAgent.speed = _speed;
          _myNavMeshAgent.acceleration = _acceleration;
-         _currentHpSlider.maxValue = _hpMax;
+         Standby();
       }
 
       private void Update()
@@ -85,10 +71,13 @@ namespace AI
          if(!IsDead)
          {
             _monsterAnimator.SetBool(IsMoving, _myNavMeshAgent.velocity != Vector3.zero);
-            if (_myTarget != null && _triggerAttack.DetectObject == false)
+            if (_isAttacking)
             {
-               _myNavMeshAgent.SetDestination(_myTarget.transform.position);
+               PlayerTargeting();
             }
+            
+            if (_myTarget != null && _triggerAttack.DetectObject == false)
+                Chase();
 
             if (_isAttacking && _currentTimeBeforAttack <= 0 && _triggerAttack.DetectObject && Character.Instance.transform.GetComponent<PlayerInput>().enabled)
             {
@@ -105,11 +94,6 @@ namespace AI
             {
                _isAttacking = true;
             }
-
-            if (_triggerAttack.DetectObject)
-            {
-               _myNavMeshAgent.SetDestination(transform.position);
-            }
          }
       }
 
@@ -118,7 +102,6 @@ namespace AI
          Debug.Log("MONSTER: damage taken" + damage);
          _myNavMeshAgent.velocity = Vector3.zero;
          CurrentHp -= damage;
-         _currentHpSlider.value = CurrentHp;
          if (CurrentHp <= 0)
          {
             Death();
@@ -132,8 +115,7 @@ namespace AI
       private void Death()
       {
          IsDead = true;
-         _myNavMeshAgent.isStopped = true;
-         _myNavMeshAgent.SetDestination(transform.position);
+         Standby();
          _monsterAnimator.SetTrigger(DoDeath);
          gameObject.GetComponent<Collider>().enabled = false;
          if (_dropPrefabs.Length > 0)
@@ -153,13 +135,32 @@ namespace AI
       {
          gameObject.SetActive(false);
       }
-      
+
+      private void PlayerTargeting()
+      {
+         if(_myNavMeshAgent.enabled)
+            _myNavMeshAgent.enabled = false;
+         Quaternion rotation = Quaternion.LookRotation(_myTarget.transform.position - transform.position,Vector3.up);
+         _rb.MoveRotation(rotation);
+      }
       public void DefineTarget(GameObject target)
       {
          _myTarget = target;
          _myRaycastTarget = Character.Instance.EnnemyRaycastTarget.gameObject;
       }
 
+      private void Standby()
+      {
+         _myTarget = null;
+         _myNavMeshAgent.enabled = false;
+      }
+
+      private void Chase()
+      {
+         if(_myNavMeshAgent.enabled == false)
+            _myNavMeshAgent.enabled = true;
+         _myNavMeshAgent.SetDestination(_myTarget.transform.position);
+      }
       
    }
 }
