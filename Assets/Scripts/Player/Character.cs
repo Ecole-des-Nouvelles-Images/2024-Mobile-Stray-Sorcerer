@@ -66,10 +66,10 @@ namespace Player
             }
         }
         public int MaxHP {
-            get => _baseMaxHP;
+            get => _maxHp;
             private set
             {
-                _baseMaxHP = value;
+                _maxHp = value;
                 OnMaxHpChanged?.Invoke(_baseMaxHP);
             }
         }
@@ -106,6 +106,7 @@ namespace Player
 
         private int _level = 1;
         private int _hp;
+        private int _maxHp;
         private int _exp;
         private bool _isBoosted;
         private bool _isDelay;
@@ -120,7 +121,6 @@ namespace Player
 
         private void OnEnable()
         {
-            OnPlayerSpawn.Invoke();
             OnPlayerSpawn += PlayerSpawn;
             OnUpgradeStat += UpgradeStat;
             OnSpeedBoost += SpeedBoost;
@@ -139,6 +139,7 @@ namespace Player
                 CurrentSpell = Spells[0];
             }
             Level = 1;
+            MaxHP = _baseMaxHP;
             HP = MaxHP;
             EXP = 0;
             Swiftness = 0;
@@ -252,6 +253,7 @@ namespace Player
         {
             HP -= damage;
             OnHpChanged?.Invoke(HP);
+
             if (_hp <= 0) {
                 _myPlayerController.enabled = false;
                 _myPlayerInput.enabled = false;
@@ -261,6 +263,7 @@ namespace Player
                 _currentRebootTime = _rebootDelay;
                 return;
             }
+
             _playerAnimator.SetTrigger(Hurt);
         }
         public void TakeHeal(int amount) 

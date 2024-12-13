@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Player;
@@ -14,30 +16,19 @@ namespace UI.GameOverlay
 
         private List<Heart> _liveHP = new();
 
+        private Coroutine _hpUpdateCoroutine;
+
         private void OnEnable()
         {
-            Character.OnPlayerSpawn += InitializeHealth;
+
             Character.OnHpChanged += UpdateLiveHP;
-            Character.OnMaxHpChanged += IncreaseMaxHP;
-            Character.OnLevelUp += RefillHealth;
+            Character.OnMaxHpChanged += UpdateMaxHP;
         }
 
         private void OnDisable()
         {
-            Character.OnPlayerSpawn -= InitializeHealth;
             Character.OnHpChanged -= UpdateLiveHP;
-            Character.OnMaxHpChanged -= IncreaseMaxHP;
-            Character.OnLevelUp -= RefillHealth;
-        }
-
-        public void InitializeHealth()
-        {
-            int playerMaxHp = Character.Instance.MaxHP;
-
-            for (int i = 0; i < playerMaxHp; i++)
-            {
-                _liveHP.Add(Instantiate(_heartPrefab, _layout).GetComponent<Heart>());
-            }
+            Character.OnMaxHpChanged -= UpdateMaxHP;
         }
 
         private void UpdateLiveHP(int currentHpValue)
@@ -51,11 +42,17 @@ namespace UI.GameOverlay
             }
         }
 
-        private void IncreaseMaxHP(int addedValue)
+        private void UpdateMaxHP(int currentValue)
         {
-            for (int i = 0; i < addedValue; i++)
+            foreach (Transform heart in _layout.transform)
+                Destroy(heart.gameObject);
+
+            _liveHP.Clear();
+
+            for (int i = 0; i < currentValue; i++)
             {
-                _liveHP.Add(Instantiate(_heartEmptyPrefab, _layout).GetComponent<Heart>());
+                GameObject heart = Instantiate(_heartPrefab, _layout);
+                _liveHP.Add(heart.GetComponentInChildren<Heart>());
             }
         }
 
