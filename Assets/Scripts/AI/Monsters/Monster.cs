@@ -2,7 +2,6 @@ using Player;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 using Utils;
 using Random = UnityEngine.Random;
 

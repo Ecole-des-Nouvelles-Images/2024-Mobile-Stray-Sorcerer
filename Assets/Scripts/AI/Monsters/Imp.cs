@@ -1,5 +1,3 @@
-using Player;
-using Unity.Mathematics;
 using UnityEngine;
 
 namespace AI.Monsters
