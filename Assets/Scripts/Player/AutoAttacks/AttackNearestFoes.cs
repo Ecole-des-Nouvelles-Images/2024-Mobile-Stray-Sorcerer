@@ -11,6 +11,7 @@ namespace Player.AutoAttacks
         [SerializeField] private EnemyDetector _enemyDetector;
         [SerializeField] private Transform _projectileOrigin;
         [SerializeField] private Animator _characterAnimator;
+        [SerializeField] private ParticleSystem[] _castFX;
         
         [Header("Settings")]
         [SerializeField] private int _projectileVelocity = 5;
@@ -43,6 +44,7 @@ namespace Player.AutoAttacks
                     _currentDelay = _castDelay;
                     _casting = true;
                     _characterAnimator.SetTrigger(DoAttack);
+                    PlayCastFX();
                 }
                 if (_nearestFoe && _casting )
                 {
@@ -95,6 +97,14 @@ namespace Player.AutoAttacks
             _currentCooldownTimer = 0;
             Destroy(projectile, 5f);
             _casting = false;
+        }
+
+        private void PlayCastFX()
+        {
+            for (int i = 0; i < _castFX.Length; i++)
+            {
+                _castFX[i].Play();
+            }
         }
     }
 }

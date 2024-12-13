@@ -30,9 +30,6 @@ namespace AI
       [Header("Drop")]
       [SerializeField] private GameObject[] _dropPrefabs;
       [SerializeField] private GameObject _xpPrefab;
-      [Header("UI")]
-      [SerializeField] private Canvas _myCanvas;
-      [SerializeField] private Slider _currentHpSlider;
       [Header("References")]
       [SerializeField] private PlayerDetector _triggerAttack;
       [SerializeField] private Animator _monsterAnimator;
@@ -65,10 +62,8 @@ namespace AI
       private void Start()
       {
          CurrentHp = _hpMax;
-         _currentHpSlider.value = _hpMax;
          _myNavMeshAgent.speed = _speed;
          _myNavMeshAgent.acceleration = _acceleration;
-         _currentHpSlider.maxValue = _hpMax;
          Standby();
       }
 
@@ -108,7 +103,6 @@ namespace AI
          Debug.Log("MONSTER: damage taken" + damage);
          _myNavMeshAgent.velocity = Vector3.zero;
          CurrentHp -= damage;
-         _currentHpSlider.value = CurrentHp;
          if (CurrentHp <= 0)
          {
             Death();
