@@ -583,7 +583,7 @@ MonoBehaviour:
   _projectileOrigin: {fileID: 4289767335993897829}
   _characterAnimator: {fileID: 4768240579939408225}
   _projectileVelocity: 2
-  _castDelay: 1
+  _castDelay: 0.5
 --- !u!114 &655780524270168627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -605,11 +605,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fcbdda051a718c34b80fd57c584e71d1, type: 2}
   - {fileID: 11400000, guid: bca1ebf128ee2a64b9f7a6d67c48041e, type: 2}
   - {fileID: 11400000, guid: c1c88edb8305ce04e9b46a55e00c2992, type: 2}
-  _baseMaxHP: 4
+  _baseMaxHP: 10
   _baseSpeed: 500
   _baseEXP: 10
   _baseSpellDamage: 10
-  _attackCooldown: 4
+  _attackCooldown: 3
   _cooldownUpgrade: -0.25
   _hpGrowthFactor: 0.25
   _rebootDelay: 3
