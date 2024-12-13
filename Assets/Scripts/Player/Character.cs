@@ -187,8 +187,9 @@ namespace Player
                 OnDisplayUpgrade?.Invoke(false);
                 _spellUnlock++;
                 CurrentSpell = Spells[_spellUnlock];
+                UIManager.OnSpellSpriteUpdate?.Invoke();
                 if(_spellUnlock < Spells.Length-1)
-                    NextSpell = Spells[_spellUnlock+1];
+                    NextSpell = Spells[_spellUnlock + 1];
                 else
                 {
                     NextSpell = null;
