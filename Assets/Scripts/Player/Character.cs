@@ -30,14 +30,12 @@ namespace Player
 
         [Header("Progression")]
         [SerializeField] private float _cooldownUpgrade = -0.25f;
-        [SerializeField] private float _hpGrowthFactor = 0.25f;
         
         [Header("Timers")]
         [SerializeField] private float _rebootDelay = 3;
         [SerializeField] private float _boostDelay = 3;
 
         public static Action OnPlayerSpawn;
-        public static Action OnRebootGame;
         public static Action<int> OnHpChanged;
         public static Action<int> OnMaxHpChanged;
         public static Action<int> OnExpChanged;
@@ -125,7 +123,6 @@ namespace Player
             OnPlayerSpawn += PlayerSpawn;
             OnUpgradeStat += UpgradeStat;
             OnSpeedBoost += SpeedBoost;
-            OnRebootGame += RebootGame;
         }
 
         private void OnDisable()
@@ -133,7 +130,6 @@ namespace Player
             OnPlayerSpawn -= PlayerSpawn;
             OnUpgradeStat -= UpgradeStat;
             OnSpeedBoost -= SpeedBoost;
-            OnRebootGame -= RebootGame;
         }
         private void Awake()
         {
@@ -169,7 +165,7 @@ namespace Player
                 _speedFX.SetActive(false);
                 _isBoosted = false;
             }
-            //timer befor reboot
+            //timer befor respawn
             if (IsDead && _currentRebootTime > 0 )
             {
                 _currentRebootTime -= Time.deltaTime;
@@ -185,15 +181,13 @@ namespace Player
         private void LevelUp()
         {
             Level++;
-            if (Level % 5 == 0) {
-                //TODO: Trigger spell evolution
+            if (Level % 5 == 0 && _spellUnlock < Spells.Length) {
                 OnDisplayUpgrade?.Invoke(false);
                 _spellUnlock++;
                 CurrentSpell = Spells[_spellUnlock];
             }
             else
             {
-                // TODO: Trigger stats selection
                 OnDisplayUpgrade?.Invoke(true);
             }
         }
@@ -213,7 +207,7 @@ namespace Player
                     return;
                 case 3:
                     Power++;
-                    SpellPower *= Power;
+                    SpellPower += Power*SpellPower;
                     return;
             }
         }
@@ -250,18 +244,14 @@ namespace Player
             _myAttackNearestFoesComponent.enabled = true;
             _currentRebootTime = _rebootDelay;
             IsDead = false;
+            _playerAnimator.ResetTrigger(Death);
         }
-        private void RebootGame()
-        {
-            SceneLoader.Instance.LaunchGame();
-        }
+       
         public void TakeDamage(int damage) 
         {
-            Debug.Log("Player: damage taken" + damage);
             HP -= damage;
             OnHpChanged?.Invoke(HP);
             if (_hp <= 0) {
-                Debug.Log("Player: Dead");
                 _myPlayerController.enabled = false;
                 _myPlayerInput.enabled = false;
                 _myAttackNearestFoesComponent.enabled = false;
@@ -272,13 +262,11 @@ namespace Player
             }
             _playerAnimator.SetTrigger(Hurt);
         }
-
         public void TakeHeal(int amount) 
         {
             HP += amount;
             OnHpChanged?.Invoke(HP);
         }
-
         public void GainEXP(int amount)
         {
             EXP += amount;

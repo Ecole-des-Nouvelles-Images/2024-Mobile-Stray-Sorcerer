@@ -76,7 +76,7 @@ namespace AI.Monsters
                PlayerTargeting();
             }
             
-            if (_myTarget != null && _triggerAttack.DetectObject == false)
+            if (!_isAttacking && _myTarget != null && _triggerAttack.DetectObject == false)
                 Chase();
 
             if (_isAttacking && _currentTimeBeforAttack <= 0 && _triggerAttack.DetectObject && Character.Instance.transform.GetComponent<PlayerInput>().enabled)

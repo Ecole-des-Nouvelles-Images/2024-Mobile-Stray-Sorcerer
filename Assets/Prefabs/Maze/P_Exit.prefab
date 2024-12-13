@@ -71,6 +71,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _delay: 2
+  _teleporteFX: {fileID: 5439538312828046351}
 --- !u!1 &3685304076179347618
 GameObject:
   m_ObjectHideFlags: 0
@@ -5503,7 +5504,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3833558415577413816
 Transform:
   m_ObjectHideFlags: 0

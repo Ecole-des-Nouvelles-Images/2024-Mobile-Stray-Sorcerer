@@ -6,6 +6,7 @@ namespace Gameplay
     public class Exit : MonoBehaviour
     {
         [SerializeField] private float _delay;
+        [SerializeField] private GameObject _teleporteFX;
 
         private bool _exit;
         private float _timer;
@@ -15,6 +16,7 @@ namespace Gameplay
             if (other.CompareTag("Player"))
             {
                 _exit = true;
+                _teleporteFX.SetActive(true);
             }
         }
 
@@ -23,6 +25,7 @@ namespace Gameplay
             if (other.CompareTag("Player"))
             {
                 _exit = false;
+                _teleporteFX.SetActive(false);
                 _timer = 0;
             }
         }
