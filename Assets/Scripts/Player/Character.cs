@@ -101,8 +101,9 @@ namespace Player
         public int Power { get; private set; }
         public Spell CurrentSpell { get; private set; }
         public bool IsBoosted { get; private set; }
-        
         public bool IsDead { get; private set; }
+        
+        public Spell NextSpell { get; private set; }
 
         private int _level = 1;
         private int _hp;
@@ -186,6 +187,12 @@ namespace Player
                 OnDisplayUpgrade?.Invoke(false);
                 _spellUnlock++;
                 CurrentSpell = Spells[_spellUnlock];
+                if(_spellUnlock < Spells.Length-1)
+                    NextSpell = Spells[_spellUnlock+1];
+                else
+                {
+                    NextSpell = null;
+                }
             }
             else
             {

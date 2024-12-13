@@ -2,6 +2,7 @@ using System;
 using Player;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UI.GameOverlay
@@ -12,21 +13,19 @@ namespace UI.GameOverlay
         [SerializeField] private GameObject _upgradeStatPanel;
         [SerializeField] private GameObject _attackSpeedPanel;
         [SerializeField] private GameObject _powerPanel;
+        [SerializeField] private GameObject _constitutionPanel;
         [SerializeField] private GameObject _upgradeSpellPanel;
-        [SerializeField] private GameObject[] _spellDisplayPanels;
-        [SerializeField] private GameObject _hpPanel;
+        [SerializeField] private GameObject _currentSpellpanel;
+        [SerializeField] private GameObject _nextSpellpanel;
 
-        public static Action OnSpellSpriteUpdate;
         
         private void OnEnable()
         {
-            Character.OnHpChanged += UpdateHP;
             Character.OnDisplayUpgrade += UpgradeDisplay;
         }
 
         private void OnDisable()
         {
-            Character.OnHpChanged -= UpdateHP;
             Character.OnDisplayUpgrade -= UpgradeDisplay;
         }
 
@@ -35,12 +34,6 @@ namespace UI.GameOverlay
             _upgradeStatPanel.SetActive(false);
             _upgradeSpellPanel.SetActive(false);
         }
-
-        private void UpdateHP(int value)
-        {
-            // TODO: Manage heart-quarters
-        }
-        
         private void UpgradeDisplay(bool upgradingStats)
         {
             if (upgradingStats)
@@ -51,20 +44,14 @@ namespace UI.GameOverlay
                 if(Character.Instance.Swiftness == 5)
                     _attackSpeedPanel.SetActive(false);
                 if(Character.Instance.Constitution == 5)
-                    _hpPanel.SetActive(false);
+                    _constitutionPanel.SetActive(false);
                 Time.timeScale = 0;
                 return;
             }
             _upgradeSpellPanel.SetActive(true);
+            _currentSpellpanel.GetComponent<Image>().sprite = Character.Instance.CurrentSpell.spellSprite;
+            _nextSpellpanel.GetComponent<Image>().sprite = Character.Instance.NextSpell.spellSprite;
             Time.timeScale = 0;
-        }
-
-        private void UpdateSpellSprite()
-        {
-            for (int i = 0; i < -_spellDisplayPanels.Length; i++)
-            {
-                _spellDisplayPanels[i].gameObject.GetComponent<Image>().sprite = Character.Instance.CurrentSpell.spellSprite;
-            }
         }
 
         public void UpgradeConst()
