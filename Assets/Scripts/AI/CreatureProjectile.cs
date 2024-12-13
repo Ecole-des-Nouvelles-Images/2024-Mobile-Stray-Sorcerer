@@ -1,3 +1,4 @@
+using System;
 using Player;
 using UnityEngine;
 
@@ -11,6 +12,15 @@ namespace AI
         private void Awake()
         {
             _rb = GetComponent<Rigidbody>();
+        }
+
+        private void Update()
+        {
+            if (_rb.velocity != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(_rb.velocity, Vector3.up);
+                _rb.MoveRotation(targetRotation);
+            }
         }
 
         private void OnTriggerEnter(Collider other)
@@ -28,8 +38,9 @@ namespace AI
 
         public void ShootToDestination(Transform destination, int damage, int power)
         {
+            Debug.Log("Target pos. : "+destination.position );
             Damage = damage;
-            _rb.AddForce(destination.position - transform.position* power, ForceMode.Impulse);
+            _rb.AddForce((destination.position - transform.position).normalized* power+Vector3.up*3, ForceMode.Impulse);
         }
     }
 }
