@@ -120,6 +120,7 @@ namespace Player
 
         private void OnEnable()
         {
+            OnPlayerSpawn.Invoke();
             OnPlayerSpawn += PlayerSpawn;
             OnUpgradeStat += UpgradeStat;
             OnSpeedBoost += SpeedBoost;
