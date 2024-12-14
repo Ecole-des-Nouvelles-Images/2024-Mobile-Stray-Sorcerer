@@ -1,4 +1,5 @@
 using Player;
+using Player.AutoAttacks;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
@@ -40,6 +41,7 @@ namespace AI.Monsters
       protected NavMeshAgent _myNavMeshAgent;
       protected float _currentTimeBeforAttack;
       protected bool _isAttacking;
+      private bool _isCastReady;
       private void OnEnable()
       {
          ClockGame.OnMonstersGrow += Grow;
@@ -55,6 +57,7 @@ namespace AI.Monsters
          _myNavMeshAgent = transform.GetComponent<NavMeshAgent>();
          _myTarget = null;
          _rb = GetComponent<Rigidbody>();
+         _isCastReady = true;
       }
 
       private void Start()
@@ -69,30 +72,38 @@ namespace AI.Monsters
       {
          if(!IsDead)
          {
-            _monsterAnimator.SetBool(IsMoving, _myNavMeshAgent.velocity != Vector3.zero);
-            if (_isAttacking)
-            {
-               PlayerTargeting();
-            }
-            
-            if (!_isAttacking && _myTarget != null && _triggerAttack.DetectObject == false)
-                Chase();
-
-            if (_isAttacking && _currentTimeBeforAttack <= 0 && _triggerAttack.DetectObject && Character.Instance.transform.GetComponent<PlayerInput>().enabled)
-            {
-               _monsterAnimator.SetTrigger(Attack);
-               DoAttack();
-            }
-
-            if (_isAttacking && _currentTimeBeforAttack > 0)
+            //---timer---
+            if (_currentTimeBeforAttack > 0 && _isCastReady == false)
             {
                _currentTimeBeforAttack -= Time.deltaTime;
+               if (_currentTimeBeforAttack < 0) _currentTimeBeforAttack = 0;
             }
 
-            if (_triggerAttack.DetectObject && _isAttacking == false)
+            if (_currentTimeBeforAttack <= 0)
+               _isCastReady = true;
+            //---------
+            
+            _monsterAnimator.SetBool(IsMoving, _myNavMeshAgent.velocity != Vector3.zero);
+            
+            if ( _myTarget && _triggerAttack.DetectObject == false && Character.Instance.transform.GetComponent<AttackNearestFoes>().enabled) 
+               Chase();
+            if (_triggerAttack.DetectObject && _isCastReady && Character.Instance.transform.GetComponent<AttackNearestFoes>().enabled)
             {
-               _isAttacking = true;
+               DoAttack();
+               _currentTimeBeforAttack = _attackSpeed;
+               _isCastReady = false;
+               _monsterAnimator.SetTrigger(Attack);
             }
+            if (_triggerAttack.DetectObject ) 
+               PlayerTargeting();
+           
+            
+            if (_isCastReady )
+            {
+               
+               Debug.Log("is attacking?"+_isAttacking);
+            }
+            
          }
       }
 

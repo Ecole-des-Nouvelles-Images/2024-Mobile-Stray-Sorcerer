@@ -1,3 +1,4 @@
+using AI.Monsters;
 using UnityEngine;
 using Utils;
 
@@ -39,14 +40,14 @@ namespace Player.AutoAttacks
             if (_attackIsReady)
             {
                 SearchNearestFoe();
-                if (_nearestFoe && !_casting)
+                if (_nearestFoe && _nearestFoe.transform.GetComponent<Monster>().IsDead==false  && !_casting)
                 {
                     _currentDelay = _castDelay;
                     _casting = true;
                     _characterAnimator.SetTrigger(DoAttack);
                     PlayCastFX();
                 }
-                if (_nearestFoe && _casting )
+                if (_nearestFoe && _casting && _nearestFoe.transform.GetComponent<Monster>().IsDead==false)
                 {
                     DelayBeforCast();
                 }

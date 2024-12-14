@@ -11,7 +11,7 @@ namespace Player
     public class Character : SingletonMonoBehaviour<Character>
     {
         public static readonly int Hurt = Animator.StringToHash("hurt");
-        public static readonly int Death = Animator.StringToHash("death");
+        public static readonly int Death = Animator.StringToHash("isDead");
         [Header("References")]
         public Transform EnnemyRaycastTarget;
         
@@ -246,6 +246,7 @@ namespace Player
         private void PlayerSpawn()
         {
             Debug.Log("Player Spawn");
+            _playerAnimator.SetBool(Death,false);
             HP = MaxHP;
             transform.position = new Vector3(0,0,0);
             _myPlayerController.enabled = true;
@@ -253,7 +254,7 @@ namespace Player
             _myAttackNearestFoesComponent.enabled = true;
             _currentRebootTime = _rebootDelay;
             IsDead = false;
-            _playerAnimator.ResetTrigger(Death);
+            
         }
        
         public void TakeDamage(int damage) 
@@ -262,9 +263,9 @@ namespace Player
             OnHpChanged?.Invoke(HP);
             if (_hp <= 0) {
                 _myPlayerController.enabled = false;
-                _myPlayerInput.enabled = false;
+                //_myPlayerInput.enabled = false;
                 _myAttackNearestFoesComponent.enabled = false;
-                _playerAnimator.SetTrigger(Death);
+                _playerAnimator.SetBool(Death,true);
                 IsDead = true;
                 _currentRebootTime = _rebootDelay;
                 return;

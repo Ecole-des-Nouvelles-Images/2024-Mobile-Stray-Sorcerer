@@ -9,12 +9,12 @@ namespace AI.Monsters
         
         private protected override void DoAttack()
         {
+            if(_myNavMeshAgent.enabled)
+                _myNavMeshAgent.enabled = false;
             if(_damageArea.DetectObject)
             {
                 Character.Instance.TakeDamage(_damage);
             }
-            _isAttacking = false;
-            _currentTimeBeforAttack = _attackSpeed;
         }
     }
 }

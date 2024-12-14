@@ -1,3 +1,4 @@
+using Player;
 using UnityEngine;
 
 namespace AI.Monsters
@@ -13,8 +14,6 @@ namespace AI.Monsters
             GameObject projectile = Instantiate(_monsterProjectile, _originAttack.transform.position, Quaternion.identity);
             projectile.GetComponent<CreatureProjectile>().ShootToDestination(_myTarget.transform, _damage, _throwPower);
             Destroy(projectile, 5f);
-            _isAttacking = false;
-            _currentTimeBeforAttack = _attackSpeed;
         }
     }
 }
