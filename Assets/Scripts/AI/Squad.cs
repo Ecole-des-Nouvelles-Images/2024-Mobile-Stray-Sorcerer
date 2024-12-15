@@ -32,7 +32,7 @@ namespace AI
 
         private void Update()
         {
-            if(!_isChaseTime)
+            if(!_isChaseTime && Character.Instance)
                 PlayerDirectView();
             if (_isTriggered && AllMonstersDied())
             {
@@ -83,17 +83,11 @@ namespace AI
         {
             RaycastHit hit;
             LayerMask layerMask = LayerMask.GetMask("Player","Wall");
-
-            if (!Character.Instance)
-                return;
             
             if (Physics.Raycast(_raycastOrigin.position,
                     Character.Instance.EnnemyRaycastTarget.position - _raycastOrigin.position, out hit,
                     Mathf.Infinity, layerMask, QueryTriggerInteraction.Ignore))
             {
-                // Debug.DrawRay(_raycastOrigin.position, 
-                //     (Character.Instance.EnnemyRaycastTarget.position - _raycastOrigin.position) * hit.distance, Color.green);
-                
                 if (hit.collider.gameObject == Character.Instance.gameObject)
                 {
                     for (int i = 0; i < _markerList.Length; i++)
