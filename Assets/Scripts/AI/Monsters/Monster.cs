@@ -36,11 +36,9 @@ namespace AI.Monsters
       public int CurrentHp { get ; private set; }
       
       protected GameObject _myTarget;
-      protected GameObject _myRaycastTarget;
       protected Rigidbody _rb;
       protected NavMeshAgent _myNavMeshAgent;
       protected float _currentTimeBeforAttack;
-      protected bool _isAttacking;
       private bool _isCastReady;
       private void OnEnable()
       {
@@ -96,20 +94,11 @@ namespace AI.Monsters
             }
             if (_triggerAttack.DetectObject ) 
                PlayerTargeting();
-           
-            
-            if (_isCastReady )
-            {
-               
-               Debug.Log("is attacking?"+_isAttacking);
-            }
-            
          }
       }
 
       public void TakeDamage(int damage)
       {
-         Debug.Log("MONSTER: damage taken" + damage);
          _myNavMeshAgent.velocity = Vector3.zero;
          CurrentHp -= damage;
          if (CurrentHp <= 0)
@@ -156,7 +145,6 @@ namespace AI.Monsters
       public void DefineTarget(GameObject target)
       {
          _myTarget = target;
-         _myRaycastTarget = Character.Instance.EnnemyRaycastTarget.gameObject;
       }
 
       private void Standby()

@@ -171,7 +171,6 @@ namespace Player
             if (IsDead && _currentRebootTime > 0 )
             {
                 _currentRebootTime -= Time.deltaTime;
-                Debug.Log("delay death");
             }
 
             if (_currentRebootTime <= 0)
@@ -245,7 +244,6 @@ namespace Player
 
         private void PlayerSpawn()
         {
-            Debug.Log("Player Spawn");
             _playerAnimator.SetBool(Death,false);
             HP = MaxHP;
             transform.position = new Vector3(0,0,0);
@@ -263,7 +261,6 @@ namespace Player
             OnHpChanged?.Invoke(HP);
             if (_hp <= 0) {
                 _myPlayerController.enabled = false;
-                //_myPlayerInput.enabled = false;
                 _myAttackNearestFoesComponent.enabled = false;
                 _playerAnimator.SetBool(Death,true);
                 IsDead = true;
@@ -280,7 +277,6 @@ namespace Player
         public void GainEXP(int amount)
         {
             EXP += amount;
-            Debug.Log(EXP);
             OnExpChanged?.Invoke(EXP);
         }
         
