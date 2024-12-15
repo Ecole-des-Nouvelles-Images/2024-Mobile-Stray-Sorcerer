@@ -31,7 +31,7 @@ namespace AI.Monsters
       [SerializeField] private GameObject _xpPrefab;
       [Header("References")]
       [SerializeField] private PlayerDetector _triggerAttack;
-      [SerializeField] private Animator _monsterAnimator;
+      [SerializeField] protected Animator _monsterAnimator;
 
       public int CurrentHp { get ; private set; }
       
@@ -39,7 +39,7 @@ namespace AI.Monsters
       protected Rigidbody _rb;
       protected NavMeshAgent _myNavMeshAgent;
       protected float _currentTimeBeforAttack;
-      private bool _isCastReady;
+      protected bool _isCastReady;
       private void OnEnable()
       {
          ClockGame.OnMonstersGrow += Grow;
@@ -88,9 +88,6 @@ namespace AI.Monsters
             if (_triggerAttack.DetectObject && _isCastReady && Character.Instance.transform.GetComponent<AttackNearestFoes>().enabled)
             {
                DoAttack();
-               _currentTimeBeforAttack = _attackSpeed;
-               _isCastReady = false;
-               _monsterAnimator.SetTrigger(Attack);
             }
             if (_triggerAttack.DetectObject ) 
                PlayerTargeting();

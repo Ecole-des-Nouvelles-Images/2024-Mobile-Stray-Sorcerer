@@ -14,6 +14,9 @@ namespace AI.Monsters
             GameObject projectile = Instantiate(_monsterProjectile, _originAttack.transform.position, Quaternion.identity);
             projectile.GetComponent<CreatureProjectile>().ShootToDestination(_myTarget.transform, _damage, _throwPower);
             Destroy(projectile, 5f);
+            _currentTimeBeforAttack = _attackSpeed;
+            _isCastReady = false;
+            _monsterAnimator.SetTrigger(Attack);
         }
     }
 }
