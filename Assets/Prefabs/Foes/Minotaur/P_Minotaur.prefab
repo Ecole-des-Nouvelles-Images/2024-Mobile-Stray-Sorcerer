@@ -52,8 +52,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3, y: 6, z: 4}
-  m_Center: {x: -0.5, y: 0, z: 2}
+  m_Size: {x: 2.5, y: 6, z: 2}
+  m_Center: {x: 0.25, y: 0, z: 2}
 --- !u!114 &5200328936474672205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,8 +151,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2, y: 6, z: 3}
-  m_Center: {x: -0.3, y: 0, z: 2}
+  m_Size: {x: 2, y: 6, z: 1.5}
+  m_Center: {x: 0, y: 0, z: 2}
 --- !u!114 &271568870487579904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,8 +321,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsDead: 0
-  _damage: 1
-  _hpMax: 60
+  _damage: 2
+  _hpMax: 40
   _hpGrowingFactor: 50
   _damageGrowingFactor: 50
   _speed: 5
@@ -331,8 +331,6 @@ MonoBehaviour:
   _dropPrefabs: []
   _xpPrefab: {fileID: 4142232093223311040, guid: ca6a7beae40fe2743a0a87b9e0037a84,
     type: 3}
-  _myCanvas: {fileID: 0}
-  _currentHpSlider: {fileID: 0}
   _triggerAttack: {fileID: 271568870487579904}
   _monsterAnimator: {fileID: 4000420296021738255}
   _damageArea: {fileID: 5200328936474672205}

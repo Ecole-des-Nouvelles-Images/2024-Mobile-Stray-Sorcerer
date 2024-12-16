@@ -1,8 +1,8 @@
 using Player;
+using Player.AutoAttacks;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 using Utils;
 using Random = UnityEngine.Random;
 
@@ -31,16 +31,15 @@ namespace AI.Monsters
       [SerializeField] private GameObject _xpPrefab;
       [Header("References")]
       [SerializeField] private PlayerDetector _triggerAttack;
-      [SerializeField] private Animator _monsterAnimator;
+      [SerializeField] protected Animator _monsterAnimator;
 
       public int CurrentHp { get ; private set; }
       
       protected GameObject _myTarget;
-      protected GameObject _myRaycastTarget;
       protected Rigidbody _rb;
       protected NavMeshAgent _myNavMeshAgent;
       protected float _currentTimeBeforAttack;
-      protected bool _isAttacking;
+      protected bool _isCastReady;
       private void OnEnable()
       {
          ClockGame.OnMonstersGrow += Grow;
@@ -56,6 +55,7 @@ namespace AI.Monsters
          _myNavMeshAgent = transform.GetComponent<NavMeshAgent>();
          _myTarget = null;
          _rb = GetComponent<Rigidbody>();
+         _isCastReady = true;
       }
 
       private void Start()
@@ -70,36 +70,32 @@ namespace AI.Monsters
       {
          if(!IsDead)
          {
-            _monsterAnimator.SetBool(IsMoving, _myNavMeshAgent.velocity != Vector3.zero);
-            if (_isAttacking)
-            {
-               PlayerTargeting();
-            }
-            
-            if (_myTarget != null && _triggerAttack.DetectObject == false)
-                Chase();
-
-            if (_isAttacking && _currentTimeBeforAttack <= 0 && _triggerAttack.DetectObject && Character.Instance.transform.GetComponent<PlayerInput>().enabled)
-            {
-               _monsterAnimator.SetTrigger(Attack);
-               DoAttack();
-            }
-
-            if (_isAttacking && _currentTimeBeforAttack > 0)
+            //---timer---
+            if (_currentTimeBeforAttack > 0 && _isCastReady == false)
             {
                _currentTimeBeforAttack -= Time.deltaTime;
+               if (_currentTimeBeforAttack < 0) _currentTimeBeforAttack = 0;
             }
 
-            if (_triggerAttack.DetectObject && _isAttacking == false)
+            if (_currentTimeBeforAttack <= 0)
+               _isCastReady = true;
+            //---------
+            
+            _monsterAnimator.SetBool(IsMoving, _myNavMeshAgent.velocity != Vector3.zero);
+            
+            if ( _myTarget && _triggerAttack.DetectObject == false && Character.Instance.transform.GetComponent<AttackNearestFoes>().enabled) 
+               Chase();
+            if (_triggerAttack.DetectObject && _isCastReady && Character.Instance.transform.GetComponent<AttackNearestFoes>().enabled)
             {
-               _isAttacking = true;
+               DoAttack();
             }
+            if (_triggerAttack.DetectObject ) 
+               PlayerTargeting();
          }
       }
 
       public void TakeDamage(int damage)
       {
-         Debug.Log("MONSTER: damage taken" + damage);
          _myNavMeshAgent.velocity = Vector3.zero;
          CurrentHp -= damage;
          if (CurrentHp <= 0)
@@ -146,7 +142,6 @@ namespace AI.Monsters
       public void DefineTarget(GameObject target)
       {
          _myTarget = target;
-         _myRaycastTarget = Character.Instance.EnnemyRaycastTarget.gameObject;
       }
 
       private void Standby()

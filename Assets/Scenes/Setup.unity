@@ -265,8 +265,8 @@ MonoBehaviour:
     _sceneAsset: {fileID: 102900000, guid: 136ee1f98ca72574fb044a86e76be8bf, type: 3}
     _sceneName: Tutorial
   _gameScene:
-    _sceneAsset: {fileID: 102900000, guid: 1f1e54ef2bdfa0842953e1ac2b59cb29, type: 3}
-    _sceneName: Game
+    _sceneAsset: {fileID: 102900000, guid: a26a7ad004756334d924ea1d540d3166, type: 3}
+    _sceneName: Prototype-camilia
 --- !u!114 &162248921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -484,74 +484,6 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
---- !u!1001 &599688608
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2416244675259113183, guid: 6ba31f0ef77df604ea19d8d31518c635,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2416244675259113183, guid: 6ba31f0ef77df604ea19d8d31518c635,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2416244675259113183, guid: 6ba31f0ef77df604ea19d8d31518c635,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2416244675259113183, guid: 6ba31f0ef77df604ea19d8d31518c635,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2416244675259113183, guid: 6ba31f0ef77df604ea19d8d31518c635,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2416244675259113183, guid: 6ba31f0ef77df604ea19d8d31518c635,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2416244675259113183, guid: 6ba31f0ef77df604ea19d8d31518c635,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2416244675259113183, guid: 6ba31f0ef77df604ea19d8d31518c635,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2416244675259113183, guid: 6ba31f0ef77df604ea19d8d31518c635,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2416244675259113183, guid: 6ba31f0ef77df604ea19d8d31518c635,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4193105517550126560, guid: 6ba31f0ef77df604ea19d8d31518c635,
-        type: 3}
-      propertyPath: m_Name
-      value: PrefabsContainer
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 6ba31f0ef77df604ea19d8d31518c635, type: 3}
 --- !u!1 &850610101
 GameObject:
   m_ObjectHideFlags: 0
@@ -1224,4 +1156,3 @@ SceneRoots:
   - {fileID: 850610105}
   - {fileID: 1365866305}
   - {fileID: 151393070}
-  - {fileID: 599688608}

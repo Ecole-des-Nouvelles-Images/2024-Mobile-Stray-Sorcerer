@@ -21,7 +21,7 @@ namespace Lighting
 
         private float _initialIntensity;
 
-        private void Awake()
+        private void Start()
         {
             _light = GetComponent<Light>();
             _collider = GetComponent<SphereCollider>();
