@@ -1,3 +1,4 @@
+using AI.Monsters;
 using UnityEngine;
 using Utils;
 
@@ -12,6 +13,7 @@ namespace Player.AutoAttacks
         [SerializeField] private Transform _projectileOrigin;
         [SerializeField] private Animator _characterAnimator;
         [SerializeField] private ParticleSystem[] _castFX;
+        [SerializeField] private ParticleSystem[] _cooldownFX;
         
         [Header("Settings")]
         [SerializeField] private int _projectileVelocity = 5;
@@ -23,6 +25,7 @@ namespace Player.AutoAttacks
         private AudioSource _throwAudioSource;
         private bool _casting;
         private float _currentDelay;
+        private float _particleXZ;
 
         public float Cooldown => Character.Instance.AttackCooldown;
 
@@ -30,23 +33,38 @@ namespace Player.AutoAttacks
         {
             _throwAudioSource = _projectileOrigin.transform.GetComponent<AudioSource>();
             _currentCooldownTimer = Cooldown;
+            _particleXZ = _currentCooldownTimer / Cooldown * 100 * 6 / 100 ;
+            for (int i = 0; i < _cooldownFX.Length; i++)
+            {
+                _cooldownFX[i].transform.localScale = new Vector3(_particleXZ, 1, _particleXZ);
+            }
         }
 
         void Update()
         {
-            if (!_attackIsReady && _currentCooldownTimer < Cooldown) _currentCooldownTimer += Time.deltaTime;
+            //Debug.Log("cooldown percent :"+ _currentCooldownTimer / Cooldown);
+            
+            if (!_attackIsReady && _currentCooldownTimer < Cooldown)
+            {
+                _currentCooldownTimer += Time.deltaTime;
+                _particleXZ = _currentCooldownTimer / Cooldown * 100 * 6 / 100 ;
+                for (int i = 0; i < _cooldownFX.Length; i++)
+                {
+                    _cooldownFX[i].transform.localScale = new Vector3(_particleXZ, 1, _particleXZ);
+                }
+            }
             if (_currentCooldownTimer >= Cooldown) _attackIsReady = true;
             if (_attackIsReady)
             {
                 SearchNearestFoe();
-                if (_nearestFoe && !_casting)
+                if (_nearestFoe && _nearestFoe.transform.GetComponent<Monster>().IsDead==false  && !_casting)
                 {
                     _currentDelay = _castDelay;
                     _casting = true;
                     _characterAnimator.SetTrigger(DoAttack);
                     PlayCastFX();
                 }
-                if (_nearestFoe && _casting )
+                if (_nearestFoe && _casting && _nearestFoe.transform.GetComponent<Monster>().IsDead==false)
                 {
                     DelayBeforCast();
                 }
@@ -95,6 +113,11 @@ namespace Player.AutoAttacks
             projectile.GetComponent<Rigidbody>().AddForce((_nearestFoe.transform.position - projectile.transform.position) * _projectileVelocity, ForceMode.Impulse);
             _attackIsReady = false;
             _currentCooldownTimer = 0;
+            _particleXZ = _currentCooldownTimer / Cooldown * 100 * 6 / 100 ;
+            for (int i = 0; i < _cooldownFX.Length; i++)
+            {
+                _cooldownFX[i].transform.localScale = new Vector3(_particleXZ, 1, _particleXZ);
+            }
             Destroy(projectile, 5f);
             _casting = false;
         }

@@ -38,7 +38,8 @@ namespace AI
         public void ShootToDestination(Transform destination, int damage, int power)
         {
             Damage = damage;
-            _rb.AddForce((destination.position - transform.position).normalized* power+Vector3.up*3, ForceMode.Impulse);
+            _rb.AddForce((destination.position - transform.position).normalized * power + Vector3.up , ForceMode.Impulse);
         }
+        //(destination.position - transform.position).normalized
     }
 }

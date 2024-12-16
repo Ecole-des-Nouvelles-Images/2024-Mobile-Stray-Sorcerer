@@ -11,7 +11,7 @@ namespace Player
     public class Character : SingletonMonoBehaviour<Character>
     {
         public static readonly int Hurt = Animator.StringToHash("hurt");
-        public static readonly int Death = Animator.StringToHash("death");
+        public static readonly int Death = Animator.StringToHash("isDead");
         [Header("References")]
         public Transform EnnemyRaycastTarget;
         
@@ -101,8 +101,9 @@ namespace Player
         public int Power { get; private set; }
         public Spell CurrentSpell { get; private set; }
         public bool IsBoosted { get; private set; }
-        
         public bool IsDead { get; private set; }
+        
+        public Spell NextSpell { get; private set; }
 
         private int _level = 1;
         private int _hp;
@@ -171,7 +172,6 @@ namespace Player
             if (IsDead && _currentRebootTime > 0 )
             {
                 _currentRebootTime -= Time.deltaTime;
-                Debug.Log("delay death");
             }
 
             if (_currentRebootTime <= 0)
@@ -187,6 +187,13 @@ namespace Player
                 OnDisplayUpgrade?.Invoke(false);
                 _spellUnlock++;
                 CurrentSpell = Spells[_spellUnlock];
+                UIManager.OnSpellSpriteUpdate?.Invoke();
+                if(_spellUnlock < Spells.Length-1)
+                    NextSpell = Spells[_spellUnlock + 1];
+                else
+                {
+                    NextSpell = null;
+                }
             }
             else
             {
@@ -238,7 +245,7 @@ namespace Player
 
         private void PlayerSpawn()
         {
-            Debug.Log("Player Spawn");
+            _playerAnimator.SetBool(Death,false);
             HP = MaxHP;
             transform.position = new Vector3(0,0,0);
             _myPlayerController.enabled = true;
@@ -246,7 +253,7 @@ namespace Player
             _myAttackNearestFoesComponent.enabled = true;
             _currentRebootTime = _rebootDelay;
             IsDead = false;
-            _playerAnimator.ResetTrigger(Death);
+            
         }
        
         public void TakeDamage(int damage) 
@@ -256,9 +263,8 @@ namespace Player
 
             if (_hp <= 0) {
                 _myPlayerController.enabled = false;
-                _myPlayerInput.enabled = false;
                 _myAttackNearestFoesComponent.enabled = false;
-                _playerAnimator.SetTrigger(Death);
+                _playerAnimator.SetBool(Death,true);
                 IsDead = true;
                 _currentRebootTime = _rebootDelay;
                 return;
@@ -274,7 +280,6 @@ namespace Player
         public void GainEXP(int amount)
         {
             EXP += amount;
-            Debug.Log(EXP);
             OnExpChanged?.Invoke(EXP);
         }
         

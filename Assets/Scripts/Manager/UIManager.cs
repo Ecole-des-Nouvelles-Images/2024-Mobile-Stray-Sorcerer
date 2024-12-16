@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-
+using Player;
 using Utils;
 
 namespace Manager
@@ -19,6 +19,7 @@ namespace Manager
         [Header("Settings")]
         [SerializeField] private ControlSide _defaultControlSide = ControlSide.Left;
         [SerializeField] private float _panelSlideDuration = 1.5f;
+        [SerializeField] private GameObject[] _spellDisplayPanels;
 
         [Header("UI Panels")]
         [SerializeField] private CanvasGroup _pauseOverlay;
@@ -45,10 +46,21 @@ namespace Manager
         [SerializeField] private GameObject _joystickR;
         [SerializeField] private GameObject _currentSpellR;
 
+        public static Action OnSpellSpriteUpdate;
         public ControlSide CurrentControlSide { get; set; }
 
         public bool InPause { get; private set; } = false;
         public bool InOptions { get; private set; } = false;
+
+        private void OnEnable()
+        {
+            OnSpellSpriteUpdate += UpdateSpellSprite;
+        }
+
+        private void OnDisable()
+        {
+            OnSpellSpriteUpdate -= UpdateSpellSprite;
+        }
 
         private void Awake()
         {
@@ -59,6 +71,14 @@ namespace Manager
 
             CurrentControlSide = _defaultControlSide;
             SwitchJoystickSide();
+        }
+        
+        private void UpdateSpellSprite()
+        {
+            for (int i = 0; i < -_spellDisplayPanels.Length; i++)
+            {
+                _spellDisplayPanels[i].gameObject.GetComponent<Image>().sprite = Character.Instance.CurrentSpell.spellSprite;
+            }
         }
 
         public void SwitchPausePanel()
