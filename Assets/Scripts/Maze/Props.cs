@@ -5,29 +5,32 @@ using UnityEngine;
 
 namespace Maze
 {
-    public class Props: MonoBehaviour
+    public class Props : MonoBehaviour
     {
-        [Serializable] [Flags]
+        [Serializable]
+        [Flags]
         public enum Type
         {
             Barrel = 1,
             Crates = 2,
             Banner = 4,
-            Rubble = 8,
+
+            Rubble = 8
             // BrazierColumn = 16,
         }
 
         [SerializeField] private Type _propType;
         [SerializeField] private bool _useCustomProbabilities = false;
 
-        [SerializeField] private List<GameObject> _barrelPrefabs = new ();
-        [SerializeField] [Range(0,1)] private float _barrelProbability = 0.5f;
-        [SerializeField] private List<GameObject> _cratesPrefabs = new ();
-        [SerializeField] [Range(0,1)] private float _cratesProbability = 0.5f;
-        [SerializeField] private List<GameObject> _bannerPrefabs = new ();
-        [SerializeField] [Range(0,1)] private float _bannerProbability = 0.5f;
-        [SerializeField] private List<GameObject> _rubblePrefabs = new ();
-        [SerializeField] [Range(0,1)] private float _rubbleProbability = 0.5f;
+        [SerializeField] private List<GameObject> _barrelPrefabs = new();
+        [SerializeField] [Range(0, 1)] private float _barrelProbability = 0.5f;
+        [SerializeField] private List<GameObject> _cratesPrefabs = new();
+        [SerializeField] [Range(0, 1)] private float _cratesProbability = 0.5f;
+        [SerializeField] private List<GameObject> _bannerPrefabs = new();
+        [SerializeField] [Range(0, 1)] private float _bannerProbability = 0.5f;
+        [SerializeField] private List<GameObject> _rubblePrefabs = new();
+
+        [SerializeField] [Range(0, 1)] private float _rubbleProbability = 0.5f;
         // [SerializeField] private List<GameObject> _brazierColumnPrefabs = new ();
         // [SerializeField] [Range(0,1)] private float _brazierColumnProbability = 0.5f;
 
@@ -45,6 +48,7 @@ namespace Maze
         public List<GameObject> BannerPrefabs => _bannerPrefabs;
         public float BannerProbability => _bannerProbability;
         public List<GameObject> RubblePrefabs => _rubblePrefabs;
+
         public float RubbleProbability => _rubbleProbability;
         // public List<GameObject> BrazierColumnPrefabs => _brazierColumnPrefabs;
         // public float BrazierColumnProbability => _brazierColumnProbability;
@@ -58,12 +62,12 @@ namespace Maze
         {
             Props props = this;
 
-            props.Prefabs = new()
+            props.Prefabs = new Dictionary<string, (List<GameObject> list, float probability)>
             {
                 { "Barrel", (props.BarrelPrefabs, props.BarrelProbability) },
                 { "Crates", (props.CratesPrefabs, props.CratesProbability) },
                 { "Banner", (props.BannerPrefabs, props.BannerProbability) },
-                { "Rubble", (props.RubblePrefabs, props.RubbleProbability) },
+                { "Rubble", (props.RubblePrefabs, props.RubbleProbability) }
                 // { "BrazierColumn", props.BrazierColumnPrefabs }
             };
         }

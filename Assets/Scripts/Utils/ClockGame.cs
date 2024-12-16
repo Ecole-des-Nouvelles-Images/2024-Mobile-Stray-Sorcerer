@@ -6,6 +6,7 @@ namespace Utils
     public class ClockGame : SingletonMonoBehaviour<ClockGame>
     {
         [SerializeField] private int _growingTime;
+
         public float TimerGame
         {
             get => _timerGame;
@@ -13,14 +14,14 @@ namespace Utils
         }
 
         public static Action<int> OnMonstersGrow;
-        
+
         private float _timerGame;
         private bool _isGameStart;
         private int _growingLevel;
 
         private void Update()
         {
-            if(_isGameStart)
+            if (_isGameStart)
                 TimerGame += Time.deltaTime;
             if (TimerGame % _growingTime > _growingLevel)
             {
@@ -39,6 +40,7 @@ namespace Utils
             Reset();
             _isGameStart = true;
         }
+
         public void GameEnd()
         {
             _isGameStart = false;

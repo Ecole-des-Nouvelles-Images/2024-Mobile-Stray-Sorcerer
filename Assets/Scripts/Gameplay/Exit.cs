@@ -10,7 +10,7 @@ namespace Gameplay
 
         private bool _exit;
         private float _timer;
-    
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
@@ -32,12 +32,9 @@ namespace Gameplay
 
         private void Update()
         {
-            if(_exit && _timer < _delay)
+            if (_exit && _timer < _delay)
                 _timer += Time.deltaTime;
-            if (_timer >= _delay)
-            {
-                CallScene();
-            }
+            if (_timer >= _delay) CallScene();
         }
 
         private void CallScene()

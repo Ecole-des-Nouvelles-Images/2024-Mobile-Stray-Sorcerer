@@ -10639,7 +10639,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1840131421636456591
 Transform:
   m_ObjectHideFlags: 0
@@ -15724,15 +15724,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdd0aeb462e170546811f8d8eecf317f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnnemyRaycastTarget: {fileID: 8576162152952324269}
+  EnemyRaycastTarget: {fileID: 8576162152952324269}
   _playerAnimator: {fileID: 4768240579939408225}
   _speedFX: {fileID: 678684393078790095}
-  Spells:
-  - {fileID: 11400000, guid: 5588d812e91ae1949aa68f0389861438, type: 2}
-  - {fileID: 11400000, guid: eeb3d74f1918b5b4293582b33e9e3923, type: 2}
-  - {fileID: 11400000, guid: fcbdda051a718c34b80fd57c584e71d1, type: 2}
-  - {fileID: 11400000, guid: bca1ebf128ee2a64b9f7a6d67c48041e, type: 2}
-  - {fileID: 11400000, guid: c1c88edb8305ce04e9b46a55e00c2992, type: 2}
+  _spells:
+  - {fileID: 11400000, guid: 5de32e57e13e80e488b74c879629d4e7, type: 2}
   _baseMaxHP: 10
   _baseSpeed: 500
   _baseEXP: 10
@@ -15753,8 +15749,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a06109467b634c9c8fbef015cc98188b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _exp: {fileID: 0}
-  _level: {fileID: 0}
 --- !u!136 &3733465006450829829
 CapsuleCollider:
   m_ObjectHideFlags: 0

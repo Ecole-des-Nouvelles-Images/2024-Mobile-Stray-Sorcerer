@@ -7,11 +7,9 @@ namespace Lighting
     [RequireComponent(typeof(SphereCollider))]
     public class AutoSwitchLight : MonoBehaviour
     {
-        [Header("Detection")]
-        [SerializeField] private float _playerDetectionRadius = 20f;
+        [Header("Detection")] [SerializeField] private float _playerDetectionRadius = 20f;
 
-        [Header("Animation")]
-        [SerializeField] private bool _useAnimation = true;
+        [Header("Animation")] [SerializeField] private bool _useAnimation = true;
         [SerializeField] private float _switchDuration = 1.5f;
 
         public Action OnSwitchLightOn;

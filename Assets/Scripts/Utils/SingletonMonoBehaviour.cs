@@ -17,12 +17,10 @@ namespace Utils
             }
         }
 
-        protected bool CheckInstance ()
+        protected bool CheckInstance()
         {
-            if (this == Instance) {
-                return true;
-            }
-            Destroy (this);
+            if (this == Instance) return true;
+            Destroy(this);
             return false;
         }
     }

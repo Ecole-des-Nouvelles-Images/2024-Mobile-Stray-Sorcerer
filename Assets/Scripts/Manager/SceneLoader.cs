@@ -12,8 +12,9 @@ namespace Manager
         [SerializeField] private LoadingScreen _loadingScreen;
         [SerializeField] private TransitionSystem _transition;
 
-        [Header("Scenes References")]
-        [SerializeField] private SceneField _titleScreen;
+        [Header("Scenes References")] [SerializeField]
+        private SceneField _titleScreen;
+
         [SerializeField] private SceneField _tutorialScene;
         [SerializeField] private SceneField _gameScene;
 
@@ -49,9 +50,7 @@ namespace Manager
                 _loadingScene = scene;
                 _loadingSceneRootObjects = _loadingScene.GetRootGameObjects();
 
-                while (!LoadingBuilder) {
-                    yield return null;
-                }
+                while (!LoadingBuilder) yield return null;
 
                 yield return StartCoroutine(LoadingBuilder.Build(_loadingScreen));
             }
@@ -78,7 +77,7 @@ namespace Manager
 
             while (asyncLoadOperation.progress < 0.9f && minimumTimer < _minimumLoadTime)
             {
-                _loadingScreen.UpdateStatus( $"> Loading {scene} scene... {asyncLoadOperation.progress * 100}%");
+                _loadingScreen.UpdateStatus($"> Loading {scene} scene... {asyncLoadOperation.progress * 100}%");
                 minimumTimer += Time.deltaTime;
 
                 yield return null;

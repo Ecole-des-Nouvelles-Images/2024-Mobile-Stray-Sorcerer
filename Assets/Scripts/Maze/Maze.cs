@@ -7,7 +7,7 @@ namespace Maze
     public class Maze
     {
         public Cell ExitCell { get; private set; }
-        public Cell[,] Grid { get ; private set;}
+        public Cell[,] Grid { get; private set; }
 
         public int Scale { get; private set; }
 
@@ -27,18 +27,14 @@ namespace Maze
             Grid = new Cell[Scale, Scale];
 
             for (int y = 0; y < Scale; y++)
-            {
-                for (int x = 0; x < Scale; x++)
-                {
-                    Grid[x, y] = new Cell(x, y);
-                }
-            }
+            for (int x = 0; x < Scale; x++)
+                Grid[x, y] = new Cell(x, y);
         }
 
         private void DepthFirstSearchPass()
         {
-            Stack<Cell> buildStack = new Stack<Cell>();
-            Random generator = new Random(MazeBuilder.Instance.Seed);
+            Stack<Cell> buildStack = new();
+            Random generator = new(MazeBuilder.Instance.Seed);
             int stackCapacity = 0;
 
             Cell origin = Grid[0, 0];

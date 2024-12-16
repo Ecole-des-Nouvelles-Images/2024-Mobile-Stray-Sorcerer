@@ -7,7 +7,7 @@ namespace Gameplay
     {
         private void OnCollisionEnter(Collision other)
         {
-            if(other.gameObject.CompareTag("Player"))other.gameObject.GetComponent<Character>().TakeDamage(10);
+            if (other.gameObject.CompareTag("Player")) other.gameObject.GetComponent<Character>().TakeDamage(10);
         }
     }
 }

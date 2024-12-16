@@ -6,27 +6,17 @@ namespace Player.Spells_Effects
     {
         private void OnTriggerEnter(Collider other)
         {
-            
-            if(other.CompareTag("Player") && !Character.Instance.IsBoosted )
-            {
-                Character.OnSpeedBoost.Invoke(true);
-            }
+            if (other.CompareTag("Player") && !Character.Instance.IsBoosted) Character.OnSpeedBoost.Invoke(true);
         }
 
         private void OnTriggerStay(Collider other)
         {
-            if(other.CompareTag("Player") && !Character.Instance.IsBoosted)
-            {
-                Character.OnSpeedBoost.Invoke(true);
-            }
+            if (other.CompareTag("Player") && !Character.Instance.IsBoosted) Character.OnSpeedBoost.Invoke(true);
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if(other.CompareTag("Player"))
-            {
-                Character.OnSpeedBoost.Invoke(false);
-            }
+            if (other.CompareTag("Player")) Character.OnSpeedBoost.Invoke(false);
         }
     }
 }

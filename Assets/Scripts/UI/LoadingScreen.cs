@@ -6,18 +6,18 @@ using UnityEngine.UI;
 
 namespace UI
 {
-    public class LoadingScreen: MonoBehaviour
+    public class LoadingScreen : MonoBehaviour
     {
-        [Header("References")]
-        [SerializeField] private GameObject _canvas;
+        [Header("References")] [SerializeField]
+        private GameObject _canvas;
+
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private Image _animatedIcon;
         [SerializeField] private TMP_Text _statusInfoBox;
         [SerializeField] private TMP_Text _tipsTextBox;
 
-        [Header("Settings")]
-        [SerializeField] private float _fadeDuration = 0.5f;
-        [SerializeField] private Vector2 _iconScaleRange = new Vector2(0, 1);
+        [Header("Settings")] [SerializeField] private float _fadeDuration = 0.5f;
+        [SerializeField] private Vector2 _iconScaleRange = new(0, 1);
         [SerializeField] private float _iconAnimationScaleDuration = 1f;
         [SerializeField] private float _iconAnimationColorDuration = 1f;
         [SerializeField] private Gradient _iconColorGradient;
@@ -48,7 +48,8 @@ namespace UI
             // Shows icon by setting base max scale
             _animatedIcon.transform.localScale = _iconScaleRange.y * Vector3.one;
 
-            if (targetAlpha == 0) {
+            if (targetAlpha == 0)
+            {
                 _animatedIcon.DOKill();
             }
             else

@@ -3,32 +3,41 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-
 using Player;
 using Player.Spells_Effects;
+using TMPro;
 using UnityEngine.Serialization;
 using Utils;
 
 namespace UI.GameOverlay
 {
-    public class UpgradeOverlayUI: MonoBehaviour
+    public class UpgradeOverlayUI : MonoBehaviour
     {
-        [Header("Stat Panels")]
-        [SerializeField] private CanvasGroup _upgradeStatPanel;
+        [Header("Stat Panels")] [SerializeField]
+        private CanvasGroup _upgradeStatPanel;
+
         [SerializeField] private GameObject _attackSpeedPanel;
         [SerializeField] private GameObject _powerPanel;
         [SerializeField] private GameObject _constitutionPanel;
 
-        [Header("Spell Evolution Panels")]
-        [SerializeField] private CanvasGroup _spellEvolutionPanel;
+        [Header("Spell Evolution Panels")] [SerializeField]
+        private CanvasGroup _spellEvolutionPanel;
+
+        [SerializeField] private TMP_Text _spellName;
         [SerializeField] private Image _currentSpell;
         [SerializeField] private Image _nextSpell;
         [SerializeField] private Button _spellConfirmation;
 
-        [Header("Stats Buttons")]
+        [Header("Stats Panels")]
         [SerializeField] private Button _upgradeConstitution;
         [SerializeField] private Button _upgradeSwiftness;
         [SerializeField] private Button _upgradePower;
+        [SerializeField] private TMP_Text _constitutionOldValue;
+        [SerializeField] private TMP_Text _constitutionNewValue;
+        [SerializeField] private TMP_Text _swiftnessOldValue;
+        [SerializeField] private TMP_Text _swiftnessNewValue;
+        [SerializeField] private TMP_Text _powerOldValue;
+        [SerializeField] private TMP_Text _powerNewValue;
 
         private WaitForUIButtons _waitPlayerChoice;
         private WaitForUIButtons _waitPlayerConfirmation;
@@ -45,7 +54,7 @@ namespace UI.GameOverlay
             _spellEvolutionPanel.blocksRaycasts = false;
             _spellEvolutionPanel.alpha = 0;
         }
-        
+
         private void OnEnable()
         {
             Character.OnDisplayUpgrade += UpgradeDisplay;
@@ -60,33 +69,33 @@ namespace UI.GameOverlay
 
         private void UpgradeDisplay()
         {
-            StartCoroutine(WaitForPlayerUpgradeChoice(() =>
-            {
-                // Time.timeScale = 1;
-                // DOTween.To(()=> Time.timeScale, x=> Time.timeScale = x, 0, 2f).SetUpdate(true);
-            }));
+            StartCoroutine(WaitForPlayerUpgradeChoice());
         }
 
         private void SpellUpgradeDisplay(Spell oldSpell, Spell newSpell)
         {
-            StartCoroutine(WaitForPlayerSpellConfirmation(oldSpell, newSpell, () =>
-            {
-                // Time.timeScale = 1;
-                // DOTween.To(()=> Time.timeScale, x=> Time.timeScale = x, 0, 2f).SetUpdate(true);
-            }));
+            StartCoroutine(WaitForPlayerSpellConfirmation(oldSpell, newSpell));
         }
 
-        private IEnumerator WaitForPlayerUpgradeChoice(Action whenDone)
+        private IEnumerator WaitForPlayerUpgradeChoice()
         {
-            DOTween.To(()=> Time.timeScale, x=> Time.timeScale = x, 0, 2f).SetUpdate(true);
+            DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 0, 2f).SetUpdate(true);
+
+            // Update panels
+            _constitutionOldValue.text = Character.Instance.Constitution.ToString();
+            _constitutionNewValue.text = (Character.Instance.Constitution + 1).ToString();
+            _swiftnessOldValue.text = Character.Instance.Swiftness.ToString();
+            _swiftnessNewValue.text = (Character.Instance.Swiftness + 1).ToString();
+            _powerOldValue.text = Character.Instance.Power.ToString();
+            _powerNewValue.text = (Character.Instance.Power + 1).ToString();
 
             yield return new WaitForSecondsRealtime(2f);
 
-            if(Character.Instance.Power == 5)
+            if (Character.Instance.Power == 5)
                 _powerPanel.SetActive(false);
-            if(Character.Instance.Swiftness == 5)
+            if (Character.Instance.Swiftness == 5)
                 _attackSpeedPanel.SetActive(false);
-            if(Character.Instance.Constitution == 5)
+            if (Character.Instance.Constitution == 5)
                 _constitutionPanel.SetActive(false);
 
             _upgradeStatPanel.DOFade(1, 0.5f).SetUpdate(true);
@@ -117,9 +126,9 @@ namespace UI.GameOverlay
             // whenDone.Invoke();
         }
 
-        private IEnumerator WaitForPlayerSpellConfirmation(Spell oldSpell, Spell newSpell, Action whenDone)
+        private IEnumerator WaitForPlayerSpellConfirmation(Spell oldSpell, Spell newSpell)
         {
-            DOTween.To(()=> Time.timeScale, x=> Time.timeScale = x, 0, 2f).SetUpdate(true);
+            DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 0, 2f).SetUpdate(true);
 
             yield return new WaitForSecondsRealtime(2.5f);
 
@@ -151,10 +160,12 @@ namespace UI.GameOverlay
         {
             Character.OnUpgradeStat?.Invoke(1);
         }
+
         public void UpgradeSwiftness()
         {
             Character.OnUpgradeStat?.Invoke(2);
         }
+
         public void UpgradePower()
         {
             Character.OnUpgradeStat?.Invoke(3);

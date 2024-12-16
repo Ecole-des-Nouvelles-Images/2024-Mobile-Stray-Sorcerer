@@ -17,7 +17,6 @@ namespace UI.GameOverlay
 
         private void OnEnable()
         {
-
             Character.OnHpChanged += UpdateLiveHP;
             Character.OnMaxHpChanged += UpdateMaxHP;
         }
@@ -31,16 +30,16 @@ namespace UI.GameOverlay
         private void UpdateLiveHP(int currentHpValue)
         {
             for (int i = 0; i < _liveHP.Count; i++)
-            {
                 if (i < currentHpValue)
                     _liveHP[i].Fill();
                 else
                     _liveHP[i].Empty();
-            }
         }
 
         private void UpdateMaxHP(int currentValue)
         {
+            Debug.Log("Upgrade Max HP");
+
             foreach (Transform heart in _layout.transform)
                 Destroy(heart.gameObject);
 
@@ -55,10 +54,7 @@ namespace UI.GameOverlay
 
         public void RefillHealth()
         {
-            for (int i = 0; i < _liveHP.Count; i++)
-            {
-                _liveHP[i].Fill();
-            }
+            for (int i = 0; i < _liveHP.Count; i++) _liveHP[i].Fill();
         }
     }
 }
