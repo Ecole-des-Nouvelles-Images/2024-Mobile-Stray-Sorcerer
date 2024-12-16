@@ -8,6 +8,7 @@ namespace Player.Spells_Effects
         public string Name;
         public AudioClip ThrowingSound;
         public GameObject ProjectilePrefab;
+        public Sprite spellSprite;
         public AudioClip ImpactSound;
         public GameObject ImpactPrefab;
         public int Damage;

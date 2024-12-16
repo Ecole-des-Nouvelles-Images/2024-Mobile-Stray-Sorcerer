@@ -52,7 +52,6 @@ namespace Manager
 
         private void Awake()
         {
-            Debug.Log("Hardcoded luminosity slider values");
             _luminositySlider.maxValue = 2;
             _luminositySlider.minValue = 0;
             _luminositySlider.value = 0.7f;

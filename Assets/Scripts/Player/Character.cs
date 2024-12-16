@@ -30,14 +30,12 @@ namespace Player
 
         [Header("Progression")]
         [SerializeField] private float _cooldownUpgrade = -0.25f;
-        [SerializeField] private float _hpGrowthFactor = 0.25f;
         
         [Header("Timers")]
         [SerializeField] private float _rebootDelay = 3;
         [SerializeField] private float _boostDelay = 3;
 
         public static Action OnPlayerSpawn;
-        public static Action OnRebootGame;
         public static Action<int> OnHpChanged;
         public static Action<int> OnMaxHpChanged;
         public static Action<int> OnExpChanged;
@@ -68,10 +66,10 @@ namespace Player
             }
         }
         public int MaxHP {
-            get => _baseMaxHP;
+            get => _maxHp;
             private set
             {
-                _baseMaxHP = value;
+                _maxHp = value;
                 OnMaxHpChanged?.Invoke(_baseMaxHP);
             }
         }
@@ -108,6 +106,7 @@ namespace Player
 
         private int _level = 1;
         private int _hp;
+        private int _maxHp;
         private int _exp;
         private bool _isBoosted;
         private bool _isDelay;
@@ -125,7 +124,6 @@ namespace Player
             OnPlayerSpawn += PlayerSpawn;
             OnUpgradeStat += UpgradeStat;
             OnSpeedBoost += SpeedBoost;
-            OnRebootGame += RebootGame;
         }
 
         private void OnDisable()
@@ -133,7 +131,6 @@ namespace Player
             OnPlayerSpawn -= PlayerSpawn;
             OnUpgradeStat -= UpgradeStat;
             OnSpeedBoost -= SpeedBoost;
-            OnRebootGame -= RebootGame;
         }
         private void Awake()
         {
@@ -142,6 +139,7 @@ namespace Player
                 CurrentSpell = Spells[0];
             }
             Level = 1;
+            MaxHP = _baseMaxHP;
             HP = MaxHP;
             EXP = 0;
             Swiftness = 0;
@@ -169,7 +167,7 @@ namespace Player
                 _speedFX.SetActive(false);
                 _isBoosted = false;
             }
-            //timer befor reboot
+            //timer befor respawn
             if (IsDead && _currentRebootTime > 0 )
             {
                 _currentRebootTime -= Time.deltaTime;
@@ -185,15 +183,13 @@ namespace Player
         private void LevelUp()
         {
             Level++;
-            if (Level % 5 == 0) {
-                //TODO: Trigger spell evolution
+            if (Level % 5 == 0 && _spellUnlock < Spells.Length) {
                 OnDisplayUpgrade?.Invoke(false);
                 _spellUnlock++;
                 CurrentSpell = Spells[_spellUnlock];
             }
             else
             {
-                // TODO: Trigger stats selection
                 OnDisplayUpgrade?.Invoke(true);
             }
         }
@@ -213,7 +209,7 @@ namespace Player
                     return;
                 case 3:
                     Power++;
-                    SpellPower *= Power;
+                    SpellPower += Power*SpellPower;
                     return;
             }
         }
@@ -250,18 +246,15 @@ namespace Player
             _myAttackNearestFoesComponent.enabled = true;
             _currentRebootTime = _rebootDelay;
             IsDead = false;
+            _playerAnimator.ResetTrigger(Death);
         }
-        private void RebootGame()
-        {
-            SceneLoader.Instance.LaunchGame();
-        }
+       
         public void TakeDamage(int damage) 
         {
-            Debug.Log("Player: damage taken" + damage);
             HP -= damage;
             OnHpChanged?.Invoke(HP);
+
             if (_hp <= 0) {
-                Debug.Log("Player: Dead");
                 _myPlayerController.enabled = false;
                 _myPlayerInput.enabled = false;
                 _myAttackNearestFoesComponent.enabled = false;
@@ -270,15 +263,14 @@ namespace Player
                 _currentRebootTime = _rebootDelay;
                 return;
             }
+
             _playerAnimator.SetTrigger(Hurt);
         }
-
         public void TakeHeal(int amount) 
         {
             HP += amount;
             OnHpChanged?.Invoke(HP);
         }
-
         public void GainEXP(int amount)
         {
             EXP += amount;

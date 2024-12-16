@@ -14,6 +14,7 @@ namespace AI
         [SerializeField] private List<GameObject> _monsterPrefabs;
         [SerializeField] private Transform[] _markerList;
         [SerializeField] private Transform _raycastOrigin;
+        [SerializeField] private GameObject _speedBoostAreaPrefab;
         
         private bool _isTriggered;
         private bool _isChaseTime;
@@ -37,7 +38,7 @@ namespace AI
             {
                 int dice = Random.Range(1, 100);
                 if (dice <= _procRatio)
-                    Instantiate(PrefabsContainer.Instance.SpeedBoostPrefab, transform.position, quaternion.identity);
+                    Instantiate(_speedBoostAreaPrefab, transform.position, quaternion.identity);
                 Destroy(gameObject);
             }
         }
