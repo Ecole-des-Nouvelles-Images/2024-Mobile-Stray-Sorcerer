@@ -40,7 +40,8 @@ namespace Player
         public static Action<int> OnMaxHpChanged;
         public static Action<int> OnExpChanged;
         public static Action OnLevelUp;
-        public static Action<bool> OnDisplayUpgrade;
+        public static Action<Spell, Spell> OnSpellUnlock;
+        public static Action OnDisplayUpgrade;
         public static Action<int> OnUpgradeStat;
         public static Action<bool> OnSpeedBoost;
 
@@ -183,23 +184,22 @@ namespace Player
         private void LevelUp()
         {
             Level++;
-            if (Level % 5 == 0 && _spellUnlock < Spells.Length) {
-                OnDisplayUpgrade?.Invoke(false);
+
+            if (Level % 5 == 0 && _spellUnlock < Spells.Length)
+            {
                 _spellUnlock++;
                 CurrentSpell = Spells[_spellUnlock];
-                UIManager.OnSpellSpriteUpdate?.Invoke();
-                if(_spellUnlock < Spells.Length-1)
-                    NextSpell = Spells[_spellUnlock + 1];
-                else
-                {
-                    NextSpell = null;
-                }
+
+                NextSpell = _spellUnlock < Spells.Length-1 ? Spells[_spellUnlock + 1] : null;
+
+                OnSpellUnlock?.Invoke(CurrentSpell, NextSpell);
             }
             else
             {
-                OnDisplayUpgrade?.Invoke(true);
+                OnDisplayUpgrade?.Invoke();
             }
         }
+
         private void UpgradeStat(int indexStat)
         {
             switch (indexStat)

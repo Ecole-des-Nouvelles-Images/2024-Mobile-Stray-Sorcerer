@@ -3,7 +3,6 @@ using AI.Monsters;
 using Player;
 using Unity.Mathematics;
 using UnityEngine;
-using Utils;
 using Random = UnityEngine.Random;
 
 namespace AI

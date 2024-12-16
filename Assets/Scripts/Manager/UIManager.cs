@@ -46,21 +46,10 @@ namespace Manager
         [SerializeField] private GameObject _joystickR;
         [SerializeField] private GameObject _currentSpellR;
 
-        public static Action OnSpellSpriteUpdate;
         public ControlSide CurrentControlSide { get; set; }
 
         public bool InPause { get; private set; } = false;
         public bool InOptions { get; private set; } = false;
-
-        private void OnEnable()
-        {
-            OnSpellSpriteUpdate += UpdateSpellSprite;
-        }
-
-        private void OnDisable()
-        {
-            OnSpellSpriteUpdate -= UpdateSpellSprite;
-        }
 
         private void Awake()
         {
@@ -71,14 +60,6 @@ namespace Manager
 
             CurrentControlSide = _defaultControlSide;
             SwitchJoystickSide();
-        }
-        
-        private void UpdateSpellSprite()
-        {
-            for (int i = 0; i < -_spellDisplayPanels.Length; i++)
-            {
-                _spellDisplayPanels[i].gameObject.GetComponent<Image>().sprite = Character.Instance.CurrentSpell.spellSprite;
-            }
         }
 
         public void SwitchPausePanel()
