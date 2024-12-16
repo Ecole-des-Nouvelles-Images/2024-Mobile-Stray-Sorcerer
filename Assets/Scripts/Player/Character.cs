@@ -1,22 +1,32 @@
 using System;
+using System.Collections;
 using Manager;
 using Player.AutoAttacks;
 using Player.Spells_Effects;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using Utils;
 
 namespace Player
 {
     public class Character : SingletonMonoBehaviour<Character>
     {
-        public static readonly int Hurt = Animator.StringToHash("hurt");
-        public static readonly int Death = Animator.StringToHash("isDead");
+        public static Action OnPlayerSpawn;
+        public static Action<int> OnHpChanged;
+        public static Action<int> OnMaxHpChanged;
+        public static Action<int> OnExpChanged;
+        public static Action OnLevelUp;
+        public static Action<bool> OnDisplayUpgrade;
+        public static Action<int> OnUpgradeStat;
+        public static Action<bool> OnSpeedBoost;
+        
         [Header("References")]
         public Transform EnnemyRaycastTarget;
         
         [SerializeField] private Animator _playerAnimator;
         [SerializeField] private GameObject _speedFX;
+        [SerializeField] private Renderer[] _playerRenderers;
         
         [Header("SpelldataList")] 
         [SerializeField] private Spell[] Spells;
@@ -34,15 +44,11 @@ namespace Player
         [Header("Timers")]
         [SerializeField] private float _rebootDelay = 3;
         [SerializeField] private float _boostDelay = 3;
-
-        public static Action OnPlayerSpawn;
-        public static Action<int> OnHpChanged;
-        public static Action<int> OnMaxHpChanged;
-        public static Action<int> OnExpChanged;
-        public static Action OnLevelUp;
-        public static Action<bool> OnDisplayUpgrade;
-        public static Action<int> OnUpgradeStat;
-        public static Action<bool> OnSpeedBoost;
+        
+        private static readonly int Hurt = Animator.StringToHash("hurt");
+        private static readonly int Death = Animator.StringToHash("isDead");
+        
+        private static readonly int State = Shader.PropertyToID("_State");
 
         public int Level
         {
@@ -102,7 +108,6 @@ namespace Player
         public Spell CurrentSpell { get; private set; }
         public bool IsBoosted { get; private set; }
         public bool IsDead { get; private set; }
-        
         public Spell NextSpell { get; private set; }
 
         private int _level = 1;
@@ -116,23 +121,11 @@ namespace Player
         private int _spellUnlock;
         private float _boostTime;
         private float _currentRebootTime;
+        private float _fading;
         private PlayerController _myPlayerController;
         private PlayerInput _myPlayerInput;
         private AttackNearestFoes _myAttackNearestFoesComponent;
 
-        private void OnEnable()
-        {
-            OnPlayerSpawn += PlayerSpawn;
-            OnUpgradeStat += UpgradeStat;
-            OnSpeedBoost += SpeedBoost;
-        }
-
-        private void OnDisable()
-        {
-            OnPlayerSpawn -= PlayerSpawn;
-            OnUpgradeStat -= UpgradeStat;
-            OnSpeedBoost -= SpeedBoost;
-        }
         private void Awake()
         {
             if (Spells.Length > 0)
@@ -152,6 +145,19 @@ namespace Player
             _myAttackNearestFoesComponent = transform.GetComponent<AttackNearestFoes>();
         }
         
+        private void OnEnable()
+        {
+            OnPlayerSpawn += PlayerSpawn;
+            OnUpgradeStat += UpgradeStat;
+            OnSpeedBoost += SpeedBoost;
+        }
+
+        private void OnDisable()
+        {
+            OnPlayerSpawn -= PlayerSpawn;
+            OnUpgradeStat -= UpgradeStat;
+            OnSpeedBoost -= SpeedBoost;
+        }
         
         private void Update()
         {
@@ -253,7 +259,11 @@ namespace Player
             _myAttackNearestFoesComponent.enabled = true;
             _currentRebootTime = _rebootDelay;
             IsDead = false;
-            
+
+            foreach (Renderer rd in _playerRenderers)
+            {
+                rd.material.SetFloat(State, 0);
+            }
         }
        
         public void TakeDamage(int damage) 
@@ -261,17 +271,46 @@ namespace Player
             HP -= damage;
             OnHpChanged?.Invoke(HP);
 
-            if (_hp <= 0) {
-                _myPlayerController.enabled = false;
-                _myAttackNearestFoesComponent.enabled = false;
-                _playerAnimator.SetBool(Death,true);
-                IsDead = true;
-                _currentRebootTime = _rebootDelay;
+            if (_hp <= 0)
+            {
+                StartCoroutine(AnimatePlayerDeath());
                 return;
             }
 
             _playerAnimator.SetTrigger(Hurt);
         }
+
+        private IEnumerator AnimatePlayerDeath()
+        {
+            Debug.Log("Inside Death Coroutine");
+            
+            float t = 0;
+            float animationDeathDuration = 2f;
+            MaterialPropertyBlock properties = new MaterialPropertyBlock();
+            
+            _playerAnimator.SetBool(Death,true);
+            _myPlayerController.enabled = false;
+            _myAttackNearestFoesComponent.enabled = false;
+            
+            while (t < 1)
+            {
+                t += Time.deltaTime / animationDeathDuration;
+                float dissolveAmount = Mathf.Lerp(0, 1, t);
+                
+                foreach (Renderer rd in _playerRenderers)
+                {
+                    // rd.material.SetFloat(State,dissolveAmount);
+                    rd.GetPropertyBlock(properties);
+                    properties.SetFloat(State, dissolveAmount);
+                    rd.SetPropertyBlock(properties);
+                    yield return null;
+                }
+            }
+            
+            IsDead = true;
+            _currentRebootTime = _rebootDelay;
+        }
+
         public void TakeHeal(int amount) 
         {
             HP += amount;
