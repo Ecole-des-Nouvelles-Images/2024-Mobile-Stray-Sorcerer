@@ -15,29 +15,30 @@ namespace Manager
 
     public class UIManager : SingletonMonoBehaviour<UIManager>
     {
-        [Header("Settings")] [SerializeField] private ControlSide _defaultControlSide = ControlSide.Left;
+        [Header("Settings")]
+        [SerializeField] private ControlSide _defaultControlSide = ControlSide.Left;
         [SerializeField] private float _panelSlideDuration = 1.5f;
         [SerializeField] private GameObject[] _spellDisplayPanels;
 
-        [Header("UI Panels")] [SerializeField] private CanvasGroup _pauseOverlay;
-        [Space(10)] [SerializeField] private GameObject _pausePanel;
+        [Header("UI Panels")]
+        [SerializeField] private CanvasGroup _pauseOverlay;
+        [SerializeField] private GameObject _pausePanel;
         [SerializeField] private GameObject _optionsPanel;
 
-        [Space(10)] [Header("Sliders")] [SerializeField]
-        private Slider _musicSlider;
-
+        [Header("Sliders")]
+        [SerializeField] private Slider _musicSlider;
         [SerializeField] private Slider _SFXSlider;
         [SerializeField] private Slider _luminositySlider;
 
-        [Header("Buttons")] [SerializeField] private Button _optionsReturnButton;
+        [Header("Buttons")]
+        [SerializeField] private Button _optionsReturnButton;
         [SerializeField] private Toggle _joystickOptionL;
         [SerializeField] private Toggle _joystickOptionR;
 
-        [Header("Joysticks")] [Space(5)] [SerializeField]
-        private GameObject _joystickL;
-
+        [Header("Joysticks")]
+        [SerializeField] private GameObject _joystickL;
+        [SerializeField] private GameObject _joystickR;
         [SerializeField] private GameObject _currentSpellL;
-        [Space(5)] [SerializeField] private GameObject _joystickR;
         [SerializeField] private GameObject _currentSpellR;
 
         public ControlSide CurrentControlSide { get; set; }
@@ -45,7 +46,7 @@ namespace Manager
         public bool InPause { get; private set; } = false;
         public bool InOptions { get; private set; } = false;
 
-        private void Awake()
+        private void Start()
         {
             _luminositySlider.maxValue = 2;
             _luminositySlider.minValue = 0;
@@ -53,7 +54,6 @@ namespace Manager
             UpdateLuminosity();
 
             CurrentControlSide = _defaultControlSide;
-            SwitchJoystickSide();
         }
 
         public void SwitchPausePanel()
@@ -104,23 +104,25 @@ namespace Manager
         {
             if (CurrentControlSide == ControlSide.Right)
             {
+                _joystickR.SetActive(false);
+                _joystickL.SetActive(true);
+
                 _joystickOptionL.interactable = false;
                 _joystickOptionR.interactable = true;
                 _joystickOptionR.isOn = false;
-                _joystickL.SetActive(true);
                 // _currentSpellL.SetActive(false);
-                _joystickR.SetActive(false);
                 // _currentSpellR.SetActive(true);
                 CurrentControlSide = ControlSide.Left;
             }
             else
             {
+                _joystickL.SetActive(false);
+                _joystickR.SetActive(true);
+
                 _joystickOptionR.interactable = false;
                 _joystickOptionL.interactable = true;
                 _joystickOptionL.isOn = false;
-                _joystickR.SetActive(true);
                 // _currentSpellR.SetActive(false);
-                _joystickL.SetActive(false);
                 // _currentSpellL.SetActive(true);
                 CurrentControlSide = ControlSide.Right;
             }

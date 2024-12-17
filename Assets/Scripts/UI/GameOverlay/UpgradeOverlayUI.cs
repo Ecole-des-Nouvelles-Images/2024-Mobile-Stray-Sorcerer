@@ -44,6 +44,7 @@ namespace UI.GameOverlay
         private void Awake()
         {
             _waitPlayerChoice = new WaitForUIButtons(_upgradeConstitution, _upgradeSwiftness, _upgradePower);
+            _waitPlayerConfirmation = new WaitForUIButtons(_spellConfirmation);
 
             _upgradeStatPanel.interactable = false;
             _upgradeStatPanel.blocksRaycasts = false;
@@ -122,7 +123,6 @@ namespace UI.GameOverlay
                 Time.timeScale = Mathf.Lerp(0, 1, t);
                 yield return null;
             }
-            // whenDone.Invoke();
         }
 
         private IEnumerator WaitForPlayerSpellConfirmation(Spell oldSpell, Spell newSpell)
@@ -133,6 +133,7 @@ namespace UI.GameOverlay
 
             _currentSpell.sprite = oldSpell.spellSprite;
             _nextSpell.sprite = newSpell.spellSprite;
+            _spellName.text = newSpell.Name;
 
             _spellEvolutionPanel.DOFade(1, 0.5f).SetUpdate(true);
             _spellEvolutionPanel.interactable = true;
@@ -152,7 +153,6 @@ namespace UI.GameOverlay
                 Time.timeScale = Mathf.Lerp(0, 1, t);
                 yield return null;
             }
-            // whenDone.Invoke();
         }
 
         public void UpgradeConst()
