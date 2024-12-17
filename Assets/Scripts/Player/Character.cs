@@ -1,10 +1,10 @@
 using System;
-using Manager;
+using System.Collections;
+using System.Collections.Generic;
 using Player.AutoAttacks;
 using Player.Spells_Effects;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 using Utils;
 
 namespace Player
@@ -13,10 +13,12 @@ namespace Player
     {
         public static readonly int Hurt = Animator.StringToHash("hurt");
         public static readonly int Death = Animator.StringToHash("isDead");
+        public static readonly int Dissolve = Shader.PropertyToID("_State");
 
         [Header("References")]
         public Transform EnemyRaycastTarget;
         [SerializeField] private Animator _playerAnimator;
+        [SerializeField] private List<Renderer> _renderers;
         [SerializeField] private GameObject _speedFX;
 
         [Header("Spell Data List")]
@@ -29,11 +31,13 @@ namespace Player
         [SerializeField] private float _baseSpellDamage;
         [SerializeField] private float _attackCooldown = 3;
 
-        [Header("Progression")] [SerializeField]
-        private float _cooldownUpgrade = -0.25f;
+        [Header("Progression")]
+        [SerializeField] private float _cooldownUpgrade = -0.25f;
 
-        [Header("Timers")] [SerializeField] private float _rebootDelay = 3;
+        [Header("Timers")]
+        [SerializeField] private float _rebootDelay = 3;
         [SerializeField] private float _boostDelay = 3;
+        [SerializeField] private float _deathAnimationDuration = 3;
 
         public static Action OnPlayerSpawn;
         public static Action<int> OnHpChanged;
@@ -131,14 +135,12 @@ namespace Player
 
         private void OnEnable()
         {
-            OnPlayerSpawn += PlayerSpawn;
             OnUpgradeStat += UpgradeStat;
             OnSpeedBoost += SpeedBoost;
         }
 
         private void OnDisable()
         {
-            OnPlayerSpawn -= PlayerSpawn;
             OnUpgradeStat -= UpgradeStat;
             OnSpeedBoost -= SpeedBoost;
         }
@@ -171,11 +173,6 @@ namespace Player
                 _speedFX.SetActive(false);
                 _isBoosted = false;
             }
-
-            //timer befor respawn
-            if (IsDead && _currentRebootTime > 0) _currentRebootTime -= Time.deltaTime;
-
-            if (_currentRebootTime <= 0) OnPlayerSpawn?.Invoke();
         }
 
         private void LevelUp()
@@ -246,6 +243,8 @@ namespace Player
             _myAttackNearestFoesComponent.enabled = true;
             _currentRebootTime = _rebootDelay;
             IsDead = false;
+
+            OnPlayerSpawn?.Invoke();
         }
 
         public void TakeDamage(int damage)
@@ -255,12 +254,7 @@ namespace Player
 
             if (_hp <= 0)
             {
-                _myPlayerController.enabled = false;
-                _myAttackNearestFoesComponent.enabled = false;
-                _playerAnimator.SetBool(Death, true);
-                IsDead = true;
-                _currentRebootTime = _rebootDelay;
-                return;
+                StartCoroutine(DeathAnimationCoroutine());
             }
 
             _playerAnimator.SetTrigger(Hurt);
@@ -276,6 +270,39 @@ namespace Player
         {
             EXP += amount;
             OnExpChanged?.Invoke(EXP);
+        }
+
+        private IEnumerator DeathAnimationCoroutine()
+        {
+            float t = 0f;
+            List<Material> materials = new();
+
+            IsDead = true;
+            _playerAnimator.SetBool(Death, true);
+            _myPlayerController.enabled = false;
+            _myAttackNearestFoesComponent.enabled = false;
+
+            while (t < 1)
+            {
+                t += Time.deltaTime / _deathAnimationDuration;
+
+                foreach (Renderer rd in _renderers)
+                {
+                    rd.GetMaterials(materials); // Copy originals
+
+                    foreach (Material material in materials) {
+                        material.SetFloat(Dissolve, Mathf.Lerp(0, 1, t));
+                    }
+
+                    materials.Clear();
+                }
+
+                yield return null;
+            }
+
+            yield return new WaitForSeconds(1.5f);
+
+            PlayerSpawn();
         }
     }
 }

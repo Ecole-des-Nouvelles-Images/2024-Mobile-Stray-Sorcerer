@@ -38,8 +38,6 @@ namespace UI.GameOverlay
 
         private void UpdateMaxHP(int currentValue)
         {
-            Debug.Log("Upgrade Max HP");
-
             foreach (Transform heart in _layout.transform)
                 Destroy(heart.gameObject);
 
