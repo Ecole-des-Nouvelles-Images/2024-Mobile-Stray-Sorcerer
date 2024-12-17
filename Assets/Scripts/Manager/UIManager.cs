@@ -108,9 +108,9 @@ namespace Manager
                 _joystickOptionR.interactable = true;
                 _joystickOptionR.isOn = false;
                 _joystickL.SetActive(true);
-                _currentSpellL.SetActive(false);
+                // _currentSpellL.SetActive(false);
                 _joystickR.SetActive(false);
-                _currentSpellR.SetActive(true);
+                // _currentSpellR.SetActive(true);
                 CurrentControlSide = ControlSide.Left;
             }
             else
@@ -119,9 +119,9 @@ namespace Manager
                 _joystickOptionL.interactable = true;
                 _joystickOptionL.isOn = false;
                 _joystickR.SetActive(true);
-                _currentSpellR.SetActive(false);
+                // _currentSpellR.SetActive(false);
                 _joystickL.SetActive(false);
-                _currentSpellL.SetActive(true);
+                // _currentSpellL.SetActive(true);
                 CurrentControlSide = ControlSide.Right;
             }
         }

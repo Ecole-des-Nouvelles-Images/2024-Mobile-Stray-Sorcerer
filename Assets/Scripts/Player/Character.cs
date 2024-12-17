@@ -35,9 +35,8 @@ namespace Player
         [SerializeField] private float _cooldownUpgrade = -0.25f;
 
         [Header("Timers")]
-        [SerializeField] private float _rebootDelay = 3;
         [SerializeField] private float _boostDelay = 3;
-        [SerializeField] private float _deathAnimationDuration = 3;
+        [SerializeField] private float _deathAnimationDuration = 5;
 
         public static Action OnPlayerSpawn;
         public static Action<int> OnHpChanged;
@@ -155,7 +154,6 @@ namespace Player
             Swiftness = 0;
             Constitution = 0;
             Power = 0;
-            _currentRebootTime = _rebootDelay;
             _myPlayerController = transform.GetComponent<PlayerController>();
             _myPlayerInput = transform.GetComponent<PlayerInput>();
             _myAttackNearestFoesComponent = transform.GetComponent<AttackNearestFoes>();
@@ -235,13 +233,24 @@ namespace Player
 
         private void PlayerSpawn()
         {
+            List<Material> materials = new();
+
             _playerAnimator.SetBool(Death, false);
-            HP = MaxHP;
             transform.position = new Vector3(0, 0, 0);
+
+            foreach (Renderer rd in _renderers)
+            {
+                rd.GetMaterials(materials); // Copy originals
+
+                foreach (Material material in materials) {
+                    material.SetFloat(Dissolve, 0);
+                }
+            }
+
+            HP = MaxHP;
             _myPlayerController.enabled = true;
             _myPlayerInput.enabled = true;
             _myAttackNearestFoesComponent.enabled = true;
-            _currentRebootTime = _rebootDelay;
             IsDead = false;
 
             OnPlayerSpawn?.Invoke();
@@ -280,6 +289,7 @@ namespace Player
             IsDead = true;
             _playerAnimator.SetBool(Death, true);
             _myPlayerController.enabled = false;
+            _myPlayerInput.enabled = false;
             _myAttackNearestFoesComponent.enabled = false;
 
             while (t < 1)
@@ -300,7 +310,7 @@ namespace Player
                 yield return null;
             }
 
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(.5f);
 
             PlayerSpawn();
         }

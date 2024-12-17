@@ -11,16 +11,14 @@ namespace UI.GameOverlay
 {
     public class UpgradeOverlayUI : MonoBehaviour
     {
-        [Header("Stat Panels")] [SerializeField]
-        private CanvasGroup _upgradeStatPanel;
-
+        [Header("Stat Panels")]
+        [SerializeField] private CanvasGroup _upgradeStatPanel;
         [SerializeField] private GameObject _attackSpeedPanel;
         [SerializeField] private GameObject _powerPanel;
         [SerializeField] private GameObject _constitutionPanel;
 
-        [Header("Spell Evolution Panels")] [SerializeField]
-        private CanvasGroup _spellEvolutionPanel;
-
+        [Header("Spell Evolution Panels")]
+        [SerializeField] private CanvasGroup _spellEvolutionPanel;
         [SerializeField] private TMP_Text _spellName;
         [SerializeField] private Image _currentSpell;
         [SerializeField] private Image _nextSpell;
@@ -36,6 +34,9 @@ namespace UI.GameOverlay
         [SerializeField] private TMP_Text _swiftnessNewValue;
         [SerializeField] private TMP_Text _powerOldValue;
         [SerializeField] private TMP_Text _powerNewValue;
+
+        [Header("Settings")]
+        [SerializeField] private float _timeWarpDuration = 1.5f;
 
         private WaitForUIButtons _waitPlayerChoice;
         private WaitForUIButtons _waitPlayerConfirmation;
@@ -77,7 +78,7 @@ namespace UI.GameOverlay
 
         private IEnumerator WaitForPlayerUpgradeChoice()
         {
-            DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 0, 2f).SetUpdate(true);
+            DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 0, _timeWarpDuration).SetUpdate(true).SetEase(Ease.InCirc);
 
             // Update panels
             _constitutionOldValue.text = Character.Instance.Constitution.ToString();
@@ -87,7 +88,7 @@ namespace UI.GameOverlay
             _powerOldValue.text = Character.Instance.Power.ToString();
             _powerNewValue.text = (Character.Instance.Power + 1).ToString();
 
-            yield return new WaitForSecondsRealtime(2f);
+            yield return new WaitForSecondsRealtime(1.7f);
 
             if (Character.Instance.Power == 5)
                 _powerPanel.SetActive(false);
@@ -117,7 +118,7 @@ namespace UI.GameOverlay
 
             while (t < 1)
             {
-                t += Time.unscaledDeltaTime / 3f;
+                t += Time.unscaledDeltaTime / _timeWarpDuration;
                 Time.timeScale = Mathf.Lerp(0, 1, t);
                 yield return null;
             }
@@ -126,9 +127,9 @@ namespace UI.GameOverlay
 
         private IEnumerator WaitForPlayerSpellConfirmation(Spell oldSpell, Spell newSpell)
         {
-            DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 0, 2f).SetUpdate(true);
+            DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 0, _timeWarpDuration).SetUpdate(true).SetEase(Ease.InCirc);
 
-            yield return new WaitForSecondsRealtime(2.5f);
+            yield return new WaitForSecondsRealtime(1.7f);
 
             _currentSpell.sprite = oldSpell.spellSprite;
             _nextSpell.sprite = newSpell.spellSprite;
@@ -147,7 +148,7 @@ namespace UI.GameOverlay
 
             while (t < 1)
             {
-                t += Time.unscaledDeltaTime / 2f;
+                t += Time.unscaledDeltaTime / _timeWarpDuration;
                 Time.timeScale = Mathf.Lerp(0, 1, t);
                 yield return null;
             }
