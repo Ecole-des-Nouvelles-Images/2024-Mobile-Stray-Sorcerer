@@ -2,19 +2,18 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 using Cinemachine;
-
 using Utils;
 
 namespace Manager
 {
-    public class GameManager: SingletonMonoBehaviour<GameManager>
+    public class GameManager : SingletonMonoBehaviour<GameManager>
     {
-        [Header("References")]
-        [SerializeField] private GameObject _interfaceOverlay;
+        [Header("References")] [SerializeField]
+        private GameObject _interfaceOverlay;
+
         [SerializeField] private GameObject _playerPrefab;
 
-        [Header("Settings")]
-        [SerializeField] private Vector3 _playerSpawnPosition;
+        [Header("Settings")] [SerializeField] private Vector3 _playerSpawnPosition;
         [SerializeField] private Vector3 _cameraOrientation;
         [SerializeField] private float _cameraFOV = 60;
         [SerializeField] private float _cameraDistance = 25;

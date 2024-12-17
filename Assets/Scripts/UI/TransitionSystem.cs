@@ -2,8 +2,7 @@ using UnityEngine;
 
 namespace UI
 {
-    public class TransitionSystem: MonoBehaviour
+    public class TransitionSystem : MonoBehaviour
     {
-
     }
 }

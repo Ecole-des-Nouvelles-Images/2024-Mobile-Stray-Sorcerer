@@ -1,15 +1,14 @@
 ﻿using DG.Tweening;
 using UnityEngine;
-
 using Random = UnityEngine.Random;
 
 namespace Lighting
 {
     [RequireComponent(typeof(Light))]
-    public class LightFlickering: MonoBehaviour
+    public class LightFlickering : MonoBehaviour
     {
-        [SerializeField] private Vector2 _flickersMultiplierRange = new Vector2(0.7f, 0.9f);
-        [SerializeField] private Vector2 _flickersDurationRange = new Vector2(0.5f, 1f);
+        [SerializeField] private Vector2 _flickersMultiplierRange = new(0.7f, 0.9f);
+        [SerializeField] private Vector2 _flickersDurationRange = new(0.5f, 1f);
 
         private Light _light;
         private AutoSwitchLight _lightSwitch;
@@ -21,7 +20,8 @@ namespace Lighting
             float multiplierX = _flickersMultiplierRange.x;
             float multiplierY = _flickersMultiplierRange.y;
 
-            if (_flickersDurationRange.x > _flickersDurationRange.y) {
+            if (_flickersDurationRange.x > _flickersDurationRange.y)
+            {
                 _flickersDurationRange.x = durationY;
                 _flickersDurationRange.y = durationX;
             }
@@ -46,7 +46,8 @@ namespace Lighting
                     break;
             }
 
-            if (_flickersMultiplierRange.x > _flickersMultiplierRange.y) {
+            if (_flickersMultiplierRange.x > _flickersMultiplierRange.y)
+            {
                 _flickersMultiplierRange.x = multiplierY;
                 _flickersMultiplierRange.y = multiplierX;
             }

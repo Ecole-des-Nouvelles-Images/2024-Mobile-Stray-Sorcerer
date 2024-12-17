@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace UI
 {
-    public class TitleTouchToPlayButton: MonoBehaviour
+    public class TitleTouchToPlayButton : MonoBehaviour
     {
         private Button _touchToPlay;
 

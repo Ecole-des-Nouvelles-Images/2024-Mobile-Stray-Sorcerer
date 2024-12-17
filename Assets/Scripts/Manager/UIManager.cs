@@ -16,51 +16,35 @@ namespace Manager
 
     public class UIManager : SingletonMonoBehaviour<UIManager>
     {
-        [Header("Settings")]
-        [SerializeField] private ControlSide _defaultControlSide = ControlSide.Left;
+        [Header("Settings")] [SerializeField] private ControlSide _defaultControlSide = ControlSide.Left;
         [SerializeField] private float _panelSlideDuration = 1.5f;
         [SerializeField] private GameObject[] _spellDisplayPanels;
 
-        [Header("UI Panels")]
-        [SerializeField] private CanvasGroup _pauseOverlay;
-        [Space(10)]
-        [SerializeField] private GameObject _pausePanel;
+        [Header("UI Panels")] [SerializeField] private CanvasGroup _pauseOverlay;
+        [Space(10)] [SerializeField] private GameObject _pausePanel;
         [SerializeField] private GameObject _optionsPanel;
-        [Space(10)]
 
-        [Header("Sliders")]
-        [SerializeField] private Slider _musicSlider;
+        [Space(10)] [Header("Sliders")] [SerializeField]
+        private Slider _musicSlider;
+
         [SerializeField] private Slider _SFXSlider;
         [SerializeField] private Slider _luminositySlider;
 
-        [Header("Buttons")]
-        [SerializeField] private Button _optionsReturnButton;
+        [Header("Buttons")] [SerializeField] private Button _optionsReturnButton;
         [SerializeField] private Toggle _joystickOptionL;
         [SerializeField] private Toggle _joystickOptionR;
 
-        [Header("Joysticks")]
-        [Space(5)]
-        [SerializeField] private GameObject _joystickL;
+        [Header("Joysticks")] [Space(5)] [SerializeField]
+        private GameObject _joystickL;
+
         [SerializeField] private GameObject _currentSpellL;
-        [Space(5)]
-        [SerializeField] private GameObject _joystickR;
+        [Space(5)] [SerializeField] private GameObject _joystickR;
         [SerializeField] private GameObject _currentSpellR;
 
-        public static Action OnSpellSpriteUpdate;
         public ControlSide CurrentControlSide { get; set; }
 
         public bool InPause { get; private set; } = false;
         public bool InOptions { get; private set; } = false;
-
-        private void OnEnable()
-        {
-            OnSpellSpriteUpdate += UpdateSpellSprite;
-        }
-
-        private void OnDisable()
-        {
-            OnSpellSpriteUpdate -= UpdateSpellSprite;
-        }
 
         private void Awake()
         {
@@ -72,18 +56,11 @@ namespace Manager
             CurrentControlSide = _defaultControlSide;
             SwitchJoystickSide();
         }
-        
-        private void UpdateSpellSprite()
-        {
-            for (int i = 0; i < -_spellDisplayPanels.Length; i++)
-            {
-                _spellDisplayPanels[i].gameObject.GetComponent<Image>().sprite = Character.Instance.CurrentSpell.spellSprite;
-            }
-        }
 
         public void SwitchPausePanel()
         {
-            if (!InPause) {
+            if (!InPause)
+            {
                 Time.timeScale = 0;
                 _pauseOverlay.gameObject.SetActive(true);
                 _pauseOverlay.DOFade(1, _panelSlideDuration).SetUpdate(true).SetEase(Ease.InOutCubic).OnComplete(() =>
@@ -93,7 +70,8 @@ namespace Manager
                 });
                 InPause = true;
             }
-            else {
+            else
+            {
                 Time.timeScale = 1;
                 _pauseOverlay.DOFade(0, _panelSlideDuration).SetUpdate(true).SetEase(Ease.InOutCubic).OnComplete(() =>
                 {

@@ -29,16 +29,14 @@ namespace AI
                 Character.Instance.TakeDamage(Damage);
                 Destroy(gameObject);
             }
-            if (other.CompareTag("Wall"))
-            {
-                Destroy(gameObject);
-            }
+
+            if (other.CompareTag("Wall")) Destroy(gameObject);
         }
 
         public void ShootToDestination(Transform destination, int damage, int power)
         {
             Damage = damage;
-            _rb.AddForce((destination.position - transform.position).normalized * power + Vector3.up , ForceMode.Impulse);
+            _rb.AddForce((destination.position - transform.position).normalized * power + Vector3.up, ForceMode.Impulse);
         }
         //(destination.position - transform.position).normalized
     }

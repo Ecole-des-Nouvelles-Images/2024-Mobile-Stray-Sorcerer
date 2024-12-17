@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Manager
 {
-    public class SceneBuilder: MonoBehaviour
+    public class SceneBuilder : MonoBehaviour
     {
         [SerializeField] private MazeBuilder _maze;
         // [SerializeField] private FoesManager _foesManager;
@@ -15,11 +15,13 @@ namespace Manager
 
         private void Awake()
         {
-            try {
+            try
+            {
                 SceneLoader loader = GameObject.FindWithTag("Loader").GetComponent<SceneLoader>();
                 loader.LoadingBuilder = this;
             }
-            catch {
+            catch
+            {
                 Debug.LogError("Caution: Avoid loading this scene directly. Use the SceneLoader instead.");
                 throw;
             }
@@ -34,11 +36,11 @@ namespace Manager
             yield return StartCoroutine(GenerateMazeEnds());
 
             yield return StartCoroutine(GenerateProps());
-            
+
             yield return StartCoroutine(BuildNavMesh());
-            
+
             yield return StartCoroutine(InstantiateFoes());
-            
+
             GameManager.Instance.StartGame();
 
             // yield return StartCoroutine(BakeLighting());
@@ -51,7 +53,7 @@ namespace Manager
             _loadingScreen.UpdateStatus("> Building maze...");
             yield return StartCoroutine(_maze.Build());
         }
-        
+
         private IEnumerator GenerateMazeEnds()
         {
             _loadingScreen.UpdateStatus("> Adding entry and exit");

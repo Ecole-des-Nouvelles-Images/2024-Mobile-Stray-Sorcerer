@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace UI.GameOverlay
 {
-    public class Heart: MonoBehaviour
+    public class Heart : MonoBehaviour
     {
         [SerializeField] private GameObject _halfHeartLeft;
         [SerializeField] private GameObject _halfHeartRight;
@@ -18,13 +18,9 @@ namespace UI.GameOverlay
         public void Damage()
         {
             if (IsFull)
-            {
                 _halfHeartLeft.SetActive(false);
-            }
             else
-            {
                 _halfHeartRight.SetActive(false);
-            }
         }
 
         public void Empty()
