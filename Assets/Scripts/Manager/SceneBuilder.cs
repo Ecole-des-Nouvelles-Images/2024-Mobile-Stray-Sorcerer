@@ -31,15 +31,15 @@ namespace Manager
         {
             _loadingScreen = loadingScreen;
 
-            yield return StartCoroutine(BuildMaze());
+            yield return BuildMaze();
 
-            yield return StartCoroutine(GenerateMazeEnds());
+            yield return GenerateMazeEnds();
 
-            yield return StartCoroutine(GenerateProps());
+            yield return GenerateProps();
 
-            yield return StartCoroutine(BuildNavMesh());
+            yield return BuildNavMesh();
 
-            yield return StartCoroutine(InstantiateFoes());
+            yield return InstantiateFoes();
 
             GameManager.Instance.StartGame();
 
@@ -51,31 +51,31 @@ namespace Manager
         private IEnumerator BuildMaze()
         {
             _loadingScreen.UpdateStatus("> Building maze...");
-            yield return StartCoroutine(_maze.Build());
+            yield return _maze.Build();
         }
 
         private IEnumerator GenerateMazeEnds()
         {
             _loadingScreen.UpdateStatus("> Adding entry and exit");
-            yield return StartCoroutine(_maze.DefineEntryAndExit());
+            yield return _maze.DefineEntryAndExit();
         }
 
         private IEnumerator GenerateProps()
         {
             _loadingScreen.UpdateStatus("> Generating props..");
-            yield return StartCoroutine(_maze.GenerateProps());
+            yield return _maze.GenerateProps();
         }
 
         private IEnumerator InstantiateFoes()
         {
             _loadingScreen.UpdateStatus("> Instantiating foes...");
-            yield return StartCoroutine(SquadDistributor.Instance.SquadsDistributionInLab());
+            yield return SquadDistributor.Instance.SquadsDistributionInLab();
         }
 
         private IEnumerator BuildNavMesh()
         {
             _loadingScreen.UpdateStatus("> Building NavMesh...");
-            yield return StartCoroutine(_maze.InitializeNavMesh(_loadingScreen, true));
+            yield return _maze.InitializeNavMesh(_loadingScreen, true);
         }
 
         private IEnumerator BakeLighting()

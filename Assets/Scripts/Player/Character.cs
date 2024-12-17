@@ -18,7 +18,7 @@ namespace Player
         [Header("References")]
         public Transform EnemyRaycastTarget;
         [SerializeField] private Animator _playerAnimator;
-        [SerializeField] private Renderer _renderers;
+        [SerializeField] private List<Renderer> _renderers;
         [SerializeField] private GameObject _speedFX;
 
         [Header("Spell Data List")]
@@ -135,14 +135,12 @@ namespace Player
 
         private void OnEnable()
         {
-            OnPlayerSpawn += PlayerSpawn;
             OnUpgradeStat += UpgradeStat;
             OnSpeedBoost += SpeedBoost;
         }
 
         private void OnDisable()
         {
-            OnPlayerSpawn -= PlayerSpawn;
             OnUpgradeStat -= UpgradeStat;
             OnSpeedBoost -= SpeedBoost;
         }
@@ -256,11 +254,7 @@ namespace Player
 
             if (_hp <= 0)
             {
-                _myPlayerController.enabled = false;
-                _myAttackNearestFoesComponent.enabled = false;
-                _playerAnimator.SetBool(Death, true);
-                IsDead = true;
-                return;
+                StartCoroutine(DeathAnimationCoroutine());
             }
 
             _playerAnimator.SetTrigger(Hurt);
@@ -282,22 +276,31 @@ namespace Player
         {
             float t = 0f;
             List<Material> materials = new();
-            _renderers.GetMaterials(materials); // Copy originals
 
             IsDead = true;
+            _playerAnimator.SetBool(Death, true);
+            _myPlayerController.enabled = false;
+            _myAttackNearestFoesComponent.enabled = false;
 
             while (t < 1)
             {
                 t += Time.deltaTime / _deathAnimationDuration;
 
-                foreach (Material material in _renderers.materials) {
-                    material.SetFloat(Dissolve, Mathf.Lerp(0, 1, t));
+                foreach (Renderer rd in _renderers)
+                {
+                    rd.GetMaterials(materials); // Copy originals
+
+                    foreach (Material material in materials) {
+                        material.SetFloat(Dissolve, Mathf.Lerp(0, 1, t));
+                    }
+
+                    materials.Clear();
                 }
 
                 yield return null;
             }
 
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(1.5f);
 
             PlayerSpawn();
         }

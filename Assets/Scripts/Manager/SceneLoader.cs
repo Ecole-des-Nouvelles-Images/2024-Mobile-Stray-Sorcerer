@@ -43,7 +43,7 @@ namespace Manager
 
         private IEnumerator LoadCoroutine(SceneField scene, bool isGameScene)
         {
-            yield return StartCoroutine(LoadSceneCoroutine(scene));
+            yield return LoadSceneCoroutine(scene);
 
             if (isGameScene)
             {
@@ -52,11 +52,11 @@ namespace Manager
 
                 while (!LoadingBuilder) yield return null;
 
-                yield return StartCoroutine(LoadingBuilder.Build(_loadingScreen));
+                yield return LoadingBuilder.Build(_loadingScreen);
             }
 
             if (_currentScene != null)
-                yield return StartCoroutine(UnloadSceneCoroutine(_currentScene));
+                yield return UnloadSceneCoroutine(_currentScene);
 
 
             _loadingScreen.Show(false);
