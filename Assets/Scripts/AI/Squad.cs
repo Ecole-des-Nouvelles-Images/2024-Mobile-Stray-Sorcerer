@@ -80,7 +80,7 @@ namespace AI
             LayerMask layerMask = LayerMask.GetMask("Player","Wall");
             
             if (Physics.Raycast(_raycastOrigin.position,
-                    Character.Instance.EnnemyRaycastTarget.position - _raycastOrigin.position, out hit,
+                    Character.Instance.EnemyRaycastTarget.position - _raycastOrigin.position, out hit,
                     Mathf.Infinity, layerMask, QueryTriggerInteraction.Ignore))
             {
                 if (hit.collider.gameObject == Character.Instance.gameObject)
