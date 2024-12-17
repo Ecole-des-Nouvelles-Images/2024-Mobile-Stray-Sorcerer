@@ -3,25 +3,22 @@ using AI.Monsters;
 using Player;
 using Unity.Mathematics;
 using UnityEngine;
+using Utils;
 using Random = UnityEngine.Random;
 
 namespace AI
 {
     public class Squad : MonoBehaviour
     {
-        [Range(1, 100)] [SerializeField] private int _procRatio = 40;
+        [Range(1, 100), SerializeField] private int _procRatio = 40;
         [SerializeField] private List<GameObject> _monsterPrefabs;
         [SerializeField] private Transform[] _markerList;
         [SerializeField] private Transform _raycastOrigin;
         [SerializeField] private GameObject _speedBoostAreaPrefab;
-
+        
         private bool _isTriggered;
         private bool _isChaseTime;
         private List<GameObject> _spawnedMonsters;
-
-        private void Awake()
-        {
-        }
 
         private void Start()
         {
@@ -30,7 +27,7 @@ namespace AI
 
         private void Update()
         {
-            if (!_isChaseTime && Character.Instance)
+            if(!_isChaseTime && Character.Instance)
                 PlayerDirectView();
             if (_isTriggered && AllMonstersDied())
             {
@@ -46,7 +43,10 @@ namespace AI
             if (other.CompareTag("Player") && !_isTriggered)
             {
                 _isTriggered = true;
-                for (int i = 0; i < _markerList.Length; i++) _markerList[i].GetChild(0).gameObject.SetActive(true);
+                for (int i = 0; i < _markerList.Length; i++)
+                {
+                    _markerList[i].GetChild(0).gameObject.SetActive(true);
+                }
             }
         }
 
@@ -54,7 +54,7 @@ namespace AI
         {
             for (int i = 0; i < _markerList.Length; i++)
             {
-                GameObject monster = Instantiate(GetRandomMonster(), _markerList[i].position, _markerList[i].rotation, _markerList[i]);
+                var monster= Instantiate(GetRandomMonster(), _markerList[i].position, _markerList[i].rotation,_markerList[i]);
                 monster.SetActive(true);
             }
         }
@@ -67,23 +67,31 @@ namespace AI
         private bool AllMonstersDied()
         {
             for (int i = 0; i < _markerList.Length; i++)
-                if (_markerList[i].GetChild(0).gameObject.activeSelf)
+            {
+                if(_markerList[i].GetChild(0).gameObject.activeSelf)
                     return false;
+            }
             return true;
         }
 
         private void PlayerDirectView()
         {
             RaycastHit hit;
-            LayerMask layerMask = LayerMask.GetMask("Player", "Wall");
-
+            LayerMask layerMask = LayerMask.GetMask("Player","Wall");
+            
             if (Physics.Raycast(_raycastOrigin.position,
-                    Character.Instance.EnemyRaycastTarget.position - _raycastOrigin.position, out hit,
+                    Character.Instance.EnnemyRaycastTarget.position - _raycastOrigin.position, out hit,
                     Mathf.Infinity, layerMask, QueryTriggerInteraction.Ignore))
+            {
                 if (hit.collider.gameObject == Character.Instance.gameObject)
+                {
                     for (int i = 0; i < _markerList.Length; i++)
+                    {
                         _markerList[i].GetChild(0).gameObject.GetComponent<Monster>()
                             .DefineTarget(Character.Instance.gameObject);
+                    }
+                }
+            }
         }
     }
 }

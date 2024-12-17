@@ -81,9 +81,6 @@ namespace Player
                 direction.y = input.y;
 
             _rb.velocity = new Vector3(direction.y * -1, 0, direction.x) * Character.Instance.Speed * _accModifier * Time.fixedDeltaTime;
-            // TODO: Animations parameters / triggers
-            // _animatorController.SetFloat(AnimatorParameterAccess.VelocityX, _rb.velocity.x);
-            // _animatorController.SetFloat(AnimatorParameterAccess.VelocityY, _rb.velocity.z);
         }
 
         public void JoystickMove(InputAction.CallbackContext ctx)
@@ -117,10 +114,6 @@ namespace Player
 
             _currentForwardAmount = value.y;
         }
-
-        // TODO: Animations parameters / triggers
-        // _animatorController.SetFloat(AnimatorParameterAccess.VelocityX,_rb.velocity.x);
-        // _animatorController.SetFloat(AnimatorParameterAccess.VelocityY,_rb.velocity.z);
 
         private IEnumerator SmoothCameraTrackingOffset(int direction)
         {
