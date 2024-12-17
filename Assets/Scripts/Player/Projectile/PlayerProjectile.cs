@@ -53,9 +53,9 @@ namespace Player.Projectile
                 _rb.MoveRotation(targetRotation);
             }
 
-            if (_bounceDetector.IsBounceColideActive && _myCollider.isTrigger && _bounce)
+            if (_bounceDetector.IsBounceCollideActive && _myCollider.isTrigger && _bounce)
                 _myCollider.isTrigger = false;
-            if (_bounceDetector.IsBounceColideActive == false && _myCollider.isTrigger == false && _bounce)
+            if (_bounceDetector.IsBounceCollideActive == false && _myCollider.isTrigger == false && _bounce)
                 _myCollider.isTrigger = true;
         }
 

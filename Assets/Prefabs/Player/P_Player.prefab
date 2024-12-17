@@ -15726,6 +15726,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyRaycastTarget: {fileID: 8576162152952324269}
   _playerAnimator: {fileID: 4768240579939408225}
+  _renderers: {fileID: 0}
   _speedFX: {fileID: 678684393078790095}
   _spells:
   - {fileID: 11400000, guid: 5de32e57e13e80e488b74c879629d4e7, type: 2}
@@ -15737,6 +15738,7 @@ MonoBehaviour:
   _cooldownUpgrade: -0.25
   _rebootDelay: 3
   _boostDelay: 3
+  _deathAnimationDuration: 3
 --- !u!114 &8099843394209094681
 MonoBehaviour:
   m_ObjectHideFlags: 0
