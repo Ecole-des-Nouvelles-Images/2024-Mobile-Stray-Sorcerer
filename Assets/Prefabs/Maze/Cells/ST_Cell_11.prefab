@@ -116,7 +116,7 @@ MonoBehaviour:
   _cratesPrefabs:
   - {fileID: 6528511368108797977, guid: ab3c7e4cfd94c2847bef4e747256186c, type: 3}
   - {fileID: 374079292440503641, guid: b282c95959fee134295b0a4eda8aad3b, type: 3}
-  _cratesProbability: 0.3
+  _cratesProbability: 0.1
   _bannerPrefabs: []
   _bannerProbability: 0.5
   _rubblePrefabs:
@@ -581,13 +581,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3022616636534004481}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.08715578, z: 0, w: 0.9961947}
   m_LocalPosition: {x: 7, y: 0.5, z: -9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4757266952750802974}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 10, z: 0}
 --- !u!114 &5235328077327510190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -608,7 +608,7 @@ MonoBehaviour:
   _cratesPrefabs:
   - {fileID: 6528511368108797977, guid: ab3c7e4cfd94c2847bef4e747256186c, type: 3}
   - {fileID: 374079292440503641, guid: b282c95959fee134295b0a4eda8aad3b, type: 3}
-  _cratesProbability: 0.3
+  _cratesProbability: 0.1
   _bannerPrefabs: []
   _bannerProbability: 0.5
   _rubblePrefabs:
@@ -763,13 +763,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4068143721791326190}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.01745245, z: 0, w: 0.99984777}
   m_LocalPosition: {x: -7.5, y: 0, z: -3.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4757266952750802974}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 2, z: 0}
 --- !u!114 &3752209424560184347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -786,11 +786,11 @@ MonoBehaviour:
   _useCustomProbabilities: 1
   _barrelPrefabs:
   - {fileID: 57692885948172916, guid: e7d4a486564550848a5f801e19c3dedd, type: 3}
-  _barrelProbability: 0.2
+  _barrelProbability: 0.1
   _cratesPrefabs:
   - {fileID: 6528511368108797977, guid: ab3c7e4cfd94c2847bef4e747256186c, type: 3}
   - {fileID: 374079292440503641, guid: b282c95959fee134295b0a4eda8aad3b, type: 3}
-  _cratesProbability: 0.3
+  _cratesProbability: 0.1
   _bannerPrefabs: []
   _bannerProbability: 0.5
   _rubblePrefabs:
@@ -853,13 +853,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5071530207023543381}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: -0.01745245, z: 0, w: 0.99984777}
   m_LocalPosition: {x: 7, y: 0, z: 7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4757266952750802974}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -2, z: 0}
 --- !u!114 &4186970541338151275
 MonoBehaviour:
   m_ObjectHideFlags: 0
