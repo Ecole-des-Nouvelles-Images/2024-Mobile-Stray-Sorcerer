@@ -20,11 +20,6 @@ namespace AI
         private bool _isChaseTime;
         private List<GameObject> _spawnedMonsters;
 
-        private void Awake()
-        {
-            
-        }
-
         private void Start()
         {
             SquadGeneration();

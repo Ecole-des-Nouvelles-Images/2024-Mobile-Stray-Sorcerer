@@ -231,7 +231,7 @@ namespace Player
         {
             if(isActive && _isBoosted == false)
             {
-                Speed *= 2;
+                Speed *= 1.5f;
                 _speedFX.SetActive(true);
                 _isBoosted = true;
                 return;
@@ -290,6 +290,7 @@ namespace Player
             
             _playerAnimator.SetBool(Death,true);
             _myPlayerController.enabled = false;
+            _myPlayerInput.enabled = false;
             _myAttackNearestFoesComponent.enabled = false;
             
             while (t < 1)
