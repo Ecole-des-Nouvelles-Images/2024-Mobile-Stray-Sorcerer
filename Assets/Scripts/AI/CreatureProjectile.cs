@@ -5,7 +5,8 @@ namespace AI
 {
     public class CreatureProjectile : MonoBehaviour
     {
-        public int Damage;
+        private int _damage;
+        private GameObject _impactFX;
         private Rigidbody _rb;
 
         private void Awake()
@@ -26,16 +27,28 @@ namespace AI
         {
             if (other.CompareTag("Player"))
             {
-                Character.Instance.TakeDamage(Damage);
+                Character.Instance.TakeDamage(_damage);
+                CreateImpact();
                 Destroy(gameObject);
             }
 
-            if (other.CompareTag("Wall")) Destroy(gameObject);
+            if (other.CompareTag("Wall"))
+            {
+                CreateImpact();
+                Destroy(gameObject);
+            }
         }
 
-        public void ShootToDestination(Transform destination, int damage, int power)
+        private void CreateImpact()
         {
-            Damage = damage;
+            GameObject impact = Instantiate(_impactFX, transform.position, Quaternion.identity);
+            Destroy(impact,1);
+        }
+
+        public void ShootToDestination(Transform destination, int damage, int power, GameObject impact)
+        {
+            _impactFX = impact;
+            _damage = damage;
             _rb.AddForce((destination.position - transform.position).normalized * power + Vector3.up, ForceMode.Impulse);
         }
         //(destination.position - transform.position).normalized

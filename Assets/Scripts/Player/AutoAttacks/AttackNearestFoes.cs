@@ -13,10 +13,12 @@ namespace Player.AutoAttacks
 
         [SerializeField] private Transform _projectileOrigin;
         [SerializeField] private Animator _characterAnimator;
-        [SerializeField] private ParticleSystem[] _castFX;
-        [SerializeField] private ParticleSystem[] _cooldownFX;
+        [SerializeField] private GameObject _chargingCastFX;
+        [SerializeField] private GameObject _castFX;
+        [SerializeField] private GameObject _cooldownFX;
 
-        [Header("Settings")] [SerializeField] private int _projectileVelocity = 5;
+        [Header("Settings")] 
+        [SerializeField] private int _projectileVelocity = 5;
         [SerializeField] private float _castDelay = 1;
 
         private GameObject _nearestFoe;
@@ -25,7 +27,6 @@ namespace Player.AutoAttacks
         private AudioSource _throwAudioSource;
         private bool _casting;
         private float _currentDelay;
-        private float _particleXZ;
 
         public float Cooldown => Character.Instance.AttackCooldown;
 
@@ -33,31 +34,35 @@ namespace Player.AutoAttacks
         {
             _throwAudioSource = _projectileOrigin.transform.GetComponent<AudioSource>();
             _currentCooldownTimer = Cooldown;
-            _particleXZ = _currentCooldownTimer / Cooldown * 100 * 6 / 100;
-            for (int i = 0; i < _cooldownFX.Length; i++) _cooldownFX[i].transform.localScale = new Vector3(_particleXZ, 1, _particleXZ);
+            _chargingCastFX.SetActive(false);
+            _castFX.SetActive(false);
         }
 
         private void Update()
         {
-            //Debug.Log("cooldown percent :"+ _currentCooldownTimer / Cooldown);
 
             if (!_attackIsReady && _currentCooldownTimer < Cooldown)
             {
+                if(_chargingCastFX.activeSelf)
+                    _chargingCastFX.SetActive(false);
+                if(_cooldownFX.activeSelf == false)
+                    _cooldownFX.SetActive(true);
                 _currentCooldownTimer += Time.deltaTime;
-                _particleXZ = _currentCooldownTimer / Cooldown * 100 * 6 / 100;
-                for (int i = 0; i < _cooldownFX.Length; i++) _cooldownFX[i].transform.localScale = new Vector3(_particleXZ, 1, _particleXZ);
             }
 
             if (_currentCooldownTimer >= Cooldown) _attackIsReady = true;
             if (_attackIsReady)
             {
+                _cooldownFX.SetActive(false);
                 SearchNearestFoe();
                 if (_nearestFoe && _nearestFoe.transform.GetComponent<Monster>().IsDead == false && !_casting)
                 {
+                    if(_castFX.activeSelf)
+                        _castFX.SetActive(false);
+                    _chargingCastFX.SetActive(true);
                     _currentDelay = _castDelay;
                     _casting = true;
                     _characterAnimator.SetTrigger(DoAttack);
-                    PlayCastFX();
                 }
 
                 if (_nearestFoe && _casting && _nearestFoe.transform.GetComponent<Monster>().IsDead == false) DelayBeforCast();
@@ -92,7 +97,6 @@ namespace Player.AutoAttacks
             if (_currentDelay > 0)
             {
                 _currentDelay -= Time.deltaTime;
-                //Debug.Log(delayTime);
                 return;
             }
 
@@ -101,19 +105,22 @@ namespace Player.AutoAttacks
 
         private void CastSpell()
         {
+            _castFX.SetActive(true);
             GameObject projectile = Instantiate(Character.Instance.CurrentSpell.ProjectilePrefab, _projectileOrigin.position, Quaternion.identity);
             projectile.GetComponent<Rigidbody>().AddForce((_nearestFoe.transform.position - projectile.transform.position) * _projectileVelocity, ForceMode.Impulse);
             _attackIsReady = false;
             _currentCooldownTimer = 0;
-            _particleXZ = _currentCooldownTimer / Cooldown * 100 * 6 / 100;
-            for (int i = 0; i < _cooldownFX.Length; i++) _cooldownFX[i].transform.localScale = new Vector3(_particleXZ, 1, _particleXZ);
+            
             Destroy(projectile, 5f);
             _casting = false;
         }
 
-        private void PlayCastFX()
-        {
-            for (int i = 0; i < _castFX.Length; i++) _castFX[i].Play();
-        }
+        // private void PlayCastFX()
+        // {
+        //     for (int i = 0; i < _castFX.Length; i++) _castFX[i].Play();
+        // }
+        //calcul qui permet d'appliquer une valeur d'une 'jauge' en fonction du ratio d'une autre 'jauge'
+        // _particleXZ = _currentCooldownTimer / Cooldown * 100 * 6 / 100;
+        // for (int i = 0; i < _cooldownFX.Length; i++) _cooldownFX[i].transform.localScale = new Vector3(_particleXZ, 1, _particleXZ);
     }
 }

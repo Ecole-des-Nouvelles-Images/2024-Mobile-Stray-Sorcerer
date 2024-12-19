@@ -27,10 +27,10 @@ namespace AI.Monsters
         [Header("Drop")] [SerializeField] private GameObject[] _dropPrefabs;
         [SerializeField] private GameObject _xpPrefab;
 
-        [Header("References")] [SerializeField]
-        private PlayerDetector _triggerAttack;
-
+        [Header("References")] 
+        [SerializeField] private PlayerDetector _triggerAttack;
         [SerializeField] protected Animator _monsterAnimator;
+        [SerializeField] protected GameObject _impactFx;
 
         public int CurrentHp { get; private set; }
 
