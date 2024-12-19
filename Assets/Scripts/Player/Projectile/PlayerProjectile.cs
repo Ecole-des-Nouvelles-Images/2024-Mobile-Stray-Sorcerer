@@ -11,7 +11,6 @@ namespace Player.Projectile
         private Rigidbody _rb;
         private Collider _myCollider;
         private Spell _mySpell;
-        private string _name;
         private GameObject _projectilePrefab;
         private int _damage;
         private bool _pierce;
@@ -26,14 +25,13 @@ namespace Player.Projectile
             _rb = transform.GetComponent<Rigidbody>();
             _myCollider = transform.GetComponent<Collider>();
             _mySpell = Character.Instance.CurrentSpell;
-            _name = _mySpell.Name;
             _damage = _mySpell.Damage + (int)Character.Instance.SpellPower;
             _pierce = _mySpell.Pierce;
             _pierceValue = _mySpell.PierceValue;
             _bounce = _mySpell.Bounce;
             _bounceValue = _mySpell.BounceValue;
             _areaInvoker = _mySpell.AreaInvoker;
-            _areaPrefab = _mySpell.ZonePrefab;
+            if(_mySpell.ZonePrefab != null )_areaPrefab = _mySpell.ZonePrefab;
         }
 
         private void Start()
@@ -61,9 +59,13 @@ namespace Player.Projectile
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.transform.CompareTag("Wall") && _pierce) Destroy(gameObject);
+            if (other.transform.CompareTag("Wall") && _pierce) {
+                ImpactInstance();
+                Destroy(gameObject);
+            }
             if (other.transform.CompareTag("Enemy"))
             {
+                ImpactInstance();
                 _rb.constraints = RigidbodyConstraints.FreezePositionY;
                 CastArea(other.transform);
                 other.transform.GetComponent<Monster>().TakeDamage(_damage);
@@ -77,6 +79,7 @@ namespace Player.Projectile
 
         private void OnCollisionEnter(Collision other)
         {
+            ImpactInstance();
             if (other.transform.CompareTag("Player"))
             {
                 if (_bounce) _myCollider.isTrigger = true;
@@ -120,6 +123,12 @@ namespace Player.Projectile
             }
 
             if (_areaInvoker && _areaPrefab == null) Debug.LogError("Prefab area is null");
+        }
+
+        private void ImpactInstance()
+        {
+            GameObject impact = Instantiate(_mySpell.ImpactPrefab,transform.position,Quaternion.identity);
+            Destroy(impact,1);
         }
     }
 }
