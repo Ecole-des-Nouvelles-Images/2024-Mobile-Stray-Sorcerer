@@ -51,6 +51,5 @@ namespace AI
             _damage = damage;
             _rb.AddForce((destination.position - transform.position).normalized * power + Vector3.up, ForceMode.Impulse);
         }
-        //(destination.position - transform.position).normalized
     }
 }

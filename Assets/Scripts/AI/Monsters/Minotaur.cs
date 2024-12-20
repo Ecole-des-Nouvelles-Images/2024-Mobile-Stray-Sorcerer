@@ -1,6 +1,8 @@
 using Player;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using Utils;
 
 namespace AI.Monsters
 {
@@ -8,8 +10,9 @@ namespace AI.Monsters
     {
         [SerializeField] private PlayerDetector _damageArea;
         
-        private float _timingDamage = 0.2f;
+        private float _timingDamage = 0.5f;
         private bool _triggerAnim;
+        private bool _playerInArea;
 
         private void Awake()
         {
@@ -18,6 +21,19 @@ namespace AI.Monsters
             _rb = GetComponent<Rigidbody>();
             _isCastReady = true;
             _impactFx.SetActive(false);
+        }
+        protected new void OnEnable()
+        {
+            ClockGame.OnMonstersGrow += Grow;
+            _triggerAttack.OnPlayerDetected += PlayerDetected;
+            _damageArea.OnPlayerDetected += PlayerInArea;
+        }
+
+        protected new void OnDisable()
+        {
+            ClockGame.OnMonstersGrow -= Grow;
+            _triggerAttack.OnPlayerDetected -= PlayerDetected;
+            _damageArea.OnPlayerDetected -= PlayerInArea;
         }
         private protected override void DoAttack()
         {
@@ -34,7 +50,7 @@ namespace AI.Monsters
             }
             if (_timingDamage <= 0)
             {
-                if (_damageArea.DetectObject)
+                if (_playerInArea)
                 {
                     _impactFx.SetActive(true);
                     Character.Instance.TakeDamage(_damage);
@@ -45,6 +61,11 @@ namespace AI.Monsters
                 _isCastReady = false;
                 _triggerAnim = false;
             }
+        }
+
+        private void PlayerInArea(bool playerDetected)
+        {
+            _playerInArea = playerDetected;
         }
 
         private void UnactiveFX()

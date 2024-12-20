@@ -192,7 +192,7 @@ MonoBehaviour:
   _acceleration: 8
   _attackSpeed: 3
   _dropPrefabs: []
-  _xpPrefab: {fileID: 4142232093223311040, guid: ca6a7beae40fe2743a0a87b9e0037a84,
+  _xpPrefab: {fileID: 410255202443490771, guid: 57bea3ed8be173d46aaf67f1a7592636,
     type: 3}
   _triggerAttack: {fileID: 105922859419920634}
   _monsterAnimator: {fileID: 5588128084872985246}
@@ -201,7 +201,7 @@ MonoBehaviour:
   _originAttack: {fileID: 6990959151078017375}
   _monsterProjectile: {fileID: 4943094133309729547, guid: 3943e78938265f0409d2d2fb9e7da43a,
     type: 3}
-  _throwPower: 6
+  _throwPower: 15
 --- !u!1 &8299544820273679528
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,7 +268,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 107e5954475a4ec2a51fad410abbc924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DetectObject: 0
 --- !u!1001 &2936736224429920692
 PrefabInstance:
   m_ObjectHideFlags: 0

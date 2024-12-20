@@ -96,7 +96,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 697b20ccc798e754fba86cd15c96e233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 0
 --- !u!1 &6957597185547190128
 GameObject:
   m_ObjectHideFlags: 0
@@ -5103,7 +5102,8 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4874777427618903201, guid: 1020183b47189364083978c5b4ae2f00, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1020183b47189364083978c5b4ae2f00, type: 3}

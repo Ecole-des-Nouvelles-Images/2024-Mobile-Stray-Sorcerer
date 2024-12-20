@@ -28,7 +28,8 @@ namespace AI.Monsters
         [SerializeField] private GameObject _xpPrefab;
 
         [Header("References")] 
-        [SerializeField] private PlayerDetector _triggerAttack;
+        [SerializeField]
+        protected PlayerDetector _triggerAttack;
         [SerializeField] protected Animator _monsterAnimator;
         [SerializeField] protected GameObject _impactFx;
 
@@ -39,16 +40,8 @@ namespace AI.Monsters
         protected NavMeshAgent _myNavMeshAgent;
         protected float _currentTimeBeforAttack;
         protected bool _isCastReady;
-
-        private void OnEnable()
-        {
-            ClockGame.OnMonstersGrow += Grow;
-        }
-
-        private void OnDisable()
-        {
-            ClockGame.OnMonstersGrow -= Grow;
-        }
+        private bool _playerInRange;
+        private bool _playerDetected;
 
         private void Awake()
         {
@@ -58,6 +51,20 @@ namespace AI.Monsters
             _isCastReady = true;
         }
 
+        protected void OnEnable()
+        {
+            ClockGame.OnMonstersGrow += Grow;
+            _triggerAttack.OnPlayerDetected += PlayerDetected;
+            
+        }
+
+        protected void OnDisable()
+        {
+            ClockGame.OnMonstersGrow -= Grow;
+            _triggerAttack.OnPlayerDetected -= PlayerDetected;
+        }
+
+        
         private void Start()
         {
             CurrentHp = _hpMax;
@@ -83,10 +90,10 @@ namespace AI.Monsters
 
                 _monsterAnimator.SetBool(IsMoving, _myNavMeshAgent.velocity != Vector3.zero);
 
-                if (_myTarget && _triggerAttack.DetectObject == false && Character.Instance.transform.GetComponent<AttackNearestFoes>().enabled)
+                if (_myTarget && _playerDetected == false && Character.Instance.transform.GetComponent<AttackNearestFoes>().enabled)
                     Chase();
-                if (_triggerAttack.DetectObject && _isCastReady && Character.Instance.transform.GetComponent<AttackNearestFoes>().enabled) DoAttack();
-                if (_triggerAttack.DetectObject)
+                if (_playerDetected && _isCastReady && Character.Instance.transform.GetComponent<AttackNearestFoes>().enabled) DoAttack();
+                if (_playerDetected)
                     PlayerTargeting();
             }
         }
@@ -106,6 +113,11 @@ namespace AI.Monsters
 
         private protected abstract void DoAttack();
 
+        protected void PlayerDetected(bool playerDetected)
+        {
+            _playerDetected = playerDetected;
+        }
+        
         private void Death()
         {
             IsDead = true;
@@ -117,7 +129,7 @@ namespace AI.Monsters
             Invoke("UnactiveFoe", 3);
         }
 
-        private void Grow(int growMult)
+        protected void Grow(int growMult)
         {
             _hpMax = (int)(_hpMax * (1 + _hpGrowingFactor * growMult));
             _damage = (int)(_damage * (1 + _damageGrowingFactor * growMult));
