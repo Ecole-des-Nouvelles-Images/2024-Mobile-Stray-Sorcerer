@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using AI.Monsters;
 using Player;
@@ -27,8 +28,6 @@ namespace AI
 
         private void Update()
         {
-            if(!_isChaseTime && Character.Instance)
-                PlayerDirectView();
             if (_isTriggered && AllMonstersDied())
             {
                 int dice = Random.Range(1, 100);
@@ -47,6 +46,14 @@ namespace AI
                 {
                     _markerList[i].GetChild(0).gameObject.SetActive(true);
                 }
+            }
+        }
+
+        private void OnTriggerStay(Collider other)
+        {
+            if (other.CompareTag("Player") && !_isChaseTime && Character.Instance)
+            {
+                PlayerDirectView();
             }
         }
 
@@ -85,6 +92,7 @@ namespace AI
             {
                 if (hit.collider.gameObject == Character.Instance.gameObject)
                 {
+                    _isChaseTime = true;
                     for (int i = 0; i < _markerList.Length; i++)
                     {
                         _markerList[i].GetChild(0).gameObject.GetComponent<Monster>()
