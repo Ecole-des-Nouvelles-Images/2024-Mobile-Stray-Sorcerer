@@ -132,18 +132,6 @@ namespace Player
         private PlayerInput _myPlayerInput;
         private AttackNearestFoes _myAttackNearestFoesComponent;
 
-        private void OnEnable()
-        {
-            OnUpgradeStat += UpgradeStat;
-            OnSpeedBoost += SpeedBoost;
-        }
-
-        private void OnDisable()
-        {
-            OnUpgradeStat -= UpgradeStat;
-            OnSpeedBoost -= SpeedBoost;
-        }
-
         private void Awake()
         {
             if (_spells.Length > 0) CurrentSpell = _spells[0];
@@ -158,7 +146,19 @@ namespace Player
             _myPlayerInput = transform.GetComponent<PlayerInput>();
             _myAttackNearestFoesComponent = transform.GetComponent<AttackNearestFoes>();
         }
+        
+        private void OnEnable()
+        {
+            OnUpgradeStat += UpgradeStat;
+            OnSpeedBoost += SpeedBoost;
+        }
 
+        private void OnDisable()
+        {
+            OnUpgradeStat -= UpgradeStat;
+            OnSpeedBoost -= SpeedBoost;
+        }
+        
         private void Update()
         {
             //timer for speed boost

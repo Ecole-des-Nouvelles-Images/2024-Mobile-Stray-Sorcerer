@@ -75,7 +75,7 @@ namespace AI
         {
             for (int i = 0; i < _markerList.Length; i++)
             {
-                if(_markerList[i].GetChild(0).gameObject.activeSelf)
+                if(_markerList[i].childCount > 0)
                     return false;
             }
             return true;

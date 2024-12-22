@@ -319,7 +319,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95adae65a75944a2a489020e0f2d2459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsDead: 0
   _damage: 2
   _hpMax: 40
   _hpGrowingFactor: 50
@@ -333,6 +332,9 @@ MonoBehaviour:
   _triggerAttack: {fileID: 271568870487579904}
   _monsterAnimator: {fileID: 4000420296021738255}
   _impactFx: {fileID: 5045353992926202679}
+  _renderers:
+  - {fileID: 4711739091347476157}
+  _deathAnimationDuration: 5
   _damageArea: {fileID: 5200328936474672205}
 --- !u!1 &8176178809779862052
 GameObject:
@@ -544,6 +546,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9007115176107873090, guid: ea92b90b79091b24389bd9e7d558d211,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 068c1993c9f3af54e8e549981675e2a3, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -558,6 +565,12 @@ Transform:
 --- !u!95 &4000420296021738255 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 727506346253328112, guid: ea92b90b79091b24389bd9e7d558d211,
+    type: 3}
+  m_PrefabInstance: {fileID: 4439641288125849087}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &4711739091347476157 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 9007115176107873090, guid: ea92b90b79091b24389bd9e7d558d211,
     type: 3}
   m_PrefabInstance: {fileID: 4439641288125849087}
   m_PrefabAsset: {fileID: 0}
