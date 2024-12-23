@@ -77,6 +77,7 @@ namespace AI.Monsters
             _myNavMeshAgent.speed = _speed;
             _myNavMeshAgent.acceleration = _acceleration;
             Standby();
+            ClockGame.OnMonstersGrow?.Invoke(ClockGame.Instance.GrowingLevel);
         }
 
         private void Update()

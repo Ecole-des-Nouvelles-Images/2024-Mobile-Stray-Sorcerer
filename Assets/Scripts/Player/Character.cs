@@ -158,7 +158,12 @@ namespace Player
             OnUpgradeStat -= UpgradeStat;
             OnSpeedBoost -= SpeedBoost;
         }
-        
+
+        private void Start()
+        {
+            ClockGame.Instance.GameStart();
+        }
+
         private void Update()
         {
             //timer for speed boost
