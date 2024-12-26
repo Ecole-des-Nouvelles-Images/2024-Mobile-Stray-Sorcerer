@@ -1,3 +1,4 @@
+using Gameplay.GameData;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -34,7 +35,12 @@ namespace Gameplay
         {
             if (_exit && _timer < _delay)
                 _timer += Time.deltaTime;
-            if (_timer >= _delay) CallScene();
+            if (_timer >= _delay)
+            {
+                if(DataCollector.Instance)
+                    DataCollector.Instance.IncrementMazeFished();
+                CallScene();
+            }
         }
 
         private void CallScene()

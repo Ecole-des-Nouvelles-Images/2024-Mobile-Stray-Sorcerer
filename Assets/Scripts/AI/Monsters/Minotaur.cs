@@ -1,3 +1,4 @@
+using Gameplay.GameData;
 using Player;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -54,6 +55,7 @@ namespace AI.Monsters
                 {
                     _impactFx.SetActive(true);
                     Character.Instance.TakeDamage(_damage);
+                    //Debug.Log("minotaur "+gameObject.name+" damage:"+_damage);
                     Invoke("UnactiveFX",1);
                 }
                 _timingDamage = 0.5f;

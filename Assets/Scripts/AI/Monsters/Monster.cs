@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Gameplay.GameData;
 using Player;
 using Player.AutoAttacks;
 using UnityEngine;
@@ -77,7 +78,8 @@ namespace AI.Monsters
             _myNavMeshAgent.speed = _speed;
             _myNavMeshAgent.acceleration = _acceleration;
             Standby();
-            ClockGame.OnMonstersGrow?.Invoke(ClockGame.Instance.GrowingLevel);
+            Grow(ClockGame.Instance.GrowingLevel);
+            
         }
 
         private void Update()
@@ -127,8 +129,13 @@ namespace AI.Monsters
 
         protected void Grow(int growMult)
         {
-            _hpMax = (int)(_hpMax * (1 + _hpGrowingFactor * growMult));
-            _damage = (int)(_damage * (1 + _damageGrowingFactor * growMult));
+            //Debug.Log("monster"+gameObject.name +"-> monster level:"+ClockGame.Instance.GrowingLevel);
+            float hpGrowth = _hpMax * (_hpGrowingFactor * growMult);
+            _hpMax += (int)hpGrowth;
+            //Debug.Log("monster"+gameObject.name +"-> monster hp:"+_hpMax);
+            float damageGrowth = _damage * (_damageGrowingFactor * growMult);
+            _damage += (int)damageGrowth;
+            //Debug.Log("monster"+gameObject.name +"-> monster damage:"+_damage);
         }
 
         private void PlayerTargeting()
@@ -161,11 +168,12 @@ namespace AI.Monsters
         {
             float t = 0f;
             List<Material> materials = new();
-
             IsDead = true;
             Standby();
             _monsterAnimator.SetTrigger(DoDeath);
             gameObject.GetComponent<Collider>().enabled = false;
+            if(DataCollector.Instance)
+                DataCollector.Instance.IncrementKill();
             if (_dropPrefabs.Length > 0) Instantiate(_dropPrefabs[Random.Range(0, _dropPrefabs.Length)], transform.position, Quaternion.identity);
             Instantiate(_xpPrefab, transform.position, Quaternion.identity);
             

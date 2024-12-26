@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Gameplay.GameData;
 using Player.AutoAttacks;
 using Player.Spells_Effects;
 using UnityEngine;
@@ -33,6 +34,7 @@ namespace Player
 
         [Header("Progression")]
         [SerializeField] private float _cooldownUpgrade = -0.25f;
+        [SerializeField] private int _hpPerConst;
 
         [Header("Timers")]
         [SerializeField] private float _boostDelay = 3;
@@ -203,8 +205,8 @@ namespace Player
             {
                 case 1:
                     Constitution++;
-                    MaxHP = _baseMaxHP + (Constitution * 2);
-                    TakeHeal(2);
+                    MaxHP = _baseMaxHP + (Constitution * _hpPerConst);
+                    TakeHeal(_hpPerConst);
                     return;
                 case 2:
                     Swiftness++;

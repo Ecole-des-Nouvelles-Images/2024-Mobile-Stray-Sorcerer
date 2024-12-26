@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0000:00:00
+  m_text: ------:--:--
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: eb38625eb2460374e826bdf626bc8744, type: 2}
   m_sharedMaterial: {fileID: -2447739599542917474, guid: eb38625eb2460374e826bdf626bc8744,
@@ -146,6 +146,7 @@ GameObject:
   - component: {fileID: 1280780066434399600}
   - component: {fileID: 6428516876374043474}
   - component: {fileID: 3527335177570743668}
+  - component: {fileID: 1037570152217583131}
   m_Layer: 5
   m_Name: ClockPanel
   m_TagString: Untagged
@@ -211,3 +212,16 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1037570152217583131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6126722746204731711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13ee77c6a313eed4493957684e55e862, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timerTextDisplay: {fileID: 5843048002215080783}
