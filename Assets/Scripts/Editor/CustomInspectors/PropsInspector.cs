@@ -1,13 +1,11 @@
-using System;
-using System.Collections.Generic;
 using Maze;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor
+namespace Editor.CustomInspectors
 {
     [CustomEditor(typeof(Props))] [CanEditMultipleObjects]
-    public class PropsCustomInspector : UnityEditor.Editor
+    public class PropsInspector : UnityEditor.Editor
     {
         private SerializedProperty _propType;
         private SerializedProperty _useCustomProbabilities;

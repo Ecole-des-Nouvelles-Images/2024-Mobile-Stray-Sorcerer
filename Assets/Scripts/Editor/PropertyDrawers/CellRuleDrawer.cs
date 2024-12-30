@@ -2,10 +2,10 @@ using Maze;
 using UnityEditor;
 using UnityEngine;
 
-namespace Editor
+namespace Editor.PropertyDrawers
 {
     [CustomPropertyDrawer(typeof(CellRule))]
-    public class CellRulePropertyDrawer : PropertyDrawer
+    public class CellRuleDrawer : PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {

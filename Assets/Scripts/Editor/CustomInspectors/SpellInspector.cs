@@ -1,10 +1,10 @@
 using Player.Spells_Effects;
 using UnityEditor;
 
-namespace Editor
+namespace Editor.CustomInspectors
 {
     [CustomEditor(typeof(Spell))]
-    public class SpellCustomInspector : UnityEditor.Editor
+    public class SpellInspector : UnityEditor.Editor
     {
         // Start is called before the first frame update
         void Start()
