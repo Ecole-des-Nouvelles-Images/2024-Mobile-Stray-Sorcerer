@@ -12,7 +12,7 @@ namespace Player.AutoAttacks
         {
             if (EnemiesInRange.Count != 0)
                 for (int i = 0; i < EnemiesInRange.Count; i++)
-                    if (EnemiesInRange[i] == null)
+                    if (!EnemiesInRange[i])
                         EnemiesInRange.Remove(EnemiesInRange[i]);
         }
 

@@ -1,3 +1,6 @@
+using System;
+using Manager;
+using Player;
 using UnityEngine;
 using Utils;
 
@@ -5,25 +8,156 @@ namespace Gameplay.GameData
 {
     public class DataCollector : SingletonMonoBehaviour<DataCollector>
     {
-        private GameObject _playerPrefabs;
-        private ClockGame _clockGame;
-        private int _kill;
-        private int _mazeFinished;
+        public static Action OnMonsterDeath;
+        public static Action OnMazeComplete;
+        public static Action OnPlayerSpawned;
+        public int Kill{get; private set;}
+        public int MazeComplete{get; private set;}
+        //------------ Player Stats ---------------------
+        public int PlayerLevel{get; private set;}
+        public int PlayerMaxHp{get; private set;}
+        public int PlayerHp{get; private set;}
+        public int PlayerConstitution{get; private set;}
+        public int PlayerSwiftness{get; private set;}
+        public int PlayerPower{get; private set;}
         
-        
+        private int _playerXp;
+        private int _playerCurrentSpellIndex;
+        //-----------------------------------------------
+        private ClockGame _clockGame;   //on veut récup le temp actuel (float) et le niveau d'évolution des monstres (int)
+        private Caretaker _caretaker = new Caretaker();
+        private bool _restoreData;
 
         private void Awake()
         {
+            _caretaker.LoadSnap();
             _clockGame = ClockGame.Instance;
+            if (_caretaker.CurrentSave != null)
+            {
+                _restoreData = true;
+                RestoreData(_caretaker.CurrentSave);
+            }
         }
 
-        public void IncrementKill()
+        private void OnEnable()
         {
-            _kill++;
+            OnMonsterDeath += IncrementKill;
+            OnMazeComplete += MazeFished;
+            OnPlayerSpawned += UpdatePlayer;
         }
-        public void IncrementMazeFished()
+
+        private void OnDisable()
         {
-            _mazeFinished++;
+            OnMonsterDeath -= IncrementKill;
+            OnMazeComplete -= MazeFished;
         }
+        
+        private void Start()
+        {
+            Time.timeScale = 1;
+        }
+
+        private void RestoreData(Snapshot saveToRestore)
+        {
+            _clockGame.TimerGame = saveToRestore.Time;
+            _clockGame.GrowingLevel = saveToRestore.MonsterLevel;
+            Kill = saveToRestore.Kill;
+            MazeComplete = saveToRestore.MazeComplete;
+            PlayerLevel = saveToRestore.PlayerLevel;
+            _playerXp = saveToRestore.PlayerXp;
+            PlayerMaxHp = saveToRestore.PlayerMaxHp;
+            PlayerHp = saveToRestore.PlayerHp;
+            PlayerConstitution = saveToRestore.PlayerConstitution;
+            PlayerSwiftness = saveToRestore.PlayerSwiftness;
+            PlayerPower = saveToRestore.PlayerPower;
+            _playerCurrentSpellIndex = saveToRestore.PlayerCurrentSpellIndex;
+            UpdatePlayer();
+        }
+        private void IncrementKill()
+        {
+            Kill++;
+        }
+        private void MazeFished()
+        {
+            _clockGame.ClockStop();
+            MazeComplete++;
+        }
+
+        private Snapshot CreateSnapshot()
+        {
+            Snapshot data = new Snapshot();
+            data.MazeComplete = MazeComplete;
+            data.Kill = Kill;
+            data.MonsterLevel = _clockGame.GrowingLevel;
+            data.Time = _clockGame.TimerGame;
+            data.PlayerLevel = PlayerLevel;
+            data.PlayerXp = _playerXp; 
+            data.PlayerMaxHp = PlayerMaxHp;
+            data.PlayerHp = PlayerHp;
+            data.PlayerConstitution = PlayerConstitution;
+            data.PlayerSwiftness = PlayerSwiftness;
+            data.PlayerPower = PlayerPower;
+            data.PlayerCurrentSpellIndex = _playerCurrentSpellIndex;
+            return data;
+        }
+        public void UpdateDataCollector()
+        {
+            if(Character.Instance)
+            {
+                PlayerLevel = Character.Instance.Level;
+                PlayerConstitution=Character.Instance.Constitution;
+                PlayerPower=Character.Instance.Power;
+                PlayerSwiftness=Character.Instance.Swiftness;
+                PlayerHp =Character.Instance.HP;
+                PlayerMaxHp=Character.Instance.MaxHP;
+                _playerXp=Character.Instance.EXP;
+                _playerCurrentSpellIndex=Character.Instance.SpellUnlock;
+            }
+            Debug.Log("Update Data");
+        }
+        
+        public void SaveDataAndContinue()
+        {
+            UpdateDataCollector();
+            if(!_clockGame)
+                _clockGame = ClockGame.Instance;
+            _caretaker.UpdateCurrentSave(CreateSnapshot());
+            Destroy(Character.Instance.gameObject);
+            SceneLoader.Instance.ReloadGameScene();
+        }
+        public void SaveDataAndLeave()
+        {
+            UpdateDataCollector();
+            if(!_clockGame)
+                _clockGame = ClockGame.Instance;
+            _caretaker.UpdateCurrentSave(CreateSnapshot());
+            Application.Quit();
+        }
+        public void ResetSave()
+        {
+            _caretaker.CleanCurrentSave(CreateSnapshot());
+        }
+
+        public void UpdatePlayer()
+        {
+            if(Character.Instance&& _restoreData)
+            {
+                Debug.Log("attribution stat to player");
+                Character.Instance.Level = PlayerLevel;
+                Character.Instance.Constitution = PlayerConstitution;
+                Character.Instance.Power = PlayerPower;
+                Character.Instance.Swiftness = PlayerSwiftness;
+                Character.Instance.HP = PlayerHp;
+                Character.Instance.MaxHP = PlayerMaxHp;
+                Character.Instance.EXP = _playerXp;
+                Character.Instance.SpellUnlock = _playerCurrentSpellIndex;
+                Character.Instance.UpdateSpell();
+            }
+            else
+            {
+                UpdateDataCollector();
+            }
+        }
+        
     }
 }

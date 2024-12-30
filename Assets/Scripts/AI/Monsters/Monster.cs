@@ -140,10 +140,13 @@ namespace AI.Monsters
 
         private void PlayerTargeting()
         {
-            if (_myNavMeshAgent.enabled)
-                _myNavMeshAgent.enabled = false;
-            Quaternion rotation = Quaternion.LookRotation(_myTarget.transform.position - transform.position, Vector3.up);
-            _rb.MoveRotation(rotation);
+            if (Character.Instance)
+            {
+                if (_myNavMeshAgent.enabled)
+                    _myNavMeshAgent.enabled = false;
+                Quaternion rotation = Quaternion.LookRotation(_myTarget.transform.position - transform.position, Vector3.up);
+                _rb.MoveRotation(rotation);
+            }
         }
 
         public void DefineTarget(GameObject target)
@@ -173,7 +176,7 @@ namespace AI.Monsters
             _monsterAnimator.SetTrigger(DoDeath);
             gameObject.GetComponent<Collider>().enabled = false;
             if(DataCollector.Instance)
-                DataCollector.Instance.IncrementKill();
+                DataCollector.OnMonsterDeath?.Invoke();
             if (_dropPrefabs.Length > 0) Instantiate(_dropPrefabs[Random.Range(0, _dropPrefabs.Length)], transform.position, Quaternion.identity);
             Instantiate(_xpPrefab, transform.position, Quaternion.identity);
             

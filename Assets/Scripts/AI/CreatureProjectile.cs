@@ -5,8 +5,8 @@ namespace AI
 {
     public class CreatureProjectile : MonoBehaviour
     {
+        [SerializeField] private GameObject _impactFX;
         private int _damage;
-        private GameObject _impactFX;
         private Rigidbody _rb;
 
         private void Awake()

@@ -6,6 +6,7 @@ using Player.AutoAttacks;
 using Player.Spells_Effects;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using Utils;
 
 namespace Player
@@ -15,6 +16,16 @@ namespace Player
         public static readonly int Hurt = Animator.StringToHash("hurt");
         public static readonly int Death = Animator.StringToHash("isDead");
         public static readonly int Dissolve = Shader.PropertyToID("_State");
+        public static Action OnPlayerSpawn;
+        public static Action<int> OnHpChanged;
+        public static Action<int> OnMaxHpChanged;
+        public static Action<int> OnExpChanged;
+        public static Action<int> OnSpellIndexChange;
+        public static Action OnLevelUp;
+        public static Action<Spell, Spell> OnSpellUnlock;
+        public static Action OnDisplayUpgrade;
+        public static Action<int> OnUpgradeStat;
+        public static Action<bool> OnSpeedBoost;
 
         [Header("References")]
         public Transform EnemyRaycastTarget;
@@ -39,17 +50,12 @@ namespace Player
         [Header("Timers")]
         [SerializeField] private float _boostDelay = 3;
         [SerializeField] private float _deathAnimationDuration = 5;
-
-        public static Action OnPlayerSpawn;
-        public static Action<int> OnHpChanged;
-        public static Action<int> OnMaxHpChanged;
-        public static Action<int> OnExpChanged;
-        public static Action OnLevelUp;
-        public static Action<Spell, Spell> OnSpellUnlock;
-        public static Action OnDisplayUpgrade;
-        public static Action<int> OnUpgradeStat;
-        public static Action<bool> OnSpeedBoost;
-
+        
+        public int Constitution { get; set; }
+        public int Swiftness { get; set; }
+        public int Power { get; set; }
+        public int SpellUnlock{ get; set; }
+        
         public int Level
         {
             get => _level;
@@ -78,7 +84,7 @@ namespace Player
         public int MaxHP
         {
             get => _maxHp;
-            private set
+            set
             {
                 _maxHp = value;
                 OnMaxHpChanged?.Invoke(_maxHp);
@@ -109,13 +115,8 @@ namespace Player
             private set => _baseSpellDamage = value;
         }
 
-        public int Constitution { get; private set; }
-        public int Swiftness { get; private set; }
-        public int Power { get; private set; }
-
         public Spell CurrentSpell { get; private set; }
         public Spell NextSpell { get; private set; }
-
         public bool IsBoosted { get; private set; }
         public bool IsDead { get; private set; }
 
@@ -127,7 +128,6 @@ namespace Player
         private bool _isDelay;
         private bool _isDead;
         private bool _rebootGame;
-        private int _spellUnlock;
         private float _boostTime;
         private float _currentRebootTime;
         private PlayerController _myPlayerController;
@@ -163,7 +163,8 @@ namespace Player
 
         private void Start()
         {
-            ClockGame.Instance.GameStart();
+            ClockGame.Instance.ClockStart();
+            DataCollector.OnPlayerSpawned?.Invoke();
         }
 
         private void Update()
@@ -184,13 +185,11 @@ namespace Player
         {
             Level++;
 
-            if (Level % 5 == 0 && _spellUnlock < _spells.Length)
+            if (Level % 5 == 0 && SpellUnlock < _spells.Length)
             {
-                _spellUnlock++;
-                CurrentSpell = _spells[_spellUnlock];
-
-                NextSpell = _spellUnlock < _spells.Length - 1 ? _spells[_spellUnlock + 1] : null;
-
+                SpellUnlock++;
+                OnSpellIndexChange?.Invoke(SpellUnlock);
+                UpdateSpell();
                 OnSpellUnlock?.Invoke(CurrentSpell, NextSpell);
             }
             else
@@ -263,6 +262,12 @@ namespace Player
             OnPlayerSpawn?.Invoke();
         }
 
+        public void UpdateSpell()
+        {
+            CurrentSpell = _spells[SpellUnlock];
+
+            NextSpell = SpellUnlock < _spells.Length - 1 ? _spells[SpellUnlock + 1] : null;
+        }
         public void TakeDamage(int damage)
         {
             HP -= damage;

@@ -23,7 +23,7 @@ namespace Manager
         public Action OnLaunchGame;
 
         private SceneField _currentScene = null;
-        private Scene _loadingScene;
+        private SceneField _loadingScene;
         private GameObject[] _loadingSceneRootObjects;
 
         // DEBUG
@@ -37,8 +37,13 @@ namespace Manager
 
         public void LaunchGame()
         {
-            OnLaunchGame.Invoke();
+            OnLaunchGame?.Invoke();
             StartCoroutine(LoadCoroutine(_gameScene, true));
+        }
+        public void ReloadGameScene()
+        {
+            OnLaunchGame?.Invoke();
+            StartCoroutine(ReloadGameSceneCoroutine());
         }
 
         private IEnumerator LoadCoroutine(SceneField scene, bool isGameScene)
@@ -48,7 +53,7 @@ namespace Manager
             if (isGameScene)
             {
                 _loadingScene = scene;
-                _loadingSceneRootObjects = _loadingScene.GetRootGameObjects();
+                _loadingSceneRootObjects = _loadingScene.Scene.GetRootGameObjects();
 
                 while (!LoadingBuilder) yield return null;
 
@@ -99,6 +104,25 @@ namespace Manager
                 _loadingScreen.UpdateStatus($"> Unloading resources... {asyncUnloadOperation.progress * 100}%");
                 yield return null;
             }
+        }
+        
+        private IEnumerator ReloadGameSceneCoroutine()
+        {
+            Debug.Log($"Current scene <{_currentScene}> should be Game");
+    
+            _loadingScreen.Show(true);
+    
+            yield return UnloadSceneCoroutine(_currentScene);
+
+            yield return LoadSceneCoroutine(_gameScene);
+    
+            while (!LoadingBuilder) yield return null;
+
+            yield return LoadingBuilder.Build(_loadingScreen);
+
+            _loadingScreen.Show(false);
+            _currentScene = _gameScene;
+            SceneManager.SetActiveScene(_currentScene);
         }
     }
 }
