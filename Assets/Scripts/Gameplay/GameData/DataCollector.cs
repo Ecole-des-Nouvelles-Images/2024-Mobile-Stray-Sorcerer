@@ -13,17 +13,26 @@ namespace Gameplay.GameData
         public static Action OnPlayerSpawned;
         public int Kill{get; private set;}
         public int MazeComplete{get; private set;}
-        //------------ Player Stats ---------------------
         public int PlayerLevel{get; private set;}
         public int PlayerMaxHp{get; private set;}
         public int PlayerHp{get; private set;}
         public int PlayerConstitution{get; private set;}
         public int PlayerSwiftness{get; private set;}
         public int PlayerPower{get; private set;}
+        //------------ Best Run Data ---------------------
+        public int BRDkill{get; private set;}
+        public int BRDmazeComplete{get; private set;}
+        public float BRDtime{get; private set;}
+        public int BRDplayerLevel{get; private set;}
+        public int BRDplayerMaxHp{get; private set;}
+        public int BRDplayerHp{get; private set;}
+        public int BRDplayerConstitution{get; private set;}
+        public int BRDplayerSwiftness{get; private set;}
+        public int BRDplayerPower{get; private set;}
+        //------------------------------------------------
         
         private int _playerXp;
         private int _playerCurrentSpellIndex;
-        //-----------------------------------------------
         private ClockGame _clockGame;   //on veut récup le temp actuel (float) et le niveau d'évolution des monstres (int)
         private Caretaker _caretaker = new Caretaker();
         private bool _restoreData;
@@ -32,31 +41,28 @@ namespace Gameplay.GameData
         {
             _caretaker.LoadSnap();
             _clockGame = ClockGame.Instance;
+            RestoreBestRunData();
             if (_caretaker.CurrentSave != null)
             {
                 _restoreData = true;
                 RestoreData(_caretaker.CurrentSave);
             }
         }
-
         private void OnEnable()
         {
             OnMonsterDeath += IncrementKill;
             OnMazeComplete += MazeFished;
             OnPlayerSpawned += UpdatePlayer;
         }
-
         private void OnDisable()
         {
             OnMonsterDeath -= IncrementKill;
             OnMazeComplete -= MazeFished;
         }
-        
         private void Start()
         {
             Time.timeScale = 1;
         }
-
         private void RestoreData(Snapshot saveToRestore)
         {
             _clockGame.TimerGame = saveToRestore.Time;
@@ -82,7 +88,6 @@ namespace Gameplay.GameData
             _clockGame.ClockStop();
             MazeComplete++;
         }
-
         private Snapshot CreateSnapshot()
         {
             Snapshot data = new Snapshot();
@@ -100,6 +105,22 @@ namespace Gameplay.GameData
             data.PlayerCurrentSpellIndex = _playerCurrentSpellIndex;
             return data;
         }
+        private void RestoreBestRunData()
+        {
+            if (_caretaker.BestSave != null)
+            {
+                BRDkill = _caretaker.BestSave.Kill;
+                BRDmazeComplete = _caretaker.BestSave.MazeComplete;
+                BRDtime = _caretaker.BestSave.Time;
+                BRDplayerLevel = _caretaker.BestSave.PlayerLevel;
+                BRDplayerMaxHp = _caretaker.BestSave.PlayerMaxHp;
+                BRDplayerHp = _caretaker.BestSave.PlayerHp;
+                BRDplayerConstitution = _caretaker.BestSave.PlayerConstitution;
+                BRDplayerSwiftness = _caretaker.BestSave.PlayerSwiftness;
+                BRDplayerPower = _caretaker.BestSave.PlayerPower;
+            }
+        }
+        
         public void UpdateDataCollector()
         {
             if(Character.Instance)
@@ -115,7 +136,6 @@ namespace Gameplay.GameData
             }
             Debug.Log("Update Data");
         }
-        
         public void SaveDataAndContinue()
         {
             UpdateDataCollector();
@@ -137,7 +157,6 @@ namespace Gameplay.GameData
         {
             _caretaker.CleanCurrentSave(CreateSnapshot());
         }
-
         public void UpdatePlayer()
         {
             if(Character.Instance&& _restoreData)
