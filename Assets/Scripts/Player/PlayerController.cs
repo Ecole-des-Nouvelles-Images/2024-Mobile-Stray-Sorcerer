@@ -10,15 +10,19 @@ namespace Player
     {
         public static readonly int IsMoving = Animator.StringToHash("isMoving");
 
-        [Header("Reference")] [SerializeField] private Animator _characterAnimator;
+        [Header("Reference")]
+        [SerializeField] private Animator _characterAnimator;
 
-        [Header("Inputs")] [SerializeField] private PlayerInput _playerInput;
+        [Header("Inputs")]
+        [SerializeField] private PlayerInput _playerInput;
         [SerializeField] private float _accelerometerSensibility = 0.01f;
 
-        [Tooltip("Internal modifier specific to the accelerometer")] [SerializeField]
-        private float _accModifier = 1f;
+        [Tooltip("Internal modifier specific to the accelerometer")]
+        [SerializeField] private float _accModifier = 1f;
 
-        [Header("Settings")] [SerializeField] private float _cameraTransposerMaxOffset;
+        [Header("Settings")]
+        [SerializeField] private float _cameraTransposerMaxOffset;
+        [Tooltip("Delay in seconds of the duration of the offset transition")]
         [SerializeField] private float _cameraTrackingReactivity = 0.5f;
 
         public static Action<bool> OnControlMapChanged;
@@ -91,22 +95,24 @@ namespace Player
 
             _rb.velocity = new Vector3(value.x, 0, value.y) * Character.Instance.Speed * Time.fixedDeltaTime;
 
-
             if (_currentForwardAmount < 0.4f && value.y >= 0.4f)
             {
+                Debug.Log("Camera offsetting forward");
                 if (_cameraTrackingCoroutine != null)
                     StopAllCoroutines();
                 _cameraTrackingCoroutine = StartCoroutine(SmoothCameraTrackingOffset(1));
             }
             else if (_currentForwardAmount > -0.4f && value.y <= -0.4f)
             {
+                Debug.Log("Camera re-centering");
                 if (_cameraTrackingCoroutine != null)
                     StopAllCoroutines();
-                _cameraTrackingCoroutine = StartCoroutine(SmoothCameraTrackingOffset(-1));
+                _cameraTrackingCoroutine = StartCoroutine(SmoothCameraTrackingOffset(1));
             }
             else if ((_currentForwardAmount < -0.4f && value.y is >= -0.4f and <= 0.4f)
                      || (_currentForwardAmount > 0.4f && value.y is >= -0.4f and <= 0.4f))
             {
+                Debug.Log("Camera offsetting downward");
                 if (_cameraTrackingCoroutine != null)
                     StopAllCoroutines();
                 _cameraTrackingCoroutine = StartCoroutine(SmoothCameraTrackingOffset(0));
