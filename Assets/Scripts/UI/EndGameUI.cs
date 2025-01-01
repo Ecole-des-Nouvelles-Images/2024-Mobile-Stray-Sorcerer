@@ -29,27 +29,41 @@ namespace UI
         private int _hour;
         private int _minutes;
         private int _seconds;
+        private TMP_Text _textToChange;
 
-        private void SetupTimeDisplay()
+        private void SetupTimeDisplay(bool bestRunData)
         {
-            _minutes = (int)(ClockGame.Instance.TimerGame / 60);
+            if (bestRunData)
+            {
+                _textToChange = _timePassedBRD;
+                _minutes = (int)(DataCollector.Instance.BRDtime / 60);
+                _seconds = Mathf.FloorToInt(DataCollector.Instance.BRDtime % 60);
+            }
+            else
+            {
+                _textToChange = _timePassed;
+                _minutes = (int)(ClockGame.Instance.TimerGame / 60);
+                _seconds = Mathf.FloorToInt(ClockGame.Instance.TimerGame % 60);
+            }
             if (_minutes >= 60) {
                 _hour = _minutes / 60;
                 _minutes -= 60 * _hour;
             }
-            _seconds = Mathf.FloorToInt(ClockGame.Instance.TimerGame % 60);
             if (_hour == 0 && _minutes == 0)
-                _timePassed.text = string.Format("{0,00}sec.", _seconds);
+                _textToChange.text = string.Format("{0,00}sec.", _seconds);
             else if(_hour == 0 && _minutes > 0)
-                _timePassed.text = string.Format("{0,00:00}min. {1,1:00}sec.",_minutes,_seconds);
+                _textToChange.text = string.Format("{0,00:00}min. {1,1:00}sec.",_minutes,_seconds);
             else
-                _timePassed.text = string.Format("{0,0:0}h. {1,1:00}min. {2,1:00}sec.",_hour,_minutes,_seconds);
+                _textToChange.text = string.Format("{0,0:0}h. {1,1:00}min. {2,1:00}sec.",_hour,_minutes,_seconds);
         }
 
         private void SetupMazeCompleteStat()
         {
             _monsterKillCount.text = DataCollector.Instance.Kill.ToString();
             _mazeCompleteDisplay.text = DataCollector.Instance.MazeComplete.ToString();
+            
+            _monsterKillCountBRD.text = DataCollector.Instance.BRDkill.ToString();
+            _mazeCompleteDisplayBRD.text = DataCollector.Instance.BRDmazeComplete.ToString();
         }
 
         private void SetupCharacterStat()
@@ -59,11 +73,19 @@ namespace UI
             _playerConstitutionCount.text = DataCollector.Instance.PlayerConstitution.ToString();
             _playerAttackSpeedCount.text = DataCollector.Instance.PlayerSwiftness.ToString();
             _playerPowerCount.text = DataCollector.Instance.PlayerPower.ToString();
+            
+            _playerLevelBRD.text = DataCollector.Instance.BRDplayerLevel + "/20";
+            _playerLifeStatBRD.text = DataCollector.Instance.BRDplayerHp + "/" + DataCollector.Instance.BRDplayerMaxHp;
+            _playerConstitutionCountBRD.text = DataCollector.Instance.BRDplayerConstitution.ToString();
+            _playerAttackSpeedCountBRD.text = DataCollector.Instance.BRDplayerSwiftness.ToString();
+            _playerPowerCountBRD.text = DataCollector.Instance.BRDplayerPower.ToString();
         }
     
         public void UpdateDisplay()
         {
-            SetupTimeDisplay();
+            DataCollector.Instance.RestoreBestRunData();
+            SetupTimeDisplay(false);
+            SetupTimeDisplay(true);
             SetupMazeCompleteStat();
             SetupCharacterStat();
         }

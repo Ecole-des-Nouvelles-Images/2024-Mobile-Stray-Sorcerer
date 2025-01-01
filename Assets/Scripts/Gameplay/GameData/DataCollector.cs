@@ -11,6 +11,7 @@ namespace Gameplay.GameData
         public static Action OnMonsterDeath;
         public static Action OnMazeComplete;
         public static Action OnPlayerSpawned;
+        
         public int Kill{get; private set;}
         public int MazeComplete{get; private set;}
         public int PlayerLevel{get; private set;}
@@ -105,7 +106,7 @@ namespace Gameplay.GameData
             data.PlayerCurrentSpellIndex = _playerCurrentSpellIndex;
             return data;
         }
-        private void RestoreBestRunData()
+        public void RestoreBestRunData()
         {
             if (_caretaker.BestSave != null)
             {
@@ -152,6 +153,14 @@ namespace Gameplay.GameData
                 _clockGame = ClockGame.Instance;
             _caretaker.UpdateCurrentSave(CreateSnapshot());
             Application.Quit();
+        }
+
+        public void Death()
+        {
+            UpdateDataCollector();
+            if(!_clockGame)
+                _clockGame = ClockGame.Instance;
+            _caretaker.UpdateCurrentSave(CreateSnapshot());
         }
         public void ResetSave()
         {

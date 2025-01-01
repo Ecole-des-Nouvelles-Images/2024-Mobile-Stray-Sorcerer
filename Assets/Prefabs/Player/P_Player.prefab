@@ -14954,7 +14954,7 @@ ParticleSystemForceField:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3795491060437724204}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Parameters:
     m_Shape: 1
     m_StartRange: 0
@@ -21369,11 +21369,11 @@ ParticleSystem:
         - serializedVersion: 3
           time: 0.9972678
           value: 0.18309857
-          inSlope: -3.7802784
-          outSlope: -3.7802784
+          inSlope: -3.3495972
+          outSlope: -3.3495972
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0.12295091
+          inWeight: 0.10318362
           outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
@@ -21697,8 +21697,8 @@ ParticleSystem:
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 65535
-        atime2: 0
+        atime1: 59367
+        atime2: 65535
         atime3: 0
         atime4: 0
         atime5: 0
@@ -21707,7 +21707,7 @@ ParticleSystem:
         m_Mode: 0
         m_ColorSpace: 0
         m_NumColorKeys: 2
-        m_NumAlphaKeys: 2
+        m_NumAlphaKeys: 3
       minGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}

@@ -16,7 +16,7 @@ namespace Player
         public static readonly int Hurt = Animator.StringToHash("hurt");
         public static readonly int Death = Animator.StringToHash("isDead");
         public static readonly int Dissolve = Shader.PropertyToID("_State");
-        public static Action OnPlayerSpawn;
+        public static Action OnPlayerDeath;
         public static Action<int> OnHpChanged;
         public static Action<int> OnMaxHpChanged;
         public static Action<int> OnExpChanged;
@@ -237,31 +237,6 @@ namespace Player
             if (!_isDelay) _isDelay = true;
         }
 
-        private void PlayerSpawn()
-        {
-            List<Material> materials = new();
-
-            _playerAnimator.SetBool(Death, false);
-            transform.position = new Vector3(0, 0, 0);
-
-            foreach (Renderer rd in _renderers)
-            {
-                rd.GetMaterials(materials); // Copy originals
-
-                foreach (Material material in materials) {
-                    material.SetFloat(Dissolve, 0);
-                }
-            }
-
-            HP = MaxHP;
-            _myPlayerController.enabled = true;
-            _myPlayerInput.enabled = true;
-            _myAttackNearestFoesComponent.enabled = true;
-            IsDead = false;
-
-            OnPlayerSpawn?.Invoke();
-        }
-
         public void UpdateSpell()
         {
             CurrentSpell = _spells[SpellUnlock];
@@ -324,7 +299,7 @@ namespace Player
 
             yield return new WaitForSeconds(.5f);
 
-            PlayerSpawn();
+            OnPlayerDeath?.Invoke();
         }
     }
 }
