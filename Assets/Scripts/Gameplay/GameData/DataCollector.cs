@@ -135,7 +135,6 @@ namespace Gameplay.GameData
                 _playerXp=Character.Instance.EXP;
                 _playerCurrentSpellIndex=Character.Instance.SpellUnlock;
             }
-            Debug.Log("Update Data");
         }
         public void SaveDataAndContinue()
         {
@@ -143,6 +142,7 @@ namespace Gameplay.GameData
             if(!_clockGame)
                 _clockGame = ClockGame.Instance;
             _caretaker.UpdateCurrentSave(CreateSnapshot());
+            _restoreData = true;
             Destroy(Character.Instance.gameObject);
             SceneLoader.Instance.ReloadGameScene();
         }
@@ -170,7 +170,6 @@ namespace Gameplay.GameData
         {
             if(Character.Instance&& _restoreData)
             {
-                Debug.Log("attribution stat to player");
                 Character.Instance.Level = PlayerLevel;
                 Character.Instance.Constitution = PlayerConstitution;
                 Character.Instance.Power = PlayerPower;
@@ -180,6 +179,7 @@ namespace Gameplay.GameData
                 Character.Instance.EXP = _playerXp;
                 Character.Instance.SpellUnlock = _playerCurrentSpellIndex;
                 Character.Instance.UpdateSpell();
+                _restoreData = false;
             }
             else
             {

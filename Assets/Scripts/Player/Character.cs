@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Gameplay.GameData;
+using Manager;
 using Player.AutoAttacks;
 using Player.Spells_Effects;
 using UnityEngine;
@@ -164,11 +165,13 @@ namespace Player
         private void Start()
         {
             ClockGame.Instance.ClockStart();
-            DataCollector.OnPlayerSpawned?.Invoke();
+            StartCoroutine(LoadDataPlayer());
         }
 
         private void Update()
         {
+            if(IsDead)
+                GameManager.Instance.CamDeathAnimation();
             //timer for speed boost
             if (_isDelay && _boostTime < _boostDelay) _boostTime += Time.deltaTime;
             if (_isDelay && _boostTime >= _boostDelay)
@@ -180,7 +183,12 @@ namespace Player
                 _isBoosted = false;
             }
         }
-
+        
+        private IEnumerator LoadDataPlayer()
+        {
+            DataCollector.OnPlayerSpawned?.Invoke();
+            yield return null;
+        }
         private void LevelUp()
         {
             Level++;
@@ -297,7 +305,7 @@ namespace Player
                 yield return null;
             }
 
-            yield return new WaitForSeconds(.5f);
+            yield return new WaitForSeconds(.25f);
 
             OnPlayerDeath?.Invoke();
         }

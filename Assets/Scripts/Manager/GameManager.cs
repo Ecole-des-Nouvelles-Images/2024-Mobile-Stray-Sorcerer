@@ -17,6 +17,8 @@ namespace Manager
         [SerializeField] private Vector3 _cameraOrientation;
         [SerializeField] private float _cameraFOV = 60;
         [SerializeField] private float _cameraDistance = 25;
+        [SerializeField] private int _deathAnimSpeed = 10;
+        [SerializeField] private int _deathAnimMaxDistance = 5;
 
         private GameObject _player;
         private CinemachineVirtualCamera _camera;
@@ -38,6 +40,12 @@ namespace Manager
             SetupCamera();
         }
 
+        public void CamDeathAnimation()
+        {
+            if(_camera.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance > _deathAnimMaxDistance)
+                _camera.GetCinemachineComponent<CinemachineFramingTransposer>().m_CameraDistance -= Time.deltaTime * _deathAnimSpeed;
+        } 
+
         private void SetupCamera()
         {
             CinemachineFramingTransposer camBody = _camera.AddCinemachineComponent<CinemachineFramingTransposer>();
@@ -49,5 +57,6 @@ namespace Manager
             camBody.m_SoftZoneWidth = 0.2f;
             camBody.m_SoftZoneHeight = 0.2f;
         }
+        
     }
 }
