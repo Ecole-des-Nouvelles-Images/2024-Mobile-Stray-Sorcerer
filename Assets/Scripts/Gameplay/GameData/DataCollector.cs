@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using Manager;
 using Player;
 using UnityEngine;
@@ -30,6 +31,12 @@ namespace Gameplay.GameData
         public int BRDplayerConstitution{get; private set;}
         public int BRDplayerSwiftness{get; private set;}
         public int BRDplayerPower{get; private set;}
+        //------------------------------------------------
+        //--------------- Settings Data ------------------
+        public bool IsLeftJoystick{get; private set;}
+        public float MusicSlider{get; private set;}
+        public float SfxSlider{get; private set;}
+        public float LuminositySlider{get; private set;}
         //------------------------------------------------
         
         private int _playerXp;
@@ -106,6 +113,7 @@ namespace Gameplay.GameData
             data.PlayerCurrentSpellIndex = _playerCurrentSpellIndex;
             return data;
         }
+        
         public void RestoreBestRunData()
         {
             if (_caretaker.BestSave != null)
@@ -121,7 +129,6 @@ namespace Gameplay.GameData
                 BRDplayerPower = _caretaker.BestSave.PlayerPower;
             }
         }
-        
         public void UpdateDataCollector()
         {
             if(Character.Instance)
@@ -186,6 +193,33 @@ namespace Gameplay.GameData
                 UpdateDataCollector();
             }
         }
-        
+
+        public void SaveSettings(bool isLeftJoystick, float musicSlider, float sfxSlider, float luminositySlider)
+        {
+            IsLeftJoystick = isLeftJoystick;
+            MusicSlider = musicSlider;
+            SfxSlider = sfxSlider;
+            LuminositySlider = luminositySlider;
+            SettingsSnapshot settings = new SettingsSnapshot();
+            settings.IsLeftJoystick = IsLeftJoystick;
+            settings.MusicSlider = MusicSlider;
+            settings.SfxSlider = SfxSlider;
+            settings.LuminositySlider = LuminositySlider;
+            _caretaker.UpdateSavedSettings(settings);
+        }
+
+        public void LoadSettings(bool isLeftJoystick, float musicSlider, float sfxSlider, float luminositySlider)
+        {
+            string filePath = Application.persistentDataPath + "/Settings.json" ;
+            if (!File.Exists(filePath))
+            {
+                SaveSettings(isLeftJoystick,  musicSlider,  sfxSlider,  luminositySlider);
+            }
+            _caretaker.LoadSavedSettings();
+            IsLeftJoystick = _caretaker.SavedSettings.IsLeftJoystick;
+            MusicSlider = _caretaker.SavedSettings.MusicSlider;
+            SfxSlider = _caretaker.SavedSettings.SfxSlider;
+            LuminositySlider = _caretaker.SavedSettings.LuminositySlider;
+        }
     }
 }
