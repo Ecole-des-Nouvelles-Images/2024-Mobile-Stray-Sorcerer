@@ -50,7 +50,7 @@ namespace Player
 
         [Header("Timers")]
         [SerializeField] private float _boostDelay = 3;
-        [SerializeField] private float _deathAnimationDuration = 5;
+        [SerializeField] private float _deathAnimationDuration = 2;
         
         public int Constitution { get; set; }
         public int Swiftness { get; set; }
