@@ -190,7 +190,8 @@ MonoBehaviour:
   _speed: 7
   _acceleration: 8
   _attackSpeed: 3
-  _dropPrefabs: []
+  _dropPrefabs:
+  - {fileID: 0}
   _xpPrefab: {fileID: 410255202443490771, guid: 57bea3ed8be173d46aaf67f1a7592636,
     type: 3}
   _triggerAttack: {fileID: 105922859419920634}

@@ -129,13 +129,10 @@ namespace AI.Monsters
 
         protected void Grow(int growMult)
         {
-            //Debug.Log("monster"+gameObject.name +"-> monster level:"+ClockGame.Instance.GrowingLevel);
             float hpGrowth = _hpMax * (_hpGrowingFactor * growMult);
             _hpMax += (int)hpGrowth;
-            //Debug.Log("monster"+gameObject.name +"-> monster hp:"+_hpMax);
             float damageGrowth = _damage * (_damageGrowingFactor * growMult);
             _damage += (int)damageGrowth;
-            //Debug.Log("monster"+gameObject.name +"-> monster damage:"+_damage);
         }
 
         private void PlayerTargeting()
@@ -177,7 +174,11 @@ namespace AI.Monsters
             gameObject.GetComponent<Collider>().enabled = false;
             if(DataCollector.Instance)
                 DataCollector.OnMonsterDeath?.Invoke();
-            if (_dropPrefabs.Length > 0) Instantiate(_dropPrefabs[Random.Range(0, _dropPrefabs.Length)], transform.position, Quaternion.identity);
+            if (_dropPrefabs.Length > 0 && Random.Range(1,6)==6)
+            {
+                Vector3 position = new Vector3(transform.position.x + 0.5f, transform.position.y, transform.position.z);
+                Instantiate(_dropPrefabs[Random.Range(0, _dropPrefabs.Length-1)], position, Quaternion.identity);
+            }
             Instantiate(_xpPrefab, transform.position, Quaternion.identity);
             
 
