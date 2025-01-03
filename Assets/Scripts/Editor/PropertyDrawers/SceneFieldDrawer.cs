@@ -2,10 +2,10 @@
 using UnityEngine;
 using Utils;
 
-namespace Editor
+namespace Editor.PropertyDrawers
 {
     [CustomPropertyDrawer(typeof(SceneField))]
-    public class SceneFieldPropertyDrawer : PropertyDrawer
+    public class SceneFieldDrawer : PropertyDrawer
     {
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {

@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 6478019912855276527}
   - component: {fileID: 9044073106895932035}
   - component: {fileID: 6223792065523129087}
+  - component: {fileID: 3172468539314257674}
   m_Layer: 0
   m_Name: P_SpeedBoostArea
-  m_TagString: Untagged
+  m_TagString: RuntimeDynamicEmitter
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -70,7 +71,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 483f1953b23747f39aa83194fae41652, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cooldown: 2
+--- !u!114 &3172468539314257674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2942975559541582547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a36fb6a61591454aa7f1fd7eef7fc15b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lights: []
+  _emitters:
+  - System: 0
+    PS: {fileID: 166573407091874637}
+    VFX: {fileID: 0}
 --- !u!1 &5556926431307032440
 GameObject:
   m_ObjectHideFlags: 0
