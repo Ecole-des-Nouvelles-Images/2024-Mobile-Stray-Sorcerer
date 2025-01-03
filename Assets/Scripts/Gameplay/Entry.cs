@@ -17,9 +17,7 @@ namespace Gameplay
         [SerializeField] private TMP_Text _tutoTextMessage;
 
         private bool _triggerMessage;
-        private bool _triggerActivation;
         private float _timerAnim;
-        private float _timerActivation;
 
         private void Awake()
         {
@@ -34,7 +32,6 @@ namespace Gameplay
         {
             if (other.CompareTag("Player"))
             {
-                _triggerActivation = true;
                 _tutoMessage.SetActive(true);
                 StartCoroutine(Disactivation());
                 foreach (GameObject fx in _teleporteFX)
@@ -56,7 +53,6 @@ namespace Gameplay
             {
                 _triggerMessage = false;
                 _tutoTextMessage.DOFade(0, _fadeAnimDuration);
-                _timerActivation = 0.5f;
             }
         }
 

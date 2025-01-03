@@ -149,7 +149,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3
+      scalar: 1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -320,8 +320,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.3
-      minScalar: 0.1
+      scalar: 1.3
+      minScalar: 0.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -5230,7 +5230,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3
+      scalar: 1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -5401,8 +5401,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.3
-      minScalar: 0.1
+      scalar: 1.3
+      minScalar: 0.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -10190,7 +10190,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3
+      scalar: 1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -10361,8 +10361,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.3
-      minScalar: 0.1
+      scalar: 1.3
+      minScalar: 0.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -15558,7 +15558,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3
+      scalar: 1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -15729,8 +15729,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.3
-      minScalar: 0.1
+      scalar: 1.3
+      minScalar: 0.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -26017,8 +26017,8 @@ MonoBehaviour:
   _baseSpeed: 500
   _baseEXP: 10
   _baseSpellDamage: 10
-  _attackCooldown: 2
-  _cooldownUpgrade: -0.25
+  _attackCooldown: 3
+  _cooldownUpgrade: -0.5
   _hpPerConst: 1
   _boostDelay: 3
   _deathAnimationDuration: 3

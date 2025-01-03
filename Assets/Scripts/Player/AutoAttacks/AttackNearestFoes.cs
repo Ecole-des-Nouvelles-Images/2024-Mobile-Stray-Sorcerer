@@ -79,13 +79,13 @@ namespace Player.AutoAttacks
 
             for (int i = 0; i < _enemyDetector.EnemiesInRange.Count; i++)
             {
-                if (_nearestFoe == null && Helper.DirectViewBetweenTwoObject(gameObject, _enemyDetector.EnemiesInRange[i], false))
+                if (!_nearestFoe && _enemyDetector.EnemiesInRange[i] && Helper.DirectViewBetweenTwoObject(gameObject, _enemyDetector.EnemiesInRange[i], false))
                 {
                     _nearestFoe = _enemyDetector.EnemiesInRange[i];
                     return;
                 }
 
-                if (_nearestFoe != null
+                if (_nearestFoe 
                     && Vector3.Distance(transform.position, _nearestFoe.transform.position) > Vector3.Distance(transform.position, _enemyDetector.EnemiesInRange[i].transform.position)
                     && Helper.DirectViewBetweenTwoObject(gameObject, _enemyDetector.EnemiesInRange[i], false))
                     _nearestFoe = _enemyDetector.EnemiesInRange[i];
