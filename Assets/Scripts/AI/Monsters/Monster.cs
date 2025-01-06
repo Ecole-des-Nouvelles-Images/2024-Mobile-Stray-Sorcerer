@@ -71,7 +71,6 @@ namespace AI.Monsters
             _triggerAttack.OnPlayerDetected -= PlayerDetected;
         }
 
-        
         private void Start()
         {
             CurrentHp = _hpMax;
@@ -84,7 +83,8 @@ namespace AI.Monsters
 
         private void Update()
         {
-            if (!IsDead)
+
+            if (!IsDead && _myTarget)
             {
                 //---timer---
                 if (_currentTimeBeforAttack > 0 && _isCastReady == false)

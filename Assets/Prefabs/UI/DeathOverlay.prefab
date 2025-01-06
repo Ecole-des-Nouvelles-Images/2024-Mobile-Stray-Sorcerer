@@ -2523,6 +2523,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7344772585387361048}
   - component: {fileID: 1154881891888185663}
+  - component: {fileID: 463707160057886782}
   m_Layer: 0
   m_Name: DeathOverlay
   m_TagString: Untagged
@@ -2575,6 +2576,20 @@ MonoBehaviour:
   _playerAttackSpeedCountBRD: {fileID: 8679632536843982507}
   _playerPowerCountBRD: {fileID: 2102480191257987625}
   _deathDisplay: {fileID: 1047328898955571622}
+  _canvasGroup: {fileID: 463707160057886782}
+  _fadeDuration: 1
+--- !u!225 &463707160057886782
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833154281421485767}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &1892575011513681051
 GameObject:
   m_ObjectHideFlags: 0
