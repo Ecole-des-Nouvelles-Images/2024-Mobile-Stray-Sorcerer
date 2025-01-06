@@ -190,18 +190,21 @@ namespace Player
         }
         private void LevelUp()
         {
-            Level++;
+            if (HP > 0)
+            {
+                Level++;
 
-            if (Level % 5 == 0 && SpellUnlock < _spells.Length)
-            {
-                SpellUnlock++;
-                OnSpellIndexChange?.Invoke(SpellUnlock);
-                UpdateSpell();
-                OnSpellUnlock?.Invoke(CurrentSpell, NextSpell);
-            }
-            else
-            {
-                OnDisplayUpgrade?.Invoke();
+                if (Level % 5 == 0 && SpellUnlock < _spells.Length)
+                {
+                    SpellUnlock++;
+                    OnSpellIndexChange?.Invoke(SpellUnlock);
+                    UpdateSpell();
+                    OnSpellUnlock?.Invoke(CurrentSpell, NextSpell);
+                }
+                else
+                {
+                    OnDisplayUpgrade?.Invoke();
+                }
             }
         }
 
@@ -290,6 +293,8 @@ namespace Player
             _myPlayerController.enabled = false;
             _myPlayerInput.enabled = false;
             _myAttackNearestFoesComponent.enabled = false;
+            ClockGame.Instance.ClockStop();
+            ClockGame.Instance.Reset();
 
             yield return GameManager.Instance.CamDeathAnimation();
 

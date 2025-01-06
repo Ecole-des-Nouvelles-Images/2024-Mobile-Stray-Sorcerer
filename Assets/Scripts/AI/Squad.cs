@@ -15,6 +15,7 @@ namespace AI
         [SerializeField] private Transform[] _markerList;
         [SerializeField] private Transform _raycastOrigin;
         [SerializeField] private GameObject _speedBoostAreaPrefab;
+        [SerializeField] private float _cooldownRaycast;
         
         private bool _isTriggered;
         private bool _isChaseTime;
@@ -34,6 +35,10 @@ namespace AI
                     Instantiate(_speedBoostAreaPrefab, transform.position, quaternion.identity);
                 Destroy(gameObject);
             }
+            if (_isTriggered)
+            {
+                PlayerDirectView();
+            }
         }
 
         private void OnTriggerEnter(Collider other)
@@ -45,14 +50,6 @@ namespace AI
                 {
                     _markerList[i].GetChild(0).gameObject.SetActive(true);
                 }
-            }
-        }
-
-        private void OnTriggerStay(Collider other)
-        {
-            if (other.CompareTag("Player") && !_isChaseTime && Character.Instance)
-            {
-                PlayerDirectView();
             }
         }
 
