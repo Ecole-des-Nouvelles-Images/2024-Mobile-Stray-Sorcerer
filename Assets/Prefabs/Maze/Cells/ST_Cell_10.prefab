@@ -321,6 +321,9 @@ Transform:
   - {fileID: 320559041351863490}
   - {fileID: 965862396314190985}
   - {fileID: 3003594252909485968}
+  - {fileID: 2492142382767456468}
+  - {fileID: 1308309881252009020}
+  - {fileID: 305105851537011008}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1580019428078388428
@@ -1293,3 +1296,240 @@ MonoBehaviour:
   - {fileID: 1444527824407496252, guid: 5e2797aff17af2044993cf14fc8b483c, type: 3}
   - {fileID: 262584985082976757, guid: fc4470c371bc4db46b55197a0c0d360e, type: 3}
   _rubbleProbability: 0.6
+--- !u!1001 &397445331215505701
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8702718234536797552}
+    m_Modifications:
+    - target: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9063134
+      objectReference: {fileID: 0}
+    - target: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.016437
+      objectReference: {fileID: 0}
+    - target: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.14636466
+      objectReference: {fileID: 0}
+    - target: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.39611006
+      objectReference: {fileID: 0}
+    - target: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 4.943
+      objectReference: {fileID: 0}
+    - target: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -16.222
+      objectReference: {fileID: 0}
+    - target: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 46.511
+      objectReference: {fileID: 0}
+    - target: {fileID: 3195880680412169035, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_Name
+      value: Spiderweb
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7e0ed48b1fae772449f5297c11355eb5, type: 3}
+--- !u!4 &2492142382767456468 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+    type: 3}
+  m_PrefabInstance: {fileID: 397445331215505701}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2533881723195861169
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8702718234536797552}
+    m_Modifications:
+    - target: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7.93
+      objectReference: {fileID: 0}
+    - target: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 7.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.8623849
+      objectReference: {fileID: 0}
+    - target: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.28972298
+      objectReference: {fileID: 0}
+    - target: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.29218078
+      objectReference: {fileID: 0}
+    - target: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.29492927
+      objectReference: {fileID: 0}
+    - target: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 42.226
+      objectReference: {fileID: 0}
+    - target: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 26.728
+      objectReference: {fileID: 0}
+    - target: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -27.278
+      objectReference: {fileID: 0}
+    - target: {fileID: 3195880680412169035, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_Name
+      value: Spiderweb (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7e0ed48b1fae772449f5297c11355eb5, type: 3}
+--- !u!4 &305105851537011008 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+    type: 3}
+  m_PrefabInstance: {fileID: 2533881723195861169}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &3835326082984758733
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8702718234536797552}
+    m_Modifications:
+    - target: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5272954
+      objectReference: {fileID: 0}
+    - target: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.61560494
+      objectReference: {fileID: 0}
+    - target: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.038119033
+      objectReference: {fileID: 0}
+    - target: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.5844117
+      objectReference: {fileID: 0}
+    - target: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 43.929
+      objectReference: {fileID: 0}
+    - target: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -70.606
+      objectReference: {fileID: 0}
+    - target: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -127.759
+      objectReference: {fileID: 0}
+    - target: {fileID: 3195880680412169035, guid: 7e0ed48b1fae772449f5297c11355eb5,
+        type: 3}
+      propertyPath: m_Name
+      value: Spiderweb (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7e0ed48b1fae772449f5297c11355eb5, type: 3}
+--- !u!4 &1308309881252009020 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2815273303322663409, guid: 7e0ed48b1fae772449f5297c11355eb5,
+    type: 3}
+  m_PrefabInstance: {fileID: 3835326082984758733}
+  m_PrefabAsset: {fileID: 0}

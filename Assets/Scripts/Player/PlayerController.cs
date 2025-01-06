@@ -97,14 +97,12 @@ namespace Player
 
             if (_currentForwardAmount < 0.4f && value.y >= 0.4f)
             {
-                Debug.Log("Camera offsetting forward");
                 if (_cameraTrackingCoroutine != null)
                     StopAllCoroutines();
                 _cameraTrackingCoroutine = StartCoroutine(SmoothCameraTrackingOffset(1));
             }
             else if (_currentForwardAmount > -0.4f && value.y <= -0.4f)
             {
-                Debug.Log("Camera re-centering");
                 if (_cameraTrackingCoroutine != null)
                     StopAllCoroutines();
                 _cameraTrackingCoroutine = StartCoroutine(SmoothCameraTrackingOffset(1));
@@ -112,7 +110,6 @@ namespace Player
             else if ((_currentForwardAmount < -0.4f && value.y is >= -0.4f and <= 0.4f)
                      || (_currentForwardAmount > 0.4f && value.y is >= -0.4f and <= 0.4f))
             {
-                Debug.Log("Camera offsetting downward");
                 if (_cameraTrackingCoroutine != null)
                     StopAllCoroutines();
                 _cameraTrackingCoroutine = StartCoroutine(SmoothCameraTrackingOffset(0));
