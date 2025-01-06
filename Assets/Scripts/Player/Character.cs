@@ -289,6 +289,8 @@ namespace Player
             _myPlayerController.enabled = false;
             _myPlayerInput.enabled = false;
             _myAttackNearestFoesComponent.enabled = false;
+            ClockGame.Instance.ClockStop();
+            ClockGame.Instance.Reset();
 
             while (t < 1)
             {
