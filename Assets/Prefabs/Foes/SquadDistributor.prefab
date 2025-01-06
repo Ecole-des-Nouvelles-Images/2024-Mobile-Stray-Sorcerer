@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5236017668083622863}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -48,6 +48,7 @@ MonoBehaviour:
   _squadsPrefabs:
   - {fileID: 8763945216016079003, guid: edd256711ca94324b991ef0fada08c9c, type: 3}
   - {fileID: 7327473361355978886, guid: 3cee61f222818a741bf588420326e29e, type: 3}
+  - {fileID: 4999329585101310972, guid: cedb42730b1a80b4096087e647ded804, type: 3}
   _mazeBuilder: {fileID: 0}
   _playerSpawnPosition: {x: 0, y: 0}
   _offsetPosition: 2
