@@ -17,15 +17,6 @@ namespace AI
             }
         }
 
-        private void OnTriggerStay(Collider other)
-        {
-            if (other.CompareTag("Player") && _detectObject == false)
-            {
-                _detectObject = true;
-                OnPlayerDetected?.Invoke(true);
-            }
-        }
-
         private void OnTriggerExit(Collider other)
         {
             if (other.CompareTag("Player") && _detectObject)

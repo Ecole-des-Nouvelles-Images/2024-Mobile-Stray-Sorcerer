@@ -191,18 +191,21 @@ namespace Player
         }
         private void LevelUp()
         {
-            Level++;
+            if (HP > 0)
+            {
+                Level++;
 
-            if (Level % 5 == 0 && SpellUnlock < _spells.Length)
-            {
-                SpellUnlock++;
-                OnSpellIndexChange?.Invoke(SpellUnlock);
-                UpdateSpell();
-                OnSpellUnlock?.Invoke(CurrentSpell, NextSpell);
-            }
-            else
-            {
-                OnDisplayUpgrade?.Invoke();
+                if (Level % 5 == 0 && SpellUnlock < _spells.Length)
+                {
+                    SpellUnlock++;
+                    OnSpellIndexChange?.Invoke(SpellUnlock);
+                    UpdateSpell();
+                    OnSpellUnlock?.Invoke(CurrentSpell, NextSpell);
+                }
+                else
+                {
+                    OnDisplayUpgrade?.Invoke();
+                }
             }
         }
 
