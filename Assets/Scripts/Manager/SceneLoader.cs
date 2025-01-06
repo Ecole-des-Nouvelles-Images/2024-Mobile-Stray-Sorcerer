@@ -35,6 +35,11 @@ namespace Manager
             _currentScene = _titleScreen;
         }
 
+        public void LoadTitleScreen()
+        {
+            StartCoroutine(LoadCoroutine(_titleScreen, false));
+        }
+
         public void LaunchGame()
         {
             OnLaunchGame?.Invoke();

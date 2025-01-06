@@ -287,6 +287,8 @@ namespace Player
             _myPlayerInput.enabled = false;
             _myAttackNearestFoesComponent.enabled = false;
 
+            yield return GameManager.Instance.CamDeathAnimation();
+
             while (t < 1)
             {
                 t += Time.deltaTime / _deathAnimationDuration;
