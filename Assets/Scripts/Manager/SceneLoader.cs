@@ -12,8 +12,8 @@ namespace Manager
         [SerializeField] private LoadingScreen _loadingScreen;
         [SerializeField] private TransitionSystem _transition;
 
-        [Header("Scenes References")] [SerializeField]
-        private SceneField _titleScreen;
+        [Header("Scenes References")]
+        [SerializeField] private SceneField _titleScreen;
 
         [SerializeField] private SceneField _tutorialScene;
         [SerializeField] private SceneField _gameScene;
@@ -55,12 +55,14 @@ namespace Manager
         {
             yield return LoadSceneCoroutine(scene);
 
+            _loadingScene = scene;
+            _loadingSceneRootObjects = _loadingScene.Scene.GetRootGameObjects();
+
             if (isGameScene)
             {
-                _loadingScene = scene;
-                _loadingSceneRootObjects = _loadingScene.Scene.GetRootGameObjects();
-
                 while (!LoadingBuilder) yield return null;
+
+                SceneManager.SetActiveScene(_loadingScene);
 
                 yield return LoadingBuilder.Build(_loadingScreen);
             }
@@ -68,10 +70,8 @@ namespace Manager
             if (_currentScene != null)
                 yield return UnloadSceneCoroutine(_currentScene);
 
-
             _loadingScreen.Show(false);
             _currentScene = _loadingScene;
-            SceneManager.SetActiveScene(_currentScene);
         }
 
         private IEnumerator LoadSceneCoroutine(SceneField scene)

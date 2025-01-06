@@ -38,6 +38,7 @@ namespace UI
                 _canvasGroup.interactable = true;
                 _canvasGroup.blocksRaycasts = true;
             });
+
             DataCollector.Instance.Death();
             UpdateDisplay();
         }

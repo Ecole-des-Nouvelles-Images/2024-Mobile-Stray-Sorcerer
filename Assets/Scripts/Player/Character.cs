@@ -15,8 +15,9 @@ namespace Player
     public class Character : SingletonMonoBehaviour<Character>
     {
         public static readonly int Hurt = Animator.StringToHash("hurt");
-        public static readonly int Death = Animator.StringToHash("isDead");
+        public static readonly int DeathState = Animator.StringToHash("isDead");
         public static readonly int Dissolve = Shader.PropertyToID("_State");
+
         public static Action OnPlayerDeath;
         public static Action<int> OnHpChanged;
         public static Action<int> OnMaxHpChanged;
@@ -170,8 +171,6 @@ namespace Player
 
         private void Update()
         {
-            if(IsDead)
-                GameManager.Instance.CamDeathAnimation();
             //timer for speed boost
             if (_isDelay && _boostTime < _boostDelay) _boostTime += Time.deltaTime;
             if (_isDelay && _boostTime >= _boostDelay)
@@ -276,13 +275,18 @@ namespace Player
             OnExpChanged?.Invoke(EXP);
         }
 
+        private void Death()
+        {
+            StartCoroutine(DeathAnimationCoroutine());
+        }
+
         private IEnumerator DeathAnimationCoroutine()
         {
             float t = 0f;
             List<Material> materials = new();
 
             IsDead = true;
-            _playerAnimator.SetBool(Death, true);
+            _playerAnimator.SetBool(DeathState, true);
             _myPlayerController.enabled = false;
             _myPlayerInput.enabled = false;
             _myAttackNearestFoesComponent.enabled = false;
@@ -310,6 +314,8 @@ namespace Player
             yield return new WaitForSeconds(.25f);
 
             OnPlayerDeath?.Invoke();
+
+            Destroy(this.gameObject);
         }
     }
 }
