@@ -13,8 +13,8 @@ namespace Manager
         [SerializeField] private TransitionSystem _transition;
 
         [Header("Scenes References")]
+        [SerializeField] private SceneField _loader;
         [SerializeField] private SceneField _titleScreen;
-
         [SerializeField] private SceneField _tutorialScene;
         [SerializeField] private SceneField _gameScene;
 
@@ -61,7 +61,6 @@ namespace Manager
             if (isGameScene)
             {
                 while (!LoadingBuilder) yield return null;
-
                 SceneManager.SetActiveScene(_loadingScene);
 
                 yield return LoadingBuilder.Build(_loadingScreen);
@@ -128,6 +127,15 @@ namespace Manager
             _loadingScreen.Show(false);
             _currentScene = _gameScene;
             SceneManager.SetActiveScene(_currentScene);
+        }
+
+        public GameObject SceneUtilityActivatePlayer(GameObject prefab, Vector3 position)
+        {
+            SceneManager.SetActiveScene(_loader);
+            GameObject player = Instantiate(prefab, position, Quaternion.identity);
+            SceneManager.SetActiveScene(_currentScene);
+
+            return player;
         }
     }
 }

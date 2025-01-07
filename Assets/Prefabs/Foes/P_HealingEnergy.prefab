@@ -9907,7 +9907,7 @@ GameObject:
   - component: {fileID: 7170274277833750758}
   - component: {fileID: 8333623506143597968}
   - component: {fileID: 798946109690631500}
-  - component: {fileID: 3637681871623476201}
+  - component: {fileID: 9048284760830319425}
   m_Layer: 0
   m_Name: HealSource
   m_TagString: Untagged
@@ -9979,7 +9979,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3637681871623476201
+--- !u!114 &9048284760830319425
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9988,10 +9988,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5728157295849116547}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 817a727a923c9534d886b0fc16751d2a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0a69af2790453e54488c71cd8d3ebbb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _xpValue: 10
+  _healValue: 1
   _playerDetector: {fileID: 4462875889171902071}
 --- !u!1 &8273858301091200564
 GameObject:
