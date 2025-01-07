@@ -173,8 +173,10 @@ namespace AI.Monsters
             gameObject.GetComponent<Collider>().enabled = false;
             if(DataCollector.Instance)
                 DataCollector.OnMonsterDeath?.Invoke();
-            if (_dropPrefabs.Length > 0 && Random.Range(1,6)==6)
+            int dice = Random.Range(1, 6);
+            if (_dropPrefabs.Length > 0 && dice>=4)
             {
+                Debug.Log("Drop Roll = " + dice);
                 Vector3 position = new Vector3(transform.position.x + 0.5f, transform.position.y, transform.position.z);
                 Instantiate(_dropPrefabs[Random.Range(0, _dropPrefabs.Length-1)], position, Quaternion.identity);
             }
