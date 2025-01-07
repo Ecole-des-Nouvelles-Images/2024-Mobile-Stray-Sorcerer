@@ -1,0 +1,61 @@
+name: Android Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-android:
+    name: Build Unity Project for Android
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          lfs: true
+          fetch-depth: 0
+
+      # 2. Cache Unity Library folder (to speed up builds)
+      - name: Cache Library folder
+        uses: actions/cache@v3
+        with:
+          path: Library
+          key: Library-Android-${{ hashFiles('**/Assets/**') }}
+          restore-keys: |
+            Library-Android-
+            Library-
+
+      # 3. Activate Unity License
+      - name: Activate Unity License
+        uses: game-ci/unity-activate@v2
+        with:
+          unityVersion: ${{ secrets.UNITY_VERSION }}
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+
+      # 4. Build Android APK or AAB
+      - name: Build Unity Project for Android
+        uses: game-ci/unity-builder@v4
+        with:
+          projectPath: . # Root of the Unity project
+          unityVersion: ${{ secrets.UNITY_VERSION }}
+          targetPlatform: Android # Specify the target platform
+          customParameters: ${{ secrets.CUSTOM_PARAMETERS }} # Optional additional build parameters
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASS: ${{ secrets.ANDROID_KEYSTORE_PASS }}
+          ANDROID_KEYALIAS_NAME: ${{ secrets.ANDROID_KEYALIAS_NAME }}
+          ANDROID_KEYALIAS_PASS: ${{ secrets.ANDROID_KEYALIAS_PASS }}
+
+      # 5. Upload APK/AAB Build as Artifact
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: Android-Build
+          path: build # Replace with the actual Unity build output path
