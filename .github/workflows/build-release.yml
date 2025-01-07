@@ -19,6 +19,8 @@ jobs:
       uses: game-ci/unity-builder@v2
       with:
         unityVersion: 2022.3.47f1 # Changez cela selon votre version Unity
+      env:
+        UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
     # 3. Build Unity
     - name: Build Unity project
