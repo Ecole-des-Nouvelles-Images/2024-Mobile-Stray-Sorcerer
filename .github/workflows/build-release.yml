@@ -1,64 +1,60 @@
-name: Build and Release
+name: Unity Generic Builder
 
 on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  build-and-release:
-    runs-on: ubuntu-latest
-
+  build-unity:
+    name: Build Unity Project for ${{ matrix.targetPlatform }}
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-latest, windows-latest, macos-latest]
+        targetPlatform: [StandaloneWindows64, StandaloneLinux64, Android, iOS, WebGL]
     steps:
-    # 1. Checkout du code source
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      # 1. Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          lfs: true # If your project uses large files like textures or assets
+          fetch-depth: 0
 
-    # 2. Configuration de Unity
-    - name: Setup Unity
-      uses: game-ci/unity-builder@v2
-      with:
-        unityVersion: 2022.3.47f1 # Changez cela selon votre version Unity
-      env:
-        UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+      # 2. Cache Unity Library to speed up builds
+      - name: Cache Library folder
+        uses: actions/cache@v3
+        with:
+          path: Library
+          key: Library-${{ matrix.targetPlatform }}-${{ hashFiles('**/Assets/**') }}
+          restore-keys: |
+            Library-${{ matrix.targetPlatform }}-
+            Library-
 
-    # 3. Build Unity
-    - name: Build Unity project
-      uses: game-ci/unity-builder@v2
-      with:
-        projectPath: .
-        # targetPlatform: StandaloneWindows64
-        targetPlatform: Android
-        
-    # 4. Détection du tag ou version par défaut
-    - name: Set version
-      id: set_version
-      run: |
-        TAG=$(git describe --tags --abbrev=0 || echo "no-tag")
-        if [ "$TAG" = "no-tag" ]; then
-          echo "version=unknown" >> $GITHUB_ENV
-        else
-          echo "version=$TAG" >> $GITHUB_ENV
-        fi
+      # 3. Activate Unity License
+      - name: Activate Unity License
+        uses: game-ci/unity-activate@v4
+        with:
+          unityVersion: ${{ secrets.UNITY_VERSION }} # Dynamically configure Unity version
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
-    # 5. Supprimer les releases existantes avec le même nom
-    - name: Delete existing release if exists
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        RELEASE_NAME="${{ github.event.repository.name }}-${{ env.version }}"
-        EXISTING_RELEASE_ID=$(gh release list --json id --jq '.[] | select(.name=="'"$RELEASE_NAME"'") | .id')
-        if [ -n "$EXISTING_RELEASE_ID" ]; then
-          gh release delete "$EXISTING_RELEASE_ID" --yes
-        fi
+      # 4. Build the project
+      - name: Build Unity Project
+        uses: game-ci/unity-builder@v4
+        with:
+          projectPath: . # Root of the Unity project
+          unityVersion: ${{ secrets.UNITY_VERSION }}
+          targetPlatform: ${{ matrix.targetPlatform }} # Dynamic platform from matrix
+          customParameters: ${{ secrets.CUSTOM_PARAMETERS }} # Optional custom build parameters
 
-    # 6. Créer une nouvelle release
-    - name: Create Release
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        RELEASE_NAME="${{ github.event.repository.name }}-${{ env.version }}"
-        gh release create "$RELEASE_NAME" \
-          ./build/*.zip \
-          --title "$RELEASE_NAME" \
-          --notes "Build automatique pour la version ${{ env.version }}."
+      # 5. Upload build artifacts
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: Build-${{ matrix.targetPlatform }}
+          path: build # Adjust this to the actual build output path
