@@ -15,9 +15,9 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      UNITY_VERSION: 2022.3.8f1 # Non sensible, peut être variable
-      TARGET_PLATFORM: Android # Plateforme cible non sensible
-      PROJECT_PATH: . # Chemin projet non sensible
+      UNITY_VERSION: ${{ env.UNITY_VERSION }}
+      TARGET_PLATFORM: ${{ env.TARGET_PLATFORM }}
+      PROJECT_PATH: ${{ env.PROJECT_PATH }}
 
     steps:
       # 1. Checkout the repository
