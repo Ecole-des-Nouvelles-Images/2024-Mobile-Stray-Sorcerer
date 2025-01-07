@@ -12,10 +12,10 @@ on:
 jobs:
   build-android:
     name: Build Unity Project for Android
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     
     env:
-      UNITY_VERSION: 6000.0.32f1 # Version Unity valide
+      UNITY_VERSION: 2022.3.47f1 # Version Unity valide
       TARGET_PLATFORM: Android # Plateforme cible
       PROJECT_PATH: . # Chemin vers le projet Unity
 
