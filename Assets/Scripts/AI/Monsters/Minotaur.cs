@@ -1,9 +1,7 @@
 using Gameplay.GameData;
 using Player;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-using Utils;
 
 namespace AI.Monsters
 {

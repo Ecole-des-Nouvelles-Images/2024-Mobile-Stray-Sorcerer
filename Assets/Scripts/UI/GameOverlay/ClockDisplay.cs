@@ -1,8 +1,6 @@
-using System;
 using Gameplay.GameData;
 using TMPro;
 using UnityEngine;
-using Utils;
 
 namespace UI.GameOverlay
 {

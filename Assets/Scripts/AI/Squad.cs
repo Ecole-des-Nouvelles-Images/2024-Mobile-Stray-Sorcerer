@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using AI.Monsters;
 using Player;
@@ -35,6 +34,7 @@ namespace AI
                     Instantiate(_speedBoostAreaPrefab, transform.position, quaternion.identity);
                 Destroy(gameObject);
             }
+
             if (_isTriggered)
             {
                 PlayerDirectView();
@@ -81,7 +81,10 @@ namespace AI
         {
             RaycastHit hit;
             LayerMask layerMask = LayerMask.GetMask("Player","Wall");
-            
+
+            if (!Character.Instance)
+                return;
+
             if (Physics.Raycast(_raycastOrigin.position,
                     Character.Instance.EnemyRaycastTarget.position - _raycastOrigin.position, out hit,
                     Mathf.Infinity, layerMask, QueryTriggerInteraction.Ignore))
@@ -91,8 +94,11 @@ namespace AI
                     _isChaseTime = true;
                     for (int i = 0; i < _markerList.Length; i++)
                     {
-                        _markerList[i].GetChild(0).gameObject.GetComponent<Monster>()
-                            .DefineTarget(Character.Instance.gameObject);
+                        if (_markerList[i].childCount > 0)
+                        {
+                            _markerList[i].GetChild(0)?.gameObject.GetComponent<Monster>()
+                                .DefineTarget(Character.Instance.gameObject);
+                        }
                     }
                 }
             }

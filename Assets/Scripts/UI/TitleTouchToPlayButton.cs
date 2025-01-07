@@ -33,6 +33,7 @@ namespace UI
         private void OnDisable()
         {
             SceneLoader.Instance.OnLaunchGame -= DisableButton;
+            _touchToPlay.onClick.RemoveAllListeners();
         }
 
         private void DisableButton()

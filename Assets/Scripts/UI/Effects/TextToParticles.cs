@@ -1,8 +1,5 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
-
-using Plugins.Nothke;
 
 namespace UI.Effects
 {

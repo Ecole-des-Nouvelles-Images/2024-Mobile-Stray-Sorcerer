@@ -1,10 +1,8 @@
-﻿using System;
-using DG.Tweening;
+﻿using DG.Tweening;
 using Gameplay.GameData;
 using Manager;
 using Player;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace UI
 {
@@ -32,7 +30,9 @@ namespace UI
 
         private void SelfActivation()
         {
+            Debug.Log("Player died, activating Death UI");
             Time.timeScale = 0;
+
             _canvasGroup.DOFade(1, _fadeDuration).SetUpdate(true).OnComplete(() =>
             {
                 _canvasGroup.interactable = true;

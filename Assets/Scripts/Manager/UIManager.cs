@@ -52,10 +52,6 @@ namespace Manager
         private void Start()
         {
             LoadSettingsData();
-            // _luminositySlider.maxValue = 2;
-            // _luminositySlider.minValue = 0;
-            // _luminositySlider.value = 0.7f;
-            // UpdateLuminosity();
 
             CurrentControlSide = _defaultControlSide;
         }
@@ -90,11 +86,24 @@ namespace Manager
 
         private void LoadSettingsData()
         {
-            DataCollector.Instance.LoadSettings(_isLeftJoystick,_musicSlider.value,_SFXSlider.value,_luminositySlider.value);
-            _isLeftJoystick = DataCollector.Instance.IsLeftJoystick;
-            _musicSlider.value = DataCollector.Instance.MusicSlider;
-            _SFXSlider.value = DataCollector.Instance.SfxSlider;
-            _luminositySlider.value = DataCollector.Instance.LuminositySlider;
+            try
+            {
+                DataCollector.Instance.LoadSettings(_isLeftJoystick,_musicSlider.value,_SFXSlider.value,_luminositySlider.value);
+                _isLeftJoystick = DataCollector.Instance.IsLeftJoystick;
+                _musicSlider.value = DataCollector.Instance.MusicSlider;
+                _SFXSlider.value = DataCollector.Instance.SfxSlider;
+                _luminositySlider.value = DataCollector.Instance.LuminositySlider;
+            }
+            catch
+            {
+                _luminositySlider.maxValue = 2;
+                _luminositySlider.minValue = 0;
+                _luminositySlider.value = 0.7f;
+                _isLeftJoystick = true;
+                _musicSlider.value = .5f;
+                _SFXSlider.value = .5f;
+            }
+
             InitJoystick();
             UpdateLuminosity();
             UpdateSFXVolume();
