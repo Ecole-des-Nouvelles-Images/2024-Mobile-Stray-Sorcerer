@@ -44,6 +44,7 @@ jobs:
           unityVersion: ${{ env.UNITY_VERSION }}
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          IMAGE: unityci/editor:ubuntu-2022.3.47f1-linux-il2cpp-3.1.0
 
       # 4. Build Android APK or AAB
       - name: Build Unity Project for Android
@@ -53,6 +54,8 @@ jobs:
           unityVersion: ${{ env.UNITY_VERSION }}
           targetPlatform: ${{ env.TARGET_PLATFORM }}
           customParameters: -buildAppBundle false
+        env:
+          IMAGE: unityci/editor:ubuntu-2022.3.47f1-linux-il2cpp-3.1.0
 
       # 5. Upload APK/AAB Build as Artifact
       - name: Upload Build Artifacts
