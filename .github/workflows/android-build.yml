@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     
     env:
-      UNITY_VERSION: 2022.3.47f1 # Version Unity valide
+      UNITY_VERSION: 6000.0.32f1 # Version Unity valide
       TARGET_PLATFORM: Android # Plateforme cible
       PROJECT_PATH: . # Chemin vers le projet Unity
 
