@@ -96,7 +96,7 @@ jobs:
         with:
           targetPlatform: WebGL
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: build-WebGL
           path: build/WebGL
@@ -140,7 +140,7 @@ jobs:
         with:
           targetPlatform: StandaloneWindows64
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: build-StandaloneWindows64
           path: build/StandaloneWindows64
@@ -184,7 +184,7 @@ jobs:
         with:
           targetPlatform: Android
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: build-Android
           path: build/Android
@@ -198,7 +198,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: build-WebGL
           path: build
