@@ -230,7 +230,8 @@ namespace Maze
 
             List<(Transform anchor, Props data)> propsSlots = new();
 
-            foreach (Transform slot in propsAnchors) propsSlots.Add(new ValueTuple<Transform, Props>(slot, slot.GetComponent<Props>()));
+            foreach (Transform slot in propsAnchors)
+                propsSlots.Add(new ValueTuple<Transform, Props>(slot, slot.GetComponent<Props>()));
 
             foreach ((Transform anchor, Props data) slot in propsSlots)
             {
@@ -242,13 +243,16 @@ namespace Maze
                 {
                     if (!slot.data.Prefabs.ContainsKey(flag.ToString())) continue;
 
-                    float propsProbability = slot.data.UseCustomProbabilities ? Props.GLOBAL_PROBABILITY_PER_SLOT : slot.data.Prefabs[flag.ToString()].probability;
+                    float propsProbability = slot.data.UseCustomProbabilities ? slot.data.Prefabs[flag.ToString()].probability : Props.GLOBAL_PROBABILITY_PER_SLOT;
 
-                    if (generator.NextDouble() > propsProbability)
+                    if (generator.NextDouble() < propsProbability)
                     {
-                        GameObject propsVariantPrefab = slot.data.Prefabs[flag.ToString()].list[generator.Next(slot.data.Prefabs[flag.ToString()].list.Count)];
-                        Instantiate(propsVariantPrefab, slot.anchor);
-                        break;
+                        if (slot.data.Prefabs[flag.ToString()].list.Count > 0)
+                        {
+                            GameObject propsVariantPrefab = slot.data.Prefabs[flag.ToString()].list[generator.Next(slot.data.Prefabs[flag.ToString()].list.Count)];
+                            Instantiate(propsVariantPrefab, slot.anchor);
+                            break;
+                        }
                     }
                 }
             }

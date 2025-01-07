@@ -14,9 +14,10 @@ namespace Maze
             Barrel = 1,
             Crates = 2,
             Banner = 4,
-
-            Rubble = 8
-            // BrazierColumn = 16,
+            Rubble = 8,
+            SpiderWebs = 16,
+            Rug = 32,
+            // BrazierColumn = 64,
         }
 
         [SerializeField] private Type _propType;
@@ -29,8 +30,11 @@ namespace Maze
         [SerializeField] private List<GameObject> _bannerPrefabs = new();
         [SerializeField] [Range(0, 1)] private float _bannerProbability = 0.5f;
         [SerializeField] private List<GameObject> _rubblePrefabs = new();
-
         [SerializeField] [Range(0, 1)] private float _rubbleProbability = 0.5f;
+        [SerializeField] private List<GameObject> _spiderWebsPrefabs = new();
+        [SerializeField] [Range(0, 1)] private float _spiderWebsProbability = 0.5f;
+        [SerializeField] private List<GameObject> _rugPrefabs = new();
+        [SerializeField] [Range(0, 1)] private float _rugProbability = 0.5f;
         // [SerializeField] private List<GameObject> _brazierColumnPrefabs = new ();
         // [SerializeField] [Range(0,1)] private float _brazierColumnProbability = 0.5f;
 
@@ -48,8 +52,11 @@ namespace Maze
         public List<GameObject> BannerPrefabs => _bannerPrefabs;
         public float BannerProbability => _bannerProbability;
         public List<GameObject> RubblePrefabs => _rubblePrefabs;
-
         public float RubbleProbability => _rubbleProbability;
+        public List<GameObject> SpiderWebsPrefabs => _spiderWebsPrefabs;
+        public float SpiderWebsProbability => _spiderWebsProbability;
+        public List<GameObject> RugPrefabs => _rugPrefabs;
+        public float RugProbability => _rugProbability;
         // public List<GameObject> BrazierColumnPrefabs => _brazierColumnPrefabs;
         // public float BrazierColumnProbability => _brazierColumnProbability;
 
@@ -64,10 +71,12 @@ namespace Maze
 
             props.Prefabs = new Dictionary<string, (List<GameObject> list, float probability)>
             {
-                { "Barrel", (props.BarrelPrefabs, props.BarrelProbability) },
-                { "Crates", (props.CratesPrefabs, props.CratesProbability) },
-                { "Banner", (props.BannerPrefabs, props.BannerProbability) },
-                { "Rubble", (props.RubblePrefabs, props.RubbleProbability) }
+                { "Barrel",     (props.BarrelPrefabs, props.BarrelProbability) },
+                { "Crates",     (props.CratesPrefabs, props.CratesProbability) },
+                { "Banner",     (props.BannerPrefabs, props.BannerProbability) },
+                { "Rubble",     (props.RubblePrefabs, props.RubbleProbability) },
+                { "SpiderWebs", (props.SpiderWebsPrefabs, props.SpiderWebsProbability) },
+                { "Rug",        (props.RugPrefabs, props.RugProbability) }
                 // { "BrazierColumn", props.BrazierColumnPrefabs }
             };
         }
