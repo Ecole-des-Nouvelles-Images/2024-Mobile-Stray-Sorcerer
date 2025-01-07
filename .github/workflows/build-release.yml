@@ -1,0 +1,62 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Checkout du code source
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # 2. Configuration de Unity
+    - name: Setup Unity
+      uses: game-ci/unity-builder@v2
+      with:
+        unityVersion: 2022.3.47f1 # Changez cela selon votre version Unity
+
+    # 3. Build Unity
+    - name: Build Unity project
+      uses: game-ci/unity-builder@v2
+      with:
+        projectPath: .
+        # targetPlatform: StandaloneWindows64
+        targetPlatform: Android
+        
+    # 4. Détection du tag ou version par défaut
+    - name: Set version
+      id: set_version
+      run: |
+        TAG=$(git describe --tags --abbrev=0 || echo "no-tag")
+        if [ "$TAG" = "no-tag" ]; then
+          echo "version=unknown" >> $GITHUB_ENV
+        else
+          echo "version=$TAG" >> $GITHUB_ENV
+        fi
+
+    # 5. Supprimer les releases existantes avec le même nom
+    - name: Delete existing release if exists
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        RELEASE_NAME="${{ github.event.repository.name }}-${{ env.version }}"
+        EXISTING_RELEASE_ID=$(gh release list --json id --jq '.[] | select(.name=="'"$RELEASE_NAME"'") | .id')
+        if [ -n "$EXISTING_RELEASE_ID" ]; then
+          gh release delete "$EXISTING_RELEASE_ID" --yes
+        fi
+
+    # 6. Créer une nouvelle release
+    - name: Create Release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        RELEASE_NAME="${{ github.event.repository.name }}-${{ env.version }}"
+        gh release create "$RELEASE_NAME" \
+          ./build/*.zip \
+          --title "$RELEASE_NAME" \
+          --notes "Build automatique pour la version ${{ env.version }}."
