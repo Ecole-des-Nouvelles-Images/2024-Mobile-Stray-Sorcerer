@@ -13,11 +13,11 @@ jobs:
   build-android:
     name: Build Unity Project for Android
     runs-on: ubuntu-latest
-
+    
     env:
-      UNITY_VERSION: ${{ env.UNITY_VERSION }}
-      TARGET_PLATFORM: ${{ env.TARGET_PLATFORM }}
-      PROJECT_PATH: ${{ env.PROJECT_PATH }}
+      UNITY_VERSION: 2022.3.47f1 # Version Unity valide
+      TARGET_PLATFORM: Android # Plateforme cible
+      PROJECT_PATH: . # Chemin vers le projet Unity
 
     steps:
       # 1. Checkout the repository
