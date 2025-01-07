@@ -43,10 +43,11 @@ namespace Manager
 
         public void StartGame()
         {
+            Debug.Log("Game Started");
             _camera.gameObject.SetActive(true);
             _ui.SetActive(true);
 
-            _player = SceneLoader.Instance.SceneUtilityActivatePlayer(_playerPrefab, _playerSpawnPosition);
+            _player = Instantiate(_playerPrefab, _playerSpawnPosition, Quaternion.identity);
             _player.GetComponent<PlayerInput>().uiInputModule = FindObjectOfType<InputSystemUIInputModule>();
             
             SetupCamera();

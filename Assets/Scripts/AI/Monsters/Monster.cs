@@ -5,6 +5,7 @@ using Player;
 using Player.AutoAttacks;
 using UnityEngine;
 using UnityEngine.AI;
+using Utils;
 using Random = UnityEngine.Random;
 
 namespace AI.Monsters

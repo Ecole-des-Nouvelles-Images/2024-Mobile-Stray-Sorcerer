@@ -1,4 +1,6 @@
 using System;
+using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Gameplay.GameData
 {

@@ -85,15 +85,10 @@ namespace Player.AutoAttacks
                     return;
                 }
 
-                if (_nearestFoe)
-                {
-                    if (Vector3.Distance(transform.position, _nearestFoe.transform.position) > Vector3.Distance(transform.position, _enemyDetector.EnemiesInRange[i].transform.position)
-                        && Helper.DirectViewBetweenTwoObject(gameObject, _enemyDetector.EnemiesInRange[i], false))
-                    {
-                        _nearestFoe = _enemyDetector.EnemiesInRange[i];
-                    }
-                }
-
+                if (_nearestFoe 
+                    && Vector3.Distance(transform.position, _nearestFoe.transform.position) > Vector3.Distance(transform.position, _enemyDetector.EnemiesInRange[i].transform.position)
+                    && Helper.DirectViewBetweenTwoObject(gameObject, _enemyDetector.EnemiesInRange[i], false))
+                    _nearestFoe = _enemyDetector.EnemiesInRange[i];
             }
         }
 
