@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using AI.Monsters;
 using Player;
@@ -18,7 +17,6 @@ namespace AI
         [SerializeField] private float _cooldownRaycast;
         
         private bool _isTriggered;
-        private bool _isChaseTime;
         private List<GameObject> _spawnedMonsters;
 
         private void Start()
@@ -81,18 +79,22 @@ namespace AI
         {
             RaycastHit hit;
             LayerMask layerMask = LayerMask.GetMask("Player","Wall");
-            
+
+            if (!Character.Instance) return;
+
             if (Physics.Raycast(_raycastOrigin.position,
                     Character.Instance.EnemyRaycastTarget.position - _raycastOrigin.position, out hit,
                     Mathf.Infinity, layerMask, QueryTriggerInteraction.Ignore))
             {
                 if (hit.collider.gameObject == Character.Instance.gameObject)
                 {
-                    _isChaseTime = true;
                     for (int i = 0; i < _markerList.Length; i++)
                     {
-                        _markerList[i].GetChild(0).gameObject.GetComponent<Monster>()
-                            .DefineTarget(Character.Instance.gameObject);
+                        if (_markerList[i].childCount > 0)
+                        {
+                            _markerList[i].GetChild(0)?.gameObject.GetComponent<Monster>()
+                                .DefineTarget(Character.Instance.gameObject);
+                        }
                     }
                 }
             }

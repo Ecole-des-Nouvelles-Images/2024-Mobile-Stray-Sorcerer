@@ -50,37 +50,31 @@ namespace Manager
 
         private IEnumerator BuildMaze()
         {
-            _loadingScreen.UpdateStatus("> Building maze...");
             yield return _maze.Build();
         }
 
         private IEnumerator GenerateMazeEnds()
         {
-            _loadingScreen.UpdateStatus("> Adding entry and exit");
             yield return _maze.DefineEntryAndExit();
         }
 
         private IEnumerator GenerateProps()
         {
-            _loadingScreen.UpdateStatus("> Generating props..");
             yield return _maze.GenerateProps();
         }
 
         private IEnumerator InstantiateFoes()
         {
-            _loadingScreen.UpdateStatus("> Instantiating foes...");
             yield return SquadDistributor.Instance.SquadsDistributionInLab();
         }
 
         private IEnumerator BuildNavMesh()
         {
-            _loadingScreen.UpdateStatus("> Building NavMesh...");
             yield return _maze.InitializeNavMesh(_loadingScreen, true);
         }
 
         private IEnumerator BakeLighting()
         {
-            _loadingScreen.UpdateStatus("> (Simulating) Baking lights...");
             yield return new WaitForSeconds(2);
         }
 

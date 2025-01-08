@@ -121,16 +121,13 @@ namespace Maze
         {
             Bounds mazeBounds = new(new Vector3(_scale * _CELL_SIZE / 2f, 0, _scale * _CELL_SIZE / 2f), Vector3.one * ((_scale + 1) * _CELL_SIZE));
             List<NavMeshBuildSource> navMeshSources = new();
-            loadingScreen.UpdateStatus("> Building NavMesh... [Gathering modifiers...]");
             List<NavMeshBuildMarkup> navMeshMarkups = GetNavMeshBuildModifiers();
             NavMeshBuildSettings navMeshBuildSettings;
 
-            loadingScreen.UpdateStatus("> Building NavMesh... [Gathering sources...]");
             NavMeshBuilder.CollectSources(transform, LayerMask.GetMask("Wall"), NavMeshCollectGeometry.RenderMeshes, 0, navMeshMarkups, navMeshSources);
 
             yield return null;
 
-            loadingScreen.UpdateStatus("> Building NavMesh... [Recover settings...]");
             int navAgentTypes = NavMesh.GetSettingsCount();
             NavMeshData[] navMeshData = new NavMeshData[navAgentTypes];
 
@@ -140,7 +137,6 @@ namespace Maze
 
                 foreach (string s in navMeshBuildSettings.ValidationReport(mazeBounds)) Debug.LogWarning($"NavMeshBuildSettings validation report: {s}");
 
-                loadingScreen.UpdateStatus("> Building NavMesh... [Applying overrides...]");
                 // Override Settings
                 navMeshBuildSettings.overrideVoxelSize = true;
                 navMeshBuildSettings.voxelSize = 0.2f;
@@ -156,7 +152,6 @@ namespace Maze
             if (forceRebuild)
                 NavMesh.RemoveAllNavMeshData();
 
-            loadingScreen.UpdateStatus("> Building NavMesh... [Generating data...]");
             for (int dataIndex = 0; dataIndex < navMeshData.Length; dataIndex++)
                 NavMesh.AddNavMeshData(navMeshData[dataIndex]);
 

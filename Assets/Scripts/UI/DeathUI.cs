@@ -1,10 +1,8 @@
-﻿using System;
-using DG.Tweening;
+﻿using DG.Tweening;
 using Gameplay.GameData;
 using Manager;
 using Player;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace UI
 {

@@ -21,7 +21,7 @@ namespace Maze
         }
 
         [SerializeField] private Type _propType;
-        [SerializeField] private bool _useCustomProbabilities = false;
+        [SerializeField] private bool _useCustomProbabilities;
 
         [SerializeField] private List<GameObject> _barrelPrefabs = new();
         [SerializeField] [Range(0, 1)] private float _barrelProbability = 0.5f;
