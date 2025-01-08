@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -18,9 +19,16 @@ namespace UI
         [Header("Particle System")]
         [SerializeField] private GameObject _psRoot;
 
+        private Transform _virtualCamera;
+
+        private void Awake()
+        {
+            _virtualCamera = GameObject.Find("Camera/VCam Player").transform;
+        }
 
         public void Show(bool status)
         {
+            _virtualCamera.transform.position = new Vector3(0, 1000, -1000);
             _canvasGroup.DOFade(status ? 1 : 0, _fadeDuration).SetUpdate(true);
             _psRoot.gameObject.SetActive(status);
         }

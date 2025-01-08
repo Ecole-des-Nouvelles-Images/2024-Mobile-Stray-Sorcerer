@@ -43,7 +43,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7469354378013978588}
   - component: {fileID: 4108220586787652169}
-  - component: {fileID: 5419786624796382741}
   m_Layer: 0
   m_Name: VCam Player
   m_TagString: MainCamera
@@ -106,14 +105,6 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 4252416263170915756}
---- !u!81 &5419786624796382741
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4602883589793968539}
-  m_Enabled: 1
 --- !u!1 &6143239534629296531
 GameObject:
   m_ObjectHideFlags: 0

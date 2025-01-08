@@ -7,6 +7,7 @@ using Player.AutoAttacks;
 using Player.Spells_Effects;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.VFX;
 using Utils;
 
 namespace Player
@@ -51,6 +52,10 @@ namespace Player
         [Header("Timers")]
         [SerializeField] private float _boostDelay = 3;
         [SerializeField] private float _deathAnimationDuration = 2;
+
+        [Header("VFX")]
+        [SerializeField] private VisualEffect _vfxGraph;
+        [SerializeField] private ParticleSystem _ps;
         
         public int Constitution { get; set; }
         public int Swiftness { get; set; }
@@ -299,6 +304,8 @@ namespace Player
             _myPlayerController.enabled = false;
             _myPlayerInput.enabled = false;
             _myAttackNearestFoesComponent.enabled = false;
+            _vfxGraph.Stop();
+            _ps.Stop();
             ClockGame.Instance.ClockStop();
             ClockGame.Instance.Reset();
 

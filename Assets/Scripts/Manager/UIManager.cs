@@ -98,7 +98,7 @@ namespace Manager
             {
                 _luminositySlider.maxValue = 2;
                 _luminositySlider.minValue = 0;
-                _luminositySlider.value = 0.7f;
+                _luminositySlider.value = 1f;
                 _musicSlider.value = 0.5f;
                 _SFXSlider.value = 0.5f;
             }
