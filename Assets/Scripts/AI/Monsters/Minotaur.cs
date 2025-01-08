@@ -15,6 +15,8 @@ namespace AI.Monsters
 
         private void Awake()
         {
+            _damage = _baseDamage;
+            _hpMax = _baseHpMax;
             _myNavMeshAgent = transform.GetComponent<NavMeshAgent>();
             _myTarget = null;
             _rb = GetComponent<Rigidbody>();

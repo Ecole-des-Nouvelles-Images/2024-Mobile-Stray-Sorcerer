@@ -301,7 +301,6 @@ namespace Player
             _myPlayerController.enabled = false;
             _myPlayerInput.enabled = false;
             ClockGame.Instance.ClockStop();
-            ClockGame.Instance.Reset();
 
             yield return GameManager.Instance.CamDeathAnimation();
 

@@ -53,6 +53,7 @@ namespace UI
                 DataCollector.Instance.ResetSave();
                 SceneLoader.Instance.LoadTitleScreen();
             });
+            ClockGame.Instance.Reset();
         }
     }
 }

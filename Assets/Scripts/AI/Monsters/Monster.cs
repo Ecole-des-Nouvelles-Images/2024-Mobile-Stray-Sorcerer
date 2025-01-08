@@ -17,13 +17,13 @@ namespace AI.Monsters
         public static readonly int DoDeath = Animator.StringToHash("death");
         public static readonly int Dissolve = Shader.PropertyToID("_State");
 
-        [Header("Stats")] [SerializeField] protected int _damage;
-
-        [SerializeField] private int _hpMax;
-        [SerializeField] private float _hpGrowingFactor;
+        [Header("Stats")] [SerializeField] protected int _baseDamage;
+        
         [SerializeField] private float _damageGrowingFactor;
         [SerializeField] private float _speed;
         [SerializeField] private float _acceleration;
+        [SerializeField] protected int _baseHpMax;
+        [SerializeField] protected float _hpGrowingFactor;
         [SerializeField] protected float _attackSpeed = 1;
         
         [Header("Drop")] 
@@ -47,11 +47,16 @@ namespace AI.Monsters
         protected NavMeshAgent _myNavMeshAgent;
         protected float _currentTimeBeforAttack;
         protected bool _isCastReady;
+        protected int _damage;
+        protected int _hpMax;
+        
         private bool _playerInRange;
         private bool _playerDetected;
 
         private void Awake()
         {
+            _damage = _baseDamage;
+            _hpMax = _baseHpMax;
             _myNavMeshAgent = transform.GetComponent<NavMeshAgent>();
             _myTarget = null;
             _rb = GetComponent<Rigidbody>();
@@ -128,10 +133,12 @@ namespace AI.Monsters
 
         protected void Grow(int growMult)
         {
-            float hpGrowth = _hpMax * (_hpGrowingFactor * growMult);
+            float hpGrowth = _baseHpMax * _hpGrowingFactor * growMult;
             _hpMax += (int)hpGrowth;
-            float damageGrowth = _damage * (_damageGrowingFactor * growMult);
+            /*needed to fix growMult beginning at 1 *Debug.Log(gameObject.name+" basedamage: "+_baseDamage + " multiplicator: "+growMult +" damage: "+_damage);*/
+            float damageGrowth = _baseDamage * _damageGrowingFactor * growMult;
             _damage += (int)damageGrowth;
+            // Debug.Log(gameObject.name+" basedamage: "+_baseDamage + " multiplicator: "+growMult +"new damage: "+_damage+" growth: "+damageGrowth);
         }
 
         private void PlayerTargeting()

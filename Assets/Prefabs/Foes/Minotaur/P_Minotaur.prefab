@@ -319,12 +319,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95adae65a75944a2a489020e0f2d2459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 2
-  _hpMax: 40
-  _hpGrowingFactor: 0.2
-  _damageGrowingFactor: 0.2
+  _baseDamage: 2
+  _damageGrowingFactor: 0.15
   _speed: 5
   _acceleration: 8
+  _baseHpMax: 40
+  _hpGrowingFactor: 0.15
   _attackSpeed: 1
   _dropPrefabs:
   - {fileID: 410255202443490771, guid: ee17fdfb406f1cf48b2493d5cdab13ed, type: 3}

@@ -22,7 +22,7 @@ namespace Gameplay.GameData
                 SaveBestSnap();
             }
             else if (BestSave.MazeComplete == CurrentSave.MazeComplete &&
-                     BestSave.Time > CurrentSave.Time)
+                     BestSave.Time < CurrentSave.Time)
             {
                 BestSave = CurrentSave;
                 SaveBestSnap();
@@ -51,6 +51,7 @@ namespace Gameplay.GameData
                 string data = System.IO.File.ReadAllText(filePath);
                 CurrentSave = JsonUtility.FromJson<Snapshot>(data);
             }
+            Debug.Log(Application.persistentDataPath);
         }
         private void LoadBestSnap()
         {
@@ -61,7 +62,6 @@ namespace Gameplay.GameData
                 BestSave = JsonUtility.FromJson<Snapshot>(data);
             }
         }
-
         private void SaveSettings()
         {
             string filePath = Application.persistentDataPath + "/Settings.json" ;
@@ -76,7 +76,6 @@ namespace Gameplay.GameData
             BestSaveFilter();
             SaveCurrentSnap();
         }
-
         public void CleanCurrentSave(Snapshot newSave)
         {
             UpdateCurrentSave(newSave);
@@ -90,13 +89,11 @@ namespace Gameplay.GameData
             LoadCurrentSnap();
             LoadBestSnap();
         }
-
         public void UpdateSavedSettings(SettingsSnapshot newSavedSettings)
         {
             SavedSettings = newSavedSettings;
             SaveSettings();
         }
-
         public void LoadSavedSettings()
         {
             string filePath = Application.persistentDataPath + "/Settings.json" ;
