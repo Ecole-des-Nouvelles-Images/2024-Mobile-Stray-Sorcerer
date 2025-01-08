@@ -14,10 +14,10 @@ namespace Utils
         }
 
         private List<ButtonCallback> m_Buttons = new();
-        private System.Action<Button> m_Callback = null;
+        private System.Action<Button> m_Callback;
 
         public override bool keepWaiting => PressedButton == null;
-        public Button PressedButton { get; private set; } = null;
+        public Button PressedButton { get; private set; }
 
         public WaitForUIButtons(System.Action<Button> aCallback, params Button[] aButtons)
         {

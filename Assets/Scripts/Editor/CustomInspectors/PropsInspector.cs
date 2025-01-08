@@ -19,6 +19,10 @@ namespace Editor.CustomInspectors
         private SerializedProperty _bannerProbability;
         private SerializedProperty _rubblePrefabs;
         private SerializedProperty _rubbleProbability;
+        private SerializedProperty _spiderWebsPrefabs;
+        private SerializedProperty _spiderWebsProbability;
+        private SerializedProperty _rugPrefabs;
+        private SerializedProperty _rugProbability;
         // private SerializedProperty _brazierColumnPrefabs;
         // private SerializedProperty _brazierColumnProbability;
 
@@ -40,6 +44,10 @@ namespace Editor.CustomInspectors
                 _bannerProbability = serializedObject.FindProperty("_bannerProbability");
                 _rubblePrefabs = serializedObject.FindProperty("_rubblePrefabs");
                 _rubbleProbability = serializedObject.FindProperty("_rubbleProbability");
+                _spiderWebsPrefabs = serializedObject.FindProperty("_spiderWebsPrefabs");
+                _spiderWebsProbability = serializedObject.FindProperty("_spiderWebsProbability");
+                _rugPrefabs = serializedObject.FindProperty("_rugPrefabs");
+                _rugProbability = serializedObject.FindProperty("_rugProbability");
                 // _brazierColumnPrefabs = serializedObject.FindProperty("_brazierColumnPrefabs");
                 // _brazierColumnProbability = serializedObject.FindProperty("_brazierColumnProbability");
             }
@@ -150,6 +158,42 @@ namespace Editor.CustomInspectors
                 else
                 {
                     EditorGUILayout.PropertyField(_rubblePrefabs);
+                }
+                
+                EditorGUILayout.Space(_spaceBetweenTypes);
+            }
+            
+            if (type.HasFlag(Props.Type.SpiderWebs))
+            {
+                if (_useCustomProbabilities.boolValue)
+                {
+                    GUILayout.BeginHorizontal();
+                    EditorGUILayout.PropertyField(_spiderWebsPrefabs);
+                    EditorGUILayout.Space(10);
+                    EditorGUILayout.PropertyField(_spiderWebsProbability);
+                    GUILayout.EndHorizontal();
+                }
+                else
+                {
+                    EditorGUILayout.PropertyField(_spiderWebsPrefabs);
+                }
+                
+                EditorGUILayout.Space(_spaceBetweenTypes);
+            }
+            
+            if (type.HasFlag(Props.Type.Rug))
+            {
+                if (_useCustomProbabilities.boolValue)
+                {
+                    GUILayout.BeginHorizontal();
+                    EditorGUILayout.PropertyField(_rugPrefabs);
+                    EditorGUILayout.Space(10);
+                    EditorGUILayout.PropertyField(_rugProbability);
+                    GUILayout.EndHorizontal();
+                }
+                else
+                {
+                    EditorGUILayout.PropertyField(_rugPrefabs);
                 }
             }
 

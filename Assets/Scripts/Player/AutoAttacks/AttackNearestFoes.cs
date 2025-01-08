@@ -65,7 +65,7 @@ namespace Player.AutoAttacks
                     _characterAnimator.SetTrigger(DoAttack);
                 }
 
-                if (_nearestFoe && _casting && _nearestFoe.transform.GetComponent<Monster>().IsDead == false) DelayBeforCast();
+                if (_nearestFoe && _casting && _nearestFoe.transform.GetComponent<Monster>().IsDead == false) DelayBeforeCast();
             }
 
             if (_nearestFoe != null && _nearestFoe.activeSelf == false)
@@ -85,14 +85,18 @@ namespace Player.AutoAttacks
                     return;
                 }
 
-                if (_nearestFoe 
-                    && Vector3.Distance(transform.position, _nearestFoe.transform.position) > Vector3.Distance(transform.position, _enemyDetector.EnemiesInRange[i].transform.position)
-                    && Helper.DirectViewBetweenTwoObject(gameObject, _enemyDetector.EnemiesInRange[i], false))
-                    _nearestFoe = _enemyDetector.EnemiesInRange[i];
+                if (_nearestFoe && _enemyDetector.EnemiesInRange[i])
+                {
+                    if (Vector3.Distance(transform.position, _nearestFoe.transform.position) > Vector3.Distance(transform.position, _enemyDetector.EnemiesInRange[i].transform.position)
+                        && Helper.DirectViewBetweenTwoObject(gameObject, _enemyDetector.EnemiesInRange[i], false))
+                    {
+                        _nearestFoe = _enemyDetector.EnemiesInRange[i];
+                    }
+                }
             }
         }
 
-        private void DelayBeforCast()
+        private void DelayBeforeCast()
         {
             if (_currentDelay > 0)
             {
