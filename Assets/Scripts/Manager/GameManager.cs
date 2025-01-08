@@ -47,7 +47,7 @@ namespace Manager
             _camera.gameObject.SetActive(true);
             _ui.SetActive(true);
 
-            _player = Instantiate(_playerPrefab, _playerSpawnPosition, Quaternion.identity);
+            _player = SceneLoader.Instance.SceneUtilityActivatePlayer(_playerPrefab, _playerSpawnPosition);
             _player.GetComponent<PlayerInput>().uiInputModule = FindObjectOfType<InputSystemUIInputModule>();
             
             SetupCamera();

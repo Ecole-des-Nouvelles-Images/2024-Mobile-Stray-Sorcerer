@@ -13,8 +13,8 @@ namespace Manager
         [SerializeField] private TransitionSystem _transition;
 
         [Header("Scenes References")]
+        [SerializeField] private SceneField _setup;
         [SerializeField] private SceneField _titleScreen;
-
         [SerializeField] private SceneField _tutorialScene;
         [SerializeField] private SceneField _gameScene;
 
@@ -22,9 +22,8 @@ namespace Manager
 
         public Action OnLaunchGame;
 
-        private SceneField _currentScene = null;
+        private SceneField _currentScene;
         private SceneField _loadingScene;
-        private GameObject[] _loadingSceneRootObjects;
 
         // DEBUG
         private float _minimumLoadTime = 3f;
@@ -45,6 +44,7 @@ namespace Manager
             OnLaunchGame?.Invoke();
             StartCoroutine(LoadCoroutine(_gameScene, true));
         }
+
         public void ReloadGameScene()
         {
             OnLaunchGame?.Invoke();
@@ -56,7 +56,7 @@ namespace Manager
             yield return LoadSceneCoroutine(scene);
 
             _loadingScene = scene;
-            _loadingSceneRootObjects = _loadingScene.Scene.GetRootGameObjects();
+            _loadingScene.Scene.GetRootGameObjects();
 
             if (isGameScene)
             {
@@ -128,6 +128,15 @@ namespace Manager
             _loadingScreen.Show(false);
             _currentScene = _gameScene;
             SceneManager.SetActiveScene(_currentScene);
+        }
+
+        public GameObject SceneUtilityActivatePlayer(GameObject prefab, Vector3 position)
+        {
+            SceneManager.SetActiveScene(_setup);
+            GameObject player = Instantiate(prefab, position, Quaternion.identity);
+            SceneManager.SetActiveScene(_currentScene);
+
+            return player;
         }
     }
 }

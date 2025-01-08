@@ -7,7 +7,6 @@ using Player.AutoAttacks;
 using Player.Spells_Effects;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 using Utils;
 
 namespace Player
@@ -74,13 +73,13 @@ namespace Player
             set
             {
                 _exp = Mathf.Clamp(value, 0, RequireEXP);
-                OnExpChanged?.Invoke(_exp);
 
-                if (_exp >= RequireEXP)
-                {
+                if (_exp >= RequireEXP) {
                     _exp -= RequireEXP;
                     LevelUp();
                 }
+
+                OnExpChanged?.Invoke(_exp);
             }
         }
         public int MaxHP
@@ -136,6 +135,8 @@ namespace Player
         private PlayerInput _myPlayerInput;
         private AttackNearestFoes _myAttackNearestFoesComponent;
 
+        private bool _allowedToLevelUp = true;
+
         private void Awake()
         {
             if (_spells.Length > 0) CurrentSpell = _spells[0];
@@ -188,8 +189,11 @@ namespace Player
             DataCollector.OnPlayerSpawned?.Invoke();
             yield return null;
         }
+
         private void LevelUp()
         {
+            if (!_allowedToLevelUp) return;
+
             if (HP > 0)
             {
                 Level++;
@@ -253,6 +257,7 @@ namespace Player
 
             NextSpell = SpellUnlock < _spells.Length - 1 ? _spells[SpellUnlock + 1] : null;
         }
+
         public void TakeDamage(int damage)
         {
             HP -= damage;
@@ -260,7 +265,8 @@ namespace Player
 
             if (_hp <= 0)
             {
-                StartCoroutine(DeathAnimationCoroutine());
+                _allowedToLevelUp = false;
+                Death();
             }
 
             _playerAnimator.SetTrigger(Hurt);
