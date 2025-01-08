@@ -84,6 +84,7 @@ namespace Gameplay.GameData
             if (File.Exists(filePath))
                 File.Delete(filePath);
         }
+
         public void LoadSnap()
         {
             LoadCurrentSnap();

@@ -7,6 +7,7 @@ using Player.AutoAttacks;
 using Player.Spells_Effects;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.VFX;
 using Utils;
 
 namespace Player
@@ -51,6 +52,10 @@ namespace Player
         [Header("Timers")]
         [SerializeField] private float _boostDelay = 3;
         [SerializeField] private float _deathAnimationDuration = 2;
+
+        [Header("VFX")]
+        [SerializeField] private VisualEffect _vfxGraph;
+        [SerializeField] private ParticleSystem _ps;
         
         public int Constitution { get; set; }
         public int Swiftness { get; set; }
@@ -135,12 +140,11 @@ namespace Player
         private PlayerInput _myPlayerInput;
         private AttackNearestFoes _myAttackNearestFoesComponent;
 
-        private bool _allowedLevelUp = true;
+        private bool _allowedToLevelUp = true;
 
         private void Awake()
         {
             if (_spells.Length > 0) CurrentSpell = _spells[0];
-
             Level = 1;
             MaxHP = _baseMaxHP;
             HP = MaxHP;
@@ -193,7 +197,7 @@ namespace Player
 
         private void LevelUp()
         {
-            if (!_allowedLevelUp) return;
+            if (!_allowedToLevelUp) return;
 
             if (HP > 0)
             {
@@ -266,7 +270,7 @@ namespace Player
 
             if (_hp <= 0)
             {
-                _allowedLevelUp = false;
+                _allowedToLevelUp = false;
                 Death();
             }
 
@@ -297,10 +301,13 @@ namespace Player
 
             IsDead = true;
             _playerAnimator.SetBool(DeathState, true);
-            _myAttackNearestFoesComponent.enabled = false;
             _myPlayerController.enabled = false;
             _myPlayerInput.enabled = false;
+            _myAttackNearestFoesComponent.enabled = false;
+            _vfxGraph.Stop();
+            _ps.Stop();
             ClockGame.Instance.ClockStop();
+            ClockGame.Instance.Reset();
 
             yield return GameManager.Instance.CamDeathAnimation();
 

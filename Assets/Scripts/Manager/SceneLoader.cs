@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using DG.Tweening;
 using UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,7 +14,7 @@ namespace Manager
         [SerializeField] private TransitionSystem _transition;
 
         [Header("Scenes References")]
-        [SerializeField] private SceneField _loader;
+        [SerializeField] private SceneField _setup;
         [SerializeField] private SceneField _titleScreen;
         [SerializeField] private SceneField _tutorialScene;
         [SerializeField] private SceneField _gameScene;
@@ -22,9 +23,8 @@ namespace Manager
 
         public Action OnLaunchGame;
 
-        private SceneField _currentScene = null;
+        private SceneField _currentScene;
         private SceneField _loadingScene;
-        private GameObject[] _loadingSceneRootObjects;
 
         // DEBUG
         private float _minimumLoadTime = 3f;
@@ -42,9 +42,13 @@ namespace Manager
 
         public void LaunchGame()
         {
-            OnLaunchGame?.Invoke();
-            StartCoroutine(LoadCoroutine(_gameScene, true));
+            GameObject.Find("UI/Root").GetComponent<CanvasGroup>().DOFade(0, 1).SetUpdate(true).OnComplete(() =>
+            {
+                OnLaunchGame?.Invoke();
+                StartCoroutine(LoadCoroutine(_gameScene, true));
+            });
         }
+
         public void ReloadGameScene()
         {
             OnLaunchGame?.Invoke();
@@ -53,14 +57,17 @@ namespace Manager
 
         private IEnumerator LoadCoroutine(SceneField scene, bool isGameScene)
         {
+            _loadingScreen.Show(true);
+
             yield return LoadSceneCoroutine(scene);
 
             _loadingScene = scene;
-            _loadingSceneRootObjects = _loadingScene.Scene.GetRootGameObjects();
+            _loadingScene.Scene.GetRootGameObjects();
 
             if (isGameScene)
             {
                 while (!LoadingBuilder) yield return null;
+
                 SceneManager.SetActiveScene(_loadingScene);
 
                 yield return LoadingBuilder.Build(_loadingScreen);
@@ -82,17 +89,14 @@ namespace Manager
                 throw new NullReferenceException($"LoadSceneAsync error: {scene} scene is null.");
 
             asyncLoadOperation.allowSceneActivation = false;
-            _loadingScreen.Show(true);
 
             while (asyncLoadOperation.progress < 0.9f && minimumTimer < _minimumLoadTime)
             {
-                _loadingScreen.UpdateStatus($"> Loading {scene} scene... {asyncLoadOperation.progress * 100}%");
                 minimumTimer += Time.deltaTime;
 
                 yield return null;
             }
 
-            _loadingScreen.UpdateStatus($"> Activating {scene} scene");
             asyncLoadOperation.allowSceneActivation = true;
         }
 
@@ -105,7 +109,6 @@ namespace Manager
 
             while (!asyncUnloadOperation.isDone)
             {
-                _loadingScreen.UpdateStatus($"> Unloading resources... {asyncUnloadOperation.progress * 100}%");
                 yield return null;
             }
         }
@@ -131,9 +134,9 @@ namespace Manager
 
         public GameObject SceneUtilityActivatePlayer(GameObject prefab, Vector3 position)
         {
-            SceneManager.SetActiveScene(_loader);
+            SceneManager.SetActiveScene(_setup);
             GameObject player = Instantiate(prefab, position, Quaternion.identity);
-            SceneManager.SetActiveScene(_currentScene);
+            SceneManager.SetActiveScene(_gameScene);
 
             return player;
         }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -5,6 +6,7 @@ using UnityEngine.InputSystem.UI;
 using Cinemachine;
 using DG.Tweening;
 using UI.Effects;
+using UnityEngine.SceneManagement;
 using Utils;
 
 namespace Manager
@@ -34,6 +36,8 @@ namespace Manager
         private GameObject _player;
         private CinemachineVirtualCamera _camera;
         private CinemachineFramingTransposer _camBody;
+
+        public static Action OnGameStart;
 
         private void Start()
         {
