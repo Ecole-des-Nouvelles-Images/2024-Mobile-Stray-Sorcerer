@@ -183,8 +183,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 125981984}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.28368703, y: -0.23135096, z: 0.07073109, w: 0.92789847}
-  m_LocalPosition: {x: 38.96, y: 4.29, z: 13.74}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -267,7 +267,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 80
+  field of view: 60.000004
   orthographic: 0
   orthographic size: 10
   m_Depth: 0
@@ -845,6 +845,7 @@ GameObject:
   - component: {fileID: 1698343789}
   - component: {fileID: 1698343791}
   - component: {fileID: 1698343790}
+  - component: {fileID: 1698343792}
   m_Layer: 5
   m_Name: Root
   m_TagString: Untagged
@@ -912,6 +913,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1698343788}
   m_CullTransparentMesh: 1
+--- !u!225 &1698343792
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1698343788}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2000255676
 GameObject:
   m_ObjectHideFlags: 0
