@@ -307,7 +307,6 @@ namespace Player
             _vfxGraph.Stop();
             _ps.Stop();
             ClockGame.Instance.ClockStop();
-            ClockGame.Instance.Reset();
 
             yield return GameManager.Instance.CamDeathAnimation();
 
