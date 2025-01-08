@@ -258,6 +258,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _loadingScreen: {fileID: 162248921}
   _transition: {fileID: 9167408200148078715}
+  _setup:
+    _sceneAsset: {fileID: 102900000, guid: fc92a3406be721c418f69e6184129c73, type: 3}
+    _sceneName: Setup
   _titleScreen:
     _sceneAsset: {fileID: 102900000, guid: 30fe9161a0919254993b5347e1577516, type: 3}
     _sceneName: TitleScreen
