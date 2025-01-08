@@ -55,7 +55,7 @@ namespace Player
 
         [Header("VFX")]
         [SerializeField] private VisualEffect _vfxGraph;
-        [SerializeField] private ParticleSystem _ps;
+        [SerializeField] private List<ParticleSystem> _particleSystem;
         
         public int Constitution { get; set; }
         public int Swiftness { get; set; }
@@ -305,7 +305,8 @@ namespace Player
             _myPlayerInput.enabled = false;
             _myAttackNearestFoesComponent.enabled = false;
             _vfxGraph.Stop();
-            _ps.Stop();
+            foreach (ParticleSystem ps in _particleSystem)
+                ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             ClockGame.Instance.ClockStop();
             ClockGame.Instance.Reset();
 

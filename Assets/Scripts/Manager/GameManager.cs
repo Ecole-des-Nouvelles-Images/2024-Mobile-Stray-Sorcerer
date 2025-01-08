@@ -6,7 +6,6 @@ using UnityEngine.InputSystem.UI;
 using Cinemachine;
 using DG.Tweening;
 using UI.Effects;
-using UnityEngine.SceneManagement;
 using Utils;
 
 namespace Manager
@@ -54,6 +53,7 @@ namespace Manager
             _player.GetComponent<PlayerInput>().uiInputModule = FindObjectOfType<InputSystemUIInputModule>();
             
             SetupCamera();
+
 
             StartCoroutine(IntroductionAnimation());
         }

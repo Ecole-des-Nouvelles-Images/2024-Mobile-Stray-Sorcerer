@@ -11,6 +11,7 @@ namespace UI
         [Header("Death Display")]
         [SerializeField] private GameObject _deathDisplay;
         [SerializeField] private CanvasGroup _canvasGroup;
+        [SerializeField] private CanvasGroup _fader;
         [SerializeField] float _fadeDuration = 1f;
 
         private void OnEnable()
@@ -30,7 +31,6 @@ namespace UI
 
         private void SelfActivation()
         {
-            Debug.Log("Player died, activating Death UI");
             Time.timeScale = 0;
 
             _canvasGroup.DOFade(1, _fadeDuration).SetUpdate(true).OnComplete(() =>
@@ -47,13 +47,16 @@ namespace UI
         {
             _canvasGroup.interactable = false;
             _canvasGroup.blocksRaycasts = false;
-            _canvasGroup.DOFade(0, _fadeDuration).SetUpdate(true).OnComplete(() =>
+
+            ClockGame.Instance.Reset();
+
+            _canvasGroup.DOFade(0, _fadeDuration).SetUpdate(true);
+            _fader.DOFade(1, _fadeDuration).SetUpdate(true).OnComplete(() =>
             {
                 Time.timeScale = 1;
                 DataCollector.Instance.ResetSave();
                 SceneLoader.Instance.LoadTitleScreen();
             });
-            ClockGame.Instance.Reset();
         }
     }
 }

@@ -10083,7 +10083,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 692979990189340675}
-  - component: {fileID: 3374146401910355455}
   - component: {fileID: 6542485230371316746}
   m_Layer: 0
   m_Name: AmbienAudioSource
@@ -10107,20 +10106,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5259914280156130384}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3374146401910355455
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2633253089919418516}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef6da8e3a5d255f4985f7ec3dc2a5776, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _ambientSource: {fileID: 6542485230371316746}
-  _ambientVolume: 0.5
 --- !u!82 &6542485230371316746
 AudioSource:
   m_ObjectHideFlags: 0
@@ -26309,7 +26294,18 @@ MonoBehaviour:
   _boostDelay: 3
   _deathAnimationDuration: 3
   _vfxGraph: {fileID: 8835533651732236893}
-  _ps: {fileID: 7635149266582439044}
+  _particleSystem:
+  - {fileID: 2795716065533321549}
+  - {fileID: 4070959524774798837}
+  - {fileID: 7643164497299130737}
+  - {fileID: 1709434432948534564}
+  - {fileID: 8158429037658290145}
+  - {fileID: 2167440475622229449}
+  - {fileID: 2775996548340940756}
+  - {fileID: 5003343727447735032}
+  - {fileID: 5720149710463489115}
+  - {fileID: 1178827123592970232}
+  - {fileID: 7635149266582439044}
 --- !u!114 &8099843394209094681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26482,9 +26478,21 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1365769160298766658}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &2795716065533321549 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3762844503333781519, guid: 98dde0f5e4712e64dab9bb6271cba1f5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1365769160298766658}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3333400603871663958 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4374879666001770004, guid: 98dde0f5e4712e64dab9bb6271cba1f5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1365769160298766658}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &4070959524774798837 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3065504177913021623, guid: 98dde0f5e4712e64dab9bb6271cba1f5,
     type: 3}
   m_PrefabInstance: {fileID: 1365769160298766658}
   m_PrefabAsset: {fileID: 0}
@@ -27065,6 +27073,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc4b88525db8d8740b842d7fdfdd7ab7, type: 3}
+--- !u!198 &7643164497299130737 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6301636005382005672, guid: dc4b88525db8d8740b842d7fdfdd7ab7,
+    type: 3}
+  m_PrefabInstance: {fileID: 4423116554145589977}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &9083852109589548601 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4860019858340570336, guid: dc4b88525db8d8740b842d7fdfdd7ab7,
@@ -27406,6 +27420,24 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 148bdd5e05e3a7c4caed63be5db7a261, type: 3}
+--- !u!198 &1178827123592970232 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8397413851467073080, guid: 148bdd5e05e3a7c4caed63be5db7a261,
+    type: 3}
+  m_PrefabInstance: {fileID: 7265874574472477120}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &5003343727447735032 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2430502277200085816, guid: 148bdd5e05e3a7c4caed63be5db7a261,
+    type: 3}
+  m_PrefabInstance: {fileID: 7265874574472477120}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &5720149710463489115 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3150162072759938459, guid: 148bdd5e05e3a7c4caed63be5db7a261,
+    type: 3}
+  m_PrefabInstance: {fileID: 7265874574472477120}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7186693970390494455 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 534193855653238071, guid: 148bdd5e05e3a7c4caed63be5db7a261,
