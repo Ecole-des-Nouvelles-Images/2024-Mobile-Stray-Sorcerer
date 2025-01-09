@@ -1,6 +1,6 @@
 <h1 align="center">Stray Sorcerer</h1>
 
-<p align="center">A 3D mobile game mixing maze resolving and survivor fighting.</p>
+<p align="center">A 3D mobile game mixing maze resolving and fighting for surviving.</p>
 
 <br>
 
