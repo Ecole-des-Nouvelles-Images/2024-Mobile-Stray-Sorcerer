@@ -7,6 +7,8 @@ using Gameplay.GameData;
 using Player;
 using Utils;
 
+using ClockGame = Gameplay.GameData.ClockGame;
+
 namespace Manager
 {
     [Serializable]

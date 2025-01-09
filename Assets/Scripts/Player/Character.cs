@@ -10,6 +10,8 @@ using UnityEngine.InputSystem;
 using UnityEngine.VFX;
 using Utils;
 
+using ClockGame = Gameplay.GameData.ClockGame;
+
 namespace Player
 {
     public class Character : SingletonMonoBehaviour<Character>
@@ -307,6 +309,7 @@ namespace Player
             _vfxGraph.Stop();
             foreach (ParticleSystem ps in _particleSystem)
                 ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+
             ClockGame.Instance.ClockStop();
 
             yield return GameManager.Instance.CamDeathAnimation();
