@@ -308,7 +308,6 @@ namespace Player
             foreach (ParticleSystem ps in _particleSystem)
                 ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             ClockGame.Instance.ClockStop();
-            ClockGame.Instance.Reset();
 
             yield return GameManager.Instance.CamDeathAnimation();
 
