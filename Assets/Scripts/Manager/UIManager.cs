@@ -1,7 +1,10 @@
 using System;
+using Audio;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using Gameplay.GameData;
+using Player;
 using Utils;
 
 namespace Manager
@@ -41,19 +44,74 @@ namespace Manager
         [SerializeField] private GameObject _currentSpellL;
         [SerializeField] private GameObject _currentSpellR;
 
+        [Header("Transition")]
+        [SerializeField] private CanvasGroup _fader;
+
         public ControlSide CurrentControlSide { get; set; }
 
-        public bool InPause { get; private set; } = false;
-        public bool InOptions { get; private set; } = false;
+        public bool InPause { get; private set; }
+        public bool InOptions { get; private set; }
+
+        private bool _isLeftJoystick = true;
 
         private void Start()
         {
-            _luminositySlider.maxValue = 2;
-            _luminositySlider.minValue = 0;
-            _luminositySlider.value = 0.7f;
-            UpdateLuminosity();
+            LoadSettingsData();
 
             CurrentControlSide = _defaultControlSide;
+        }
+
+        private void InitJoystick()
+        {
+            if (_isLeftJoystick)
+            {
+                _joystickR.SetActive(false);
+                _joystickL.SetActive(true);
+
+                _joystickOptionL.interactable = false;
+                _joystickOptionR.interactable = true;
+                _joystickOptionR.isOn = false;
+                // _currentSpellL.SetActive(false);
+                // _currentSpellR.SetActive(true);
+                CurrentControlSide = ControlSide.Left;
+            }
+            else
+            {
+                _joystickL.SetActive(false);
+                _joystickR.SetActive(true);
+
+                _joystickOptionR.interactable = false;
+                _joystickOptionL.interactable = true;
+                _joystickOptionL.isOn = false;
+                // _currentSpellR.SetActive(false);
+                // _currentSpellL.SetActive(true);
+                CurrentControlSide = ControlSide.Right;
+            }
+        }
+
+        private void LoadSettingsData()
+        {
+            try
+            {
+                DataCollector.Instance.LoadSettings(_isLeftJoystick, _musicSlider.value, _SFXSlider.value, _luminositySlider.value);
+                _isLeftJoystick = DataCollector.Instance.IsLeftJoystick;
+                _musicSlider.value = DataCollector.Instance.MusicSlider;
+                _SFXSlider.value = DataCollector.Instance.SfxSlider;
+                _luminositySlider.value = DataCollector.Instance.LuminositySlider;
+            }
+            catch
+            {
+                _luminositySlider.maxValue = 2;
+                _luminositySlider.minValue = 0;
+                _luminositySlider.value = 1f;
+                _musicSlider.value = 0.5f;
+                _SFXSlider.value = 0.5f;
+            }
+
+            InitJoystick();
+            UpdateLuminosity();
+            UpdateSFXVolume();
+            UpdateMusicVolume();
         }
 
         public void SwitchPausePanel()
@@ -104,6 +162,7 @@ namespace Manager
         {
             if (CurrentControlSide == ControlSide.Right)
             {
+                _isLeftJoystick = true;
                 _joystickR.SetActive(false);
                 _joystickL.SetActive(true);
 
@@ -116,6 +175,7 @@ namespace Manager
             }
             else
             {
+                _isLeftJoystick = false;
                 _joystickL.SetActive(false);
                 _joystickR.SetActive(true);
 
@@ -137,13 +197,38 @@ namespace Manager
         public void UpdateMusicVolume()
         {
             float value = _musicSlider.value;
-            // AudioManager.Instance.UpdateMusicVolume(value);
+            AudioManager.Instance.UpdateMusicVolume(value);
         }
 
         public void UpdateSFXVolume()
         {
             float value = _SFXSlider.value;
-            // AudioManager.Instance.UpdateSFXVolume(value);
+            AudioManager.Instance.UpdateSFXVolume(value);
+        }
+
+        public void SaveModifications()
+        {
+            DataCollector.Instance.SaveSettings(_isLeftJoystick,_musicSlider.value,_SFXSlider.value,_luminositySlider.value);
+        }
+
+        public void ReloadGame()
+        {
+            Destroy(Character.Instance.gameObject);
+            DataCollector.Instance.ResetSave();
+            SceneLoader.Instance.ReloadGameScene();
+            ClockGame.Instance.Reset();
+        }
+
+        public void ReturnToTitle()
+        {
+            ClockGame.Instance.Reset();
+
+            _fader.DOFade(1, 1.5f).SetUpdate(true).OnComplete(() =>
+            {
+                Time.timeScale = 1;
+                DataCollector.Instance.ResetSave();
+                SceneLoader.Instance.LoadTitleScreen();
+            });
         }
     }
 }

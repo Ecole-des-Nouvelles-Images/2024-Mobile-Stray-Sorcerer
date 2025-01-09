@@ -10,6 +10,9 @@ TagManager:
   - Torch
   - Mushroom
   - Props
+  - Projectile
+  - RuntimeDynamicEmitter
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -19,7 +22,7 @@ TagManager:
   - UI
   - Monster
   - Wall
-  - 
+  - ToRenderTexture
   - 
   - 
   - 
@@ -46,4 +49,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: AboveUI
+    uniqueID: 2857976377
     locked: 0

@@ -20,7 +20,6 @@ namespace Player.Projectile
         private int _bounceValue;
         private bool _areaInvoker;
         private GameObject _areaPrefab;
-
         private void Awake()
         {
             _rb = transform.GetComponent<Rigidbody>();
@@ -38,40 +37,46 @@ namespace Player.Projectile
 
         private void Start()
         {
-            if (_bounce)
+            if(_bounce)
                 _bounceDetector.gameObject.SetActive(true);
             else
                 _bounceDetector.gameObject.SetActive(false);
             _myCollider.isTrigger = true;
         }
 
-        private void Update()
-        {
+        private void Update() {
             if (_rb.velocity != Vector3.zero)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(_rb.velocity, Vector3.up);
                 _rb.MoveRotation(targetRotation);
             }
-
-            if (_bounceDetector.IsBounceCollideActive && _myCollider.isTrigger && _bounce)
+            if (_bounceDetector.IsBounceCollideActive && _myCollider.isTrigger && _bounce) 
                 _myCollider.isTrigger = false;
-            if (_bounceDetector.IsBounceCollideActive == false && _myCollider.isTrigger == false && _bounce)
+            if (_bounceDetector.IsBounceCollideActive == false && _myCollider.isTrigger == false && _bounce) 
                 _myCollider.isTrigger = true;
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.transform.CompareTag("Wall") && _pierce) Destroy(gameObject);
+            if (other.transform.CompareTag("Wall") && _pierce)
+            {
+                Destroy(gameObject);
+            }
             if (other.transform.CompareTag("Enemy"))
             {
                 _rb.constraints = RigidbodyConstraints.FreezePositionY;
                 CastArea(other.transform);
                 other.transform.GetComponent<Monster>().TakeDamage(_damage);
-                if (!_pierce && !_bounce)
+                if(!_pierce && !_bounce)
                     Destroy(gameObject);
                 if (_pierce && _pierceValue <= 0)
+                {
                     Destroy(gameObject);
-                else if (_pierce) _pierceValue--;
+                }
+                else if(_pierce)
+                {
+                    _pierceValue --;
+                }
             }
         }
 
@@ -80,9 +85,9 @@ namespace Player.Projectile
             if (other.transform.CompareTag("Player"))
             {
                 if (_bounce) _myCollider.isTrigger = true;
-                return;
+               return;
             }
-
+            
             if (other.transform.CompareTag("Enemy"))
             {
                 _rb.constraints = RigidbodyConstraints.FreezePositionY;
@@ -90,14 +95,18 @@ namespace Player.Projectile
                 other.gameObject.GetComponent<Monster>().TakeDamage(_damage);
                 Destroy(gameObject);
             }
-
             if (other.transform.CompareTag("Wall"))
             {
                 if (_bounce && _bounceValue <= 0)
+                {
+                    
                     Destroy(gameObject);
+                }
                 else
+                {
                     _bounceValue--;
-                if (_bounce == false) Destroy(gameObject);
+                }
+                if(_bounce == false) Destroy(gameObject);
             }
         }
 
@@ -117,9 +126,9 @@ namespace Player.Projectile
                     GameObject area = Instantiate(_areaPrefab, hit.point, Quaternion.identity);
                     area.transform.position = hit.point;
                 }
-            }
 
-            if (_areaInvoker && _areaPrefab == null) Debug.LogError("Prefab area is null");
+                if (_areaInvoker && _areaPrefab == null) Debug.LogError("Prefab area is null");
+            }
         }
     }
 }

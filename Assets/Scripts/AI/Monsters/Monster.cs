@@ -1,8 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
+using Gameplay.GameData;
 using Player;
 using Player.AutoAttacks;
 using UnityEngine;
 using UnityEngine.AI;
-using Utils;
 using Random = UnityEngine.Random;
 
 namespace AI.Monsters
@@ -13,49 +15,64 @@ namespace AI.Monsters
         public static readonly int Attack = Animator.StringToHash("attack");
         public static readonly int Hurt = Animator.StringToHash("hurt");
         public static readonly int DoDeath = Animator.StringToHash("death");
+        public static readonly int Dissolve = Shader.PropertyToID("_State");
 
-        public bool IsDead;
-
-        [Header("Stats")] [SerializeField] protected int _damage;
-
-        [SerializeField] private int _hpMax;
-        [SerializeField] private float _hpGrowingFactor;
+        [Header("Stats")] [SerializeField] protected int _baseDamage;
+        
         [SerializeField] private float _damageGrowingFactor;
         [SerializeField] private float _speed;
         [SerializeField] private float _acceleration;
+        [SerializeField] protected int _baseHpMax;
+        [SerializeField] protected float _hpGrowingFactor;
         [SerializeField] protected float _attackSpeed = 1;
-        [Header("Drop")] [SerializeField] private GameObject[] _dropPrefabs;
+        
+        [Header("Drop")] 
+        [SerializeField] private GameObject[] _dropPrefabs;
         [SerializeField] private GameObject _xpPrefab;
 
-        [Header("References")] [SerializeField]
-        private PlayerDetector _triggerAttack;
-
+        [Header("References")] 
+        [SerializeField] protected PlayerDetector _triggerAttack;
         [SerializeField] protected Animator _monsterAnimator;
+        [SerializeField] protected GameObject _impactFx;
+        [SerializeField] private List<Renderer> _renderers;
+        
+        [Header("Timer")] 
+        [SerializeField] private float _deathAnimationDuration = 5;
 
         public int CurrentHp { get; private set; }
+        public bool IsDead { get; private set; }
 
         protected GameObject _myTarget;
         protected Rigidbody _rb;
         protected NavMeshAgent _myNavMeshAgent;
         protected float _currentTimeBeforAttack;
         protected bool _isCastReady;
-
-        private void OnEnable()
-        {
-            ClockGame.OnMonstersGrow += Grow;
-        }
-
-        private void OnDisable()
-        {
-            ClockGame.OnMonstersGrow -= Grow;
-        }
+        protected int _damage;
+        protected int _hpMax;
+        
+        private bool _playerInRange;
+        private bool _playerDetected;
 
         private void Awake()
         {
+            _damage = _baseDamage;
+            _hpMax = _baseHpMax;
             _myNavMeshAgent = transform.GetComponent<NavMeshAgent>();
             _myTarget = null;
             _rb = GetComponent<Rigidbody>();
             _isCastReady = true;
+        }
+
+        protected void OnEnable()
+        {
+            ClockGame.OnMonstersGrow += Grow;
+            _triggerAttack.OnPlayerDetected += PlayerDetected;
+        }
+
+        protected void OnDisable()
+        {
+            ClockGame.OnMonstersGrow -= Grow;
+            _triggerAttack.OnPlayerDetected -= PlayerDetected;
         }
 
         private void Start()
@@ -64,11 +81,14 @@ namespace AI.Monsters
             _myNavMeshAgent.speed = _speed;
             _myNavMeshAgent.acceleration = _acceleration;
             Standby();
+            Grow(ClockGame.Instance.GrowingLevel);
+            
         }
 
         private void Update()
         {
-            if (!IsDead)
+
+            if (!IsDead && _myTarget)
             {
                 //---timer---
                 if (_currentTimeBeforAttack > 0 && _isCastReady == false)
@@ -83,10 +103,10 @@ namespace AI.Monsters
 
                 _monsterAnimator.SetBool(IsMoving, _myNavMeshAgent.velocity != Vector3.zero);
 
-                if (_myTarget && _triggerAttack.DetectObject == false && Character.Instance.transform.GetComponent<AttackNearestFoes>().enabled)
+                if (_myTarget && _playerDetected == false && Character.Instance.transform.GetComponent<AttackNearestFoes>().enabled)
                     Chase();
-                if (_triggerAttack.DetectObject && _isCastReady && Character.Instance.transform.GetComponent<AttackNearestFoes>().enabled) DoAttack();
-                if (_triggerAttack.DetectObject)
+                if (_playerDetected && _isCastReady && Character.Instance.transform.GetComponent<AttackNearestFoes>().enabled) DoAttack();
+                if (_playerDetected)
                     PlayerTargeting();
             }
         }
@@ -97,7 +117,7 @@ namespace AI.Monsters
             CurrentHp -= damage;
             if (CurrentHp <= 0)
             {
-                Death();
+                StartCoroutine(DeathAnimationCoroutine());
                 return;
             }
 
@@ -106,34 +126,30 @@ namespace AI.Monsters
 
         private protected abstract void DoAttack();
 
-        private void Death()
+        protected void PlayerDetected(bool playerDetected)
         {
-            IsDead = true;
-            Standby();
-            _monsterAnimator.SetTrigger(DoDeath);
-            gameObject.GetComponent<Collider>().enabled = false;
-            if (_dropPrefabs.Length > 0) Instantiate(_dropPrefabs[Random.Range(0, _dropPrefabs.Length)], transform.position, Quaternion.identity);
-            Instantiate(_xpPrefab, transform.position, Quaternion.identity);
-            Invoke("UnactiveFoe", 3);
+            _playerDetected = playerDetected;
         }
 
-        private void Grow(int growMult)
+        protected void Grow(int growMult)
         {
-            _hpMax = (int)(_hpMax * (1 + _hpGrowingFactor * growMult));
-            _damage = (int)(_damage * (1 + _damageGrowingFactor * growMult));
-        }
-
-        private void UnactiveFoe()
-        {
-            gameObject.SetActive(false);
+            float hpGrowth = _baseHpMax * _hpGrowingFactor * growMult;
+            _hpMax += (int)hpGrowth;
+            /*needed to fix growMult beginning at 1 *Debug.Log(gameObject.name+" basedamage: "+_baseDamage + " multiplicator: "+growMult +" damage: "+_damage);*/
+            float damageGrowth = _baseDamage * _damageGrowingFactor * growMult;
+            _damage += (int)damageGrowth;
+            // Debug.Log(gameObject.name+" basedamage: "+_baseDamage + " multiplicator: "+growMult +"new damage: "+_damage+" growth: "+damageGrowth);
         }
 
         private void PlayerTargeting()
         {
-            if (_myNavMeshAgent.enabled)
-                _myNavMeshAgent.enabled = false;
-            Quaternion rotation = Quaternion.LookRotation(_myTarget.transform.position - transform.position, Vector3.up);
-            _rb.MoveRotation(rotation);
+            if (Character.Instance)
+            {
+                if (_myNavMeshAgent.enabled)
+                    _myNavMeshAgent.enabled = false;
+                Quaternion rotation = Quaternion.LookRotation(_myTarget.transform.position - transform.position, Vector3.up);
+                _rb.MoveRotation(rotation);
+            }
         }
 
         public void DefineTarget(GameObject target)
@@ -152,6 +168,47 @@ namespace AI.Monsters
             if (_myNavMeshAgent.enabled == false)
                 _myNavMeshAgent.enabled = true;
             _myNavMeshAgent.SetDestination(_myTarget.transform.position);
+        }
+
+        private IEnumerator DeathAnimationCoroutine()
+        {
+            float t = 0f;
+            List<Material> materials = new();
+            IsDead = true;
+            Standby();
+            _monsterAnimator.SetTrigger(DoDeath);
+            gameObject.GetComponent<Collider>().enabled = false;
+            if(DataCollector.Instance)
+                DataCollector.OnMonsterDeath?.Invoke();
+            int dice = Random.Range(1, 6);
+            if (_dropPrefabs.Length > 0 && dice>=4)
+            {
+                Vector3 position = new Vector3(transform.position.x + 0.5f, transform.position.y, transform.position.z);
+                Instantiate(_dropPrefabs[Random.Range(0, _dropPrefabs.Length-1)], position, Quaternion.identity);
+            }
+            Instantiate(_xpPrefab, transform.position, Quaternion.identity);
+            
+
+            while (t < 1)
+            {
+                t += Time.deltaTime / _deathAnimationDuration;
+
+                foreach (Renderer rd in _renderers)
+                {
+                    rd.GetMaterials(materials); // Copy originals
+
+                    foreach (Material material in materials) {
+                        material.SetFloat(Dissolve, Mathf.Lerp(0, 1, t));
+                    }
+
+                    materials.Clear();
+                }
+
+                yield return null;
+            }
+
+            yield return new WaitForSeconds(.5f);
+            Destroy(gameObject);
         }
     }
 }

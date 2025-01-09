@@ -66,13 +66,28 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c6eb20a003093374b8e911c8b594bee6,
         type: 3}
       propertyPath: m_Name
-      value: S_Barrel
+      value: Barrel
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c6eb20a003093374b8e911c8b594bee6,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 2637570095620178769, guid: c6eb20a003093374b8e911c8b594bee6,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: dd1728b18dc0974478219a26c7a54c97, type: 2}
+    - target: {fileID: 4306469600662479262, guid: c6eb20a003093374b8e911c8b594bee6,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 4393173493446616201, guid: c6eb20a003093374b8e911c8b594bee6,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

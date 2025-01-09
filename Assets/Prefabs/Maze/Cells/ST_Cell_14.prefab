@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &361883574756916686
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7501138359442510430}
+  m_Layer: 7
+  m_Name: Mushroom_4 (1)
+  m_TagString: Mushroom
+  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7501138359442510430
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 361883574756916686}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.21498068, y: -0.14810103, z: -0.029501045, w: 0.9648726}
+  m_LocalPosition: {x: -8.19, y: 0, z: 8.28}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 7332718972451895803}
+  m_LocalEulerAnglesHint: {x: -25.062, y: -17.548, z: 0.427}
 --- !u!1 &499524817412092872
 GameObject:
   m_ObjectHideFlags: 0
@@ -14,7 +45,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7275845579133325564
 Transform:
@@ -30,37 +61,6 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8813194017447914197}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &514489283743120536
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2414604706346361742}
-  m_Layer: 7
-  m_Name: Mushroom_3
-  m_TagString: Mushroom
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
-  m_IsActive: 1
---- !u!4 &2414604706346361742
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 514489283743120536}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 0, z: -2.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
-  m_Children: []
-  m_Father: {fileID: 7332718972451895803}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &882118685478853017
 GameObject:
@@ -79,7 +79,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4993298370990674187
 Transform:
@@ -181,7 +181,7 @@ GameObject:
   m_TagString: Props
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1599470375380571051
 Transform:
@@ -226,6 +226,10 @@ MonoBehaviour:
   - {fileID: 1444527824407496252, guid: 5e2797aff17af2044993cf14fc8b483c, type: 3}
   - {fileID: 262584985082976757, guid: fc4470c371bc4db46b55197a0c0d360e, type: 3}
   _rubbleProbability: 0.6
+  _spiderWebsPrefabs: []
+  _spiderWebsProbability: 0.5
+  _rugPrefabs: []
+  _rugProbability: 0.5
 --- !u!1 &1095896507936372717
 GameObject:
   m_ObjectHideFlags: 0
@@ -241,7 +245,7 @@ GameObject:
   m_TagString: Props
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2663815702523248991
 Transform:
@@ -285,6 +289,10 @@ MonoBehaviour:
   - {fileID: 1444527824407496252, guid: 5e2797aff17af2044993cf14fc8b483c, type: 3}
   - {fileID: 262584985082976757, guid: fc4470c371bc4db46b55197a0c0d360e, type: 3}
   _rubbleProbability: 0.6
+  _spiderWebsPrefabs: []
+  _spiderWebsProbability: 0.5
+  _rugPrefabs: []
+  _rugProbability: 0.5
 --- !u!1 &1396110348199480304
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,7 +307,7 @@ GameObject:
   m_TagString: Mushroom
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &6349509307369196163
 Transform:
@@ -334,7 +342,7 @@ GameObject:
   m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &79921011805798216
 Transform:
@@ -453,7 +461,7 @@ GameObject:
   m_TagString: Torch
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &6182801906788855331
 Transform:
@@ -484,7 +492,7 @@ GameObject:
   m_TagString: Torch
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4664652885057721518
 Transform:
@@ -515,7 +523,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &8813194017447914197
 Transform:
@@ -553,7 +561,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1912815012217557794
 Transform:
@@ -654,7 +662,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &3660209966421042233
 Transform:
@@ -674,6 +682,10 @@ Transform:
   - {fileID: 8059946644185403673}
   - {fileID: 2648350980644017591}
   - {fileID: 1599470375380571051}
+  - {fileID: 516276044726606972}
+  - {fileID: 8233011523952946997}
+  - {fileID: 6694092883703679820}
+  - {fileID: 6400286977792437927}
   m_Father: {fileID: 8813194017447914197}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2527335234331973912
@@ -690,7 +702,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &8470255206179359494
 Transform:
@@ -709,6 +721,69 @@ Transform:
   - {fileID: 7332718972451895803}
   m_Father: {fileID: 8813194017447914197}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2689050437464170571
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 516276044726606972}
+  - component: {fileID: 7309149016185442256}
+  m_Layer: 7
+  m_Name: Slot_2 (1)
+  m_TagString: Props
+  m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &516276044726606972
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2689050437464170571}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.01745245, z: -0, w: 0.99984777}
+  m_LocalPosition: {x: 4.44, y: 0, z: 6.72}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 3660209966421042233}
+  m_LocalEulerAnglesHint: {x: 0, y: -2, z: 0}
+--- !u!114 &7309149016185442256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2689050437464170571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12670aba1d7a461ea78b84d768669ec3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _propType: 8
+  _useCustomProbabilities: 1
+  _barrelPrefabs:
+  - {fileID: 57692885948172916, guid: e7d4a486564550848a5f801e19c3dedd, type: 3}
+  _barrelProbability: 0.2
+  _cratesPrefabs:
+  - {fileID: 6528511368108797977, guid: ab3c7e4cfd94c2847bef4e747256186c, type: 3}
+  - {fileID: 374079292440503641, guid: b282c95959fee134295b0a4eda8aad3b, type: 3}
+  _cratesProbability: 0.1
+  _bannerPrefabs: []
+  _bannerProbability: 0.5
+  _rubblePrefabs:
+  - {fileID: 1444527824407496252, guid: 5e2797aff17af2044993cf14fc8b483c, type: 3}
+  - {fileID: 262584985082976757, guid: fc4470c371bc4db46b55197a0c0d360e, type: 3}
+  _rubbleProbability: 0.6
+  _spiderWebsPrefabs: []
+  _spiderWebsProbability: 0.5
+  _rugPrefabs: []
+  _rugProbability: 0.5
 --- !u!1 &2715553812590014266
 GameObject:
   m_ObjectHideFlags: 0
@@ -723,7 +798,7 @@ GameObject:
   m_TagString: Torch
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1826701410883053079
 Transform:
@@ -763,7 +838,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1261026878653592325
 Transform:
@@ -864,7 +939,7 @@ GameObject:
   m_TagString: Torch
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &6502626822369056256
 Transform:
@@ -895,7 +970,7 @@ GameObject:
   m_TagString: Torch
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &8152538940519298762
 Transform:
@@ -912,6 +987,134 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1826701410883053079}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!1 &3368499018485392066
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6400286977792437927}
+  - component: {fileID: 5695649011085081928}
+  m_Layer: 7
+  m_Name: Slot_2_Web (6)
+  m_TagString: Props
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6400286977792437927
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3368499018485392066}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.28386146, y: -0.18244943, z: 0.28574553, w: 0.8969306}
+  m_LocalPosition: {x: 8.12, y: 0.51, z: 3.47}
+  m_LocalScale: {x: 1, y: 1, z: 1.5}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 3660209966421042233}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &5695649011085081928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3368499018485392066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12670aba1d7a461ea78b84d768669ec3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _propType: 16
+  _useCustomProbabilities: 1
+  _barrelPrefabs:
+  - {fileID: 57692885948172916, guid: e7d4a486564550848a5f801e19c3dedd, type: 3}
+  _barrelProbability: 0.5
+  _cratesPrefabs:
+  - {fileID: 6528511368108797977, guid: ab3c7e4cfd94c2847bef4e747256186c, type: 3}
+  - {fileID: 374079292440503641, guid: b282c95959fee134295b0a4eda8aad3b, type: 3}
+  _cratesProbability: 0
+  _bannerPrefabs: []
+  _bannerProbability: 0.5
+  _rubblePrefabs:
+  - {fileID: 1444527824407496252, guid: 5e2797aff17af2044993cf14fc8b483c, type: 3}
+  - {fileID: 262584985082976757, guid: fc4470c371bc4db46b55197a0c0d360e, type: 3}
+  _rubbleProbability: 0.6
+  _spiderWebsPrefabs:
+  - {fileID: 3195880680412169035, guid: 7e0ed48b1fae772449f5297c11355eb5, type: 3}
+  _spiderWebsProbability: 0.7
+  _rugPrefabs: []
+  _rugProbability: 0.5
+--- !u!1 &3991262904250489223
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8233011523952946997}
+  - component: {fileID: 9016247955631410428}
+  m_Layer: 7
+  m_Name: Slot_Rug
+  m_TagString: Props
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8233011523952946997
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3991262904250489223}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0.01, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 3660209966421042233}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &9016247955631410428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3991262904250489223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12670aba1d7a461ea78b84d768669ec3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _propType: 32
+  _useCustomProbabilities: 1
+  _barrelPrefabs:
+  - {fileID: 57692885948172916, guid: e7d4a486564550848a5f801e19c3dedd, type: 3}
+  _barrelProbability: 0.2
+  _cratesPrefabs:
+  - {fileID: 6528511368108797977, guid: ab3c7e4cfd94c2847bef4e747256186c, type: 3}
+  - {fileID: 374079292440503641, guid: b282c95959fee134295b0a4eda8aad3b, type: 3}
+  _cratesProbability: 0.3
+  _bannerPrefabs: []
+  _bannerProbability: 0.5
+  _rubblePrefabs:
+  - {fileID: 1444527824407496252, guid: 5e2797aff17af2044993cf14fc8b483c, type: 3}
+  - {fileID: 262584985082976757, guid: fc4470c371bc4db46b55197a0c0d360e, type: 3}
+  _rubbleProbability: 0.6
+  _spiderWebsPrefabs: []
+  _spiderWebsProbability: 0.5
+  _rugPrefabs:
+  - {fileID: 5906369457241702625, guid: a89d3ade73d6ed14c8c7c8d69be97378, type: 3}
+  _rugProbability: 0.2
 --- !u!1 &4345982088437404630
 GameObject:
   m_ObjectHideFlags: 0
@@ -927,7 +1130,7 @@ GameObject:
   m_TagString: Props
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &8059946644185403673
 Transform:
@@ -971,6 +1174,10 @@ MonoBehaviour:
   - {fileID: 1444527824407496252, guid: 5e2797aff17af2044993cf14fc8b483c, type: 3}
   - {fileID: 262584985082976757, guid: fc4470c371bc4db46b55197a0c0d360e, type: 3}
   _rubbleProbability: 0.6
+  _spiderWebsPrefabs: []
+  _spiderWebsProbability: 0.5
+  _rugPrefabs: []
+  _rugProbability: 0.5
 --- !u!1 &4362459600357902970
 GameObject:
   m_ObjectHideFlags: 0
@@ -987,7 +1194,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &8388858668719303481
 Transform:
@@ -1069,7 +1276,7 @@ GameObject:
   m_TagString: Props
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2648350980644017591
 Transform:
@@ -1113,6 +1320,10 @@ MonoBehaviour:
   - {fileID: 1444527824407496252, guid: 5e2797aff17af2044993cf14fc8b483c, type: 3}
   - {fileID: 262584985082976757, guid: fc4470c371bc4db46b55197a0c0d360e, type: 3}
   _rubbleProbability: 0.6
+  _spiderWebsPrefabs: []
+  _spiderWebsProbability: 0.5
+  _rugPrefabs: []
+  _rugProbability: 0.5
 --- !u!1 &5433696036607277507
 GameObject:
   m_ObjectHideFlags: 0
@@ -1127,7 +1338,7 @@ GameObject:
   m_TagString: Torch
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2870352742870730931
 Transform:
@@ -1159,7 +1370,7 @@ GameObject:
   m_TagString: Props
   m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1976440271508236684
 Transform:
@@ -1203,6 +1414,10 @@ MonoBehaviour:
   - {fileID: 1444527824407496252, guid: 5e2797aff17af2044993cf14fc8b483c, type: 3}
   - {fileID: 262584985082976757, guid: fc4470c371bc4db46b55197a0c0d360e, type: 3}
   _rubbleProbability: 0.6
+  _spiderWebsPrefabs: []
+  _spiderWebsProbability: 0.5
+  _rugPrefabs: []
+  _rugProbability: 0.5
 --- !u!1 &5925504969678228377
 GameObject:
   m_ObjectHideFlags: 0
@@ -1217,7 +1432,7 @@ GameObject:
   m_TagString: Mushroom
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7896585991998133097
 Transform:
@@ -1228,12 +1443,76 @@ Transform:
   m_GameObject: {fileID: 5925504969678228377}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7, y: 0, z: -7}
+  m_LocalPosition: {x: -7.59, y: 0, z: -8.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7332718972451895803}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6667585463172903993
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6694092883703679820}
+  - component: {fileID: 6204071883929188100}
+  m_Layer: 7
+  m_Name: Slot_2_Web (5)
+  m_TagString: Props
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6694092883703679820
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6667585463172903993}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.513932, y: 0.04397052, z: 0.67560893, w: 0.5267762}
+  m_LocalPosition: {x: 8.91, y: 6.13, z: -1.62}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 3660209966421042233}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &6204071883929188100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6667585463172903993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12670aba1d7a461ea78b84d768669ec3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _propType: 16
+  _useCustomProbabilities: 1
+  _barrelPrefabs:
+  - {fileID: 57692885948172916, guid: e7d4a486564550848a5f801e19c3dedd, type: 3}
+  _barrelProbability: 0.5
+  _cratesPrefabs:
+  - {fileID: 6528511368108797977, guid: ab3c7e4cfd94c2847bef4e747256186c, type: 3}
+  - {fileID: 374079292440503641, guid: b282c95959fee134295b0a4eda8aad3b, type: 3}
+  _cratesProbability: 0
+  _bannerPrefabs: []
+  _bannerProbability: 0.5
+  _rubblePrefabs:
+  - {fileID: 1444527824407496252, guid: 5e2797aff17af2044993cf14fc8b483c, type: 3}
+  - {fileID: 262584985082976757, guid: fc4470c371bc4db46b55197a0c0d360e, type: 3}
+  _rubbleProbability: 0.6
+  _spiderWebsPrefabs:
+  - {fileID: 3195880680412169035, guid: 7e0ed48b1fae772449f5297c11355eb5, type: 3}
+  _spiderWebsProbability: 0.7
+  _rugPrefabs: []
+  _rugProbability: 0.5
 --- !u!1 &7769441067076095138
 GameObject:
   m_ObjectHideFlags: 0
@@ -1248,7 +1527,7 @@ GameObject:
   m_TagString: Mushroom
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &5253078291092204254
 Transform:
@@ -1259,7 +1538,7 @@ Transform:
   m_GameObject: {fileID: 7769441067076095138}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6, y: 0, z: 4}
+  m_LocalPosition: {x: -8.74, y: 0, z: 7.84}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1279,7 +1558,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7332718972451895803
 Transform:
@@ -1296,8 +1575,8 @@ Transform:
   m_Children:
   - {fileID: 1226758851991551383}
   - {fileID: 6349509307369196163}
-  - {fileID: 2414604706346361742}
   - {fileID: 5253078291092204254}
+  - {fileID: 7501138359442510430}
   - {fileID: 7896585991998133097}
   m_Father: {fileID: 8470255206179359494}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1315,7 +1594,7 @@ GameObject:
   m_TagString: Torch
   m_Icon: {fileID: 7148428337604731935, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4620464104944921494
 Transform:
@@ -1346,7 +1625,7 @@ GameObject:
   m_TagString: Mushroom
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1226758851991551383
 Transform:
@@ -1357,7 +1636,7 @@ Transform:
   m_GameObject: {fileID: 9065186617191340372}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.5, y: 0, z: 6}
+  m_LocalPosition: {x: -7.74, y: 0, z: 8.72}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []

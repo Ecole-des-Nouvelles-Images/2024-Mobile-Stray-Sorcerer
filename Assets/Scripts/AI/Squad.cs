@@ -3,7 +3,6 @@ using AI.Monsters;
 using Player;
 using Unity.Mathematics;
 using UnityEngine;
-using Utils;
 using Random = UnityEngine.Random;
 
 namespace AI
@@ -15,9 +14,9 @@ namespace AI
         [SerializeField] private Transform[] _markerList;
         [SerializeField] private Transform _raycastOrigin;
         [SerializeField] private GameObject _speedBoostAreaPrefab;
+        [SerializeField] private float _cooldownRaycast;
         
         private bool _isTriggered;
-        private bool _isChaseTime;
         private List<GameObject> _spawnedMonsters;
 
         private void Start()
@@ -27,14 +26,16 @@ namespace AI
 
         private void Update()
         {
-            if(!_isChaseTime && Character.Instance)
-                PlayerDirectView();
             if (_isTriggered && AllMonstersDied())
             {
                 int dice = Random.Range(1, 100);
                 if (dice <= _procRatio)
                     Instantiate(_speedBoostAreaPrefab, transform.position, quaternion.identity);
                 Destroy(gameObject);
+            }
+            if (_isTriggered)
+            {
+                PlayerDirectView();
             }
         }
 
@@ -68,7 +69,7 @@ namespace AI
         {
             for (int i = 0; i < _markerList.Length; i++)
             {
-                if(_markerList[i].GetChild(0).gameObject.activeSelf)
+                if(_markerList[i].childCount > 0)
                     return false;
             }
             return true;
@@ -78,7 +79,9 @@ namespace AI
         {
             RaycastHit hit;
             LayerMask layerMask = LayerMask.GetMask("Player","Wall");
-            
+
+            if (!Character.Instance) return;
+
             if (Physics.Raycast(_raycastOrigin.position,
                     Character.Instance.EnemyRaycastTarget.position - _raycastOrigin.position, out hit,
                     Mathf.Infinity, layerMask, QueryTriggerInteraction.Ignore))
@@ -87,8 +90,11 @@ namespace AI
                 {
                     for (int i = 0; i < _markerList.Length; i++)
                     {
-                        _markerList[i].GetChild(0).gameObject.GetComponent<Monster>()
-                            .DefineTarget(Character.Instance.gameObject);
+                        if (_markerList[i].childCount > 0)
+                        {
+                            _markerList[i].GetChild(0)?.gameObject.GetComponent<Monster>()
+                                .DefineTarget(Character.Instance.gameObject);
+                        }
                     }
                 }
             }

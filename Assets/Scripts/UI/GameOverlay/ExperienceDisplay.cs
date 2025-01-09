@@ -8,15 +8,16 @@ namespace UI.GameOverlay
     public class ExperienceDisplay : MonoBehaviour
     {
         [Header("References")]
-        /* [SerializeField] */ private Slider _exp;
-
-        /* [SerializeField] */
-        private TMP_Text _level;
+        [SerializeField] private Slider _exp;
+        [SerializeField] private TMP_Text _level;
 
         private void Awake()
         {
-            _exp = GameObject.Find("UI/GameOverlay/HUD/Experience/Gauge").GetComponent<Slider>();
-            _level = GameObject.Find("UI/GameOverlay/HUD/Experience/Level").GetComponent<TMP_Text>();
+            if (!_exp)
+                _exp = GameObject.Find("UI/GameOverlay/HUD/Experience/Gauge").GetComponent<Slider>();
+
+            if (!_level)
+                _level = GameObject.Find("UI/GameOverlay/HUD/Experience/Level").GetComponent<TMP_Text>();
         }
 
         private void OnEnable()

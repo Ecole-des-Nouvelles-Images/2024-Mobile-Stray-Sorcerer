@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using UnityEngine;
+
 using Random = UnityEngine.Random;
 
 namespace Lighting
@@ -11,7 +12,6 @@ namespace Lighting
         [SerializeField] private Vector2 _flickersDurationRange = new(0.5f, 1f);
 
         private Light _light;
-        private AutoSwitchLight _lightSwitch;
 
         private void OnValidate()
         {
@@ -56,18 +56,15 @@ namespace Lighting
         private void Awake()
         {
             _light = GetComponent<Light>();
-            _lightSwitch = GetComponent<AutoSwitchLight>();
         }
 
         private void OnEnable()
         {
-            _lightSwitch.OnSwitchLightOn += Flicker;
         }
 
         private void OnDisable()
         {
             _light.DOKill(true);
-            _lightSwitch.OnSwitchLightOn -= Flicker;
         }
 
         [ContextMenu("Test flickers")]
