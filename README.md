@@ -6,8 +6,8 @@
 
 <p align="center">
     <a href="#/"><img alt="Static Badge" src="https://img.shields.io/badge/Unity-2022.3.47-blue?style=flat&logo=unity"></a>
-    <a href="https://github.com/Ecole-des-Nouvelles-Images/Mobile-Stray-Sorcerer/releases/tag/v0.5.2-alpha"><img alt="GitHub Release" src="https://img.shields.io/github/v/release/Ecole-des-Nouvelles-Images/Mobile-Stray-Sorcerer"></a>
-    <a href="https://github.com/Ecole-des-Nouvelles-Images/Mobile-Stray-Sorcerer/releases/tag/v0.5.2-alpha"><img alt="GitHub Release Date" src="https://img.shields.io/github/release-date-pre/Ecole-des-Nouvelles-Images/Mobile-Stray-Sorcerer"></a>
+    <a href="https://github.com/Ecole-des-Nouvelles-Images/2024-Mobile-Stray-Sorcerer/releases/latest"><img alt="GitHub Release" src="https://img.shields.io/github/v/release/Ecole-des-Nouvelles-Images/Mobile-Stray-Sorcerer"></a>
+    <a href="https://github.com/Ecole-des-Nouvelles-Images/Mobile-Stray-Sorcerer/releases/latest"><img alt="GitHub Release Date" src="https://img.shields.io/github/release-date-pre/Ecole-des-Nouvelles-Images/Mobile-Stray-Sorcerer"></a>
     <a href="https://github.com/Ecole-des-Nouvelles-Images/Mobile-Stray-Sorcerer?tab=Apache-2.0-1-ov-file"><img alt="GitHub License" src="https://img.shields.io/github/license/Ecole-des-Nouvelles-Images/Mobile-Stray-Sorcerer"></a>
     <a href="https://github.com/Ecole-des-Nouvelles-Images/Mobile-Stray-Sorcerer/blob/main/README.md"><img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/Ecole-des-Nouvelles-Images/Mobile-Stray-Sorcerer?color=lightgrey"></a>
 </p>
