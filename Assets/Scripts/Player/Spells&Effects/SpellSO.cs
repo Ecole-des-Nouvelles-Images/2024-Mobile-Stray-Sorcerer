@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Player.Spells_Effects
 {
     [CreateAssetMenu(fileName = "New Spell", menuName = "SO/Spell")]
-    public class Spell : ScriptableObject
+    public class SpellSO : ScriptableObject
     {
         public string Name;
         public AudioClip ThrowingSound;

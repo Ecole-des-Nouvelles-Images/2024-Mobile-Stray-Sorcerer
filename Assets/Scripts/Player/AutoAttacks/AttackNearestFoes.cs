@@ -131,7 +131,7 @@ namespace Player.AutoAttacks
         private void CastSpell()
         {
             _castFX.SetActive(true);
-            GameObject projectile = Instantiate(Character.Instance.CurrentSpell.ProjectilePrefab, _projectileOrigin.position, Quaternion.identity);
+            GameObject projectile = Instantiate(Character.Instance.CurrentSpellSo.ProjectilePrefab, _projectileOrigin.position, Quaternion.identity);
             projectile.GetComponent<Rigidbody>().AddForce((_nearestFoe.transform.position - projectile.transform.position) * _projectileVelocity, ForceMode.Impulse);
             _attackIsReady = false;
             _currentCooldownTimer = 0;

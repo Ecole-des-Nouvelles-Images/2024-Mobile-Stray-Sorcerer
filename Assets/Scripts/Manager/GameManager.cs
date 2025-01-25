@@ -6,6 +6,7 @@ using UnityEngine.InputSystem.UI;
 using Cinemachine;
 using DG.Tweening;
 using UI.Effects;
+using Unity.VisualScripting;
 using Utils;
 
 namespace Manager
@@ -48,6 +49,7 @@ namespace Manager
         {
             _camera.gameObject.SetActive(true);
             _ui.SetActive(true);
+            UIManager.Instance.gameObject.SetActive(true);
 
             _player = SceneLoader.Instance.SceneUtilityActivatePlayer(_playerPrefab, _playerSpawnPosition);
             _player.GetComponent<PlayerInput>().uiInputModule = FindObjectOfType<InputSystemUIInputModule>();
@@ -95,6 +97,8 @@ namespace Manager
             _camBody.m_CameraDistance = _cameraDistance;
             _camBody.m_SoftZoneWidth = 0.2f;
             _camBody.m_SoftZoneHeight = 0.2f;
+            _camBody.m_LookaheadSmoothing = 10f;
+            _camBody.m_LookaheadTime = 0.5f;
         }
     }
 }

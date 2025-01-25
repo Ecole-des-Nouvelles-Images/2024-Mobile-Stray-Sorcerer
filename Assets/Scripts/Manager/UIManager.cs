@@ -56,8 +56,8 @@ namespace Manager
 
         private void Start()
         {
+            gameObject.SetActive(false);
             LoadSettingsData();
-
             CurrentControlSide = _defaultControlSide;
         }
 
@@ -67,24 +67,20 @@ namespace Manager
             {
                 _joystickR.SetActive(false);
                 _joystickL.SetActive(true);
-
                 _joystickOptionL.interactable = false;
                 _joystickOptionR.interactable = true;
+                _joystickOptionL.isOn = true;
                 _joystickOptionR.isOn = false;
-                // _currentSpellL.SetActive(false);
-                // _currentSpellR.SetActive(true);
                 CurrentControlSide = ControlSide.Left;
             }
             else
             {
                 _joystickL.SetActive(false);
                 _joystickR.SetActive(true);
-
                 _joystickOptionR.interactable = false;
                 _joystickOptionL.interactable = true;
+                _joystickOptionR.isOn = true;
                 _joystickOptionL.isOn = false;
-                // _currentSpellR.SetActive(false);
-                // _currentSpellL.SetActive(true);
                 CurrentControlSide = ControlSide.Right;
             }
         }
@@ -213,16 +209,24 @@ namespace Manager
 
         public void ReloadGame()
         {
-            Destroy(Character.Instance.gameObject);
+            if (Character.Instance)
+            {
+                Destroy(Character.Instance.gameObject);
+            }
             DataCollector.Instance.ResetSave();
             SceneLoader.Instance.ReloadGameScene();
+            ClockGame.Instance.ClockStop();
             ClockGame.Instance.Reset();
         }
 
         public void ReturnToTitle()
         {
+            ClockGame.Instance.ClockStop();
             ClockGame.Instance.Reset();
-
+            if (Character.Instance)
+            {
+                Destroy(Character.Instance.gameObject);
+            }
             _fader.DOFade(1, 1.5f).SetUpdate(true).OnComplete(() =>
             {
                 Time.timeScale = 1;
