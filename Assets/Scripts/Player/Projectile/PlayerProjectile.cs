@@ -10,7 +10,7 @@ namespace Player.Projectile
         private GameObject _impactPrefab;
         private Rigidbody _rb;
         private Collider _myCollider;
-        private Spell _mySpell;
+        private SpellSO _mySpellSo;
         private string _name;
         private GameObject _projectilePrefab;
         private int _damage;
@@ -24,15 +24,15 @@ namespace Player.Projectile
         {
             _rb = transform.GetComponent<Rigidbody>();
             _myCollider = transform.GetComponent<Collider>();
-            _mySpell = Character.Instance.CurrentSpell;
-            _name = _mySpell.Name;
-            _damage = _mySpell.Damage + (int)Character.Instance.SpellPower;
-            _pierce = _mySpell.Pierce;
-            _pierceValue = _mySpell.PierceValue;
-            _bounce = _mySpell.Bounce;
-            _bounceValue = _mySpell.BounceValue;
-            _areaInvoker = _mySpell.AreaInvoker;
-            _areaPrefab = _mySpell.ZonePrefab;
+            _mySpellSo = Character.Instance.CurrentSpellSo;
+            _name = _mySpellSo.Name;
+            _damage = _mySpellSo.Damage + (int)Character.Instance.SpellPower;
+            _pierce = _mySpellSo.Pierce;
+            _pierceValue = _mySpellSo.PierceValue;
+            _bounce = _mySpellSo.Bounce;
+            _bounceValue = _mySpellSo.BounceValue;
+            _areaInvoker = _mySpellSo.AreaInvoker;
+            _areaPrefab = _mySpellSo.ZonePrefab;
         }
 
         private void Start()

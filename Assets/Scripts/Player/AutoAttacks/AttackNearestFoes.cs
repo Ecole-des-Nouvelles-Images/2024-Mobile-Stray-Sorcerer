@@ -1,5 +1,7 @@
+using System;
 using AI.Monsters;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Utils;
 
 namespace Player.AutoAttacks
@@ -7,6 +9,7 @@ namespace Player.AutoAttacks
     public class AttackNearestFoes : MonoBehaviour
     {
         public static readonly int DoAttack = Animator.StringToHash("doAttack");
+        public static readonly int AttackSpeed = Animator.StringToHash("attackSpeed");
 
         [Header("References")] [SerializeField]
         private EnemyDetector _enemyDetector;
@@ -19,16 +22,20 @@ namespace Player.AutoAttacks
 
         [Header("Settings")] 
         [SerializeField] private int _projectileVelocity = 5;
-        [SerializeField] private float _castDelay = 1;
-
+        [SerializeField] private float _baseCastDelay = 1.2f;
+        
+        public float Cooldown => Character.Instance.AttackCooldown;
+        
         private GameObject _nearestFoe;
         private bool _attackIsReady = true;
         private float _currentCooldownTimer;
         private AudioSource _throwAudioSource;
         private bool _casting;
+        private float _castDelay;
         private float _currentDelay;
-
-        public float Cooldown => Character.Instance.AttackCooldown;
+        private float _animSpeedMult = 0.025f;
+        private float _delayMult = 0.02f;
+        private float _animSpeed = 1f;
 
         private void Awake()
         {
@@ -36,6 +43,21 @@ namespace Player.AutoAttacks
             _currentCooldownTimer = Cooldown;
             _chargingCastFX.SetActive(false);
             _castFX.SetActive(false);
+        }
+
+        private void OnEnable()
+        {
+            Character.OnLevelUp += UpdateDelayAndAnimSpeedValue;
+        }
+
+        private void OnDisable()
+        {
+            Character.OnLevelUp -= UpdateDelayAndAnimSpeedValue;
+        }
+
+        private void Start()
+        {
+            UpdateDelayAndAnimSpeedValue();
         }
 
         private void Update()
@@ -65,7 +87,8 @@ namespace Player.AutoAttacks
                     _characterAnimator.SetTrigger(DoAttack);
                 }
 
-                if (_nearestFoe && _casting && _nearestFoe.transform.GetComponent<Monster>().IsDead == false) DelayBeforeCast();
+                if (_nearestFoe && _casting && _nearestFoe.transform.GetComponent<Monster>().IsDead == false) 
+                    DelayBeforeCast();
             }
 
             if (_nearestFoe != null && _nearestFoe.activeSelf == false)
@@ -95,7 +118,6 @@ namespace Player.AutoAttacks
                 }
             }
         }
-
         private void DelayBeforeCast()
         {
             if (_currentDelay > 0)
@@ -106,17 +128,23 @@ namespace Player.AutoAttacks
 
             CastSpell();
         }
-
         private void CastSpell()
         {
             _castFX.SetActive(true);
-            GameObject projectile = Instantiate(Character.Instance.CurrentSpell.ProjectilePrefab, _projectileOrigin.position, Quaternion.identity);
+            GameObject projectile = Instantiate(Character.Instance.CurrentSpellSo.ProjectilePrefab, _projectileOrigin.position, Quaternion.identity);
             projectile.GetComponent<Rigidbody>().AddForce((_nearestFoe.transform.position - projectile.transform.position) * _projectileVelocity, ForceMode.Impulse);
             _attackIsReady = false;
             _currentCooldownTimer = 0;
             
             Destroy(projectile, 5f);
             _casting = false;
+        }
+
+        private void UpdateDelayAndAnimSpeedValue()
+        {
+            int characterLevel = Character.Instance.Level;
+            _castDelay = _baseCastDelay - _delayMult * characterLevel;
+            _characterAnimator.SetFloat(AttackSpeed, 1 + _animSpeedMult * characterLevel);
         }
 
         // private void PlayCastFX()
