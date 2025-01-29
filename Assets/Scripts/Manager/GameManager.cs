@@ -6,7 +6,6 @@ using UnityEngine.InputSystem.UI;
 using Cinemachine;
 using DG.Tweening;
 using UI.Effects;
-using Unity.VisualScripting;
 using Utils;
 
 namespace Manager
@@ -53,7 +52,7 @@ namespace Manager
 
             _player = SceneLoader.Instance.SceneUtilityActivatePlayer(_playerPrefab, _playerSpawnPosition);
             _player.GetComponent<PlayerInput>().uiInputModule = FindObjectOfType<InputSystemUIInputModule>();
-            
+
             SetupCamera();
 
 

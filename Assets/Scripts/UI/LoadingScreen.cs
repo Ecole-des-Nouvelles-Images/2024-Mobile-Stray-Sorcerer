@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -10,7 +8,7 @@ namespace UI
     public class LoadingScreen : MonoBehaviour
     {
         [Header("References")]
-        [SerializeField] private TipsSO _Tips;
+        [SerializeField] private TipsSO _tips;
         [SerializeField] private GameObject _canvas;
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private TMP_Text _statusInfoBox;
@@ -45,7 +43,7 @@ namespace UI
 
         private void DisplayRandomTips()
         {
-            _tipsText.text = _Tips.TipsList[Random.Range(0, _Tips.TipsList.Count - 1)];
+            _tipsText.text = _tips.TipsList[Random.Range(0, _tips.TipsList.Count - 1)];
         }
 
         public void Show(bool status)
@@ -54,6 +52,6 @@ namespace UI
             _canvasGroup.DOFade(status ? 1 : 0, _fadeDuration).SetUpdate(true);
             _psRoot.gameObject.SetActive(status);
         }
-        
+
     }
 }

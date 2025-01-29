@@ -1,7 +1,5 @@
-using System;
 using AI.Monsters;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Utils;
 
 namespace Player.AutoAttacks
