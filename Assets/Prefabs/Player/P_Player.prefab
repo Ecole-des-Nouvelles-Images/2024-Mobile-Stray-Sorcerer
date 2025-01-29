@@ -21354,8 +21354,9 @@ GameObject:
   - component: {fileID: 5336584031268284057}
   - component: {fileID: 6216133150906881502}
   - component: {fileID: 1951082793598725807}
-  - component: {fileID: 7965276715533977198}
+  - component: {fileID: 5750860220335815231}
   - component: {fileID: 655780524270168627}
+  - component: {fileID: 7965276715533977198}
   - component: {fileID: 8099843394209094681}
   - component: {fileID: 3733465006450829829}
   m_Layer: 3
@@ -21544,8 +21545,7 @@ MonoBehaviour:
   _accelerometerSensibility: 0.01
   _accModifier: 1.5
   _cameraTransposerMaxOffset: 5
-  _cameraTrackingReactivity: 1.5
---- !u!114 &7965276715533977198
+--- !u!114 &5750860220335815231
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -21554,17 +21554,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7388351048592758067}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61826787053cdb546a2309a7217015ce, type: 3}
+  m_Script: {fileID: 11500000, guid: f8d4608fc9da4f70b45655e55eaeaec0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyDetector: {fileID: 1973865112500274353}
-  _projectileOrigin: {fileID: 4289767335993897829}
-  _characterAnimator: {fileID: 4768240579939408225}
-  _chargingCastFX: {fileID: 7186693970390494455}
-  _castFX: {fileID: 471315390691081601}
-  _cooldownFX: {fileID: 8495603319985789313}
-  _projectileVelocity: 2
-  _baseCastDelay: 1.2
+  _maximumForwardAmount: 5
+  _cameraTrackingReactivity: 0.5
 --- !u!114 &655780524270168627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21610,6 +21604,26 @@ MonoBehaviour:
   - {fileID: 7643164497299130737}
   - {fileID: 1709434432948534564}
   - {fileID: 7635149266582439044}
+--- !u!114 &7965276715533977198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7388351048592758067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61826787053cdb546a2309a7217015ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyDetector: {fileID: 1973865112500274353}
+  _projectileOrigin: {fileID: 4289767335993897829}
+  _characterAnimator: {fileID: 4768240579939408225}
+  _chargingCastFX: {fileID: 7186693970390494455}
+  _castFX: {fileID: 471315390691081601}
+  _cooldownFX: {fileID: 8495603319985789313}
+  _projectileVelocity: 2
+  _baseCastDelay: 1.2
 --- !u!114 &8099843394209094681
 MonoBehaviour:
   m_ObjectHideFlags: 0

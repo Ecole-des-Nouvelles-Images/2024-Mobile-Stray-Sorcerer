@@ -62,20 +62,20 @@ PlayerSettings:
   numberOfMipsStrippedPerMipmapLimitGroup: {}
   m_StackTraceTypes: 010000000100000001000000010000000100000001000000
   iosShowActivityIndicatorOnLoading: 2
-  androidShowActivityIndicatorOnLoading: 2
+  androidShowActivityIndicatorOnLoading: -1
   iosUseCustomAppBackgroundBehavior: 0
   allowedAutorotateToPortrait: 0
   allowedAutorotateToPortraitUpsideDown: 0
   allowedAutorotateToLandscapeRight: 1
   allowedAutorotateToLandscapeLeft: 1
   useOSAutorotation: 0
-  use32BitDisplayBuffer: 1
+  use32BitDisplayBuffer: 0
   preserveFramebufferAlpha: 0
   disableDepthAndStencilBuffers: 0
   androidStartInFullscreen: 1
   androidRenderOutsideSafeArea: 1
   androidUseSwappy: 1
-  androidBlitType: 0
+  androidBlitType: 2
   androidResizableWindow: 0
   androidDefaultWindowWidth: 1920
   androidDefaultWindowHeight: 1080
@@ -145,8 +145,26 @@ PlayerSettings:
   loadStoreDebugModeEnabled: 0
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
-  bundleVersion: 0.8.0
-  preloadedAssets: []
+  bundleVersion: 0.8.1-alpha
+  preloadedAssets:
+  - {fileID: 7326675934701390548, guid: 860bf808d604fe24f8e2bb8a703fd4ca, type: 3}
+  - {fileID: 3219684139384132243, guid: 45d453360ffcba34993a620d4091d86c, type: 3}
+  - {fileID: 2783817917066030149, guid: 894f8db2c415c2e4bb03cbdeac5eb321, type: 3}
+  - {fileID: 1105176858011788255, guid: fbc3a60c653e5df43bde81348a27ae38, type: 3}
+  - {fileID: 1588779132935977976, guid: c2f4370e9599825458d3def74b567b5f, type: 3}
+  - {fileID: 1034721900707541192, guid: 70c744c75420c70448f3f8b1ce034e9c, type: 3}
+  - {fileID: 4780204459032464869, guid: cb9a1434b2840fe49b17437dc27d290a, type: 3}
+  - {fileID: 2050124791706591472, guid: 9dd7cbcb88dc42041800dd1d9d5c6217, type: 3}
+  - {fileID: 3941925730520549854, guid: 216a1b544e4c28d4c90e9981e9590100, type: 3}
+  - {fileID: 1410984957893933490, guid: 8dbb67e9753d1a745a837331006528da, type: 3}
+  - {fileID: 1105061047531402467, guid: d30f7276663c69c47a4c2f6c8430d828, type: 3}
+  - {fileID: 6049583560202338944, guid: 932581346d3a8b742bb2f9b59133e3d1, type: 3}
+  - {fileID: 6418632943312045638, guid: f8e4f7bf43495324eb0fa45ddfce5049, type: 3}
+  - {fileID: 2069376499893361638, guid: 3bf33e4a95cfad14092938c424ef031b, type: 3}
+  - {fileID: 8894923272614878121, guid: d0c396ba84fa3264897cb18d08f4e709, type: 3}
+  - {fileID: 7378932516293782701, guid: 15f32fca82406d142bed1289607abf71, type: 3}
+  - {fileID: 7388351048592758067, guid: 87d190a34966ff6419b40305c7386849, type: 3}
+  - {fileID: 102900000, guid: 1f1e54ef2bdfa0842953e1ac2b59cb29, type: 3}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -161,8 +179,8 @@ PlayerSettings:
   useHDRDisplay: 0
   hdrBitDepth: 0
   m_ColorGamuts: 00000000
-  targetPixelDensity: 30
-  resolutionScalingMode: 0
+  targetPixelDensity: 144
+  resolutionScalingMode: 1
   resetResolutionOnWindowResize: 0
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
@@ -870,6 +888,7 @@ PlayerSettings:
     Android: 2
   il2cppCodeGeneration: {}
   managedStrippingLevel:
+    Android: 2
     EmbeddedLinux: 1
     GameCoreScarlett: 1
     GameCoreXboxOne: 1

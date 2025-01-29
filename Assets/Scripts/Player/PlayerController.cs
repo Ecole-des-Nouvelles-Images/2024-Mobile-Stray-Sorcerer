@@ -23,9 +23,9 @@ namespace Player
         [Header("Settings")]
         [SerializeField] private float _cameraTransposerMaxOffset;
         [Tooltip("Delay in seconds of the duration of the offset transition")]
-        [SerializeField] private float _cameraTrackingReactivity = 0.5f;
 
         public static Action<bool> OnControlMapChanged;
+        public static Action<float> OnPlayerMotion;
 
         public bool IsStandby { get; set; } = false;
 
@@ -39,7 +39,6 @@ namespace Player
         private void Start()
         {
             _rb = GetComponent<Rigidbody>();
-            _cameraFramingTransposer = GameObject.Find("VCam Player").GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineFramingTransposer>();
         }
 
         private void Update()
@@ -95,40 +94,7 @@ namespace Player
 
             _rb.velocity = new Vector3(value.x, 0, value.y) * Character.Instance.Speed * Time.fixedDeltaTime;
 
-            if (_currentForwardAmount < 0.4f && value.y >= 0.4f)
-            {
-                if (_cameraTrackingCoroutine != null)
-                    StopAllCoroutines();
-                _cameraTrackingCoroutine = StartCoroutine(SmoothCameraTrackingOffset(1));
-            }
-            else if (_currentForwardAmount > -0.4f && value.y <= -0.4f)
-            {
-                if (_cameraTrackingCoroutine != null)
-                    StopAllCoroutines();
-                _cameraTrackingCoroutine = StartCoroutine(SmoothCameraTrackingOffset(1));
-            }
-            else if ((_currentForwardAmount < -0.4f && value.y is >= -0.4f and <= 0.4f)
-                     || (_currentForwardAmount > 0.4f && value.y is >= -0.4f and <= 0.4f))
-            {
-                if (_cameraTrackingCoroutine != null)
-                    StopAllCoroutines();
-                _cameraTrackingCoroutine = StartCoroutine(SmoothCameraTrackingOffset(0));
-            }
-
-            _currentForwardAmount = value.y;
-        }
-
-        private IEnumerator SmoothCameraTrackingOffset(int direction)
-        {
-            float t = 0f;
-            float startValue = _cameraFramingTransposer.m_TrackedObjectOffset.z;
-
-            while (t < 1)
-            {
-                t += Time.deltaTime / _cameraTrackingReactivity;
-                _cameraFramingTransposer.m_TrackedObjectOffset.z = Mathf.Lerp(startValue, _cameraTransposerMaxOffset * direction, t);
-                yield return null;
-            }
+            OnPlayerMotion?.Invoke(value.y);
         }
     }
 }

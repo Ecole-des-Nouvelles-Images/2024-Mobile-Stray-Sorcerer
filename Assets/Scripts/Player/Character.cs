@@ -41,7 +41,7 @@ namespace Player
 
         [Header("Base Stats")]
         [SerializeField] private int _baseMaxHP;
-        [SerializeField] private float _baseSpeed = 500f;
+        [SerializeField] private float _baseSpeed;
         [SerializeField] private int _baseEXP;
         [SerializeField] private float _baseSpellDamage;
         [SerializeField] private float _attackCooldown = 3;
@@ -57,12 +57,12 @@ namespace Player
         [Header("VFX")]
         [SerializeField] private VisualEffect _vfxGraph;
         [SerializeField] private List<ParticleSystem> _particleSystem;
-        
+
         public int Constitution { get; set; }
         public int Swiftness { get; set; }
         public int Power { get; set; }
         public int SpellUnlock{ get; set; }
-        
+
         public int Level
         {
             get => _level;
@@ -137,6 +137,7 @@ namespace Player
         private bool _rebootGame;
         private float _boostTime;
         private float _currentRebootTime;
+
         private PlayerController _myPlayerController;
         private PlayerInput _myPlayerInput;
         private AttackNearestFoes _myAttackNearestFoesComponent;
@@ -157,7 +158,7 @@ namespace Player
             _myPlayerInput = transform.GetComponent<PlayerInput>();
             _myAttackNearestFoesComponent = transform.GetComponent<AttackNearestFoes>();
         }
-        
+
         private void OnEnable()
         {
             OnUpgradeStat += UpgradeStat;
@@ -191,7 +192,7 @@ namespace Player
                 _isBoosted = false;
             }
         }
-        
+
         private IEnumerator LoadDataPlayer()
         {
             DataCollector.OnPlayerSpawned?.Invoke();
