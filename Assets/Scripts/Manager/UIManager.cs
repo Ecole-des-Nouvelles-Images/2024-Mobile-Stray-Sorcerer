@@ -1,8 +1,10 @@
 using System;
+using Audio;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using Gameplay.GameData;
+using Player;
 using Utils;
 
 namespace Manager
@@ -42,6 +44,9 @@ namespace Manager
         [SerializeField] private GameObject _currentSpellL;
         [SerializeField] private GameObject _currentSpellR;
 
+        [Header("Transition")]
+        [SerializeField] private CanvasGroup _fader;
+
         public ControlSide CurrentControlSide { get; set; }
 
         public bool InPause { get; private set; }
@@ -51,8 +56,8 @@ namespace Manager
 
         private void Start()
         {
+            gameObject.SetActive(false);
             LoadSettingsData();
-
             CurrentControlSide = _defaultControlSide;
         }
 
@@ -62,24 +67,20 @@ namespace Manager
             {
                 _joystickR.SetActive(false);
                 _joystickL.SetActive(true);
-
                 _joystickOptionL.interactable = false;
                 _joystickOptionR.interactable = true;
+                _joystickOptionL.isOn = true;
                 _joystickOptionR.isOn = false;
-                // _currentSpellL.SetActive(false);
-                // _currentSpellR.SetActive(true);
                 CurrentControlSide = ControlSide.Left;
             }
             else
             {
                 _joystickL.SetActive(false);
                 _joystickR.SetActive(true);
-
                 _joystickOptionR.interactable = false;
                 _joystickOptionL.interactable = true;
+                _joystickOptionR.isOn = true;
                 _joystickOptionL.isOn = false;
-                // _currentSpellR.SetActive(false);
-                // _currentSpellL.SetActive(true);
                 CurrentControlSide = ControlSide.Right;
             }
         }
@@ -192,18 +193,46 @@ namespace Manager
         public void UpdateMusicVolume()
         {
             float value = _musicSlider.value;
-            // AudioManager.Instance.UpdateMusicVolume(value);
+            AudioManager.Instance.UpdateMusicVolume(value);
         }
 
         public void UpdateSFXVolume()
         {
             float value = _SFXSlider.value;
-            // AudioManager.Instance.UpdateSFXVolume(value);
+            AudioManager.Instance.UpdateSFXVolume(value);
         }
 
         public void SaveModifications()
         {
             DataCollector.Instance.SaveSettings(_isLeftJoystick,_musicSlider.value,_SFXSlider.value,_luminositySlider.value);
+        }
+
+        public void ReloadGame()
+        {
+            if (Character.Instance)
+            {
+                Destroy(Character.Instance.gameObject);
+            }
+            DataCollector.Instance.ResetSave();
+            SceneLoader.Instance.ReloadGameScene();
+            ClockGame.Instance.ClockStop();
+            ClockGame.Instance.Reset();
+        }
+
+        public void ReturnToTitle()
+        {
+            ClockGame.Instance.ClockStop();
+            ClockGame.Instance.Reset();
+            if (Character.Instance)
+            {
+                Destroy(Character.Instance.gameObject);
+            }
+            _fader.DOFade(1, 1.5f).SetUpdate(true).OnComplete(() =>
+            {
+                Time.timeScale = 1;
+                DataCollector.Instance.ResetSave();
+                SceneLoader.Instance.LoadTitleScreen();
+            });
         }
     }
 }

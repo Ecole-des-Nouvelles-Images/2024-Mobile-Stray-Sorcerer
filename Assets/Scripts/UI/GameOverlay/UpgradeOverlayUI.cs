@@ -72,9 +72,9 @@ namespace UI.GameOverlay
             StartCoroutine(WaitForPlayerUpgradeChoice());
         }
 
-        private void SpellUpgradeDisplay(Spell oldSpell, Spell newSpell)
+        private void SpellUpgradeDisplay(SpellSO oldSpellSo, SpellSO newSpellSo)
         {
-            StartCoroutine(WaitForPlayerSpellConfirmation(oldSpell, newSpell));
+            StartCoroutine(WaitForPlayerSpellConfirmation(oldSpellSo, newSpellSo));
         }
 
         private IEnumerator WaitForPlayerUpgradeChoice()
@@ -125,15 +125,15 @@ namespace UI.GameOverlay
             }
         }
 
-        private IEnumerator WaitForPlayerSpellConfirmation(Spell oldSpell, Spell newSpell)
+        private IEnumerator WaitForPlayerSpellConfirmation(SpellSO oldSpellSo, SpellSO newSpellSo)
         {
             DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 0, _timeWarpDuration).SetUpdate(true).SetEase(Ease.InCirc);
 
             yield return new WaitForSecondsRealtime(1.7f);
 
-            _currentSpell.sprite = oldSpell.spellSprite;
-            _nextSpell.sprite = newSpell.spellSprite;
-            _spellName.text = newSpell.Name;
+            _currentSpell.sprite = oldSpellSo.spellSprite;
+            _nextSpell.sprite = newSpellSo.spellSprite;
+            _spellName.text = newSpellSo.Name;
 
             _spellEvolutionPanel.DOFade(1, 0.5f).SetUpdate(true);
             _spellEvolutionPanel.interactable = true;

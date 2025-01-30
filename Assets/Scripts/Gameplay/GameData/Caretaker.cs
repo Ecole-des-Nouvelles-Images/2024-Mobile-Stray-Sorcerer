@@ -34,7 +34,6 @@ namespace Gameplay.GameData
             string filePath = Application.persistentDataPath + "/CurrentSave.json" ;
             string data = JsonUtility.ToJson(CurrentSave,true);
             File.WriteAllText(filePath,  data);
-            Debug.Log(Application.persistentDataPath);
         }
         private void SaveBestSnap()
         {
@@ -51,7 +50,6 @@ namespace Gameplay.GameData
                 string data = System.IO.File.ReadAllText(filePath);
                 CurrentSave = JsonUtility.FromJson<Snapshot>(data);
             }
-            Debug.Log(Application.persistentDataPath);
         }
         private void LoadBestSnap()
         {

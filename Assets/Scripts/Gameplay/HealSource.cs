@@ -49,6 +49,10 @@ namespace Gameplay
                 {
                     _rb.velocity = (Character.Instance.transform.position - transform.position).normalized * (100 * Time.fixedDeltaTime);
                 }
+                else
+                {
+                    _rb.velocity = Vector3.zero;
+                }
             }
 
         }

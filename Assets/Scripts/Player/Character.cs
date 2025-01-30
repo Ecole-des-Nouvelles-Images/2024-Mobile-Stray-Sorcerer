@@ -24,7 +24,7 @@ namespace Player
         public static Action<int> OnExpChanged;
         public static Action<int> OnSpellIndexChange;
         public static Action OnLevelUp;
-        public static Action<Spell, Spell> OnSpellUnlock;
+        public static Action<SpellSO, SpellSO> OnSpellUnlock;
         public static Action OnDisplayUpgrade;
         public static Action<int> OnUpgradeStat;
         public static Action<bool> OnSpeedBoost;
@@ -34,13 +34,14 @@ namespace Player
         [SerializeField] private Animator _playerAnimator;
         [SerializeField] private List<Renderer> _renderers;
         [SerializeField] private GameObject _speedFX;
+        [SerializeField] private ParticleSystem[] _levelUpFX;
 
         [Header("Spell Data List")]
-        [SerializeField] private Spell[] _spells;
+        [SerializeField] private SpellSO[] _spells;
 
         [Header("Base Stats")]
         [SerializeField] private int _baseMaxHP;
-        [SerializeField] private float _baseSpeed = 500f;
+        [SerializeField] private float _baseSpeed;
         [SerializeField] private int _baseEXP;
         [SerializeField] private float _baseSpellDamage;
         [SerializeField] private float _attackCooldown = 3;
@@ -55,13 +56,13 @@ namespace Player
 
         [Header("VFX")]
         [SerializeField] private VisualEffect _vfxGraph;
-        [SerializeField] private ParticleSystem _ps;
-        
+        [SerializeField] private List<ParticleSystem> _particleSystem;
+
         public int Constitution { get; set; }
         public int Swiftness { get; set; }
         public int Power { get; set; }
         public int SpellUnlock{ get; set; }
-        
+
         public int Level
         {
             get => _level;
@@ -121,8 +122,8 @@ namespace Player
             private set => _baseSpellDamage = value;
         }
 
-        public Spell CurrentSpell { get; private set; }
-        public Spell NextSpell { get; private set; }
+        public SpellSO CurrentSpellSo { get; private set; }
+        public SpellSO NextSpellSo { get; private set; }
         public bool IsBoosted { get; private set; }
         public bool IsDead { get; private set; }
 
@@ -136,6 +137,7 @@ namespace Player
         private bool _rebootGame;
         private float _boostTime;
         private float _currentRebootTime;
+
         private PlayerController _myPlayerController;
         private PlayerInput _myPlayerInput;
         private AttackNearestFoes _myAttackNearestFoesComponent;
@@ -144,7 +146,7 @@ namespace Player
 
         private void Awake()
         {
-            if (_spells.Length > 0) CurrentSpell = _spells[0];
+            if (_spells.Length > 0) CurrentSpellSo = _spells[0];
             Level = 1;
             MaxHP = _baseMaxHP;
             HP = MaxHP;
@@ -156,17 +158,19 @@ namespace Player
             _myPlayerInput = transform.GetComponent<PlayerInput>();
             _myAttackNearestFoesComponent = transform.GetComponent<AttackNearestFoes>();
         }
-        
+
         private void OnEnable()
         {
             OnUpgradeStat += UpgradeStat;
             OnSpeedBoost += SpeedBoost;
+            OnLevelUp += LevelUpVFX;
         }
 
         private void OnDisable()
         {
             OnUpgradeStat -= UpgradeStat;
             OnSpeedBoost -= SpeedBoost;
+            OnLevelUp -= LevelUpVFX;
         }
 
         private void Start()
@@ -188,7 +192,7 @@ namespace Player
                 _isBoosted = false;
             }
         }
-        
+
         private IEnumerator LoadDataPlayer()
         {
             DataCollector.OnPlayerSpawned?.Invoke();
@@ -208,7 +212,7 @@ namespace Player
                     SpellUnlock++;
                     OnSpellIndexChange?.Invoke(SpellUnlock);
                     UpdateSpell();
-                    OnSpellUnlock?.Invoke(CurrentSpell, NextSpell);
+                    OnSpellUnlock?.Invoke(CurrentSpellSo, NextSpellSo);
                 }
                 else
                 {
@@ -237,6 +241,14 @@ namespace Player
             }
         }
 
+        private void LevelUpVFX()
+        {
+            foreach (ParticleSystem fx in _levelUpFX)
+            {
+                fx.Play();
+            }
+        }
+
         private void SpeedBoost(bool isActive)
         {
             if (isActive && _isBoosted == false)
@@ -258,9 +270,9 @@ namespace Player
 
         public void UpdateSpell()
         {
-            CurrentSpell = _spells[SpellUnlock];
+            CurrentSpellSo = _spells[SpellUnlock];
 
-            NextSpell = SpellUnlock < _spells.Length - 1 ? _spells[SpellUnlock + 1] : null;
+            NextSpellSo = SpellUnlock < _spells.Length - 1 ? _spells[SpellUnlock + 1] : null;
         }
 
         public void TakeDamage(int damage)
@@ -305,9 +317,9 @@ namespace Player
             _myPlayerInput.enabled = false;
             _myAttackNearestFoesComponent.enabled = false;
             _vfxGraph.Stop();
-            _ps.Stop();
+            foreach (ParticleSystem ps in _particleSystem)
+                ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             ClockGame.Instance.ClockStop();
-            ClockGame.Instance.Reset();
 
             yield return GameManager.Instance.CamDeathAnimation();
 

@@ -136,6 +136,7 @@ namespace Manager
         {
             SceneManager.SetActiveScene(_setup);
             GameObject player = Instantiate(prefab, position, Quaternion.identity);
+            player.name = "Player";
             SceneManager.SetActiveScene(_gameScene);
 
             return player;
