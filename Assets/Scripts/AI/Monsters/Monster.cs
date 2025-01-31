@@ -21,25 +21,25 @@ namespace AI.Monsters
         protected Action OnMonsterDie;
 
         [Header("Stats")] [SerializeField] protected int _baseDamage;
-        
+
         [SerializeField] private float _damageGrowingFactor;
         [SerializeField] private float _speed;
         [SerializeField] private float _acceleration;
         [SerializeField] protected int _baseHpMax;
         [SerializeField] protected float _hpGrowingFactor;
         [SerializeField] protected float _attackSpeed = 1;
-        
-        [Header("Drop")] 
+
+        [Header("Drop")]
         [SerializeField] private GameObject[] _dropPrefabs;
         [SerializeField] private GameObject _xpPrefab;
 
-        [Header("References")] 
+        [Header("References")]
         [SerializeField] protected PlayerDetector _triggerAttack;
         [SerializeField] protected Animator _monsterAnimator;
         [SerializeField] protected GameObject _impactFx;
         [SerializeField] private List<Renderer> _renderers;
-        
-        [Header("Timer")] 
+
+        [Header("Timer")]
         [SerializeField] private float _deathAnimationDuration = 5;
 
         public int CurrentHp { get; private set; }
@@ -52,7 +52,7 @@ namespace AI.Monsters
         protected bool _isCastReady;
         protected int _damage;
         protected int _hpMax;
-        
+
         private bool _playerInRange;
         protected bool _playerDetected;
 
@@ -72,7 +72,7 @@ namespace AI.Monsters
             _triggerAttack.OnPlayerDetected += PlayerDetected;
         }
 
-        protected void OnDisable()
+        protected virtual void OnDisable()
         {
             ClockGame.OnMonstersGrow -= Grow;
             _triggerAttack.OnPlayerDetected -= PlayerDetected;
@@ -85,7 +85,7 @@ namespace AI.Monsters
             _myNavMeshAgent.acceleration = _acceleration;
             Standby();
             Grow(ClockGame.Instance.GrowingLevel);
-            
+
         }
 
         private void Update()
@@ -191,7 +191,7 @@ namespace AI.Monsters
                 Instantiate(_dropPrefabs[Random.Range(0, _dropPrefabs.Length-1)], position, Quaternion.identity);
             }
             Instantiate(_xpPrefab, transform.position, Quaternion.identity);
-            
+
 
             while (t < 1)
             {

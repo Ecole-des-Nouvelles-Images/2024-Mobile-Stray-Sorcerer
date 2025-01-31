@@ -13,7 +13,7 @@ namespace Player
 
         private void Awake()
         {
-            _cameraFramingTransposer = GameObject.Find("VCam Player").GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineFramingTransposer>();
+            _cameraFramingTransposer = GameObject.Find("Camera/VCam Player").GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineFramingTransposer>();
 
             Debug.Log($"Camera status : {(_cameraFramingTransposer == null ? "null" : "valid")}");
         }
@@ -30,7 +30,8 @@ namespace Player
 
         private void OnMove(float input)
         {
-            _cameraFramingTransposer.m_TrackedObjectOffset.z = Mathf.Lerp(-_maximumForwardAmount, _maximumForwardAmount, input);
+            if (_cameraFramingTransposer)
+                _cameraFramingTransposer.m_TrackedObjectOffset.z = Mathf.Lerp(-_maximumForwardAmount, _maximumForwardAmount, input);
         }
     }
 }

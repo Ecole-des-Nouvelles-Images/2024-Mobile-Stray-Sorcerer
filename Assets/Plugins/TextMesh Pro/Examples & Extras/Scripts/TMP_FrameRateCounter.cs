@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Plugins.TextMesh_Pro.Examples___Extras.Scripts
 {
-    
+
     public class TMP_FrameRateCounter : MonoBehaviour
     {
         public float UpdateInterval = 5.0f;
@@ -23,12 +23,14 @@ namespace Plugins.TextMesh_Pro.Examples___Extras.Scripts
 
         private FpsCounterAnchorPositions last_AnchorPosition;
 
+        public Vector2 _offset;
+
         void Awake()
         {
             if (!enabled)
                 return;
 
-            m_camera = Camera.main;
+            m_camera = GameObject.Find("Camera/CinemachineBrain").GetComponent<Camera>();
             Application.targetFrameRate = 9999;
 
             GameObject frameCounter = new GameObject("Frame Counter");
@@ -110,22 +112,22 @@ namespace Plugins.TextMesh_Pro.Examples___Extras.Scripts
                 case FpsCounterAnchorPositions.TopLeft:
                     m_TextMeshPro.alignment = TextAlignmentOptions.TopLeft;
                     m_TextMeshPro.rectTransform.pivot = new Vector2(0, 1);
-                    m_frameCounter_transform.position = m_camera.ViewportToWorldPoint(new Vector3(0, 1, 100.0f));
+                    m_frameCounter_transform.position = m_camera.ViewportToWorldPoint(new Vector3(0 + _offset.x, 1 + _offset.y, 100.0f));
                     break;
                 case FpsCounterAnchorPositions.BottomLeft:
                     m_TextMeshPro.alignment = TextAlignmentOptions.BottomLeft;
                     m_TextMeshPro.rectTransform.pivot = new Vector2(0, 0);
-                    m_frameCounter_transform.position = m_camera.ViewportToWorldPoint(new Vector3(0, 0, 100.0f));
+                    m_frameCounter_transform.position = m_camera.ViewportToWorldPoint(new Vector3(0 + _offset.x, 0 + _offset.y, 100.0f));
                     break;
                 case FpsCounterAnchorPositions.TopRight:
                     m_TextMeshPro.alignment = TextAlignmentOptions.TopRight;
                     m_TextMeshPro.rectTransform.pivot = new Vector2(1, 1);
-                    m_frameCounter_transform.position = m_camera.ViewportToWorldPoint(new Vector3(1, 1, 100.0f));
+                    m_frameCounter_transform.position = m_camera.ViewportToWorldPoint(new Vector3(1 + _offset.x, 1 + _offset.y, 100.0f));
                     break;
                 case FpsCounterAnchorPositions.BottomRight:
                     m_TextMeshPro.alignment = TextAlignmentOptions.BottomRight;
                     m_TextMeshPro.rectTransform.pivot = new Vector2(1, 0);
-                    m_frameCounter_transform.position = m_camera.ViewportToWorldPoint(new Vector3(1, 0, 100.0f));
+                    m_frameCounter_transform.position = m_camera.ViewportToWorldPoint(new Vector3(1+ _offset.x, 0 + _offset.y, 100.0f));
                     break;
             }
         }

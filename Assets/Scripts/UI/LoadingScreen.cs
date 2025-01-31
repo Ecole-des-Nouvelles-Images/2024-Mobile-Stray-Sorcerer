@@ -17,9 +17,6 @@ namespace UI
         [Header("Settings")]
         [SerializeField] private float _fadeDuration = 0.5f;
 
-        [Header("Particle System")]
-        [SerializeField] private GameObject _psRoot;
-
         private Transform _virtualCamera;
         private float _timerTips;
 
@@ -50,8 +47,11 @@ namespace UI
         {
             _virtualCamera.transform.position = new Vector3(0, 1000, -1000);
             _canvasGroup.DOFade(status ? 1 : 0, _fadeDuration).SetUpdate(true);
-            _psRoot.gameObject.SetActive(status);
         }
 
+        public void UpdateLog(string message)
+        {
+            _statusInfoBox.text = message;
+        }
     }
 }

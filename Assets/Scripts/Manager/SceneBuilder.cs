@@ -41,7 +41,11 @@ namespace Manager
 
             yield return InstantiateFoes();
 
+            _loadingScreen.UpdateLog("Lancement du jeu...");
+
             GameManager.Instance.StartGame();
+
+            _loadingScreen.Show(false);
 
             // yield return StartCoroutine(BakeLighting());
 
@@ -50,6 +54,7 @@ namespace Manager
 
         private IEnumerator BuildMaze()
         {
+            _loadingScreen.UpdateLog($"Construction du labyrinthe <size=70%>{{{_maze.SeedPhrase}}}...");
             yield return _maze.Build();
         }
 
@@ -60,16 +65,19 @@ namespace Manager
 
         private IEnumerator GenerateProps()
         {
+            _loadingScreen.UpdateLog("Ajout des decorations...");
             yield return _maze.GenerateProps();
         }
 
         private IEnumerator InstantiateFoes()
         {
+            _loadingScreen.UpdateLog("Creation des monstres...");
             yield return SquadDistributor.Instance.SquadsDistributionInLab();
         }
 
         private IEnumerator BuildNavMesh()
         {
+            _loadingScreen.UpdateLog("Parametrage du NavMesh...");
             yield return _maze.InitializeNavMesh(_loadingScreen, true);
         }
 

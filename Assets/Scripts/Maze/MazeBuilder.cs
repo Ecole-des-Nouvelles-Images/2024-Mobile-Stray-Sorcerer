@@ -30,7 +30,7 @@ namespace Maze
         [Header("Generation settings")] [SerializeField]
         private bool _useRandomSeed;
 
-        [SerializeField] private string _seedPhrase;
+        public string SeedPhrase;
         [SerializeField] private int _scale = 1;
 
         [Header("Props Prefabs")] [SerializeField]
@@ -51,9 +51,9 @@ namespace Maze
         {
             get
             {
-                if (_seed != _seedPhrase)
+                if (_seed != SeedPhrase)
                 {
-                    _seed = _seedPhrase;
+                    _seed = SeedPhrase;
                     _hashSeed = HashSeed(_seed);
                 }
 
@@ -70,7 +70,7 @@ namespace Maze
         private void Awake()
         {
             if (_useRandomSeed)
-                _seedPhrase = GenerateRandomSeed();
+                SeedPhrase = GenerateRandomSeed();
         }
 
         public IEnumerator Build()

@@ -58,6 +58,7 @@ namespace Manager
         private IEnumerator LoadCoroutine(SceneField scene, bool isGameScene)
         {
             _loadingScreen.Show(true);
+            _loadingScreen.UpdateLog("Chargement de la scene de jeu...");
 
             yield return LoadSceneCoroutine(scene);
 
@@ -66,6 +67,7 @@ namespace Manager
 
             if (isGameScene)
             {
+                _loadingScreen.UpdateLog("En attente du constructeur de scene...");
                 while (!LoadingBuilder) yield return null;
 
                 SceneManager.SetActiveScene(_loadingScene);
@@ -112,17 +114,17 @@ namespace Manager
                 yield return null;
             }
         }
-        
+
         private IEnumerator ReloadGameSceneCoroutine()
         {
             Debug.Log($"Current scene <{_currentScene}> should be Game");
-    
+
             _loadingScreen.Show(true);
-    
+
             yield return UnloadSceneCoroutine(_currentScene);
 
             yield return LoadSceneCoroutine(_gameScene);
-    
+
             while (!LoadingBuilder) yield return null;
 
             yield return LoadingBuilder.Build(_loadingScreen);

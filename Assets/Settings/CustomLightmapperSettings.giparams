@@ -8,8 +8,8 @@ LightmapParameters:
   m_PrefabAsset: {fileID: 0}
   m_Name: CustomLightmapperSettings
   serializedVersion: 3
-  resolution: 0.4
-  clusterResolution: 1
+  resolution: 0.1
+  clusterResolution: 0.5
   irradianceBudget: 96
   irradianceQuality: 8192
   backFaceTolerance: 1
@@ -19,7 +19,7 @@ LightmapParameters:
   edgeStitching: 1
   blurRadius: 2
   directLightQuality: 64
-  antiAliasingSamples: 4
+  antiAliasingSamples: 1
   pushoff: 0.01
   bakedLightmapTag: -1
   limitLightmapCount: 1

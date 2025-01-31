@@ -145,7 +145,7 @@ PlayerSettings:
   loadStoreDebugModeEnabled: 0
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
-  bundleVersion: 0.8.2-pre
+  bundleVersion: 0.9.1-pre
   preloadedAssets:
   - {fileID: 7326675934701390548, guid: 860bf808d604fe24f8e2bb8a703fd4ca, type: 3}
   - {fileID: 3219684139384132243, guid: 45d453360ffcba34993a620d4091d86c, type: 3}
@@ -195,7 +195,7 @@ PlayerSettings:
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
   AndroidBundleVersionCode: 1
-  AndroidMinSdkVersion: 22
+  AndroidMinSdkVersion: 33
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
   aotOptions: 
@@ -885,7 +885,7 @@ PlayerSettings:
   scriptingBackend:
     Android: 1
   il2cppCompilerConfiguration:
-    Android: 0
+    Android: 2
   il2cppCodeGeneration: {}
   managedStrippingLevel:
     Android: 2

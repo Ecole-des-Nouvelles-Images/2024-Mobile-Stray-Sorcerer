@@ -148,6 +148,7 @@ MonoBehaviour:
   _joystickR: {fileID: 252457791637024903}
   _currentSpellL: {fileID: 42718368287573006}
   _currentSpellR: {fileID: 8138388862854994396}
+  _fader: {fileID: 0}
 --- !u!223 &4711577347470554078
 Canvas:
   m_ObjectHideFlags: 0
@@ -1608,11 +1609,6 @@ PrefabInstance:
     - target: {fileID: 1612918098723629749, guid: f22858deab7b83f46a061afb4da8a68e,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2149339340665770128, guid: f22858deab7b83f46a061afb4da8a68e,
-        type: 3}
-      propertyPath: m_Alpha
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2394216399889326921, guid: f22858deab7b83f46a061afb4da8a68e,

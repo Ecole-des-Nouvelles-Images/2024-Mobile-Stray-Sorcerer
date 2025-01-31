@@ -13,7 +13,7 @@ namespace AI.Monsters
         [SerializeField] private AudioSource _wingsAS;
         [SerializeField] private AudioSource _impAS;
         [SerializeField] private AudioClip[] _impSounds; // 0=>death1 1=>death2
-        
+
         protected new void OnEnable()
         {
             ClockGame.OnMonstersGrow += Grow;
@@ -21,7 +21,7 @@ namespace AI.Monsters
             OnMonsterDie += PlayDeathSounds;
         }
 
-        protected void OnDisable()
+        protected override void OnDisable()
         {
             ClockGame.OnMonstersGrow -= Grow;
             _triggerAttack.OnPlayerDetected -= PlayerDetected;
