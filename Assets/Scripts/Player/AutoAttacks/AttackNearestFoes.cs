@@ -3,6 +3,7 @@ using AI.Monsters;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Utils;
+using Random = Unity.Mathematics.Random;
 
 namespace Player.AutoAttacks
 {
@@ -19,6 +20,8 @@ namespace Player.AutoAttacks
         [SerializeField] private GameObject _chargingCastFX;
         [SerializeField] private GameObject _castFX;
         [SerializeField] private GameObject _cooldownFX;
+        [SerializeField] private AudioSource _castAudioSource;
+        [SerializeField] private AudioClip[] _castAudioClips;// 0=>Implosion 1=>Explosion/cast
 
         [Header("Settings")] 
         [SerializeField] private int _projectileVelocity = 5;
@@ -82,6 +85,8 @@ namespace Player.AutoAttacks
                     if(_castFX.activeSelf)
                         _castFX.SetActive(false);
                     _chargingCastFX.SetActive(true);
+                    _castAudioSource.clip = _castAudioClips[0];
+                    _castAudioSource.Play();
                     _currentDelay = _castDelay;
                     _casting = true;
                     _characterAnimator.SetTrigger(DoAttack);
@@ -131,6 +136,8 @@ namespace Player.AutoAttacks
         private void CastSpell()
         {
             _castFX.SetActive(true);
+            _castAudioSource.clip = _castAudioClips[1];
+            _castAudioSource.Play();
             GameObject projectile = Instantiate(Character.Instance.CurrentSpellSo.ProjectilePrefab, _projectileOrigin.position, Quaternion.identity);
             projectile.GetComponent<Rigidbody>().AddForce((_nearestFoe.transform.position - projectile.transform.position) * _projectileVelocity, ForceMode.Impulse);
             _attackIsReady = false;
@@ -146,13 +153,5 @@ namespace Player.AutoAttacks
             _castDelay = _baseCastDelay - _delayMult * characterLevel;
             _characterAnimator.SetFloat(AttackSpeed, 1 + _animSpeedMult * characterLevel);
         }
-
-        // private void PlayCastFX()
-        // {
-        //     for (int i = 0; i < _castFX.Length; i++) _castFX[i].Play();
-        // }
-        //calcul qui permet d'appliquer une valeur d'une 'jauge' en fonction du ratio d'une autre 'jauge'
-        // _particleXZ = _currentCooldownTimer / Cooldown * 100 * 6 / 100;
-        // for (int i = 0; i < _cooldownFX.Length; i++) _cooldownFX[i].transform.localScale = new Vector3(_particleXZ, 1, _particleXZ);
     }
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2669313634833907849}
   - component: {fileID: 1771115850679517357}
   - component: {fileID: 23052748283714385}
-  - component: {fileID: 144457857564314402}
+  - component: {fileID: 7501263399986226098}
   m_Layer: 6
   m_Name: P_DoomSlug
   m_TagString: Enemy
@@ -110,7 +110,7 @@ CapsuleCollider:
   m_Height: 10
   m_Direction: 1
   m_Center: {x: 0, y: 2, z: 0}
---- !u!114 &144457857564314402
+--- !u!114 &7501263399986226098
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 374798629009056592}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95adae65a75944a2a489020e0f2d2459, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e80abbe863c4c4a9f70dca8760aa508, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _baseDamage: 3

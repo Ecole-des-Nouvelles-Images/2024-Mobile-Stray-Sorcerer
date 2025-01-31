@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Gameplay.GameData;
@@ -16,6 +17,8 @@ namespace AI.Monsters
         public static readonly int Hurt = Animator.StringToHash("hurt");
         public static readonly int DoDeath = Animator.StringToHash("death");
         public static readonly int Dissolve = Shader.PropertyToID("_State");
+        protected Action OnMonsterTakeDamage;
+        protected Action OnMonsterDie;
 
         [Header("Stats")] [SerializeField] protected int _baseDamage;
         
@@ -51,7 +54,7 @@ namespace AI.Monsters
         protected int _hpMax;
         
         private bool _playerInRange;
-        private bool _playerDetected;
+        protected bool _playerDetected;
 
         private void Awake()
         {
@@ -117,10 +120,11 @@ namespace AI.Monsters
             CurrentHp -= damage;
             if (CurrentHp <= 0)
             {
+                OnMonsterDie?.Invoke();
                 StartCoroutine(DeathAnimationCoroutine());
                 return;
             }
-
+            OnMonsterTakeDamage?.Invoke();
             _monsterAnimator.SetTrigger(Hurt);
         }
 
@@ -141,7 +145,7 @@ namespace AI.Monsters
             // Debug.Log(gameObject.name+" basedamage: "+_baseDamage + " multiplicator: "+growMult +"new damage: "+_damage+" growth: "+damageGrowth);
         }
 
-        private void PlayerTargeting()
+        protected void PlayerTargeting()
         {
             if (Character.Instance)
             {
@@ -163,7 +167,7 @@ namespace AI.Monsters
             _myNavMeshAgent.enabled = false;
         }
 
-        private void Chase()
+        protected void Chase()
         {
             if (_myNavMeshAgent.enabled == false)
                 _myNavMeshAgent.enabled = true;

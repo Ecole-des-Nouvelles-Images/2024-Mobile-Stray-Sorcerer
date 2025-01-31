@@ -8,6 +8,7 @@ namespace AI
         [SerializeField] private GameObject _impactFX;
         private int _damage;
         private Rigidbody _rb;
+        
 
         private void Awake()
         {

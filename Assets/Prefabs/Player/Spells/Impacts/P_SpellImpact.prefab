@@ -42,8 +42,9 @@ AudioSource:
   m_GameObject: {fileID: 8617455904717434892}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 5980295698533464289, guid: 787989ce505fb4f4daf75b846ce83732,
+    type: 2}
+  m_audioClip: {fileID: 8300000, guid: dd7bc54e78d3f3044a8141286f2cff6b, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -53,7 +54,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 10
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -137,10 +138,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6266924813009276348}
     m_Modifications:
+    - target: {fileID: 4064872442207949191, guid: cc2a002392fd45247ad5e12eb28ce5f2,
+        type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4965106655176994902, guid: cc2a002392fd45247ad5e12eb28ce5f2,
         type: 3}
       propertyPath: m_Name
       value: PS_ArcanicImpact
+      objectReference: {fileID: 0}
+    - target: {fileID: 6838882051448681219, guid: cc2a002392fd45247ad5e12eb28ce5f2,
+        type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7847340070823626741, guid: cc2a002392fd45247ad5e12eb28ce5f2,
+        type: 3}
+      propertyPath: looping
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8851734118949934665, guid: cc2a002392fd45247ad5e12eb28ce5f2,
         type: 3}

@@ -9,7 +9,6 @@ namespace Player.Spells_Effects
         public AudioClip ThrowingSound;
         public GameObject ProjectilePrefab;
         public Sprite spellSprite;
-        public AudioClip ImpactSound;
         public GameObject ImpactPrefab;
         public int Damage;
         public bool Pierce;

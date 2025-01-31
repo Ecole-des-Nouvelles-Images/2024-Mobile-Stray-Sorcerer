@@ -33,6 +33,7 @@ namespace Player.Projectile
             _bounceValue = _mySpellSo.BounceValue;
             _areaInvoker = _mySpellSo.AreaInvoker;
             _areaPrefab = _mySpellSo.ZonePrefab;
+            _impactPrefab = _mySpellSo.ImpactPrefab;
         }
 
         private void Start()
@@ -60,6 +61,7 @@ namespace Player.Projectile
         {
             if (other.transform.CompareTag("Wall") && _pierce)
             {
+                Impact();
                 Destroy(gameObject);
             }
             if (other.transform.CompareTag("Enemy"))
@@ -68,9 +70,13 @@ namespace Player.Projectile
                 CastArea(other.transform);
                 other.transform.GetComponent<Monster>().TakeDamage(_damage);
                 if(!_pierce && !_bounce)
+                {
+                    Impact();
                     Destroy(gameObject);
+                }
                 if (_pierce && _pierceValue <= 0)
                 {
+                    Impact();
                     Destroy(gameObject);
                 }
                 else if(_pierce)
@@ -99,14 +105,18 @@ namespace Player.Projectile
             {
                 if (_bounce && _bounceValue <= 0)
                 {
-                    
+                    Impact();
                     Destroy(gameObject);
                 }
                 else
                 {
                     _bounceValue--;
                 }
-                if(_bounce == false) Destroy(gameObject);
+                if(_bounce == false)
+                {
+                    Impact();
+                    Destroy(gameObject);
+                }
             }
         }
 
@@ -129,6 +139,12 @@ namespace Player.Projectile
 
                 if (_areaInvoker && _areaPrefab == null) Debug.LogError("Prefab area is null");
             }
+        }
+
+        private void Impact()
+        {
+            GameObject impact = Instantiate(_impactPrefab,transform.position,Quaternion.identity);
+            Destroy(impact,1);
         }
     }
 }

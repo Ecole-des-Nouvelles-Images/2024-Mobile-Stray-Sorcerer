@@ -35,6 +35,8 @@ namespace Player
         [SerializeField] private List<Renderer> _renderers;
         [SerializeField] private GameObject _speedFX;
         [SerializeField] private ParticleSystem[] _levelUpFX;
+        [SerializeField] private AudioSource _characterAudioSource;
+        [SerializeField] private AudioClip[] _characterAudioClips;// 0=>Hurt 1=>LevelUp
 
         [Header("Spell Data List")]
         [SerializeField] private SpellSO[] _spells;
@@ -201,6 +203,8 @@ namespace Player
 
         private void LevelUp()
         {
+            _characterAudioSource.clip = _characterAudioClips[1];
+            _characterAudioSource.Play();
             if (!_allowedToLevelUp) return;
 
             if (HP > 0)
@@ -277,6 +281,8 @@ namespace Player
 
         public void TakeDamage(int damage)
         {
+            _characterAudioSource.clip = _characterAudioClips[0];
+            _characterAudioSource.Play();
             HP -= damage;
             OnHpChanged?.Invoke(HP);
 
