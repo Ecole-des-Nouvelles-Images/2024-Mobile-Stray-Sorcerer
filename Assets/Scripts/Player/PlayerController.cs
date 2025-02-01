@@ -93,6 +93,7 @@ namespace Player
 
             _rb.velocity = new Vector3(value.x, 0, value.y) * Character.Instance.Speed * Time.fixedDeltaTime;
 
+            Debug.Log(value.y);
             OnPlayerMotion?.Invoke(value.y);
         }
     }

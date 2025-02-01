@@ -21,12 +21,12 @@ namespace Player.AutoAttacks
         [SerializeField] private AudioSource _castAudioSource;
         [SerializeField] private AudioClip[] _castAudioClips;// 0=>Implosion 1=>Explosion/cast
 
-        [Header("Settings")] 
+        [Header("Settings")]
         [SerializeField] private int _projectileVelocity = 5;
         [SerializeField] private float _baseCastDelay = 1.2f;
-        
+
         public float Cooldown => Character.Instance.AttackCooldown;
-        
+
         private GameObject _nearestFoe;
         private bool _attackIsReady = true;
         private float _currentCooldownTimer;
@@ -36,7 +36,7 @@ namespace Player.AutoAttacks
         private float _currentDelay;
         private float _animSpeedMult = 0.025f;
         private float _delayMult = 0.02f;
-        private float _animSpeed = 1f;
+        // private float _animSpeed = 1f;
 
         private void Awake()
         {
@@ -90,7 +90,7 @@ namespace Player.AutoAttacks
                     _characterAnimator.SetTrigger(DoAttack);
                 }
 
-                if (_nearestFoe && _casting && _nearestFoe.transform.GetComponent<Monster>().IsDead == false) 
+                if (_nearestFoe && _casting && _nearestFoe.transform.GetComponent<Monster>().IsDead == false)
                     DelayBeforeCast();
             }
 
@@ -140,7 +140,7 @@ namespace Player.AutoAttacks
             projectile.GetComponent<Rigidbody>().AddForce((_nearestFoe.transform.position - projectile.transform.position) * _projectileVelocity, ForceMode.Impulse);
             _attackIsReady = false;
             _currentCooldownTimer = 0;
-            
+
             Destroy(projectile, 5f);
             _casting = false;
         }

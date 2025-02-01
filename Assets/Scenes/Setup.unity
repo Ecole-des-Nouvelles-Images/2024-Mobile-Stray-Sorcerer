@@ -590,7 +590,7 @@ RectTransform:
   m_Father: {fileID: 486478465}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.06, y: 0.06}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.8, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -894,7 +894,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6535028848504190040, guid: 94b148379586c334f945475ae62f4048,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1838068145}
   m_SourcePrefab: {fileID: 100100000, guid: 94b148379586c334f945475ae62f4048, type: 3}
 --- !u!20 &1463812919 stripped
 Camera:
@@ -989,10 +993,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
+  m_fontSize: 56.8
   m_fontSizeBase: 60
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -1049,7 +1053,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1510015633}
   - component: {fileID: 1510015632}
-  - component: {fileID: 1510015631}
+  - component: {fileID: 1510015634}
   m_Layer: 0
   m_Name: FrameRateManager
   m_TagString: Untagged
@@ -1057,21 +1061,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1510015631
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1510015630}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 686ec78b56aa445795335fbadafcfaa4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UpdateInterval: 5
-  AnchorPosition: 2
-  _offset: {x: 0.05, y: 0}
 --- !u!114 &1510015632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1084,7 +1073,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c3a7942237641399e9d0fcebd0c1bca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _targetFrameRate: 60
+  _targetFrameRate: 90
 --- !u!4 &1510015633
 Transform:
   m_ObjectHideFlags: 0
@@ -1100,6 +1089,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1510015634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1510015630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c6a03274da54e129ad74dff6353d415, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UpdateInterval: 5
+  AnchorPosition: 1
+  Offset: {x: 0.05, y: 0}
 --- !u!1 &1649337110
 GameObject:
   m_ObjectHideFlags: 0
@@ -1208,8 +1212,8 @@ RectTransform:
   - {fileID: 1503752469}
   m_Father: {fileID: 486478465}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.25, y: 0.1}
-  m_AnchorMax: {x: 0.75, y: 0.4}
+  m_AnchorMin: {x: 0.25, y: 0.15}
+  m_AnchorMax: {x: 0.75, y: 0.45}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1221,6 +1225,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1678951927}
   m_CullTransparentMesh: 1
+--- !u!1 &1838068142 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6535028848504190040, guid: 94b148379586c334f945475ae62f4048,
+    type: 3}
+  m_PrefabInstance: {fileID: 1365866305}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1838068145
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1838068142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ad980451443d70438faac0bc6c235a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjectOffset: {x: 0, y: 0, z: 0}
+  m_LookaheadTime: 0.5
+  m_LookaheadSmoothing: 10
+  m_LookaheadIgnoreY: 0
+  m_XDamping: 1
+  m_YDamping: 1
+  m_ZDamping: 1
+  m_TargetMovementOnly: 1
+  m_ScreenX: 0.5
+  m_ScreenY: 0.5
+  m_CameraDistance: 25
+  m_DeadZoneWidth: 0
+  m_DeadZoneHeight: 0
+  m_DeadZoneDepth: 0
+  m_UnlimitedSoftZone: 0
+  m_SoftZoneWidth: 0.2
+  m_SoftZoneHeight: 0.2
+  m_BiasX: 0
+  m_BiasY: 0
+  m_CenterOnActivate: 1
+  m_GroupFramingMode: 2
+  m_AdjustmentMode: 0
+  m_GroupFramingSize: 0.8
+  m_MaxDollyIn: 5000
+  m_MaxDollyOut: 5000
+  m_MinimumDistance: 1
+  m_MaximumDistance: 5000
+  m_MinimumFOV: 3
+  m_MaximumFOV: 60
+  m_MinimumOrthoSize: 1
+  m_MaximumOrthoSize: 5000
 --- !u!1001 &1983247427
 PrefabInstance:
   m_ObjectHideFlags: 0

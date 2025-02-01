@@ -7,15 +7,17 @@ namespace Player
     {
         [SerializeField] private float _maximumForwardAmount;
 
+        private CinemachineVirtualCamera _vCam;
         private CinemachineFramingTransposer _cameraFramingTransposer;
 
         private Coroutine _cameraTrackingCoroutine;
 
-        private void Awake()
+        private void Start()
         {
-            _cameraFramingTransposer = GameObject.Find("Camera/VCam Player").GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineFramingTransposer>();
+            _vCam = GameObject.Find("Camera/VCam Player").GetComponent<CinemachineVirtualCamera>();
+            _cameraFramingTransposer = _vCam.GetCinemachineComponent<CinemachineFramingTransposer>();
 
-            Debug.Log($"Camera status : {(_cameraFramingTransposer == null ? "null" : "valid")}");
+            _vCam.Follow = FindObjectOfType<Character>().transform;
         }
 
         private void OnEnable()
@@ -31,7 +33,9 @@ namespace Player
         private void OnMove(float input)
         {
             if (_cameraFramingTransposer)
-                _cameraFramingTransposer.m_TrackedObjectOffset.z = Mathf.Lerp(-_maximumForwardAmount, _maximumForwardAmount, input);
+                _cameraFramingTransposer.m_TrackedObjectOffset.z = Mathf.LerpUnclamped(0, _maximumForwardAmount, Mathf.Abs(input));
+
+            Debug.Log(_cameraFramingTransposer.m_TrackedObjectOffset.z);
         }
     }
 }

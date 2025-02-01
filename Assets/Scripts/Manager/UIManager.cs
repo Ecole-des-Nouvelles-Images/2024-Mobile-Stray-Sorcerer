@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using Gameplay.GameData;
 using Player;
+using Plugins.TextMesh_Pro.Examples___Extras.Scripts;
 using Utils;
 
 namespace Manager
@@ -233,6 +234,11 @@ namespace Manager
                 DataCollector.Instance.ResetSave();
                 SceneLoader.Instance.LoadTitleScreen();
             });
+        }
+
+        public void ToggleFPSCounter()
+        {
+            TMPFrameRateCounter.FrameCounter.SetActive(!TMPFrameRateCounter.FrameCounter.activeSelf);
         }
     }
 }
