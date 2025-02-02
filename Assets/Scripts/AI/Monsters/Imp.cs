@@ -21,7 +21,7 @@ namespace AI.Monsters
             OnMonsterDie += PlayDeathSounds;
         }
 
-        protected void OnDisable()
+        protected new void OnDisable()
         {
             ClockGame.OnMonstersGrow -= Grow;
             _triggerAttack.OnPlayerDetected -= PlayerDetected;

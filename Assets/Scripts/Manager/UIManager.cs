@@ -89,11 +89,7 @@ namespace Manager
         {
             try
             {
-                DataCollector.Instance.LoadSettings(_isLeftJoystick, _musicSlider.value, _SFXSlider.value, _luminositySlider.value);
-                _isLeftJoystick = DataCollector.Instance.IsLeftJoystick;
-                _musicSlider.value = DataCollector.Instance.MusicSlider;
-                _SFXSlider.value = DataCollector.Instance.SfxSlider;
-                _luminositySlider.value = DataCollector.Instance.LuminositySlider;
+                DataSaveSystem.OnLoadSettings?.Invoke(_isLeftJoystick, _musicSlider.value, _SFXSlider.value, _luminositySlider.value);
             }
             catch
             {
@@ -165,8 +161,6 @@ namespace Manager
                 _joystickOptionL.interactable = false;
                 _joystickOptionR.interactable = true;
                 _joystickOptionR.isOn = false;
-                // _currentSpellL.SetActive(false);
-                // _currentSpellR.SetActive(true);
                 CurrentControlSide = ControlSide.Left;
             }
             else
@@ -178,8 +172,6 @@ namespace Manager
                 _joystickOptionR.interactable = false;
                 _joystickOptionL.interactable = true;
                 _joystickOptionL.isOn = false;
-                // _currentSpellR.SetActive(false);
-                // _currentSpellL.SetActive(true);
                 CurrentControlSide = ControlSide.Right;
             }
         }
@@ -204,7 +196,7 @@ namespace Manager
 
         public void SaveModifications()
         {
-            DataCollector.Instance.SaveSettings(_isLeftJoystick,_musicSlider.value,_SFXSlider.value,_luminositySlider.value);
+            DataSaveSystem.OnSaveSettings?.Invoke(_isLeftJoystick,_musicSlider.value,_SFXSlider.value,_luminositySlider.value);
         }
 
         public void ReloadGame()
@@ -213,7 +205,7 @@ namespace Manager
             {
                 Destroy(Character.Instance.gameObject);
             }
-            DataCollector.Instance.ResetSave();
+            DataSaveSystem.Instance.ResetSave();
             SceneLoader.Instance.ReloadGameScene();
             ClockGame.Instance.ClockStop();
             ClockGame.Instance.Reset();
@@ -230,7 +222,7 @@ namespace Manager
             _fader.DOFade(1, 1.5f).SetUpdate(true).OnComplete(() =>
             {
                 Time.timeScale = 1;
-                DataCollector.Instance.ResetSave();
+                DataSaveSystem.Instance.ResetSave();
                 SceneLoader.Instance.LoadTitleScreen();
             });
         }

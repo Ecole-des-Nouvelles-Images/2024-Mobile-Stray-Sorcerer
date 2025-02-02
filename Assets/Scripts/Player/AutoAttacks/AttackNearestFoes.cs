@@ -36,7 +36,6 @@ namespace Player.AutoAttacks
         private float _currentDelay;
         private float _animSpeedMult = 0.025f;
         private float _delayMult = 0.02f;
-        private float _animSpeed = 1f;
 
         private void Awake()
         {
