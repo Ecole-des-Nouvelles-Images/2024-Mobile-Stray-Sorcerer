@@ -96,7 +96,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 21da2905f072cdc47bb6a8cf2add34b7,
+    type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: 63294d411a9d7e343bad46893a11534d,
     type: 2}
 --- !u!196 &4
@@ -806,6 +807,11 @@ PrefabInstance:
       propertyPath: far clip plane
       value: 500
       objectReference: {fileID: 0}
+    - target: {fileID: 1834585630478114813, guid: 94b148379586c334f945475ae62f4048,
+        type: 3}
+      propertyPath: m_OcclusionCulling
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3146039175337256089, guid: 94b148379586c334f945475ae62f4048,
         type: 3}
       propertyPath: m_Name
@@ -993,7 +999,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 56.8
+  m_fontSize: 65.1
   m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 1

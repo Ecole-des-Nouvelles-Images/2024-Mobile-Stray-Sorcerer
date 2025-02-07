@@ -34,8 +34,6 @@ namespace Player
         {
             if (_cameraFramingTransposer)
                 _cameraFramingTransposer.m_TrackedObjectOffset.z = Mathf.LerpUnclamped(0, _maximumForwardAmount, Mathf.Abs(input));
-
-            Debug.Log(_cameraFramingTransposer.m_TrackedObjectOffset.z);
         }
     }
 }

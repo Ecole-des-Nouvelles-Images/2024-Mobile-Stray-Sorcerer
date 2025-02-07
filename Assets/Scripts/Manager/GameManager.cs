@@ -71,6 +71,11 @@ namespace Manager
 
             CanvasGroup uiGroup = _playerHUD.GetComponent<CanvasGroup>();
             uiGroup.DOFade(1, 1);
+
+            yield return new WaitForSeconds(2);
+
+            Destroy(GameObject.Find("UI/GameOverlay/IntroRenderTex"));
+            Destroy(GameObject.Find("IntroductionText"));
         }
 
         public IEnumerator CamDeathAnimation()
