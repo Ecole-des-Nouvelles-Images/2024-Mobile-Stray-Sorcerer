@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using Gameplay;
 using Gameplay.GameData;
 using Manager;
 using Player;

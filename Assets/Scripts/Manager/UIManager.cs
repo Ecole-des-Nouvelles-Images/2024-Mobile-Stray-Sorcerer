@@ -3,6 +3,7 @@ using Audio;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using Gameplay;
 using Gameplay.GameData;
 using Player;
 using Utils;

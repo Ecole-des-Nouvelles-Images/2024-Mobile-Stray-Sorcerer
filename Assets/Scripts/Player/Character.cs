@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Gameplay;
 using Gameplay.GameData;
 using Manager;
 using Player.AutoAttacks;
