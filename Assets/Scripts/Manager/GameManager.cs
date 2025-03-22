@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 using Cinemachine;
 using DG.Tweening;
+using Player;
 using UI.Effects;
 using Utils;
 
@@ -103,6 +104,16 @@ namespace Manager
             _camBody.m_SoftZoneHeight = 0.2f;
             _camBody.m_LookaheadSmoothing = 10f;
             _camBody.m_LookaheadTime = 0.5f;
+        }
+        public void SaveDataAndContinue()
+        {
+            Character.Instance.SaveData();
+            Destroy(Character.Instance.gameObject);
+            SceneLoader.Instance.ReloadGameScene();
+        }
+        public void LeaveGame()
+        {
+            Application.Quit();
         }
     }
 }

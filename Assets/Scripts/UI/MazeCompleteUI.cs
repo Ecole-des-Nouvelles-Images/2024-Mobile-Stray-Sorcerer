@@ -1,4 +1,5 @@
 ﻿using Gameplay.GameData;
+using Manager;
 
 namespace UI
 {
@@ -6,12 +7,12 @@ namespace UI
     {
         public void ContinueGame()
         {
-            DataCollector.Instance.SaveDataAndContinue();
+            GameManager.Instance.SaveDataAndContinue();
         }
 
         public void QuitGame()
         {
-            DataCollector.Instance.SaveDataAndLeave();
+            GameManager.Instance.LeaveGame();
         }
     }
 }

@@ -1,4 +1,6 @@
+using Gameplay;
 using Gameplay.GameData;
+using Player;
 using TMPro;
 using UnityEngine;
 
@@ -36,8 +38,8 @@ namespace UI
             if (bestRunData)
             {
                 _textToChange = _timePassedBRD;
-                _minutes = (int)(DataCollector.Instance.BRDtime / 60);
-                _seconds = Mathf.FloorToInt(DataCollector.Instance.BRDtime % 60);
+                _minutes = (int)(DataSaveSystem.Instance.BRDtime / 60);
+                _seconds = Mathf.FloorToInt(DataSaveSystem.Instance.BRDtime % 60);
             }
             else
             {
@@ -59,31 +61,28 @@ namespace UI
 
         private void SetupMazeCompleteStat()
         {
-            _monsterKillCount.text = DataCollector.Instance.Kill.ToString();
-            _mazeCompleteDisplay.text = DataCollector.Instance.MazeComplete.ToString();
-            
-            _monsterKillCountBRD.text = DataCollector.Instance.BRDkill.ToString();
-            _mazeCompleteDisplayBRD.text = DataCollector.Instance.BRDmazeComplete.ToString();
+            _monsterKillCount.text = DataSaveSystem.Instance.Kill.ToString();
+            _mazeCompleteDisplay.text = DataSaveSystem.Instance.MazeComplete.ToString();
+            _monsterKillCountBRD.text = DataSaveSystem.Instance.BRDkill.ToString();
+            _mazeCompleteDisplayBRD.text = DataSaveSystem.Instance.BRDmazeComplete.ToString();
         }
 
         private void SetupCharacterStat()
         {
-            _playerLevel.text = DataCollector.Instance.PlayerLevel + "/20";
-            _playerLifeStat.text = DataCollector.Instance.PlayerHp + "/" + DataCollector.Instance.PlayerMaxHp;
-            _playerConstitutionCount.text = DataCollector.Instance.PlayerConstitution.ToString();
-            _playerAttackSpeedCount.text = DataCollector.Instance.PlayerSwiftness.ToString();
-            _playerPowerCount.text = DataCollector.Instance.PlayerPower.ToString();
+            _playerLevel.text = DataSaveSystem.Instance.GetPlayerLevelData() + "/20";
+            _playerConstitutionCount.text = DataSaveSystem.Instance.GetPlayerConstitutionData().ToString();
+            _playerAttackSpeedCount.text = DataSaveSystem.Instance.GetPlayerSwiftnessData().ToString();
+            _playerPowerCount.text = DataSaveSystem.Instance.GetPlayerPowerData().ToString();
             
-            _playerLevelBRD.text = DataCollector.Instance.BRDplayerLevel + "/20";
-            _playerLifeStatBRD.text = DataCollector.Instance.BRDplayerHp + "/" + DataCollector.Instance.BRDplayerMaxHp;
-            _playerConstitutionCountBRD.text = DataCollector.Instance.BRDplayerConstitution.ToString();
-            _playerAttackSpeedCountBRD.text = DataCollector.Instance.BRDplayerSwiftness.ToString();
-            _playerPowerCountBRD.text = DataCollector.Instance.BRDplayerPower.ToString();
+            _playerLevelBRD.text = DataSaveSystem.Instance.BRDplayerLevel + "/20";
+            _playerConstitutionCountBRD.text = DataSaveSystem.Instance.BRDplayerConstitution.ToString();
+            _playerAttackSpeedCountBRD.text = DataSaveSystem.Instance.BRDplayerSwiftness.ToString();
+            _playerPowerCountBRD.text = DataSaveSystem.Instance.BRDplayerPower.ToString();
         }
     
         public void UpdateDisplay()
         {
-            DataCollector.Instance.RestoreBestRunData();
+            DataSaveSystem.Instance.RestoreBestRunData();
             SetupTimeDisplay(false);
             SetupTimeDisplay(true);
             SetupMazeCompleteStat();

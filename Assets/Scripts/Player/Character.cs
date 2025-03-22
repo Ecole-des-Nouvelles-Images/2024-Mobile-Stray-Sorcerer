@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Gameplay;
 using Gameplay.GameData;
 using Manager;
 using Player.AutoAttacks;
@@ -197,7 +198,7 @@ namespace Player
 
         private IEnumerator LoadDataPlayer()
         {
-            DataCollector.OnPlayerSpawned?.Invoke();
+            DataSaveSystem.OnLoadGameData?.Invoke(Level,MaxHP,HP,Constitution,Swiftness,Power,EXP,SpellUnlock);
             yield return null;
         }
 
@@ -289,6 +290,7 @@ namespace Player
             if (_hp <= 0)
             {
                 _allowedToLevelUp = false;
+                SaveData();
                 Death();
             }
 
@@ -310,6 +312,11 @@ namespace Player
         private void Death()
         {
             StartCoroutine(DeathAnimationCoroutine());
+        }
+
+        public void SaveData()
+        {
+            DataSaveSystem.OnSaveGameData?.Invoke(Level,MaxHP,HP,Constitution,Swiftness,Power,EXP,SpellUnlock);
         }
 
         private IEnumerator DeathAnimationCoroutine()

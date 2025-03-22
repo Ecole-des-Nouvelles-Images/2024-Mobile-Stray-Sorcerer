@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using Utils;
 
-namespace Gameplay.GameData
+namespace Gameplay
 {
     public class ClockGame : SingletonMonoBehaviour<ClockGame>
     {

@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using Gameplay;
 using Gameplay.GameData;
 using Manager;
 using Player;
@@ -38,8 +39,6 @@ namespace UI
                 _canvasGroup.interactable = true;
                 _canvasGroup.blocksRaycasts = true;
             });
-
-            DataCollector.Instance.Death();
             UpdateDisplay();
         }
 
@@ -54,7 +53,7 @@ namespace UI
             _fader.DOFade(1, _fadeDuration).SetUpdate(true).OnComplete(() =>
             {
                 Time.timeScale = 1;
-                DataCollector.Instance.ResetSave();
+                DataSaveSystem.OnResetGameData?.Invoke();
                 SceneLoader.Instance.LoadTitleScreen();
             });
         }

@@ -74,9 +74,8 @@ namespace Gameplay.GameData
             BestSaveFilter();
             SaveCurrentSnap();
         }
-        public void CleanCurrentSave(Snapshot newSave)
+        public void CleanCurrentSave()
         {
-            UpdateCurrentSave(newSave);
             CurrentSave = null;
             string filePath = Application.persistentDataPath + "/CurrentSave.json" ;
             if (File.Exists(filePath))

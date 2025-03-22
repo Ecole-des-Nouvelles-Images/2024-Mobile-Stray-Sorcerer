@@ -1,4 +1,5 @@
 using Gameplay.GameData;
+using Player;
 using UI;
 using UnityEngine;
 
@@ -60,11 +61,11 @@ namespace Gameplay
 
         private void MazeComplete()
         {
-            if(DataCollector.Instance)
-                DataCollector.OnMazeComplete?.Invoke();
+            if(DataSaveSystem.Instance)
+                DataSaveSystem.OnMazeComplete?.Invoke();
             Time.timeScale = 0;
             ClockGame.Instance.ClockStop();
-            DataCollector.Instance.UpdateDataCollector();
+            Character.Instance.SaveData();
             _endGameUI.SetActive(true);
             _endGameUI.transform.GetComponent<EndGameUI>().UpdateDisplay();
             _timer = 0;

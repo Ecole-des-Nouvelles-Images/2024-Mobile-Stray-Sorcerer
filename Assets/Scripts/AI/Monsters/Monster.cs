@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Gameplay;
 using Gameplay.GameData;
 using Player;
 using Player.AutoAttacks;
@@ -182,8 +183,8 @@ namespace AI.Monsters
             Standby();
             _monsterAnimator.SetTrigger(DoDeath);
             gameObject.GetComponent<Collider>().enabled = false;
-            if(DataCollector.Instance)
-                DataCollector.OnMonsterDeath?.Invoke();
+            if(DataSaveSystem.Instance)
+                DataSaveSystem.OnMonsterDeath?.Invoke();
             int dice = Random.Range(1, 6);
             if (_dropPrefabs.Length > 0 && dice>=4)
             {
