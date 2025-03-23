@@ -12,7 +12,6 @@ namespace UI
         [SerializeField] private TMP_Text _mazeCompleteDisplay;
         [SerializeField] private TMP_Text _timePassed;
         [SerializeField] private TMP_Text _monsterKillCount;
-        [SerializeField] private TMP_Text _playerLifeStat;
         [SerializeField] private TMP_Text _playerLevel;
         [SerializeField] private TMP_Text _playerConstitutionCount;
         [SerializeField] private TMP_Text _playerAttackSpeedCount;
@@ -22,7 +21,6 @@ namespace UI
         [SerializeField] private TMP_Text _mazeCompleteDisplayBRD;
         [SerializeField] private TMP_Text _timePassedBRD;
         [SerializeField] private TMP_Text _monsterKillCountBRD;
-        [SerializeField] private TMP_Text _playerLifeStatBRD;
         [SerializeField] private TMP_Text _playerLevelBRD;
         [SerializeField] private TMP_Text _playerConstitutionCountBRD;
         [SerializeField] private TMP_Text _playerAttackSpeedCountBRD;
