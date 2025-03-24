@@ -91,7 +91,10 @@ namespace AI.Monsters
 
         private void Update()
         {
-
+            if (!IsDead)
+            {
+                _monsterAnimator.SetBool(IsMoving, _myNavMeshAgent.velocity != Vector3.zero);
+            }
             if (!IsDead && _myTarget)
             {
                 //---timer---
@@ -104,8 +107,6 @@ namespace AI.Monsters
                 if (_currentTimeBeforAttack <= 0)
                     _isCastReady = true;
                 //---------
-
-                _monsterAnimator.SetBool(IsMoving, _myNavMeshAgent.velocity != Vector3.zero);
 
                 if (_myTarget && _playerDetected == false && Character.Instance.transform.GetComponent<AttackNearestFoes>().enabled)
                     Chase();
@@ -143,7 +144,6 @@ namespace AI.Monsters
             /*needed to fix growMult beginning at 1 *Debug.Log(gameObject.name+" basedamage: "+_baseDamage + " multiplicator: "+growMult +" damage: "+_damage);*/
             float damageGrowth = _baseDamage * _damageGrowingFactor * growMult;
             _damage += (int)damageGrowth;
-            // Debug.Log(gameObject.name+" basedamage: "+_baseDamage + " multiplicator: "+growMult +"new damage: "+_damage+" growth: "+damageGrowth);
         }
 
         protected void PlayerTargeting()

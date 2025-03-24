@@ -53,5 +53,10 @@ namespace Utils
                 particles[i].Stop();
             }
         }
+
+        public static float ScalingValueByPercent(float basedScale, float percentValue)
+        {
+            return basedScale * percentValue / 100;
+        }
     }
 }

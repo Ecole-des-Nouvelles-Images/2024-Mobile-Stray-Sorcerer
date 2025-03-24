@@ -4,6 +4,8 @@ using Player;
 using Player.AutoAttacks;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering.Universal;
+using Utils;
 
 namespace AI.Monsters
 {
@@ -16,8 +18,9 @@ namespace AI.Monsters
         [SerializeField] private AudioClip[] _minotaurClips;// 0=>Hurt 1=>death 2=>Woosh 3=>attack 
         [SerializeField] private AudioClip[] _footClips;// 0=>Step1 1=>Step2 2=>Step3 3=>Step4
         [SerializeField] private float _footSoundTimer;
+        [SerializeField] private DecalProjector _myDecalProjector;
         
-        private float _timingDamage = 0.5f;
+        private float _timingDamage;
         private bool _triggerAnim;
         private bool _playerInArea;
         private float _currentFootSoundTimer;
@@ -72,6 +75,7 @@ namespace AI.Monsters
                 if (_playerDetected && _isCastReady && Character.Instance.transform.GetComponent<AttackNearestFoes>().enabled) DoAttack();
                 if (_playerDetected)
                     PlayerTargeting();
+                
                 if (_myNavMeshAgent.velocity != Vector3.zero)
                 {
                     if(_currentFootSoundTimer >= _footSoundTimer)
@@ -92,10 +96,13 @@ namespace AI.Monsters
         }
         private protected override void DoAttack()
         {
-            
+            Vector3 size = _myDecalProjector.size;
+            size.x = Helper.ScalingValueByPercent(_myDecalProjector.transform.localScale.x, _timingDamage / 0.6f);
+            size.z = Helper.ScalingValueByPercent(_myDecalProjector.transform.localScale.z, _timingDamage / 0.6f);
+            _myDecalProjector.size = size;
             if (_myNavMeshAgent.enabled)
                 _myNavMeshAgent.enabled = false;
-            if (_timingDamage > 0)
+            if (_timingDamage < 0.6f)
             {
                 if (_triggerAnim == false) {
                     _monsterAnimator.SetTrigger(Attack);
@@ -103,10 +110,20 @@ namespace AI.Monsters
                     _minotaurAS.Play();
                     _triggerAnim = true;
                 }
-                _timingDamage -= Time.deltaTime;
+                if (_myDecalProjector.enabled == false)
+                {
+                    _myDecalProjector.enabled = true;
+                    _myDecalProjector.transform.GetComponent<MeshRenderer>().enabled = true;
+                }
+                _timingDamage += Time.deltaTime;
             }
-            if (_timingDamage <= 0)
+            if (_timingDamage >= 0.6f)
             {
+                if (_myDecalProjector.enabled)
+                {
+                    _myDecalProjector.enabled = false;
+                    _myDecalProjector.transform.GetComponent<MeshRenderer>().enabled = false;
+                }
                 if (_playerInArea)
                 {
                     _impactFx.SetActive(true);
@@ -115,7 +132,7 @@ namespace AI.Monsters
                     //Debug.Log("minotaur "+gameObject.name+" damage:"+_damage);
                     Invoke("UnactiveFX",1);
                 }
-                _timingDamage = 0.5f;
+                _timingDamage = 0;
                 _currentTimeBeforAttack = _attackSpeed;
                 _isCastReady = false;
                 _triggerAnim = false;
