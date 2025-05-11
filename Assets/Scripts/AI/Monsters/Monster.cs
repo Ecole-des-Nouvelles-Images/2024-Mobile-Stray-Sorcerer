@@ -150,9 +150,7 @@ namespace AI.Monsters
         {
             if (Character.Instance)
             {
-                if (_myNavMeshAgent.enabled)
-                    _myNavMeshAgent.enabled = false;
-                Quaternion rotation = Quaternion.LookRotation(_myTarget.transform.position - transform.position, Vector3.up);
+                Quaternion rotation = Quaternion.LookRotation(Character.Instance.EnemyRaycastTarget.position - transform.position, Vector3.up);
                 _rb.MoveRotation(rotation);
             }
         }

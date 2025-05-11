@@ -18,11 +18,12 @@ namespace AI.Monsters
         [SerializeField] private AudioClip[] _minotaurClips;// 0=>Hurt 1=>death 2=>Woosh 3=>attack 
         [SerializeField] private AudioClip[] _footClips;// 0=>Step1 1=>Step2 2=>Step3 3=>Step4
         [SerializeField] private float _footSoundTimer;
-        [SerializeField] private DecalProjector _myDecalProjector;
+        [SerializeField] private MeshRenderer _myDamageRenderer;
         
         private float _timingDamage;
         private bool _triggerAnim;
         private bool _playerInArea;
+        private bool _doingAttack;
         private float _currentFootSoundTimer;
 
         private void Awake()
@@ -34,6 +35,7 @@ namespace AI.Monsters
             _rb = GetComponent<Rigidbody>();
             _isCastReady = true;
             _impactFx.SetActive(false);
+            _myDamageRenderer.enabled = false;
         }
         protected new void OnEnable()
         {
@@ -41,7 +43,7 @@ namespace AI.Monsters
             _triggerAttack.OnPlayerDetected += PlayerDetected;
             _damageArea.OnPlayerDetected += PlayerInArea;
             OnMonsterTakeDamage += HurtSound;
-            OnMonsterDie += OnDieSound;
+            OnMonsterDie += OnDie;
         }
 
         protected new void OnDisable()
@@ -50,14 +52,14 @@ namespace AI.Monsters
             _triggerAttack.OnPlayerDetected -= PlayerDetected;
             _damageArea.OnPlayerDetected -= PlayerInArea;
             OnMonsterTakeDamage -= HurtSound;
-            OnMonsterDie -= OnDieSound;
+            OnMonsterDie -= OnDie;
         }
 
         private void Update()
         {
             if (!IsDead && _myTarget)
             {
-                //---timer---
+                //---CDR---
                 if (_currentTimeBeforAttack > 0 && _isCastReady == false)
                 {
                     _currentTimeBeforAttack -= Time.deltaTime;
@@ -69,12 +71,24 @@ namespace AI.Monsters
                 //---------
 
                 _monsterAnimator.SetBool(IsMoving, _myNavMeshAgent.velocity != Vector3.zero);
-
-                if (_myTarget && _playerDetected == false && Character.Instance.transform.GetComponent<AttackNearestFoes>().enabled)
-                    Chase();
-                if (_playerDetected && _isCastReady && Character.Instance.transform.GetComponent<AttackNearestFoes>().enabled) DoAttack();
-                if (_playerDetected)
+                if (_playerDetected == false && _doingAttack == false)
+                {
                     PlayerTargeting();
+                    if (_myTarget && Character.Instance.transform.GetComponent<AttackNearestFoes>().enabled)
+                    {
+                        Chase();
+                    }
+                }
+                else
+                {
+                    if (_myNavMeshAgent.enabled)
+                        _myNavMeshAgent.enabled = false;
+                    if ( _isCastReady && Character.Instance.transform.GetComponent<AttackNearestFoes>().enabled)
+                        DoAttack();
+                }
+                
+                
+               
                 
                 if (_myNavMeshAgent.velocity != Vector3.zero)
                 {
@@ -96,10 +110,7 @@ namespace AI.Monsters
         }
         private protected override void DoAttack()
         {
-            Vector3 size = _myDecalProjector.size;
-            size.x = Helper.ScalingValueByPercent(_myDecalProjector.transform.localScale.x, _timingDamage / 0.6f);
-            size.z = Helper.ScalingValueByPercent(_myDecalProjector.transform.localScale.z, _timingDamage / 0.6f);
-            _myDecalProjector.size = size;
+            _doingAttack = true;
             if (_myNavMeshAgent.enabled)
                 _myNavMeshAgent.enabled = false;
             if (_timingDamage < 0.6f)
@@ -110,20 +121,15 @@ namespace AI.Monsters
                     _minotaurAS.Play();
                     _triggerAnim = true;
                 }
-                if (_myDecalProjector.enabled == false)
+                if (_myDamageRenderer.enabled == false)
                 {
-                    _myDecalProjector.enabled = true;
-                    _myDecalProjector.transform.GetComponent<MeshRenderer>().enabled = true;
+                    _myDamageRenderer.enabled = true;
                 }
                 _timingDamage += Time.deltaTime;
             }
             if (_timingDamage >= 0.6f)
             {
-                if (_myDecalProjector.enabled)
-                {
-                    _myDecalProjector.enabled = false;
-                    _myDecalProjector.transform.GetComponent<MeshRenderer>().enabled = false;
-                }
+                _myDamageRenderer.enabled = false;
                 if (_playerInArea)
                 {
                     _impactFx.SetActive(true);
@@ -136,6 +142,7 @@ namespace AI.Monsters
                 _currentTimeBeforAttack = _attackSpeed;
                 _isCastReady = false;
                 _triggerAnim = false;
+                _doingAttack = false;
             }
         }
 
@@ -155,10 +162,14 @@ namespace AI.Monsters
             _minotaurAS.Play();
         }
 
-        private void OnDieSound()
+        private void OnDie()
         {
             _minotaurAS.clip = _minotaurClips[1];
             _minotaurAS.Play();
+            if (_myDamageRenderer.enabled)
+            {
+                _myDamageRenderer.enabled = false;
+            }
         }
     }
 }
