@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
+  serializedVersion: 3
   tags:
   - Enemy
   - Loader
@@ -13,6 +13,7 @@ TagManager:
   - Projectile
   - RuntimeDynamicEmitter
   - Wall
+  - RuntimeDynamicAudio
   layers:
   - Default
   - TransparentFX
@@ -53,3 +54,7 @@ TagManager:
   - name: AboveUI
     uniqueID: 2857976377
     locked: 0
+  m_RenderingLayers:
+  - Default
+  - Props
+  - Effects

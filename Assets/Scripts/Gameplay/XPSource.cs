@@ -37,14 +37,14 @@ namespace Gameplay
         }
         private void Update()
         {
-            if (_rb.velocity != Vector3.zero)
+            if (_rb.linearVelocity != Vector3.zero)
             {
-                Quaternion targetRotation = Quaternion.LookRotation(_rb.velocity, Vector3.up);
+                Quaternion targetRotation = Quaternion.LookRotation(_rb.linearVelocity, Vector3.up);
                 _rb.MoveRotation(targetRotation);
             }
             if (_chasePlayer && Character.Instance)
             {
-                _rb.velocity = (Character.Instance.transform.position - transform.position).normalized * (100 * Time.fixedDeltaTime);
+                _rb.linearVelocity = (Character.Instance.transform.position - transform.position).normalized * (100 * Time.fixedDeltaTime);
             }
         }
 

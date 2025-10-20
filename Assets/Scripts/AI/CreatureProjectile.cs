@@ -8,7 +8,7 @@ namespace AI
         [SerializeField] private GameObject _impactFX;
         private int _damage;
         private Rigidbody _rb;
-        
+
 
         private void Awake()
         {
@@ -17,9 +17,9 @@ namespace AI
 
         private void Update()
         {
-            if (_rb.velocity != Vector3.zero)
+            if (_rb.linearVelocity != Vector3.zero)
             {
-                Quaternion targetRotation = Quaternion.LookRotation(_rb.velocity, Vector3.up);
+                Quaternion targetRotation = Quaternion.LookRotation(_rb.linearVelocity, Vector3.up);
                 _rb.MoveRotation(targetRotation);
             }
         }

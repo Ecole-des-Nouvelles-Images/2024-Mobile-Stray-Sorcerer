@@ -1,5 +1,5 @@
 using System;
-using Cinemachine;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -28,7 +28,7 @@ namespace Player
 
         public bool IsStandby { get; set; } = false;
 
-        private CinemachineFramingTransposer _cameraFramingTransposer;
+        private CinemachinePositionComposer _cameraFramingTransposer;
         private Rigidbody _rb;
         private Coroutine _cameraTrackingCoroutine;
 
@@ -42,10 +42,10 @@ namespace Player
 
         private void Update()
         {
-            _characterAnimator.SetBool(IsMoving, _rb.velocity != Vector3.zero);
-            if (_rb.velocity != Vector3.zero)
+            _characterAnimator.SetBool(IsMoving, _rb.linearVelocity != Vector3.zero);
+            if (_rb.linearVelocity != Vector3.zero)
             {
-                Quaternion targetRotation = Quaternion.LookRotation(_rb.velocity, Vector3.up);
+                Quaternion targetRotation = Quaternion.LookRotation(_rb.linearVelocity, Vector3.up);
                 _rb.MoveRotation(targetRotation);
             }
         }
@@ -82,7 +82,7 @@ namespace Player
             else if (input.y < -_accelerometerSensibility)
                 direction.y = input.y;
 
-            _rb.velocity = new Vector3(direction.y * -1, 0, direction.x) * Character.Instance.Speed * _accModifier * Time.fixedDeltaTime;
+            _rb.linearVelocity = new Vector3(direction.y * -1, 0, direction.x) * Character.Instance.Speed * _accModifier * Time.fixedDeltaTime;
         }
 
         public void JoystickMove(InputAction.CallbackContext ctx)
@@ -91,7 +91,7 @@ namespace Player
 
             Vector2 value = ctx.ReadValue<Vector2>();
 
-            _rb.velocity = new Vector3(value.x, 0, value.y) * Character.Instance.Speed * Time.fixedDeltaTime;
+            _rb.linearVelocity = new Vector3(value.x, 0, value.y) * Character.Instance.Speed * Time.fixedDeltaTime;
 
             OnPlayerMotion?.Invoke(value.y);
         }

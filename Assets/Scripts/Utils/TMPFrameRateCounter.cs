@@ -46,7 +46,7 @@ namespace Utils
             _mFrameCounterTransform.SetParent(_mCamera.transform);
             _mFrameCounterTransform.localRotation = Quaternion.identity;
 
-            _mTextMeshPro.enableWordWrapping = false;
+            _mTextMeshPro.textWrappingMode = TextWrappingModes.NoWrap;
             _mTextMeshPro.fontSize = 24;
             //m_TextMeshPro.FontColor = new Color32(255, 255, 255, 128);
             //m_TextMeshPro.edgeWidth = .15f;

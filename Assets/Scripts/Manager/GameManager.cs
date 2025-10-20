@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
-using Cinemachine;
+using Unity.Cinemachine;
 using DG.Tweening;
 using Player;
 using UI.Effects;
@@ -34,14 +34,14 @@ namespace Manager
         [SerializeField] private float _introDissolveDuration = 5;
 
         private GameObject _player;
-        private CinemachineVirtualCamera _camera;
-        private CinemachineFramingTransposer _camBody;
+        private CinemachineCamera _camera;
+        private CinemachinePositionComposer _camBody;
 
         public static Action OnGameStart;
 
         private void Start()
         {
-            _camera = GameObject.Find("VCam Player").GetComponent<CinemachineVirtualCamera>();
+            _camera = GameObject.Find("VCam Player").GetComponent<CinemachineCamera>();
             _camera.transform.rotation = Quaternion.identity;
         }
 
@@ -52,7 +52,7 @@ namespace Manager
             UIManager.Instance.gameObject.SetActive(true);
 
             _player = SceneLoader.Instance.SceneUtilityActivatePlayer(_playerPrefab, _playerSpawnPosition);
-            _player.GetComponent<PlayerInput>().uiInputModule = FindObjectOfType<InputSystemUIInputModule>();
+            _player.GetComponent<PlayerInput>().uiInputModule = FindFirstObjectByType<InputSystemUIInputModule>(FindObjectsInactive.Include);
 
             SetupCamera();
 
@@ -82,28 +82,27 @@ namespace Manager
         public IEnumerator CamDeathAnimation()
         {
             if (!_camBody)
-                _camBody = _camera.GetCinemachineComponent<CinemachineFramingTransposer>();
+                _camBody = _camera.GetCinemachineComponent(CinemachineCore.Stage.Body) as CinemachinePositionComposer;
 
-            DOTween.To(() => _camBody.m_CameraDistance, x => _camBody.m_CameraDistance = x, _deathAnimMaxDistance, _deathAnimSpeed);
+            DOTween.To(() => _camBody.CameraDistance, x => _camBody.CameraDistance = x, _deathAnimMaxDistance, _deathAnimSpeed);
 
             yield return new WaitForSeconds(_deathAnimSpeed + 0.5f);
         }
 
         private void SetupCamera()
         {
-            _camBody = _camera.GetCinemachineComponent<CinemachineFramingTransposer>();
+            _camBody = _camera.GetCinemachineComponent(CinemachineCore.Stage.Body) as CinemachinePositionComposer;
 
             if (!_camBody)
-                _camBody = _camera.AddCinemachineComponent<CinemachineFramingTransposer>();
+                throw new NullReferenceException("[GameManager] Cinemachine body stage (CinemachinePositionComposer) is not set.");
 
             _camera.transform.Rotate(_cameraOrientation);
-            _camera.m_Follow = _player.transform;
-            _camera.m_Lens.FieldOfView = _cameraFOV;
-            _camBody.m_CameraDistance = _cameraDistance;
-            _camBody.m_SoftZoneWidth = 0.2f;
-            _camBody.m_SoftZoneHeight = 0.2f;
-            _camBody.m_LookaheadSmoothing = 10f;
-            _camBody.m_LookaheadTime = 0.5f;
+            _camera.Target = new CameraTarget { TrackingTarget = _player.transform };
+            _camera.Lens.FieldOfView = _cameraFOV;
+            _camBody.CameraDistance = _cameraDistance;
+            _camBody.Composition.HardLimits.Size = new Vector2(0.2f, 0.2f);
+            _camBody.Lookahead.Smoothing = 10f;
+            _camBody.Lookahead.Time = 0.5f;
         }
         public void SaveDataAndContinue()
         {

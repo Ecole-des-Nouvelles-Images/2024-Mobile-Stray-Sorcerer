@@ -46,14 +46,14 @@ namespace Player.Projectile
         }
 
         private void Update() {
-            if (_rb.velocity != Vector3.zero)
+            if (_rb.linearVelocity != Vector3.zero)
             {
-                Quaternion targetRotation = Quaternion.LookRotation(_rb.velocity, Vector3.up);
+                Quaternion targetRotation = Quaternion.LookRotation(_rb.linearVelocity, Vector3.up);
                 _rb.MoveRotation(targetRotation);
             }
-            if (_bounceDetector.IsBounceCollideActive && _myCollider.isTrigger && _bounce) 
+            if (_bounceDetector.IsBounceCollideActive && _myCollider.isTrigger && _bounce)
                 _myCollider.isTrigger = false;
-            if (_bounceDetector.IsBounceCollideActive == false && _myCollider.isTrigger == false && _bounce) 
+            if (!_bounceDetector.IsBounceCollideActive && !_myCollider.isTrigger && _bounce)
                 _myCollider.isTrigger = true;
         }
 
@@ -93,7 +93,7 @@ namespace Player.Projectile
                 if (_bounce) _myCollider.isTrigger = true;
                return;
             }
-            
+
             if (other.transform.CompareTag("Enemy"))
             {
                 _rb.constraints = RigidbodyConstraints.FreezePositionY;

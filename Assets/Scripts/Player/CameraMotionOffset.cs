@@ -1,4 +1,4 @@
-﻿using Cinemachine;
+﻿using Unity.Cinemachine;
 using UnityEngine;
 
 namespace Player
@@ -7,17 +7,17 @@ namespace Player
     {
         [SerializeField] private float _maximumForwardAmount;
 
-        private CinemachineVirtualCamera _vCam;
-        private CinemachineFramingTransposer _cameraFramingTransposer;
+        private CinemachineCamera _vCam;
+        private CinemachinePositionComposer _composer;
 
         private Coroutine _cameraTrackingCoroutine;
 
         private void Start()
         {
-            _vCam = GameObject.Find("Camera/VCam Player").GetComponent<CinemachineVirtualCamera>();
-            _cameraFramingTransposer = _vCam.GetCinemachineComponent<CinemachineFramingTransposer>();
+            _vCam = GameObject.Find("Camera/VCam Player").GetComponent<CinemachineCamera>();
+            _composer = _vCam.GetCinemachineComponent(CinemachineCore.Stage.Body) as CinemachinePositionComposer;
 
-            _vCam.Follow = FindObjectOfType<Character>().transform;
+            _vCam.Follow = FindFirstObjectByType<Character>().transform;
         }
 
         private void OnEnable()
@@ -32,8 +32,8 @@ namespace Player
 
         private void OnMove(float input)
         {
-            if (_cameraFramingTransposer)
-                _cameraFramingTransposer.m_TrackedObjectOffset.z = Mathf.LerpUnclamped(0, _maximumForwardAmount, Mathf.Abs(input));
+            if (_composer)
+                _composer.TargetOffset.z = Mathf.LerpUnclamped(0, _maximumForwardAmount, Mathf.Abs(input));
         }
     }
 }

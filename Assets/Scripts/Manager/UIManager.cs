@@ -6,7 +6,7 @@ using DG.Tweening;
 using Gameplay;
 using Gameplay.GameData;
 using Player;
-using Plugins.TextMesh_Pro.Examples___Extras.Scripts;
+// using Plugins.TextMesh_Pro.Examples___Extras.Scripts;
 using Utils;
 
 namespace Manager
@@ -231,7 +231,7 @@ namespace Manager
 
         public void ToggleFPSCounter()
         {
-            TMPFrameRateCounter.FrameCounter.SetActive(!TMPFrameRateCounter.FrameCounter.activeSelf);
+            // TMPFrameRateCounter.FrameCounter.SetActive(!TMPFrameRateCounter.FrameCounter.activeSelf);
         }
     }
 }
