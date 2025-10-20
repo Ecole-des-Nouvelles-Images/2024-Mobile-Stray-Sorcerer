@@ -55,7 +55,7 @@ PlayerSettings:
   m_StereoRenderingPath: 0
   m_ActiveColorSpace: 1
   unsupportedMSAAFallback: 0
-  m_SpriteBatchMaxVertexCount: 65535
+  m_SpriteBatchMaxVertexCount: 1024
   m_SpriteBatchVertexThreshold: 300
   m_MTRendering: 1
   mipStripping: 1
@@ -148,7 +148,7 @@ PlayerSettings:
   loadStoreDebugModeEnabled: 0
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
-  bundleVersion: 0.10.0-pre
+  bundleVersion: 0.10.1-pre
   preloadedAssets:
   - {fileID: 7326675934701390548, guid: 860bf808d604fe24f8e2bb8a703fd4ca, type: 3}
   - {fileID: 3219684139384132243, guid: 45d453360ffcba34993a620d4091d86c, type: 3}
@@ -578,7 +578,7 @@ PlayerSettings:
       m_SubKind: 
   m_BuildTargetBatching:
   - m_BuildTarget: Android
-    m_StaticBatching: 1
+    m_StaticBatching: 0
     m_DynamicBatching: 1
   m_BuildTargetShaderSettings: []
   m_BuildTargetGraphicsJobs:

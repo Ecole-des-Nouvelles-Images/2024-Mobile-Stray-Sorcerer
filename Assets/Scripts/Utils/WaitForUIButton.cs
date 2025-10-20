@@ -35,9 +35,7 @@ namespace Utils
             Reset();
         }
 
-        public WaitForUIButtons(params Button[] aButtons) : this(null, aButtons)
-        {
-        }
+        public WaitForUIButtons(params Button[] aButtons) : this(null, aButtons) {}
 
         private void OnButtonPressed(Button button)
         {
