@@ -8,12 +8,11 @@ namespace UI
     public class TitleTouchToPlayButton : MonoBehaviour
     {
         private Button _touchToPlay;
+        private float _timerBeforInteractable;
 
         private void OnEnable()
         {
             SceneLoader loader = null;
-
-            SceneLoader.Instance.OnLaunchGame += DisableButton;
 
             try
             {
@@ -26,18 +25,38 @@ namespace UI
                 return;
             }
 
+            _touchToPlay.interactable = false;
             _touchToPlay = GetComponent<Button>();
             _touchToPlay.onClick.AddListener(loader.LaunchGame);
+            _touchToPlay.onClick.AddListener(DisableButton);
         }
 
         private void OnDisable()
         {
-            SceneLoader.Instance.OnLaunchGame -= DisableButton;
             _touchToPlay.onClick.RemoveAllListeners();
+        }
+
+        private void Awake()
+        {
+            _touchToPlay = GetComponent<Button>();
+            _timerBeforInteractable = 3f;
+        }
+
+        private void Update()
+        {
+            if (_timerBeforInteractable > 0)
+            {
+                _timerBeforInteractable -= Time.deltaTime;
+            }
+            else
+            {
+                _touchToPlay.interactable = true;
+            }
         }
 
         private void DisableButton()
         {
+            _touchToPlay.onClick.RemoveAllListeners();
             _touchToPlay.interactable = false;
         }
     }
