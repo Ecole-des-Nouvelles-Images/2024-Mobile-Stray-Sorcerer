@@ -15,7 +15,6 @@ using Random = System.Random;
 using Unity.EditorCoroutines.Editor;
 #endif
 
-
 namespace Maze
 {
     [RequireComponent(typeof(NavMeshSurface))]

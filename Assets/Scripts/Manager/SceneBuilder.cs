@@ -52,6 +52,7 @@ namespace Manager
             // yield return StartCoroutine(ComputeOcclusionCullingData());
         }
 
+
         private IEnumerator BuildMaze()
         {
             _loadingScreen.UpdateLog($"Construction du labyrinthe <size=70%>{{{_maze.SeedPhrase}}}...");

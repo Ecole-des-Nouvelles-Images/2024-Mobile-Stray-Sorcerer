@@ -26,21 +26,25 @@ namespace Utils
 
         public static GameObject FrameCounter;
 
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        private static void InitializeOnRuntime()
+        {
+            FrameCounter = FindFirstObjectByType<TMPFrameRateCounter>().gameObject;
+        }
+
         void Awake()
         {
             if (!enabled)
                 return;
 
             _mCamera = GameObject.Find("Camera/CinemachineBrain").GetComponent<Camera>();
-            // Application.targetFrameRate = 9999;
-            Debug.Log("TMPFrameCounter camera is : " + (_mCamera ? "OK" : "null"));
 
             FrameCounter = new GameObject("Frame Counter");
             FrameCounter.transform.parent = _mCamera.transform;
 
             _mTextMeshPro = FrameCounter.AddComponent<TextMeshPro>();
             _mTextMeshPro.font = Resources.Load<TMP_FontAsset>("Fonts & Materials/LiberationSans SDF");
-            _mTextMeshPro.fontSharedMaterial = Resources.Load<Material>("Fonts & Materials/LiberationSans SDF - Overlay");
+            _mTextMeshPro.fontSharedMaterial = Resources.Load<Material>("Fonts & Materials/LiberationSans SDF");
 
             _mFrameCounterTransform = FrameCounter.transform;
             _mFrameCounterTransform.SetParent(_mCamera.transform);
@@ -138,11 +142,6 @@ namespace Utils
                     _mFrameCounterTransform.position = _mCamera.ViewportToWorldPoint(new Vector3(1+ Offset.x, 0 + Offset.y, 100.0f));
                     break;
             }
-        }
-
-        public static void ToggleFrameCounter()
-        {
-
         }
     }
 }
