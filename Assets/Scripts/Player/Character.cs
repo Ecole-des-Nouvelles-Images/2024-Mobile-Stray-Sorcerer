@@ -138,6 +138,7 @@ namespace Player
         private bool _isDelay;
         private bool _isDead;
         private bool _rebootGame;
+        private float _boostMultplicator = 1.3f;
         private float _boostTime;
         private float _currentRebootTime;
 
@@ -190,7 +191,7 @@ namespace Player
             {
                 _isDelay = false;
                 _boostTime = 0;
-                Speed /= 2;
+                Speed /= _boostMultplicator;
                 _speedFX.SetActive(false);
                 _isBoosted = false;
             }
@@ -214,10 +215,11 @@ namespace Player
 
                 if (Level % 5 == 0 && SpellUnlock < _spells.Length)
                 {
+                    UpdateSpell();
+                    OnSpellUnlock?.Invoke(CurrentSpellSo, NextSpellSo);
                     SpellUnlock++;
                     OnSpellIndexChange?.Invoke(SpellUnlock);
                     UpdateSpell();
-                    OnSpellUnlock?.Invoke(CurrentSpellSo, NextSpellSo);
                 }
                 else
                 {
@@ -258,18 +260,16 @@ namespace Player
         {
             if (isActive && _isBoosted == false)
             {
-                Speed *= 2;
+                Speed *= _boostMultplicator;
                 _speedFX.SetActive(true);
                 _isBoosted = true;
                 return;
             }
-
             if (isActive && _isBoosted)
             {
                 _boostTime = 0;
                 return;
             }
-
             if (!_isDelay) _isDelay = true;
         }
 

@@ -5,21 +5,25 @@ using DG.Tweening;
 using Player;
 using Player.Spells_Effects;
 using TMPro;
+using UnityEngine.Serialization;
 using Utils;
 
 namespace UI.GameOverlay
 {
     public class UpgradeOverlayUI : MonoBehaviour
     {
+        [SerializeField] private Animator _upgradeOverlayAnimator;
+        
         [Header("Stat Panels")]
         [SerializeField] private CanvasGroup _upgradeStatPanel;
         [SerializeField] private GameObject _attackSpeedPanel;
         [SerializeField] private GameObject _powerPanel;
         [SerializeField] private GameObject _constitutionPanel;
 
-        [Header("Spell Evolution Panels")]
+        [Header("Spell Evolution Panels")] 
         [SerializeField] private CanvasGroup _spellEvolutionPanel;
-        [SerializeField] private TMP_Text _spellName;
+        [SerializeField] private TMP_Text _currentSpellName;
+        [SerializeField] private TMP_Text _newSpellName;
         [SerializeField] private Image _currentSpell;
         [SerializeField] private Image _nextSpell;
         [SerializeField] private Button _spellConfirmation;
@@ -127,13 +131,15 @@ namespace UI.GameOverlay
 
         private IEnumerator WaitForPlayerSpellConfirmation(SpellSO oldSpellSo, SpellSO newSpellSo)
         {
+            _upgradeOverlayAnimator.Play("SpellEvolution");
             DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 0, _timeWarpDuration).SetUpdate(true).SetEase(Ease.InCirc);
 
             yield return new WaitForSecondsRealtime(1.7f);
 
             _currentSpell.sprite = oldSpellSo.spellSprite;
             _nextSpell.sprite = newSpellSo.spellSprite;
-            _spellName.text = newSpellSo.Name;
+            _currentSpellName.text = oldSpellSo.Name;
+            _newSpellName.text = newSpellSo.Name;
 
             _spellEvolutionPanel.DOFade(1, 0.5f).SetUpdate(true);
             _spellEvolutionPanel.interactable = true;

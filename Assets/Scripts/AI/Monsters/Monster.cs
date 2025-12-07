@@ -137,13 +137,10 @@ namespace AI.Monsters
             _playerDetected = playerDetected;
         }
 
-        protected void Grow(int growMult)
+        protected void Grow(int growingLevel)
         {
-            float hpGrowth = _baseHpMax * _hpGrowingFactor * growMult;
+            float hpGrowth = _baseHpMax + _hpGrowingFactor * growingLevel;
             _hpMax += (int)hpGrowth;
-            /*needed to fix growMult beginning at 1 *Debug.Log(gameObject.name+" basedamage: "+_baseDamage + " multiplicator: "+growMult +" damage: "+_damage);*/
-            float damageGrowth = _baseDamage * _damageGrowingFactor * growMult;
-            _damage += (int)damageGrowth;
         }
 
         protected void PlayerTargeting()
