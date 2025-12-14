@@ -23,7 +23,6 @@ namespace AI.Monsters
 
         [Header("Stats")] [SerializeField] protected int _baseDamage;
 
-        [SerializeField] private float _damageGrowingFactor;
         [SerializeField] private float _speed;
         [SerializeField] private float _acceleration;
         [SerializeField] protected int _baseHpMax;
