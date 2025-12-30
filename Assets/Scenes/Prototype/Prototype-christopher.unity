@@ -45176,11 +45176,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 495683510}
     m_Modifications:
-    - target: {fileID: 3971998452741385012, guid: 87d190a34966ff6419b40305c7386849,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5259914280156130384, guid: 87d190a34966ff6419b40305c7386849,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -45231,15 +45226,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5315976350267234889, guid: 87d190a34966ff6419b40305c7386849,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7388351048592758067, guid: 87d190a34966ff6419b40305c7386849,
         type: 3}
       propertyPath: m_Name
       value: P_Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7388351048592758067, guid: 87d190a34966ff6419b40305c7386849,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8099843394209094681, guid: 87d190a34966ff6419b40305c7386849,
         type: 3}
@@ -45252,7 +45247,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1207339718}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 714459075909535244, guid: 87d190a34966ff6419b40305c7386849, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87d190a34966ff6419b40305c7386849, type: 3}
@@ -172869,7 +172865,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1712700444
 Transform:
   m_ObjectHideFlags: 0
@@ -216170,6 +216166,17 @@ PrefabInstance:
       propertyPath: _parentSquads
       value: 
       objectReference: {fileID: 1712700444}
+    - target: {fileID: 4820180087498288776, guid: 1b6ecb69e3cc0c34a99bfdf55e1e5603,
+        type: 3}
+      propertyPath: _squadsPrefabs.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4820180087498288776, guid: 1b6ecb69e3cc0c34a99bfdf55e1e5603,
+        type: 3}
+      propertyPath: '_squadsPrefabs.Array.data[2]'
+      value: 
+      objectReference: {fileID: 3128042712418701968, guid: 570c903e040231a4f832386d855c97e8,
+        type: 3}
     - target: {fileID: 5236017668083622863, guid: 1b6ecb69e3cc0c34a99bfdf55e1e5603,
         type: 3}
       propertyPath: m_Name
@@ -235922,6 +235929,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SquadWaveManastorm
+      objectReference: {fileID: 0}
+    - target: {fileID: 3595832283469070542, guid: db97502b0f1d2ea4eb77244b885bee0f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6372338940914398125, guid: db97502b0f1d2ea4eb77244b885bee0f,
         type: 3}
