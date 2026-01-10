@@ -45,7 +45,7 @@ namespace UI
             });
         }
 
-        public void ReturnTitle()
+        public new void ReturnTitle()
         {
             _canvasGroup.interactable = false;
             _canvasGroup.blocksRaycasts = false;
@@ -56,7 +56,6 @@ namespace UI
             _fader.DOFade(1, _fadeDuration).SetUpdate(true).OnComplete(() =>
             {
                 Time.timeScale = 1;
-                DataSaveSystem.OnResetGameData?.Invoke();
                 SceneLoader.Instance.LoadTitleScreen();
             });
         }

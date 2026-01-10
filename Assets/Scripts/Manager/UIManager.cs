@@ -207,7 +207,6 @@ namespace Manager
             {
                 Destroy(Character.Instance.gameObject);
             }
-            DataSaveSystem.Instance.ResetSave();
             SceneLoader.Instance.ReloadGameScene();
             ClockGame.Instance.ClockStop();
             ClockGame.Instance.Reset();
@@ -224,7 +223,6 @@ namespace Manager
             _fader.DOFade(1, 1.5f).SetUpdate(true).OnComplete(() =>
             {
                 Time.timeScale = 1;
-                DataSaveSystem.Instance.ResetSave();
                 SceneLoader.Instance.LoadTitleScreen();
             });
         }

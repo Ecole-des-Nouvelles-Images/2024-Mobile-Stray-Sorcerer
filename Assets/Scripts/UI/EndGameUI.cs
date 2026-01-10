@@ -12,7 +12,6 @@ namespace UI
         public void ReturnTitle()
         {
             Time.timeScale = 1;
-            DataSaveSystem.OnResetGameData?.Invoke();
             SceneLoader.Instance.LoadTitleScreen();
         }
     }

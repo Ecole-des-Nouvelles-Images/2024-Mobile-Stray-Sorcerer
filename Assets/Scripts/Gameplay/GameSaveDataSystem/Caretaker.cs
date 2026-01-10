@@ -11,45 +11,23 @@ namespace Gameplay.GameData
         
         private void BestSaveFilter()
         {
-            if (BestSave == null)
+            if (BestSave.Kill == 0 && BestSave.Time == 0)
             {
                 BestSave = CurrentSave;
                 SaveBestSnap();
             }
-            else if (BestSave.MazeComplete < CurrentSave.MazeComplete)
-            {
-                BestSave = CurrentSave;
+            else {
+                if (BestSave.Kill < CurrentSave.Kill) BestSave.Kill = CurrentSave.Kill;
+                if(BestSave.Time > CurrentSave.Time) BestSave.Time = CurrentSave.Time;
                 SaveBestSnap();
             }
-            else if (BestSave.MazeComplete == CurrentSave.MazeComplete &&
-                     BestSave.Time < CurrentSave.Time)
-            {
-                BestSave = CurrentSave;
-                SaveBestSnap();
-            }
-        }
-
-        private void SaveCurrentSnap()
-        {
-            string filePath = Application.persistentDataPath + "/CurrentSave.json" ;
-            string data = JsonUtility.ToJson(CurrentSave,true);
-            File.WriteAllText(filePath,  data);
         }
         private void SaveBestSnap()
         {
             string filePath = Application.persistentDataPath + "/BestSave.json" ;
             string data = JsonUtility.ToJson(BestSave, true);
             File.WriteAllText(filePath, data);
-            Debug.Log(Application.persistentDataPath);
-        }
-        private void LoadCurrentSnap()
-        {
-            string filePath = Application.persistentDataPath + "/CurrentSave.json" ;
-            if (File.Exists(filePath))
-            {
-                string data = System.IO.File.ReadAllText(filePath);
-                CurrentSave = JsonUtility.FromJson<Snapshot>(data);
-            }
+            //Debug.Log(Application.persistentDataPath);
         }
         private void LoadBestSnap()
         {
@@ -72,19 +50,10 @@ namespace Gameplay.GameData
         {
             CurrentSave = newSave;
             BestSaveFilter();
-            SaveCurrentSnap();
-        }
-        public void CleanCurrentSave()
-        {
-            CurrentSave = null;
-            string filePath = Application.persistentDataPath + "/CurrentSave.json" ;
-            if (File.Exists(filePath))
-                File.Delete(filePath);
         }
 
         public void LoadSnap()
         {
-            LoadCurrentSnap();
             LoadBestSnap();
         }
         public void UpdateSavedSettings(SettingsSnapshot newSavedSettings)

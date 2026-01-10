@@ -1,6 +1,7 @@
 ﻿using Gameplay;
 using Gameplay.GameData;
 using Manager;
+using Player;
 using TMPro;
 using UnityEngine;
 
@@ -21,20 +22,11 @@ namespace UI
         private int _seconds;
         private TMP_Text _textToChange;
         
-        private void SetupTimeDisplay(bool bestRunData)
+        private void SetupTimeDisplay(TMP_Text timeToFormate)
         {
-            if (bestRunData)
-            {
-                _textToChange = _timePassedBRD;
-                _minutes = (int)(DataSaveSystem.Instance.BRDtime / 60);
-                _seconds = Mathf.FloorToInt(DataSaveSystem.Instance.BRDtime % 60);
-            }
-            else
-            {
-                _textToChange = _timePassed;
-                _minutes = (int)(ClockGame.Instance.TimerGame / 60);
-                _seconds = Mathf.FloorToInt(ClockGame.Instance.TimerGame % 60);
-            }
+            _textToChange = timeToFormate;
+            _minutes = (int)(DataSaveSystem.Instance.BRDTime / 60);
+            _seconds = Mathf.FloorToInt(DataSaveSystem.Instance.BRDTime % 60);
             if (_minutes >= 60) {
                 _hour = _minutes / 60;
                 _minutes -= 60 * _hour;
@@ -49,24 +41,15 @@ namespace UI
         private void SetupMazeCompleteStat()
         {
             _monsterKillCount.text = DataSaveSystem.Instance.Kill.ToString();
-            _monsterKillCountBRD.text = DataSaveSystem.Instance.BRDkill.ToString();
+            _monsterKillCountBRD.text = DataSaveSystem.Instance.BRDKill.ToString();
         }
-        /*public void ContinueGame()
-        {
-            GameManager.Instance.SaveDataAndContinue();
-        }
-
-        public void QuitGame()
-        {
-            GameManager.Instance.LeaveGame();
-        }*/
 
         public void UpdateDisplay()
         {
-            DataSaveSystem.Instance.RestoreBestRunData();
-            SetupTimeDisplay(false);
-            SetupTimeDisplay(true);
             SetupMazeCompleteStat();
+            SetupTimeDisplay(_timePassed);
+            SetupTimeDisplay(_timePassedBRD);
+            if(Character.Instance.gameObject)Destroy(Character.Instance.gameObject);
         }
         
                 

@@ -104,15 +104,5 @@ namespace Manager
             _camBody.Lookahead.Smoothing = 10f;
             _camBody.Lookahead.Time = 0.5f;
         }
-        public void SaveDataAndContinue()
-        {
-            Character.Instance.SaveData();
-            Destroy(Character.Instance.gameObject);
-            SceneLoader.Instance.ReloadGameScene();
-        }
-        public void LeaveGame()
-        {
-            Application.Quit();
-        }
     }
 }

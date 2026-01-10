@@ -169,20 +169,17 @@ namespace Player
             OnSpeedBoost += SpeedBoost;
             OnLevelUp += LevelUpVFX;
         }
-
         private void OnDisable()
         {
             OnUpgradeStat -= UpgradeStat;
             OnSpeedBoost -= SpeedBoost;
             OnLevelUp -= LevelUpVFX;
         }
-
         private void Start()
         {
             ClockGame.Instance.ClockStart();
             StartCoroutine(LoadDataPlayer());
         }
-
         private void Update()
         {
             //timer for speed boost
@@ -196,19 +193,15 @@ namespace Player
                 _isBoosted = false;
             }
         }
-
         private IEnumerator LoadDataPlayer()
         {
-            DataSaveSystem.OnLoadGameData?.Invoke(Level,MaxHP,HP,Constitution,Swiftness,Power,EXP,SpellUnlock);
             yield return null;
         }
-
         private void LevelUp()
         {
             _characterAudioSource.clip = _characterAudioClips[1];
             _characterAudioSource.Play();
             if (!_allowedToLevelUp) return;
-
             if (HP > 0)
             {
                 Level++;
@@ -227,7 +220,6 @@ namespace Player
                 }
             }
         }
-
         private void UpgradeStat(int indexStat)
         {
             switch (indexStat)
@@ -247,7 +239,6 @@ namespace Player
                     return;
             }
         }
-
         private void LevelUpVFX()
         {
             foreach (ParticleSystem fx in _levelUpFX)
@@ -255,7 +246,6 @@ namespace Player
                 fx.Play();
             }
         }
-
         private void SpeedBoost(bool isActive)
         {
             if (isActive && _isBoosted == false)
@@ -279,7 +269,6 @@ namespace Player
 
             NextSpellSo = SpellUnlock < _spells.Length - 1 ? _spells[SpellUnlock + 1] : null;
         }
-
         public void TakeDamage(int damage)
         {
             _characterAudioSource.clip = _characterAudioClips[0];
@@ -290,13 +279,11 @@ namespace Player
             if (_hp <= 0)
             {
                 _allowedToLevelUp = false;
-                SaveData();
                 Death();
             }
 
             _playerAnimator.SetTrigger(Hurt);
         }
-
         public void TakeHeal(int amount)
         {
             HP += amount;
@@ -312,11 +299,6 @@ namespace Player
         private void Death()
         {
             StartCoroutine(DeathAnimationCoroutine());
-        }
-
-        public void SaveData()
-        {
-            DataSaveSystem.OnSaveGameData?.Invoke(Level,MaxHP,HP,Constitution,Swiftness,Power,EXP,SpellUnlock);
         }
 
         private IEnumerator DeathAnimationCoroutine()

@@ -61,11 +61,10 @@ namespace Gameplay
 
         private void MazeComplete()
         {
+            ClockGame.Instance.ClockStop();
+            Time.timeScale = 0;
             if(DataSaveSystem.Instance)
                 DataSaveSystem.OnMazeComplete?.Invoke();
-            Time.timeScale = 0;
-            ClockGame.Instance.ClockStop();
-            Character.Instance.SaveData();
             _endGameUI.SetActive(true);
             _endGameUI.transform.GetComponent<MazeCompleteUI>().UpdateDisplay();
             _timer = 0;
