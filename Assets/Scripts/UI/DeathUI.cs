@@ -24,6 +24,10 @@ namespace UI
         {
             Character.OnPlayerDeath -= SelfActivation;
         }
+        private void OnDestroy()
+        {
+            Character.OnPlayerDeath -= SelfActivation;
+        }
 
         private void Start()
         {
