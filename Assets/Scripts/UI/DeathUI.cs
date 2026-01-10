@@ -43,7 +43,6 @@ namespace UI
                 _canvasGroup.interactable = true;
                 _canvasGroup.blocksRaycasts = true;
             });
-            UpdateDisplay();
         }
 
         public void ReturnTitle()

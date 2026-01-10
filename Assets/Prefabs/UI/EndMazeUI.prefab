@@ -875,8 +875,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 3833015106993322316}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.25, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1014,10 +1014,10 @@ RectTransform:
   - {fileID: 3412183254672549120}
   m_Father: {fileID: 3227114269063832457}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.6, y: 0}
-  m_AnchorMax: {x: 0.95, y: 0.3}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 140}
+  m_SizeDelta: {x: 750, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1376034332888310409
 CanvasRenderer:
@@ -1223,7 +1223,7 @@ RectTransform:
   m_Father: {fileID: 6780714402532490019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.25, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2682,7 +2682,7 @@ RectTransform:
   m_Father: {fileID: 3833015106993322316}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.25, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -5336,20 +5336,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56570be51f2d4a40b5466e44c838dfac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mazeCompleteDisplay: {fileID: 5385272989436151865}
   _timePassed: {fileID: 7368651347065969226}
   _monsterKillCount: {fileID: 8479859148887481707}
-  _playerLevel: {fileID: 1133252660295689418}
-  _playerConstitutionCount: {fileID: 5984481457831636295}
-  _playerAttackSpeedCount: {fileID: 3765073683811853010}
-  _playerPowerCount: {fileID: 3137524004815693476}
-  _mazeCompleteDisplayBRD: {fileID: 1178432810358647048}
   _timePassedBRD: {fileID: 1109184599950829514}
   _monsterKillCountBRD: {fileID: 7230672361440111233}
-  _playerLevelBRD: {fileID: 501923182061602983}
-  _playerConstitutionCountBRD: {fileID: 5784870173273711035}
-  _playerAttackSpeedCountBRD: {fileID: 7842099187779748635}
-  _playerPowerCountBRD: {fileID: 4899804749091406595}
 --- !u!1 &7696551912040534335
 GameObject:
   m_ObjectHideFlags: 0
@@ -6266,8 +6256,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6780714402532490019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.25, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

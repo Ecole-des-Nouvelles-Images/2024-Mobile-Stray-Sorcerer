@@ -67,7 +67,7 @@ namespace Gameplay
             ClockGame.Instance.ClockStop();
             Character.Instance.SaveData();
             _endGameUI.SetActive(true);
-            _endGameUI.transform.GetComponent<EndGameUI>().UpdateDisplay();
+            _endGameUI.transform.GetComponent<MazeCompleteUI>().UpdateDisplay();
             _timer = 0;
         }
         
