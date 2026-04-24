@@ -56,7 +56,6 @@ namespace Manager
 
             SetupCamera();
 
-
             StartCoroutine(IntroductionAnimation());
         }
 

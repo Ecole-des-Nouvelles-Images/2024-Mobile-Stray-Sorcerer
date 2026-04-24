@@ -4801,7 +4801,7 @@ ParticleSystem:
     vectorLabel1_3: W
 --- !u!199 &8253453891767722855
 ParticleSystemRenderer:
-  serializedVersion: 6
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -4848,6 +4848,7 @@ ParticleSystemRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -4879,7 +4880,6 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
-  m_MaskInteraction: 0
 --- !u!1 &714459075909535244
 GameObject:
   m_ObjectHideFlags: 0
@@ -4997,6 +4997,7 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
 --- !u!1 &827786291332372895
 GameObject:
   m_ObjectHideFlags: 0
@@ -9887,7 +9888,7 @@ ParticleSystem:
     vectorLabel1_3: W
 --- !u!199 &7018365485804837005
 ParticleSystemRenderer:
-  serializedVersion: 6
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -9933,6 +9934,7 @@ ParticleSystemRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_RenderMode: 4
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -9964,7 +9966,6 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
-  m_MaskInteraction: 0
 --- !u!1 &2576973339152594880
 GameObject:
   m_ObjectHideFlags: 0
@@ -10055,6 +10056,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!135 &6255377377217529306
 SphereCollider:
@@ -15078,7 +15080,7 @@ ParticleSystem:
     vectorLabel1_3: W
 --- !u!199 &1705927747337293084
 ParticleSystemRenderer:
-  serializedVersion: 6
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -15125,6 +15127,7 @@ ParticleSystemRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -15156,7 +15159,6 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
-  m_MaskInteraction: 0
 --- !u!1 &3795491060437724204
 GameObject:
   m_ObjectHideFlags: 0
@@ -20544,7 +20546,7 @@ ParticleSystem:
     vectorLabel1_3: W
 --- !u!199 &6847922761273568655
 ParticleSystemRenderer:
-  serializedVersion: 6
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -20591,6 +20593,7 @@ ParticleSystemRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -20622,7 +20625,6 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
-  m_MaskInteraction: 0
 --- !u!1 &5036009768006894862
 GameObject:
   m_ObjectHideFlags: 0
@@ -25541,7 +25543,7 @@ ParticleSystem:
     vectorLabel1_3: W
 --- !u!199 &5752249673941683234
 ParticleSystemRenderer:
-  serializedVersion: 6
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -25588,6 +25590,7 @@ ParticleSystemRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -25619,7 +25622,6 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
-  m_MaskInteraction: 0
 --- !u!1 &6012331829411887594
 GameObject:
   m_ObjectHideFlags: 0
@@ -26359,13 +26361,14 @@ GameObject:
   m_Component:
   - component: {fileID: 5259914280156130384}
   - component: {fileID: 5336584031268284057}
+  - component: {fileID: 3733465006450829829}
   - component: {fileID: 6216133150906881502}
+  - component: {fileID: 3441651550680445603}
   - component: {fileID: 1951082793598725807}
   - component: {fileID: 5750860220335815231}
   - component: {fileID: 655780524270168627}
   - component: {fileID: 7965276715533977198}
   - component: {fileID: 8099843394209094681}
-  - component: {fileID: 3733465006450829829}
   m_Layer: 3
   m_Name: P_Player
   m_TagString: Player
@@ -26423,6 +26426,29 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!136 &3733465006450829829
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7388351048592758067}
+  m_Material: {fileID: 13400000, guid: 19dcf045ca7a8e14192d4104d5b9badf, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2
+  m_Height: 4.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 3, z: 0}
 --- !u!114 &6216133150906881502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26450,92 +26476,70 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1951082793598725807}
-        m_TargetAssemblyTypeName: Player.PlayerController, Assembly-CSharp
-        m_MethodName: AccelerometerMove
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 969829d7-fdb1-4847-9d85-11a10aceb8e3
-    m_ActionName: Accelerometer/Move
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1951082793598725807}
-        m_TargetAssemblyTypeName: Player.PlayerController, Assembly-CSharp
-        m_MethodName: JoystickMove
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 33603762-6413-4978-beaa-5f1e8cad6b71
-    m_ActionName: Tactile/New action
+      m_Calls: []
+    m_ActionId: 55eefa77-fde2-428c-9ed4-5951d70a8b31
+    m_ActionName: 'Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: bb199c91-3424-45e7-89ba-41345e9f5863
+    m_ActionId: 4e4de6f8-85b9-444f-b1b8-ab790e5970be
+    m_ActionName: 'Player/Pause[/Keyboard/p,/Keyboard/tab,/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 32bc2973-a5d4-4835-ad26-e41d42bb9b98
     m_ActionName: 'UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 2321028c-0935-4fe7-8d9e-62bdbb5915e3
+    m_ActionId: 03a89676-dbbf-4e18-a9c3-90332a0dfcbd
     m_ActionName: 'UI/Submit[/Keyboard/enter]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: be561ee1-bea8-4ad2-8971-ed329f3ded92
+    m_ActionId: b3f9ea26-c480-4c5e-8584-24a63833c940
     m_ActionName: 'UI/Cancel[/Keyboard/escape]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 05a191f6-1890-45c9-9168-22e50a4eefb6
-    m_ActionName: 'UI/Point[/Mouse/position,/Device Simulator Touchscreen/touch0/position,/Device
-      Simulator Touchscreen/touch1/position,/Device Simulator Touchscreen/touch2/position,/Device
-      Simulator Touchscreen/touch3/position,/Device Simulator Touchscreen/touch4/position,/Device
-      Simulator Touchscreen/touch5/position,/Device Simulator Touchscreen/touch6/position,/Device
-      Simulator Touchscreen/touch7/position,/Device Simulator Touchscreen/touch8/position,/Device
-      Simulator Touchscreen/touch9/position]'
+    m_ActionId: ca4f3482-ad2e-44bf-99da-9213cad84dbc
+    m_ActionName: 'UI/Point[/Mouse/position]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: cdc6468f-405a-4e93-82d0-2b06f5a16098
-    m_ActionName: 'UI/Click[/Mouse/leftButton,/Device Simulator Touchscreen/touch0/press,/Device
-      Simulator Touchscreen/touch1/press,/Device Simulator Touchscreen/touch2/press,/Device
-      Simulator Touchscreen/touch3/press,/Device Simulator Touchscreen/touch4/press,/Device
-      Simulator Touchscreen/touch5/press,/Device Simulator Touchscreen/touch6/press,/Device
-      Simulator Touchscreen/touch7/press,/Device Simulator Touchscreen/touch8/press,/Device
-      Simulator Touchscreen/touch9/press]'
+    m_ActionId: 03c95342-07e3-4ca1-9fdd-35a97f9b5ff8
+    m_ActionName: 'UI/Click[/Mouse/leftButton]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: cb5df3cb-ecb3-4f33-b761-8881ad27a7e6
-    m_ActionName: 'UI/ScrollWheel[/Mouse/scroll]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: d9c4f9b5-d778-455f-88b6-39fff4fb4f64
-    m_ActionName: 'UI/MiddleClick[/Mouse/middleButton]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 562b60d2-cdac-47ce-942d-07de7f05cf71
+    m_ActionId: 95196600-35c9-4dfc-ae8a-85281c315253
     m_ActionName: 'UI/RightClick[/Mouse/rightButton]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: b1eaaf51-7173-44a3-90a0-6a5e2c6aaf21
+    m_ActionId: 7a840295-e17b-431f-93a5-7381bc416256
+    m_ActionName: 'UI/MiddleClick[/Mouse/middleButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c933b358-2c74-469a-bf12-1a23b812aea4
+    m_ActionName: 'UI/ScrollWheel[/Mouse/scroll]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 96636cbd-5d9e-46f4-89e5-d73d173b4b07
     m_ActionName: UI/TrackedDevicePosition
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 06e5764e-edbf-4c38-864b-6cfe5f601eb5
+    m_ActionId: f27a1a98-b580-49b2-aa5f-e4d1a952f9bc
     m_ActionName: UI/TrackedDeviceOrientation
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Tactile
+  m_DefaultControlScheme: Gamepad
+  m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &3441651550680445603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7388351048592758067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 746b0007fda847c09a2efa6e2ce3635d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Utils.PlayerInputPropertyBinder
 --- !u!114 &1951082793598725807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26653,29 +26657,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _exp: {fileID: 0}
   _level: {fileID: 0}
---- !u!136 &3733465006450829829
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7388351048592758067}
-  m_Material: {fileID: 13400000, guid: 19dcf045ca7a8e14192d4104d5b9badf, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 2
-  m_Height: 4.5
-  m_Direction: 1
-  m_Center: {x: 0, y: 3, z: 0}
 --- !u!1 &8495603319985789313
 GameObject:
   m_ObjectHideFlags: 0

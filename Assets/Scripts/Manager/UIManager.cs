@@ -6,6 +6,7 @@ using DG.Tweening;
 using Gameplay;
 using Gameplay.GameData;
 using Player;
+using UnityEngine.InputSystem;
 // using Plugins.TextMesh_Pro.Examples___Extras.Scripts;
 using Utils;
 
@@ -36,6 +37,7 @@ namespace Manager
         [SerializeField] private Slider _luminositySlider;
 
         [Header("Buttons")]
+        [SerializeField] private Button _resumeButton;
         [SerializeField] private Button _optionsReturnButton;
         [SerializeField] private Toggle _joystickOptionL;
         [SerializeField] private Toggle _joystickOptionR;
@@ -109,6 +111,34 @@ namespace Manager
         }
 
         public void SwitchPausePanel()
+        {
+            if (!InPause)
+            {
+                Time.timeScale = 0;
+                _pauseOverlay.gameObject.SetActive(true);
+                _pauseOverlay.DOFade(1, _panelSlideDuration).SetUpdate(true).SetEase(Ease.InOutCubic).OnComplete(() =>
+                {
+                    _pauseOverlay.interactable = true;
+                    _pauseOverlay.blocksRaycasts = true;
+                });
+                InPause = true;
+                
+                _resumeButton.Select();
+            }
+            else
+            {
+                Time.timeScale = 1;
+                _pauseOverlay.DOFade(0, _panelSlideDuration).SetUpdate(true).SetEase(Ease.InOutCubic).OnComplete(() =>
+                {
+                    _pauseOverlay.gameObject.SetActive(false);
+                    _pauseOverlay.interactable = false;
+                    _pauseOverlay.blocksRaycasts = false;
+                });
+                InPause = false;
+            }
+        }
+        
+        public void SwitchPausePanel(InputAction.CallbackContext ctx)
         {
             if (!InPause)
             {

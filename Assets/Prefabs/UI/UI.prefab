@@ -66,6 +66,7 @@ MonoBehaviour:
   _musicSlider: {fileID: 6489703209015847539}
   _SFXSlider: {fileID: 3958502633835606916}
   _luminositySlider: {fileID: 3675549664526478732}
+  _resumeButton: {fileID: 4329713755488404491}
   _optionsReturnButton: {fileID: 1574641383736992630}
   _joystickOptionL: {fileID: 6865177662198519566}
   _joystickOptionR: {fileID: 4362603910441072916}
@@ -817,6 +818,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4329713755488404491 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 951460669509057387, guid: c0616834ece51eb4c9413db5533ffa03,
+    type: 3}
+  m_PrefabInstance: {fileID: 3540532756466761568}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &4362603910441072916 stripped
