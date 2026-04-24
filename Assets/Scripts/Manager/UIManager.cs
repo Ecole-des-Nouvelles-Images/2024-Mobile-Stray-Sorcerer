@@ -229,7 +229,7 @@ namespace Manager
 
         public void ToggleFPSCounter()
         {
-            // TMPFrameRateCounter.FrameCounter.SetActive(!TMPFrameRateCounter.FrameCounter.activeSelf);
+            FrameRateManager.Instance.EnableFPSCounter(!FrameRateManager.Instance.IsCounterEnabled);
         }
     }
 }

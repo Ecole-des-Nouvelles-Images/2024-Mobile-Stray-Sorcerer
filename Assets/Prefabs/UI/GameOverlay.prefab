@@ -1491,8 +1491,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Niv. 1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: eb38625eb2460374e826bdf626bc8744, type: 2}
-  m_sharedMaterial: {fileID: -2447739599542917474, guid: eb38625eb2460374e826bdf626bc8744,
+  m_fontAsset: {fileID: 11400000, guid: 2ff813afd463d5b46a2cac20b9bc85eb, type: 2}
+  m_sharedMaterial: {fileID: 1797426713182197238, guid: 2ff813afd463d5b46a2cac20b9bc85eb,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1523,25 +1523,28 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 17
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 1024
   m_textAlignment: 65535
   m_characterSpacing: 4.58
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -1666,6 +1669,22 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5843048002215080783, guid: f70ed2941a9d1574aab6c87fa80f6cef,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee,
+        type: 2}
+    - target: {fileID: 5843048002215080783, guid: f70ed2941a9d1574aab6c87fa80f6cef,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 5843048002215080783, guid: f70ed2941a9d1574aab6c87fa80f6cef,
+        type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
       objectReference: {fileID: 0}
     - target: {fileID: 6126722746204731711, guid: f70ed2941a9d1574aab6c87fa80f6cef,
         type: 3}

@@ -26,12 +26,6 @@ namespace Utils
 
         public static GameObject FrameCounter;
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-        private static void InitializeOnRuntime()
-        {
-            FrameCounter = FindFirstObjectByType<TMPFrameRateCounter>().gameObject;
-        }
-
         void Awake()
         {
             if (!enabled)
