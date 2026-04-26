@@ -26463,7 +26463,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: dbd1eadb55b220243b966bd75dc0d3eb,
     type: 3}
-  m_NotificationBehavior: 2
+  m_NotificationBehavior: 3
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -26553,7 +26553,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterAnimator: {fileID: 4768240579939408225}
-  _playerInput: {fileID: 6216133150906881502}
   _accelerometerSensibility: 0.01
   _accModifier: 1.5
   _cameraTransposerMaxOffset: 5

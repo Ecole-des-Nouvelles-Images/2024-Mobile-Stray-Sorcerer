@@ -1,12 +1,18 @@
 using System;
 using Manager;
+using Scripts.Player;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+
+using PlayerInputActions = Scripts.Player.PlayerInputActions;
+using Vector2 = UnityEngine.Vector2;
 
 namespace Player
 {
-    public class PlayerController : MonoBehaviour
+    [RequireComponent(typeof(PlayerInput))]
+    public class PlayerController : MonoBehaviour, PlayerInputActions.IPlayerActions, PlayerInputActions.IUIActions 
     {
         public static readonly int IsMoving = Animator.StringToHash("isMoving");
 
@@ -14,15 +20,13 @@ namespace Player
         [SerializeField] private Animator _characterAnimator;
 
         [Header("Inputs")]
-        [SerializeField] private PlayerInput _playerInput;
         [SerializeField] private float _accelerometerSensibility = 0.01f;
-
         [Tooltip("Internal modifier specific to the accelerometer")]
         [SerializeField] private float _accModifier = 1f;
 
         [Header("Settings")]
-        [SerializeField] private float _cameraTransposerMaxOffset;
         [Tooltip("Delay in seconds of the duration of the offset transition")]
+        [SerializeField] private float _cameraTransposerMaxOffset;
 
         public static Action<bool> OnControlMapChanged;
         public static Action<float> OnPlayerMotion;
@@ -31,6 +35,11 @@ namespace Player
 
         private CinemachinePositionComposer _cameraFramingTransposer;
         private Rigidbody _rb;
+        
+        private PlayerInputActions _playerInputActions;
+        private PlayerInput _playerInput;
+        private EventSystem _eventSystem;
+        
         private Coroutine _cameraTrackingCoroutine;
 
         private float _currentForwardAmount;
@@ -38,27 +47,15 @@ namespace Player
 
         private void Start()
         {
+            _playerInputActions = new PlayerInputActions();
+            _playerInput = GetComponent<PlayerInput>();
+            _eventSystem = FindFirstObjectByType<EventSystem>();
+            
             _rb = GetComponent<Rigidbody>();
             
-            // Default the player to the "Game" action map.
+            // Tell the static InputSystem to defaults to the "Player" action map.
             InputSystem.actions.Disable();
             InputSystem.actions.FindActionMap("Player").Enable();
-        }
-
-        private void OnEnable()
-        {
-            InputSystem.actions.FindAction("Pause").performed += OnPauseActionMapSwitch;
-            InputSystem.actions.FindAction("Pause").performed += UIManager.Instance.SwitchPausePanel;
-            InputSystem.actions.FindAction("Move").performed += JoystickMove;
-
-        }
-
-        private void OnDisable()
-        {
-            InputSystem.actions.FindAction("Pause").performed -= OnPauseActionMapSwitch;
-            InputSystem.actions.FindAction("Pause").performed -= UIManager.Instance.SwitchPausePanel;
-            InputSystem.actions.FindAction("Move").performed -= JoystickMove;
-
         }
 
         private void Update()
@@ -69,21 +66,6 @@ namespace Player
                 Quaternion targetRotation = Quaternion.LookRotation(_rb.linearVelocity, Vector3.up);
                 _rb.MoveRotation(targetRotation);
             }
-        }
-        
-        public void OnPauseActionMapSwitch(InputAction.CallbackContext ctx)
-        {
-            if (UIManager.Instance.InPause)
-            {
-                InputSystem.actions.FindActionMap("UI").Disable();
-                InputSystem.actions.FindActionMap("Player").Enable();
-            }
-            else
-            {
-                InputSystem.actions.FindActionMap("UI").Enable();
-                InputSystem.actions.FindActionMap("Player").Disable();
-            }
-
         }
 
         /*public void SwitchController()
@@ -121,15 +103,106 @@ namespace Player
             _rb.linearVelocity = new Vector3(direction.y * -1, 0, direction.x) * Character.Instance.Speed * _accModifier * Time.fixedDeltaTime;
         }*/
 
-        public void JoystickMove(InputAction.CallbackContext ctx)
+        #region PlayerInputActions callbacks
+        
+        public void OnMove(InputAction.CallbackContext context)
         {
+            if (context.canceled || context.started) return;
+            
             if (IsStandby) return;
 
-            Vector2 value = ctx.ReadValue<Vector2>();
+            Vector2 value = context.ReadValue<Vector2>();
 
             _rb.linearVelocity = new Vector3(value.x, 0, value.y) * Character.Instance.Speed * Time.fixedDeltaTime;
 
             OnPlayerMotion?.Invoke(value.y);
         }
+
+        public void OnPause(InputAction.CallbackContext context)
+        {
+            if (context.canceled || context.started) return;
+            
+            _playerInput.SwitchCurrentActionMap("UI");
+            
+            UIManager.Instance.SwitchPausePanel();
+            
+            Debug.Log($"Current action map : {InputSystem.actions.name}");
+        }
+
+        public void OnResume(InputAction.CallbackContext context)
+        {
+            if (context.canceled || context.started) return;
+            
+            _playerInput.SwitchCurrentActionMap("Player");
+            
+            UIManager.Instance.SwitchPausePanel();
+            
+            Debug.Log($"Current action map : {InputSystem.actions.name}");
+        }
+
+        public void OnNavigate(InputAction.CallbackContext context)
+        {
+            AxisEventData data = new (EventSystem.current)
+            {
+                moveDir = context.ReadValue<Vector2>() switch
+                {
+                    { y: > 0.5f } => MoveDirection.Up,
+                    { y: < -0.5f } => MoveDirection.Down,
+                    { x: > 0.5f } => MoveDirection.Right,
+                    { x: < -0.5f } => MoveDirection.Left,
+                    _ => MoveDirection.None
+                },
+                selectedObject = EventSystem.current.currentSelectedGameObject
+            };
+
+            ExecuteEvents.Execute(data.selectedObject, data, ExecuteEvents.moveHandler);
+        }
+
+        public void OnSubmit(InputAction.CallbackContext context)
+        {
+            // Not used manually, used by UI Input Module
+        }
+
+        public void OnCancel(InputAction.CallbackContext context)
+        {
+            // Not used manually, used by UI Input Module
+        }
+
+        public void OnPoint(InputAction.CallbackContext context)
+        {
+            // Not used manually, used by UI Input Module
+        }
+
+        public void OnClick(InputAction.CallbackContext context)
+        {
+            // Not used manually, used by UI Input Module
+        }
+
+        public void OnRightClick(InputAction.CallbackContext context)
+        {
+            // Not used manually, used by UI Input Module
+        }
+
+        public void OnMiddleClick(InputAction.CallbackContext context)
+        {
+            // Not used manually, used by UI Input Module
+        }
+
+        public void OnScrollWheel(InputAction.CallbackContext context)
+        {
+            // Not used manually, used by UI Input Module
+        }
+
+        public void OnTrackedDevicePosition(InputAction.CallbackContext context)
+        {
+            // Not used manually, used by UI Input Module
+        }
+
+        public void OnTrackedDeviceOrientation(InputAction.CallbackContext context)
+        {
+            // Not used manually, used by UI Input Module
+        }
+        
+        #endregion
     }
 }

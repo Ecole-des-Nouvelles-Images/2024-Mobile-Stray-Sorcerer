@@ -198,6 +198,15 @@
             "id": "83173404-b408-4872-a248-6aabae4271f4",
             "actions": [
                 {
+                    "name": "Resume",
+                    "type": "Button",
+                    "id": "ca2773c0-1e89-494b-81da-120b0518f2d4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Navigate",
                     "type": "PassThrough",
                     "id": "32bc2973-a5d4-4835-ad26-e41d42bb9b98",
@@ -682,6 +691,28 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "MiddleClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c4750502-7e66-4a0d-ba80-829eb1e24e18",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Resume",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fdb650cf-553a-470a-be1e-a161d361df18",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Resume",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
