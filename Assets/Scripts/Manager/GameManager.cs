@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 using Unity.Cinemachine;
 using DG.Tweening;
-using Player;
 using UI.Effects;
 using Utils;
 

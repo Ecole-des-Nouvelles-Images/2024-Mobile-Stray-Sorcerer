@@ -5,7 +5,6 @@ using DG.Tweening;
 using Player;
 using Player.Spells_Effects;
 using TMPro;
-using UnityEngine.Serialization;
 using Utils;
 
 namespace UI.GameOverlay
@@ -45,6 +44,8 @@ namespace UI.GameOverlay
         private WaitForUIButtons _waitPlayerChoice;
         private WaitForUIButtons _waitPlayerConfirmation;
 
+        public static bool UpgradeInProgress { get; private set; }
+
         private void Awake()
         {
             _waitPlayerChoice = new WaitForUIButtons(_upgradeConstitution, _upgradeSwiftness, _upgradePower);
@@ -65,7 +66,7 @@ namespace UI.GameOverlay
             Character.OnSpellUnlock += SpellUpgradeDisplay;
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             Character.OnDisplayUpgrade -= UpgradeDisplay;
             Character.OnSpellUnlock -= SpellUpgradeDisplay;
@@ -73,16 +74,20 @@ namespace UI.GameOverlay
 
         private void UpgradeDisplay()
         {
+            UpgradeInProgress = true;
             StartCoroutine(WaitForPlayerUpgradeChoice());
         }
 
         private void SpellUpgradeDisplay(SpellSO oldSpellSo, SpellSO newSpellSo)
         {
+            UpgradeInProgress = true;
             StartCoroutine(WaitForPlayerSpellConfirmation(oldSpellSo, newSpellSo));
         }
 
         private IEnumerator WaitForPlayerUpgradeChoice()
         {
+            PlayerController.PlayerInput.SwitchCurrentActionMap("UI");
+            
             DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 0, _timeWarpDuration).SetUpdate(true).SetEase(Ease.InCirc);
 
             // Update panels
@@ -105,7 +110,15 @@ namespace UI.GameOverlay
             _upgradeStatPanel.DOFade(1, 0.5f).SetUpdate(true);
             _upgradeStatPanel.interactable = true;
             _upgradeStatPanel.blocksRaycasts = true;
+            
+            _upgradeConstitution.Select();
 
+            // while (_waitPlayerChoice.keepWaiting)
+            // {
+            //     InputSystem.Update();
+            //     yield return new WaitForSecondsRealtime(Time.unscaledDeltaTime);
+            // }
+            
             yield return _waitPlayerChoice.Reset();
 
             if (_waitPlayerChoice.PressedButton == _upgradeConstitution)
@@ -127,11 +140,17 @@ namespace UI.GameOverlay
                 Time.timeScale = Mathf.Lerp(0, 1, t);
                 yield return null;
             }
+
+            PlayerController.PlayerInput.SwitchCurrentActionMap("Player");
+            UpgradeInProgress = false;
         }
 
         private IEnumerator WaitForPlayerSpellConfirmation(SpellSO oldSpellSo, SpellSO newSpellSo)
         {
+            PlayerController.PlayerInput.SwitchCurrentActionMap("UI");
+            
             _upgradeOverlayAnimator.Play("SpellEvolution");
+            
             DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 0, _timeWarpDuration).SetUpdate(true).SetEase(Ease.InCirc);
 
             yield return new WaitForSecondsRealtime(1.7f);
@@ -144,7 +163,15 @@ namespace UI.GameOverlay
             _spellEvolutionPanel.DOFade(1, 0.5f).SetUpdate(true);
             _spellEvolutionPanel.interactable = true;
             _spellEvolutionPanel.blocksRaycasts = true;
+            
+            _spellConfirmation.Select();
 
+            // while (_waitPlayerConfirmation.keepWaiting)
+            // {
+            //     InputSystem.Update();
+            //     yield return new WaitForSecondsRealtime(Time.unscaledDeltaTime);
+            // }
+            
             yield return _waitPlayerConfirmation.Reset();
 
             _spellEvolutionPanel.interactable = false;
@@ -159,6 +186,9 @@ namespace UI.GameOverlay
                 Time.timeScale = Mathf.Lerp(0, 1, t);
                 yield return null;
             }
+
+            PlayerController.PlayerInput.SwitchCurrentActionMap("Player");
+            UpgradeInProgress = false;
         }
 
         public void UpgradeConst()

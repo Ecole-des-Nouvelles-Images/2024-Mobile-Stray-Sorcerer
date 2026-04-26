@@ -1,6 +1,4 @@
-﻿using Gameplay;
-using Gameplay.GameData;
-using Manager;
+﻿using Gameplay.GameSaveDataSystem;
 using Player;
 using TMPro;
 using UnityEngine;
@@ -32,11 +30,11 @@ namespace UI
                 _minutes -= 60 * _hour;
             }
             if (_hour == 0 && _minutes == 0)
-                _textToChange.text = string.Format("{0,00}sec.", _seconds);
+                _textToChange.text = string.Format("{0,00} sec.", _seconds);
             else if(_hour == 0 && _minutes > 0)
-                _textToChange.text = string.Format("{0,00:00}min. {1,1:00}sec.",_minutes,_seconds);
+                _textToChange.text = string.Format("{0,00:00} : {1,1:00}",_minutes,_seconds);
             else
-                _textToChange.text = string.Format("{0,0:0}h. {1,1:00}min. {2,1:00}sec.",_hour,_minutes,_seconds);
+                _textToChange.text = string.Format("{0,0:0} : {1,1:00} : {2,1:00}",_hour,_minutes,_seconds);
         }
         private void SetupMazeCompleteStat()
         {

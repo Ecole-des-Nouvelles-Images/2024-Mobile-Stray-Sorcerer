@@ -1,11 +1,9 @@
 using System;
 using System.IO;
-using Manager;
-using Player;
 using UnityEngine;
 using Utils;
 
-namespace Gameplay.GameData
+namespace Gameplay.GameSaveDataSystem
 {
     public class DataSaveSystem : SingletonMonoBehaviour<DataSaveSystem>
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace Gameplay.GameData
+namespace Gameplay.GameSaveDataSystem
 {
     [Serializable]
     public class SettingsSnapshot

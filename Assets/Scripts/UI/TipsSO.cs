@@ -1,8 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Tips", menuName = "SO/Tips")]
-public class TipsSO : ScriptableObject
+namespace UI
 {
-    public List<string> TipsList;
+    [CreateAssetMenu(fileName = "New Tips", menuName = "SO/Tips")]
+    public class TipsSO : ScriptableObject
+    {
+        public List<string> TipsList;
+    }
 }

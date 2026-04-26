@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Gameplay;
-using Gameplay.GameData;
+using Gameplay.GameSaveDataSystem;
 using Player;
 using Player.AutoAttacks;
 using UnityEngine;

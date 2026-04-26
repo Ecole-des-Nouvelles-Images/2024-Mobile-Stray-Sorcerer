@@ -1,11 +1,8 @@
 using Gameplay;
-using Gameplay.GameData;
 using Player;
 using Player.AutoAttacks;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Rendering.Universal;
-using Utils;
 
 namespace AI.Monsters
 {

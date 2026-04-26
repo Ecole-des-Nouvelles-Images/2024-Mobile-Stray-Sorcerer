@@ -1,8 +1,4 @@
-using Gameplay;
-using Gameplay.GameData;
 using Manager;
-using Player;
-using TMPro;
 using UnityEngine;
 
 namespace UI

@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using Gameplay;
-using Gameplay.GameData;
+using Gameplay.GameSaveDataSystem;
 using Player;
+using UI.GameOverlay;
 using UnityEngine.InputSystem;
 // using Plugins.TextMesh_Pro.Examples___Extras.Scripts;
 using Utils;
@@ -51,6 +52,8 @@ namespace Manager
         [Header("Transition")]
         [SerializeField] private CanvasGroup _fader;
 
+        public Action<bool> OnTogglePauseState;
+
         public ControlSide CurrentControlSide { get; set; }
 
         public bool InPause { get; private set; }
@@ -63,6 +66,11 @@ namespace Manager
             gameObject.SetActive(false);
             LoadSettingsData();
             CurrentControlSide = _defaultControlSide;
+        }
+
+        private void OnDestroy()
+        {
+            OnTogglePauseState = null;
         }
 
         private void InitJoystick()
@@ -112,8 +120,13 @@ namespace Manager
 
         public void SwitchPausePanel()
         {
+            if (UpgradeOverlayUI.UpgradeInProgress)
+                return;
+            
             if (!InPause)
             {
+                PlayerController.PlayerInput.SwitchCurrentActionMap("UI");
+                
                 Time.timeScale = 0;
                 _pauseOverlay.gameObject.SetActive(true);
                 _pauseOverlay.DOFade(1, _panelSlideDuration).SetUpdate(true).SetEase(Ease.InOutCubic).OnComplete(() =>
@@ -127,6 +140,8 @@ namespace Manager
             }
             else
             {
+                PlayerController.PlayerInput.SwitchCurrentActionMap("Player");
+
                 Time.timeScale = 1;
                 _pauseOverlay.DOFade(0, _panelSlideDuration).SetUpdate(true).SetEase(Ease.InOutCubic).OnComplete(() =>
                 {
@@ -136,10 +151,15 @@ namespace Manager
                 });
                 InPause = false;
             }
+            
+            OnTogglePauseState.Invoke(InPause);
         }
         
         public void SwitchPausePanel(InputAction.CallbackContext ctx)
         {
+            if (UpgradeOverlayUI.UpgradeInProgress)
+                return;
+            
             if (!InPause)
             {
                 Time.timeScale = 0;
@@ -172,6 +192,7 @@ namespace Manager
                 _pausePanel.transform.DOLocalMoveX(-1500f, _panelSlideDuration).SetUpdate(true).SetEase(Ease.InOutCubic);
                 _optionsPanel.transform.DOLocalMoveX(0f, _panelSlideDuration).SetUpdate(true).SetEase(Ease.InOutCubic);
                 InOptions = true;
+                _musicSlider.Select();
             }
             else
             {
@@ -179,6 +200,7 @@ namespace Manager
                 _pausePanel.transform.DOLocalMoveX(0f, _panelSlideDuration).SetUpdate(true).SetEase(Ease.InOutCubic);
                 _optionsPanel.transform.DOLocalMoveX(1500f, _panelSlideDuration).SetUpdate(true).SetEase(Ease.InOutCubic);
                 InOptions = false;
+                _resumeButton.Select();
             }
         }
 

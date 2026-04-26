@@ -1,7 +1,7 @@
 using System.IO;
 using UnityEngine;
 
-namespace Gameplay.GameData
+namespace Gameplay.GameSaveDataSystem
 {
     public class Caretaker
     {

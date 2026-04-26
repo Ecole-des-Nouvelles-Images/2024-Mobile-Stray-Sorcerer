@@ -26,7 +26,7 @@ namespace UI.GameOverlay
             Character.OnLevelUp += UpdateLevelAndStats;
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             Character.OnExpChanged -= UpdateXP;
             Character.OnLevelUp -= UpdateLevelAndStats;
@@ -39,6 +39,7 @@ namespace UI.GameOverlay
 
         private void UpdateLevelAndStats()
         {
+            
             _level.text = $"Lv. {Character.Instance.Level}";
             _exp.maxValue = Character.Instance.RequireEXP;
         }

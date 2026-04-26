@@ -1,5 +1,4 @@
 using Gameplay;
-using Gameplay.GameData;
 using Player;
 using Player.AutoAttacks;
 using UnityEngine;

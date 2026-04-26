@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Gameplay;
-using Gameplay.GameData;
 using Manager;
 using Player.AutoAttacks;
 using Player.Spells_Effects;
@@ -138,7 +137,7 @@ namespace Player
         private bool _isDelay;
         private bool _isDead;
         private bool _rebootGame;
-        private float _boostMultplicator = 1.3f;
+        private readonly float _boostMultiplicator = 1.3f;
         private float _boostTime;
         private float _currentRebootTime;
 
@@ -148,6 +147,21 @@ namespace Player
 
         private bool _allowedToLevelUp = true;
 
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void OnRuntimeInitialization()
+        {
+            OnPlayerDeath = null;
+            OnHpChanged = null;
+            OnMaxHpChanged = null;
+            OnExpChanged = null;
+            OnSpellIndexChange = null;
+            OnLevelUp = null;
+            OnSpellUnlock = null;
+            OnDisplayUpgrade = null;
+            OnUpgradeStat = null;
+            OnSpeedBoost = null;
+        }
+        
         private void Awake()
         {
             if (_spells.Length > 0) CurrentSpellSo = _spells[0];
@@ -169,12 +183,21 @@ namespace Player
             OnSpeedBoost += SpeedBoost;
             OnLevelUp += LevelUpVFX;
         }
+        
         private void OnDisable()
         {
             OnUpgradeStat -= UpgradeStat;
             OnSpeedBoost -= SpeedBoost;
             OnLevelUp -= LevelUpVFX;
         }
+        
+        private void OnDestroy()
+        {
+            OnUpgradeStat -= UpgradeStat;
+            OnSpeedBoost -= SpeedBoost;
+            OnLevelUp -= LevelUpVFX;
+        }
+        
         private void Start()
         {
             ClockGame.Instance.ClockStart();
@@ -183,12 +206,12 @@ namespace Player
         private void Update()
         {
             //timer for speed boost
-            if (_isDelay && _boostTime < _boostDelay) _boostTime += Time.deltaTime;
+            if (_isDelay && _boostTime < _boostDelay) _boostTime += Time.fixedDeltaTime;
             if (_isDelay && _boostTime >= _boostDelay)
             {
                 _isDelay = false;
                 _boostTime = 0;
-                Speed /= _boostMultplicator;
+                Speed /= _boostMultiplicator;
                 _speedFX.SetActive(false);
                 _isBoosted = false;
             }
@@ -222,6 +245,7 @@ namespace Player
         }
         private void UpgradeStat(int indexStat)
         {
+            Debug.Log("[Character] Upgrade Stat call made !");
             switch (indexStat)
             {
                 case 1:
@@ -250,7 +274,7 @@ namespace Player
         {
             if (isActive && _isBoosted == false)
             {
-                Speed *= _boostMultplicator;
+                Speed *= _boostMultiplicator;
                 _speedFX.SetActive(true);
                 _isBoosted = true;
                 return;

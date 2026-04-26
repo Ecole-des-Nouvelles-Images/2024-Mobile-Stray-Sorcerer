@@ -1,5 +1,4 @@
 using Gameplay;
-using Gameplay.GameData;
 using UnityEngine;
 
 namespace AI.Monsters

@@ -11,7 +11,7 @@ PlayerSettings:
   defaultScreenOrientation: 4
   targetDevice: 2
   useOnDemandResources: 0
-  accelerometerFrequency: 60
+  accelerometerFrequency: 0
   companyName: Ecole des Nouvelles Images
   productName: A Stray Sorcerer
   defaultCursor: {fileID: 0}
@@ -150,7 +150,7 @@ PlayerSettings:
   loadStoreDebugModeEnabled: 0
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
-  bundleVersion: 0.10.1-pre
+  bundleVersion: 0.12.0.tv-alpha
   preloadedAssets:
   - {fileID: 7326675934701390548, guid: 860bf808d604fe24f8e2bb8a703fd4ca, type: 3}
   - {fileID: 3219684139384132243, guid: 45d453360ffcba34993a620d4091d86c, type: 3}
@@ -170,6 +170,7 @@ PlayerSettings:
   - {fileID: 7378932516293782701, guid: 15f32fca82406d142bed1289607abf71, type: 3}
   - {fileID: 7388351048592758067, guid: 87d190a34966ff6419b40305c7386849, type: 3}
   - {fileID: 102900000, guid: 1f1e54ef2bdfa0842953e1ac2b59cb29, type: 3}
+  - {fileID: 20000000, guid: 12706648eae9a634f97300d16b8b1f50, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -216,7 +217,7 @@ PlayerSettings:
   keepLoadedShadersAlive: 0
   StripUnusedMeshComponents: 1
   strictShaderVariantMatching: 0
-  VertexChannelCompressionMask: 4054
+  VertexChannelCompressionMask: 200
   iPhoneSdkVersion: 988
   iOSSimulatorArchitecture: 0
   iOSTargetOSVersionString: 15.0
@@ -597,8 +598,8 @@ PlayerSettings:
     m_APIs: 150000000b000000
     m_Automatic: 1
   - m_BuildTarget: WindowsStandaloneSupport
-    m_APIs: 150000000200000012000000
-    m_Automatic: 0
+    m_APIs: 1200000002000000
+    m_Automatic: 1
   m_BuildTargetVRSettings: []
   m_DefaultShaderChunkSizeInMB: 16
   m_DefaultShaderChunkCount: 0
@@ -925,8 +926,10 @@ PlayerSettings:
   platformArchitecture: {}
   scriptingBackend:
     Android: 1
+    Standalone: 1
   il2cppCompilerConfiguration:
     Android: 0
+    Standalone: 2
   il2cppCodeGeneration: {}
   il2cppStacktraceInformation: {}
   managedStrippingLevel:
@@ -939,6 +942,7 @@ PlayerSettings:
     PS5: 1
     QNX: 1
     Stadia: 1
+    Standalone: 1
     VisionOS: 1
     WebGL: 1
     Windows Store Apps: 1
@@ -957,14 +961,15 @@ PlayerSettings:
   editorAssembliesCompatibilityLevel: 1
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: Mobile-Mazing-Survivor
+  metroPackageName: StraySorcer0.12.0.tv-alpha
   metroPackageVersion: 1.0.0.0
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
   metroCertificateIssuer: 
   metroCertificateNotAfter: 0000000000000000
-  metroApplicationDescription: Mobile-Mazing-Survivor
+  metroApplicationDescription: "A maze-like game made by students of the \xAB \xC9cole
+    des Nouvelles Images \xBB"
   wsaImages: {}
   metroTileShortName: Mobile-Mazing-Survivor
   metroTileShowName: 0

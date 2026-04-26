@@ -1,7 +1,6 @@
 using AI.Monsters;
 using UnityEngine;
 using Utils;
-using Random = Unity.Mathematics.Random;
 
 namespace Player.AutoAttacks
 {
