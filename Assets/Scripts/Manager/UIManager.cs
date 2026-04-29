@@ -8,8 +8,8 @@ using Gameplay.GameSaveDataSystem;
 using Player;
 using UI.GameOverlay;
 using UnityEngine.InputSystem;
-// using Plugins.TextMesh_Pro.Examples___Extras.Scripts;
 using Utils;
+using Object = System.Object;
 
 namespace Manager
 {
@@ -66,6 +66,8 @@ namespace Manager
             gameObject.SetActive(false);
             LoadSettingsData();
             CurrentControlSide = _defaultControlSide;
+
+            _fader = GameObject.FindGameObjectWithTag("Fader").GetComponent<CanvasGroup>();
         }
 
         private void OnDestroy()
@@ -268,15 +270,21 @@ namespace Manager
         {
             ClockGame.Instance.ClockStop();
             ClockGame.Instance.Reset();
-            if (Character.Instance)
-            {
-                Destroy(Character.Instance.gameObject);
-            }
+            
             _fader.DOFade(1, 1.5f).SetUpdate(true).OnComplete(() =>
             {
                 Time.timeScale = 1;
-                SceneLoader.Instance.LoadTitleScreen();
+                SceneLoader.Instance.FullReload();
             });
+        }
+
+        public void QuitGame()
+        {
+            Application.Quit();
+            
+            #if UNITY_EDITOR
+            UnityEditor.EditorApplication.ExitPlaymode();
+            #endif
         }
 
         public void ToggleFPSCounter()

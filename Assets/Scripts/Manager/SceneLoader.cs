@@ -35,6 +35,11 @@ namespace Manager
             _currentScene = _titleScreen;
         }
 
+        public void FullReload()
+        {
+            SceneManager.LoadScene(_setup, LoadSceneMode.Single);
+        }
+
         public void LoadTitleScreen()
         {
             StartCoroutine(LoadCoroutine(_titleScreen, false));
@@ -54,6 +59,8 @@ namespace Manager
             OnLaunchGame?.Invoke();
             StartCoroutine(ReloadGameSceneCoroutine());
         }
+        
+        #region Coroutines
 
         private IEnumerator LoadCoroutine(SceneField scene, bool isGameScene)
         {
@@ -143,5 +150,7 @@ namespace Manager
 
             return player;
         }
+        
+        #endregion
     }
 }

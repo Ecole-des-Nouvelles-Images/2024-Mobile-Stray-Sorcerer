@@ -26524,7 +26524,7 @@ MonoBehaviour:
     m_ActionId: f27a1a98-b580-49b2-aa5f-e4d1a952f9bc
     m_ActionName: UI/TrackedDeviceOrientation
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Gamepad
+  m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -26549,13 +26549,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7388351048592758067}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f988c205b2d74b879307b94925936253, type: 3}
+  m_Script: {fileID: 11500000, guid: 93a7c1badaef4216b67079986f85ca48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _characterAnimator: {fileID: 4768240579939408225}
-  _accelerometerSensibility: 0.01
-  _accModifier: 1.5
-  _cameraTransposerMaxOffset: 5
+  _cameraTransposerMaxOffset: 0.6
 --- !u!114 &5750860220335815231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26827,32 +26825,32 @@ PrefabInstance:
     - target: {fileID: 399749994357806679, guid: 56d035ed23a2a684a9cb9989826cf34c,
         type: 3}
       propertyPath: m_AABB.m_Center.x
-      value: -1.6819193
+      value: NaN
       objectReference: {fileID: 0}
     - target: {fileID: 399749994357806679, guid: 56d035ed23a2a684a9cb9989826cf34c,
         type: 3}
       propertyPath: m_AABB.m_Center.y
-      value: 1.9635109
+      value: NaN
       objectReference: {fileID: 0}
     - target: {fileID: 399749994357806679, guid: 56d035ed23a2a684a9cb9989826cf34c,
         type: 3}
       propertyPath: m_AABB.m_Center.z
-      value: -0.04647799
+      value: NaN
       objectReference: {fileID: 0}
     - target: {fileID: 399749994357806679, guid: 56d035ed23a2a684a9cb9989826cf34c,
         type: 3}
       propertyPath: m_AABB.m_Extent.x
-      value: 0.2989583
+      value: NaN
       objectReference: {fileID: 0}
     - target: {fileID: 399749994357806679, guid: 56d035ed23a2a684a9cb9989826cf34c,
         type: 3}
       propertyPath: m_AABB.m_Extent.y
-      value: 0.28021228
+      value: NaN
       objectReference: {fileID: 0}
     - target: {fileID: 399749994357806679, guid: 56d035ed23a2a684a9cb9989826cf34c,
         type: 3}
       propertyPath: m_AABB.m_Extent.z
-      value: 0.18142581
+      value: NaN
       objectReference: {fileID: 0}
     - target: {fileID: 408381206259614815, guid: 56d035ed23a2a684a9cb9989826cf34c,
         type: 3}
@@ -26992,32 +26990,32 @@ PrefabInstance:
     - target: {fileID: 4311986821898133901, guid: 56d035ed23a2a684a9cb9989826cf34c,
         type: 3}
       propertyPath: m_AABB.m_Center.x
-      value: 1.6939945
+      value: NaN
       objectReference: {fileID: 0}
     - target: {fileID: 4311986821898133901, guid: 56d035ed23a2a684a9cb9989826cf34c,
         type: 3}
       propertyPath: m_AABB.m_Center.y
-      value: 1.9630315
+      value: NaN
       objectReference: {fileID: 0}
     - target: {fileID: 4311986821898133901, guid: 56d035ed23a2a684a9cb9989826cf34c,
         type: 3}
       propertyPath: m_AABB.m_Center.z
-      value: -0.043625116
+      value: NaN
       objectReference: {fileID: 0}
     - target: {fileID: 4311986821898133901, guid: 56d035ed23a2a684a9cb9989826cf34c,
         type: 3}
       propertyPath: m_AABB.m_Extent.x
-      value: 0.2981285
+      value: NaN
       objectReference: {fileID: 0}
     - target: {fileID: 4311986821898133901, guid: 56d035ed23a2a684a9cb9989826cf34c,
         type: 3}
       propertyPath: m_AABB.m_Extent.y
-      value: 0.28068447
+      value: NaN
       objectReference: {fileID: 0}
     - target: {fileID: 4311986821898133901, guid: 56d035ed23a2a684a9cb9989826cf34c,
         type: 3}
       propertyPath: m_AABB.m_Extent.z
-      value: 0.18080111
+      value: NaN
       objectReference: {fileID: 0}
     - target: {fileID: 4498892878901912315, guid: 56d035ed23a2a684a9cb9989826cf34c,
         type: 3}
@@ -27107,32 +27105,32 @@ PrefabInstance:
     - target: {fileID: 5054832654813834808, guid: 56d035ed23a2a684a9cb9989826cf34c,
         type: 3}
       propertyPath: m_AABB.m_Center.x
-      value: 0.0324156
+      value: NaN
       objectReference: {fileID: 0}
     - target: {fileID: 5054832654813834808, guid: 56d035ed23a2a684a9cb9989826cf34c,
         type: 3}
       propertyPath: m_AABB.m_Center.y
-      value: 0.37683308
+      value: NaN
       objectReference: {fileID: 0}
     - target: {fileID: 5054832654813834808, guid: 56d035ed23a2a684a9cb9989826cf34c,
         type: 3}
       propertyPath: m_AABB.m_Center.z
-      value: -0.27257502
+      value: NaN
       objectReference: {fileID: 0}
     - target: {fileID: 5054832654813834808, guid: 56d035ed23a2a684a9cb9989826cf34c,
         type: 3}
       propertyPath: m_AABB.m_Extent.x
-      value: 1.0143068
+      value: NaN
       objectReference: {fileID: 0}
     - target: {fileID: 5054832654813834808, guid: 56d035ed23a2a684a9cb9989826cf34c,
         type: 3}
       propertyPath: m_AABB.m_Extent.y
-      value: 0.6386337
+      value: NaN
       objectReference: {fileID: 0}
     - target: {fileID: 5054832654813834808, guid: 56d035ed23a2a684a9cb9989826cf34c,
         type: 3}
       propertyPath: m_AABB.m_Extent.z
-      value: 0.87683976
+      value: NaN
       objectReference: {fileID: 0}
     - target: {fileID: 5188787091615404164, guid: 56d035ed23a2a684a9cb9989826cf34c,
         type: 3}

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Manager;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -119,15 +119,11 @@ namespace Player
 
         public void OnPause(InputAction.CallbackContext context)
         {
-            if (context.canceled || context.started) return;
-            
             UIManager.Instance.SwitchPausePanel();
         }
 
         public void OnResume(InputAction.CallbackContext context)
         {
-            if (context.canceled || context.started) return;
-            
             UIManager.Instance.SwitchPausePanel();
         }
 

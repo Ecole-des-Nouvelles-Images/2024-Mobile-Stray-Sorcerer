@@ -150,7 +150,7 @@ PlayerSettings:
   loadStoreDebugModeEnabled: 0
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
-  bundleVersion: 0.12.0.tv-alpha
+  bundleVersion: 0.12.1.tv-alpha
   preloadedAssets:
   - {fileID: 7326675934701390548, guid: 860bf808d604fe24f8e2bb8a703fd4ca, type: 3}
   - {fileID: 3219684139384132243, guid: 45d453360ffcba34993a620d4091d86c, type: 3}
@@ -171,6 +171,7 @@ PlayerSettings:
   - {fileID: 7388351048592758067, guid: 87d190a34966ff6419b40305c7386849, type: 3}
   - {fileID: 102900000, guid: 1f1e54ef2bdfa0842953e1ac2b59cb29, type: 3}
   - {fileID: 20000000, guid: 12706648eae9a634f97300d16b8b1f50, type: 2}
+  - {fileID: 11400000, guid: db34bb1c729bc4d43a382cf82d2df559, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -584,6 +585,9 @@ PlayerSettings:
   m_BuildTargetBatching:
   - m_BuildTarget: Android
     m_StaticBatching: 0
+    m_DynamicBatching: 1
+  - m_BuildTarget: Standalone
+    m_StaticBatching: 1
     m_DynamicBatching: 1
   m_BuildTargetShaderSettings: []
   m_BuildTargetGraphicsJobs:

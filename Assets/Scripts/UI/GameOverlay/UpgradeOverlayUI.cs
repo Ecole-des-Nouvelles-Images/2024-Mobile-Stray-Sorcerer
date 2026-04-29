@@ -65,11 +65,25 @@ namespace UI.GameOverlay
             Character.OnDisplayUpgrade += UpgradeDisplay;
             Character.OnSpellUnlock += SpellUpgradeDisplay;
         }
+        
+        private void OnDisable()
+        {
+            Character.OnDisplayUpgrade -= UpgradeDisplay;
+            Character.OnSpellUnlock -= SpellUpgradeDisplay;
+            
+            StopAllCoroutines();
+
+            UpgradeInProgress = false;
+        }
 
         private void OnDestroy()
         {
             Character.OnDisplayUpgrade -= UpgradeDisplay;
             Character.OnSpellUnlock -= SpellUpgradeDisplay;
+            
+            StopAllCoroutines();
+            
+            UpgradeInProgress = false;
         }
 
         private void UpgradeDisplay()

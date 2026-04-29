@@ -2,6 +2,7 @@
 using Player;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UI
 {
@@ -14,6 +15,9 @@ namespace UI
         [Header("best run")]
         [SerializeField] private TMP_Text _timePassedBRD;
         [SerializeField] private TMP_Text _monsterKillCountBRD;
+
+        [Header("Button")]
+        [SerializeField] private Button _returnToTitleScreen;
         
         private int _hour;
         private int _minutes;
@@ -44,6 +48,8 @@ namespace UI
 
         public void UpdateDisplay()
         {
+            _returnToTitleScreen.Select();
+            
             SetupMazeCompleteStat();
             SetupTimeDisplay(_timePassed);
             SetupTimeDisplay(_timePassedBRD);

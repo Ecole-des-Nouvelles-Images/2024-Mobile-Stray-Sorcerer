@@ -8,7 +8,7 @@ namespace UI
         public void ReturnTitle()
         {
             Time.timeScale = 1;
-            SceneLoader.Instance.LoadTitleScreen();
+            SceneLoader.Instance.FullReload();
         }
     }
 }

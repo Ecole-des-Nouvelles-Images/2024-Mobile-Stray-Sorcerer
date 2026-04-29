@@ -1609,7 +1609,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_NormalColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -1632,7 +1632,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 3102016126088662389}
         m_TargetAssemblyTypeName: UI.MazeCompleteUI, Assembly-CSharp
         m_MethodName: ReturnTitle
         m_Mode: 1
@@ -2436,7 +2436,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 7
+  m_AdditionalShaderChannelsFlag: 31
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -2497,6 +2497,7 @@ MonoBehaviour:
   _monsterKillCount: {fileID: 1136264678483266458}
   _timePassedBRD: {fileID: 251866906758956876}
   _monsterKillCountBRD: {fileID: 5014179894930925992}
+  _returnToTitleScreen: {fileID: 4210387084878553666}
 --- !u!1 &7700204309282365586
 GameObject:
   m_ObjectHideFlags: 0
