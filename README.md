@@ -48,14 +48,14 @@ This application should be compatible starting Android version 5.1 but device re
 
 ### Trailer music
 
-Titre: Epic Symphony No. 25
-Compositeurs: Alexius Tschallener [SUISA] 17%, Dominik Luke Marsden Johnson [PRS] 17%, Joni Amelia Fuller [PRS] 50%, Tosini Parma [PRS] 16%
-Editeurs: Chalk Music [PRS] 100%
-Album: Fantastical Classical - Trailer Remix
-Catalogue/Numéro: CHALK116-7
-Labels: Chalk
-German Label Code: LC 82157
-ISRC: GB-WC7-26-04530
+* Titre: Epic Symphony No. 25
+* Compositeurs: Alexius Tschallener [SUISA] 17%, Dominik Luke Marsden Johnson [PRS] 17%, Joni Amelia Fuller [PRS] 50%, Tosini Parma [PRS] 16%
+* Editeurs: Chalk Music [PRS] 100%
+* Album: Fantastical Classical - Trailer Remix
+* Catalogue/Numéro: CHALK116-7
+* Labels: Chalk
+* German Label Code: LC 82157
+* ISRC: GB-WC7-26-04530
 
 *Universal Production Music Licensed*
 
