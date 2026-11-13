@@ -3,6 +3,7 @@ using Gameplay;
 using Manager;
 using Player;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UI
 {
@@ -12,11 +13,15 @@ namespace UI
         [SerializeField] private GameObject _deathDisplay;
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private CanvasGroup _fader;
+        [SerializeField] private Button _confirm;
         [SerializeField] float _fadeDuration = 1f;
 
         private void OnEnable()
         {
             Character.OnPlayerDeath += SelfActivation;
+
+            _confirm.enabled = true;
+            _confirm.interactable = true;
         }
 
         private void OnDisable()
@@ -41,6 +46,7 @@ namespace UI
             {
                 _canvasGroup.interactable = true;
                 _canvasGroup.blocksRaycasts = true;
+                _confirm.Select();
             });
         }
 

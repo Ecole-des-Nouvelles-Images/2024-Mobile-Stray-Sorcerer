@@ -12,6 +12,8 @@ namespace Player
     [RequireComponent(typeof(PlayerInput))]
     public class PlayerController : MonoBehaviour
     {
+        public static PlayerInput PlayerInput { get; private set; }
+
         public static readonly int IsMoving = Animator.StringToHash("isMoving");
 
         [Header("Reference")]
@@ -28,11 +30,10 @@ namespace Player
 
         private CinemachinePositionComposer _cameraFramingTransposer;
         private Rigidbody _rb;
-        
-        public static PlayerInput PlayerInput { get; private set; }
+
         private InputActionMap _playerActions;
         private InputActionMap _uiActions;
-        
+
         private Coroutine _cameraTrackingCoroutine;
 
         private float _currentForwardAmount;
@@ -45,13 +46,13 @@ namespace Player
         }
 
         private void Start()
-        {            
+        {
             _rb = GetComponent<Rigidbody>();
 
             PlayerInput = GetComponent<PlayerInput>();
             _playerActions = PlayerInput.actions.FindActionMap("Player");
             _uiActions = PlayerInput.actions.FindActionMap("UI");
-            
+
             ManageCallbacks(CallbackOperation.Subscribe);
         }
 
@@ -76,10 +77,10 @@ namespace Player
             {
                 if (UIManager.Instance)
                     UIManager.Instance.OnTogglePauseState -= SwitchToUIActionMap;
-                
+
                 _playerActions.FindAction("Move").performed -= OnMove;
                 _playerActions.FindAction("Pause").started -= OnPause;
-                
+
                 _uiActions.FindAction("Resume").started -= OnResume;
                 _uiActions.FindAction("Navigate").started -= OnNavigate;
                 _uiActions.FindAction("Submit").started -= OnSubmit;
@@ -88,10 +89,10 @@ namespace Player
             else
             {
                 UIManager.Instance.OnTogglePauseState += SwitchToUIActionMap;
-                
+
                 _playerActions.FindAction("Move").performed += OnMove;
                 _playerActions.FindAction("Pause").started += OnPause;
-                
+
                 _uiActions.FindAction("Resume").started += OnResume;
                 _uiActions.FindAction("Navigate").started += OnNavigate;
                 _uiActions.FindAction("Submit").started += OnSubmit;
@@ -105,7 +106,7 @@ namespace Player
         }
 
         #region PlayerInputActions callbacks
-        
+
         public void OnMove(InputAction.CallbackContext context)
         {
             if (IsStandby) return;
@@ -189,18 +190,18 @@ namespace Player
         {
             // Not used manually, used by UI Input Module
         }
-        
+
         #endregion
-        
+
         #region Experimental
-        
+
         // [Header("Inputs")]
         // [SerializeField] private float _accelerometerSensibility = 0.01f;
         // [Tooltip("Internal modifier specific to the accelerometer")]
         // [SerializeField] private float _accModifier = 1f;
-        
+
         // private bool _isAccelerometerControlled = true;
-        
+
         /*public void AccelerometerMove(InputAction.CallbackContext ctx)
         {
             if (IsStandby) return;
@@ -219,7 +220,7 @@ namespace Player
 
             _rb.linearVelocity = new Vector3(direction.y * -1, 0, direction.x) * Character.Instance.Speed * _accModifier * Time.fixedDeltaTime;
         }*/
-        
+
         #endregion
     }
 }
