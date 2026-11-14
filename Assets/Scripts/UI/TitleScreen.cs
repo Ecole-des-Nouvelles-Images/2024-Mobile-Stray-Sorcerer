@@ -26,7 +26,6 @@ namespace UI
             if (_quitAction.bindings.Count == 0)
             {
                 _quitAction.AddBinding("<Gamepad>/select").WithInteraction("hold(duration=3)");
-                _quitAction.AddBinding("<Gamepad>/start").WithInteraction("hold(duration=3)");
             }
             _quitAction.Enable();
         }
