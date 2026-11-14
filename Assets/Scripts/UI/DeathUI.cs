@@ -1,4 +1,4 @@
-﻿using DG.Tweening;
+using DG.Tweening;
 using Gameplay;
 using Manager;
 using Player;
@@ -46,6 +46,7 @@ namespace UI
             {
                 _canvasGroup.interactable = true;
                 _canvasGroup.blocksRaycasts = true;
+                EnableUIInputActions();
                 _confirm.Select();
             });
         }

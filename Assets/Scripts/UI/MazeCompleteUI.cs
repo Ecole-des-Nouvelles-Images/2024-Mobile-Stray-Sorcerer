@@ -1,14 +1,19 @@
-﻿using Gameplay.GameSaveDataSystem;
+using DG.Tweening;
+using Gameplay;
+using Gameplay.GameSaveDataSystem;
 using Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UI;
 
 namespace UI
 {
     public class MazeCompleteUI : EndGameUI
     {
+        [Header("Display")]
+        [SerializeField] private CanvasGroup _canvasGroup;
+        [SerializeField] private float _fadeDuration = 1f;
+
         [Header("current run")]
         [SerializeField] private TMP_Text _timePassed;
         [SerializeField] private TMP_Text _monsterKillCount;
@@ -24,6 +29,41 @@ namespace UI
         private int _minutes;
         private int _seconds;
         private TMP_Text _textToChange;
+
+        private void OnEnable()
+        {
+            Exit.OnMazeExitReached += SelfActivation;
+        }
+
+        private void OnDisable()
+        {
+            Exit.OnMazeExitReached -= SelfActivation;
+        }
+
+        private void OnDestroy()
+        {
+            Exit.OnMazeExitReached -= SelfActivation;
+        }
+
+        private void Start()
+        {
+            _canvasGroup.alpha = 0;
+            _canvasGroup.interactable = false;
+            _canvasGroup.blocksRaycasts = false;
+        }
+
+        private void SelfActivation()
+        {
+            UpdateDisplay();
+
+            _canvasGroup.DOFade(1, _fadeDuration).SetUpdate(true).OnComplete(() =>
+            {
+                _canvasGroup.interactable = true;
+                _canvasGroup.blocksRaycasts = true;
+                EnableUIInputActions();
+                _returnToTitleScreen.Select();
+            });
+        }
         
         private void SetupTimeDisplay(TMP_Text timeToFormate)
         {
@@ -47,10 +87,8 @@ namespace UI
             _monsterKillCountBRD.text = DataSaveSystem.Instance.BRDKill.ToString();
         }
 
-        public void UpdateDisplay()
+        private void UpdateDisplay()
         {
-            _returnToTitleScreen.Select();
-            
             SetupMazeCompleteStat();
             SetupTimeDisplay(_timePassed);
             SetupTimeDisplay(_timePassedBRD);
