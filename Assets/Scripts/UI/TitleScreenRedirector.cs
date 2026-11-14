@@ -17,16 +17,18 @@ namespace UI
         {
             _startAction.started += OnStartPerformed;
         }
-        
+
         private void OnDisable()
         {
             _startAction.started -= OnStartPerformed;
             _startAction.Disable();
         }
-        
+
         private void OnStartPerformed(InputAction.CallbackContext context)
         {
             SceneLoader.Instance.LaunchGame();
+
+            _startAction.Disable();
         }
     }
 }
