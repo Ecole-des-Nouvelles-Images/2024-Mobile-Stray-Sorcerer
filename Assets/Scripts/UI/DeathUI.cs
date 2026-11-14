@@ -1,8 +1,9 @@
-﻿using DG.Tweening;
-using Gameplay.GameData;
+using DG.Tweening;
+using Gameplay;
 using Manager;
 using Player;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UI
 {
@@ -11,15 +12,25 @@ namespace UI
         [Header("Death Display")]
         [SerializeField] private GameObject _deathDisplay;
         [SerializeField] private CanvasGroup _canvasGroup;
+        [SerializeField] private CanvasGroup _title;
         [SerializeField] private CanvasGroup _fader;
+        [SerializeField] private GameObject _returnToTitle;
+        [SerializeField] private Button _confirm;
         [SerializeField] float _fadeDuration = 1f;
 
         private void OnEnable()
         {
             Character.OnPlayerDeath += SelfActivation;
+
+            _confirm.enabled = true;
+            _confirm.interactable = true;
         }
 
         private void OnDisable()
+        {
+            Character.OnPlayerDeath -= SelfActivation;
+        }
+        private void OnDestroy()
         {
             Character.OnPlayerDeath -= SelfActivation;
         }
@@ -35,26 +46,29 @@ namespace UI
 
             _canvasGroup.DOFade(1, _fadeDuration).SetUpdate(true).OnComplete(() =>
             {
+                _title.DOFade(1, _fadeDuration * 2).SetUpdate(true).OnComplete(() =>
+                {
+                    _returnToTitle.SetActive(true);
+                });
+
                 _canvasGroup.interactable = true;
                 _canvasGroup.blocksRaycasts = true;
+                EnableUIInputActions();
+                _confirm.Select();
             });
-
-            DataCollector.Instance.Death();
-            UpdateDisplay();
         }
 
-        public void ReturnTitle()
+        public new void ReturnTitle()
         {
             _canvasGroup.interactable = false;
             _canvasGroup.blocksRaycasts = false;
 
             ClockGame.Instance.Reset();
 
-            _canvasGroup.DOFade(0, _fadeDuration).SetUpdate(true);
-            _fader.DOFade(1, _fadeDuration).SetUpdate(true).OnComplete(() =>
+            _returnToTitle.SetActive(false);
+            _title.DOFade(0, _fadeDuration).SetUpdate(true).OnComplete(() =>
             {
                 Time.timeScale = 1;
-                DataCollector.Instance.ResetSave();
                 SceneLoader.Instance.LoadTitleScreen();
             });
         }

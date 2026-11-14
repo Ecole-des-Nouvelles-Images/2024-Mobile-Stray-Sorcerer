@@ -392,7 +392,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -560,7 +560,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -764,7 +764,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -1771,6 +1771,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2924831261382767732, guid: e7d4a486564550848a5f801e19c3dedd,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3529184428381377452, guid: e7d4a486564550848a5f801e19c3dedd,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -1779,6 +1784,11 @@ PrefabInstance:
     - target: {fileID: 4021215043588609723, guid: e7d4a486564550848a5f801e19c3dedd,
         type: 3}
       propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8225198102311695771, guid: e7d4a486564550848a5f801e19c3dedd,
+        type: 3}
+      propertyPath: m_DynamicOccludee
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1860,6 +1870,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2924831261382767732, guid: e7d4a486564550848a5f801e19c3dedd,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3529184428381377452, guid: e7d4a486564550848a5f801e19c3dedd,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -1868,6 +1883,11 @@ PrefabInstance:
     - target: {fileID: 4021215043588609723, guid: e7d4a486564550848a5f801e19c3dedd,
         type: 3}
       propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8225198102311695771, guid: e7d4a486564550848a5f801e19c3dedd,
+        type: 3}
+      propertyPath: m_DynamicOccludee
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1949,6 +1969,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2924831261382767732, guid: e7d4a486564550848a5f801e19c3dedd,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3529184428381377452, guid: e7d4a486564550848a5f801e19c3dedd,
         type: 3}
       propertyPath: m_StaticEditorFlags
@@ -1957,6 +1982,11 @@ PrefabInstance:
     - target: {fileID: 4021215043588609723, guid: e7d4a486564550848a5f801e19c3dedd,
         type: 3}
       propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8225198102311695771, guid: e7d4a486564550848a5f801e19c3dedd,
+        type: 3}
+      propertyPath: m_DynamicOccludee
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

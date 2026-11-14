@@ -3,7 +3,7 @@ using UnityEditor;
 
 namespace Editor.CustomInspectors
 {
-    [CustomEditor(typeof(Spell))]
+    [CustomEditor(typeof(SpellSO))]
     public class SpellInspector : UnityEditor.Editor
     {
         // Start is called before the first frame update

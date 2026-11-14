@@ -1,4 +1,4 @@
-using Gameplay.GameData;
+using Gameplay;
 using TMPro;
 using UnityEngine;
 

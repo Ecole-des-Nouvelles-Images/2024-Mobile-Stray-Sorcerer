@@ -2,6 +2,7 @@ using Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UI;
 
 namespace UI.GameOverlay
 {
@@ -26,7 +27,7 @@ namespace UI.GameOverlay
             Character.OnLevelUp += UpdateLevelAndStats;
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             Character.OnExpChanged -= UpdateXP;
             Character.OnLevelUp -= UpdateLevelAndStats;
@@ -39,7 +40,8 @@ namespace UI.GameOverlay
 
         private void UpdateLevelAndStats()
         {
-            _level.text = $"Lv. {Character.Instance.Level}";
+            
+            LocalizationText.Set(_level, "LEVEL_FORMAT", Character.Instance.Level);
             _exp.maxValue = Character.Instance.RequireEXP;
         }
     }

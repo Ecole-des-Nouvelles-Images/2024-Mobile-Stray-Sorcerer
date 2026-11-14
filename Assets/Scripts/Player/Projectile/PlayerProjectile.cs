@@ -10,7 +10,7 @@ namespace Player.Projectile
         private GameObject _impactPrefab;
         private Rigidbody _rb;
         private Collider _myCollider;
-        private Spell _mySpell;
+        private SpellSO _mySpellSo;
         private string _name;
         private GameObject _projectilePrefab;
         private int _damage;
@@ -24,15 +24,16 @@ namespace Player.Projectile
         {
             _rb = transform.GetComponent<Rigidbody>();
             _myCollider = transform.GetComponent<Collider>();
-            _mySpell = Character.Instance.CurrentSpell;
-            _name = _mySpell.Name;
-            _damage = _mySpell.Damage + (int)Character.Instance.SpellPower;
-            _pierce = _mySpell.Pierce;
-            _pierceValue = _mySpell.PierceValue;
-            _bounce = _mySpell.Bounce;
-            _bounceValue = _mySpell.BounceValue;
-            _areaInvoker = _mySpell.AreaInvoker;
-            _areaPrefab = _mySpell.ZonePrefab;
+            _mySpellSo = Character.Instance.CurrentSpellSo;
+            _name = _mySpellSo.Name;
+            _damage = _mySpellSo.Damage + (int)Character.Instance.SpellPower;
+            _pierce = _mySpellSo.Pierce;
+            _pierceValue = _mySpellSo.PierceValue;
+            _bounce = _mySpellSo.Bounce;
+            _bounceValue = _mySpellSo.BounceValue;
+            _areaInvoker = _mySpellSo.AreaInvoker;
+            _areaPrefab = _mySpellSo.ZonePrefab;
+            _impactPrefab = _mySpellSo.ImpactPrefab;
         }
 
         private void Start()
@@ -45,14 +46,14 @@ namespace Player.Projectile
         }
 
         private void Update() {
-            if (_rb.velocity != Vector3.zero)
+            if (_rb.linearVelocity != Vector3.zero)
             {
-                Quaternion targetRotation = Quaternion.LookRotation(_rb.velocity, Vector3.up);
+                Quaternion targetRotation = Quaternion.LookRotation(_rb.linearVelocity, Vector3.up);
                 _rb.MoveRotation(targetRotation);
             }
-            if (_bounceDetector.IsBounceCollideActive && _myCollider.isTrigger && _bounce) 
+            if (_bounceDetector.IsBounceCollideActive && _myCollider.isTrigger && _bounce)
                 _myCollider.isTrigger = false;
-            if (_bounceDetector.IsBounceCollideActive == false && _myCollider.isTrigger == false && _bounce) 
+            if (!_bounceDetector.IsBounceCollideActive && !_myCollider.isTrigger && _bounce)
                 _myCollider.isTrigger = true;
         }
 
@@ -60,6 +61,7 @@ namespace Player.Projectile
         {
             if (other.transform.CompareTag("Wall") && _pierce)
             {
+                Impact();
                 Destroy(gameObject);
             }
             if (other.transform.CompareTag("Enemy"))
@@ -68,9 +70,13 @@ namespace Player.Projectile
                 CastArea(other.transform);
                 other.transform.GetComponent<Monster>().TakeDamage(_damage);
                 if(!_pierce && !_bounce)
+                {
+                    Impact();
                     Destroy(gameObject);
+                }
                 if (_pierce && _pierceValue <= 0)
                 {
+                    Impact();
                     Destroy(gameObject);
                 }
                 else if(_pierce)
@@ -87,7 +93,7 @@ namespace Player.Projectile
                 if (_bounce) _myCollider.isTrigger = true;
                return;
             }
-            
+
             if (other.transform.CompareTag("Enemy"))
             {
                 _rb.constraints = RigidbodyConstraints.FreezePositionY;
@@ -99,14 +105,18 @@ namespace Player.Projectile
             {
                 if (_bounce && _bounceValue <= 0)
                 {
-                    
+                    Impact();
                     Destroy(gameObject);
                 }
                 else
                 {
                     _bounceValue--;
                 }
-                if(_bounce == false) Destroy(gameObject);
+                if(_bounce == false)
+                {
+                    Impact();
+                    Destroy(gameObject);
+                }
             }
         }
 
@@ -129,6 +139,12 @@ namespace Player.Projectile
 
                 if (_areaInvoker && _areaPrefab == null) Debug.LogError("Prefab area is null");
             }
+        }
+
+        private void Impact()
+        {
+            GameObject impact = Instantiate(_impactPrefab,transform.position,Quaternion.identity);
+            Destroy(impact,1);
         }
     }
 }

@@ -1,94 +1,45 @@
-using Gameplay.GameData;
-using TMPro;
+using Manager;
 using UnityEngine;
 
 namespace UI
 {
     public abstract class EndGameUI : MonoBehaviour
     {
-        [Header("current run")]
-        [SerializeField] private TMP_Text _mazeCompleteDisplay;
-        [SerializeField] private TMP_Text _timePassed;
-        [SerializeField] private TMP_Text _monsterKillCount;
-        [SerializeField] private TMP_Text _playerLifeStat;
-        [SerializeField] private TMP_Text _playerLevel;
-        [SerializeField] private TMP_Text _playerConstitutionCount;
-        [SerializeField] private TMP_Text _playerAttackSpeedCount;
-        [SerializeField] private TMP_Text _playerPowerCount;
-    
-        [Header("best run")]
-        [SerializeField] private TMP_Text _mazeCompleteDisplayBRD;
-        [SerializeField] private TMP_Text _timePassedBRD;
-        [SerializeField] private TMP_Text _monsterKillCountBRD;
-        [SerializeField] private TMP_Text _playerLifeStatBRD;
-        [SerializeField] private TMP_Text _playerLevelBRD;
-        [SerializeField] private TMP_Text _playerConstitutionCountBRD;
-        [SerializeField] private TMP_Text _playerAttackSpeedCountBRD;
-        [SerializeField] private TMP_Text _playerPowerCountBRD;
-    
-        private int _hour;
-        private int _minutes;
-        private int _seconds;
-        private TMP_Text _textToChange;
-
-        private void SetupTimeDisplay(bool bestRunData)
+        public void ReturnTitle()
         {
-            if (bestRunData)
-            {
-                _textToChange = _timePassedBRD;
-                _minutes = (int)(DataCollector.Instance.BRDtime / 60);
-                _seconds = Mathf.FloorToInt(DataCollector.Instance.BRDtime % 60);
-            }
-            else
-            {
-                _textToChange = _timePassed;
-                _minutes = (int)(ClockGame.Instance.TimerGame / 60);
-                _seconds = Mathf.FloorToInt(ClockGame.Instance.TimerGame % 60);
-            }
-            if (_minutes >= 60) {
-                _hour = _minutes / 60;
-                _minutes -= 60 * _hour;
-            }
-            if (_hour == 0 && _minutes == 0)
-                _textToChange.text = string.Format("{0,00}sec.", _seconds);
-            else if(_hour == 0 && _minutes > 0)
-                _textToChange.text = string.Format("{0,00:00}min. {1,1:00}sec.",_minutes,_seconds);
-            else
-                _textToChange.text = string.Format("{0,0:0}h. {1,1:00}min. {2,1:00}sec.",_hour,_minutes,_seconds);
+            Time.timeScale = 1;
+            SceneLoader.Instance.FullReload();
         }
 
-        private void SetupMazeCompleteStat()
+        /// <summary>
+        /// The InputSystemUIInputModule shares the player's PlayerInput action asset.
+        /// When the player is disabled/destroyed (death, maze exit), and since the "UI" map may already
+        /// have been disabled by a previous SwitchCurrentActionMap("Player"), the UI module is left with
+        /// disabled actions: buttons can be selected by code but never clicked/submitted.
+        /// </summary>
+        protected static void EnableUIInputActions()
         {
-            _monsterKillCount.text = DataCollector.Instance.Kill.ToString();
-            _mazeCompleteDisplay.text = DataCollector.Instance.MazeComplete.ToString();
-            
-            _monsterKillCountBRD.text = DataCollector.Instance.BRDkill.ToString();
-            _mazeCompleteDisplayBRD.text = DataCollector.Instance.BRDmazeComplete.ToString();
+            if (UnityEngine.EventSystems.EventSystem.current == null)
+                return;
+
+            UnityEngine.InputSystem.UI.InputSystemUIInputModule module =
+                UnityEngine.EventSystems.EventSystem.current.GetComponent<UnityEngine.InputSystem.UI.InputSystemUIInputModule>();
+
+            if (module == null)
+                return;
+
+            EnableAction(module.point);
+            EnableAction(module.move);
+            EnableAction(module.submit);
+            EnableAction(module.cancel);
+            EnableAction(module.leftClick);
+            EnableAction(module.scrollWheel);
         }
 
-        private void SetupCharacterStat()
+        private static void EnableAction(UnityEngine.InputSystem.InputActionReference reference)
         {
-            _playerLevel.text = DataCollector.Instance.PlayerLevel + "/20";
-            _playerLifeStat.text = DataCollector.Instance.PlayerHp + "/" + DataCollector.Instance.PlayerMaxHp;
-            _playerConstitutionCount.text = DataCollector.Instance.PlayerConstitution.ToString();
-            _playerAttackSpeedCount.text = DataCollector.Instance.PlayerSwiftness.ToString();
-            _playerPowerCount.text = DataCollector.Instance.PlayerPower.ToString();
-            
-            _playerLevelBRD.text = DataCollector.Instance.BRDplayerLevel + "/20";
-            _playerLifeStatBRD.text = DataCollector.Instance.BRDplayerHp + "/" + DataCollector.Instance.BRDplayerMaxHp;
-            _playerConstitutionCountBRD.text = DataCollector.Instance.BRDplayerConstitution.ToString();
-            _playerAttackSpeedCountBRD.text = DataCollector.Instance.BRDplayerSwiftness.ToString();
-            _playerPowerCountBRD.text = DataCollector.Instance.BRDplayerPower.ToString();
+            if (reference != null && reference.action != null)
+                reference.action.Enable();
         }
-    
-        public void UpdateDisplay()
-        {
-            DataCollector.Instance.RestoreBestRunData();
-            SetupTimeDisplay(false);
-            SetupTimeDisplay(true);
-            SetupMazeCompleteStat();
-            SetupCharacterStat();
-        }
-        
     }
 }

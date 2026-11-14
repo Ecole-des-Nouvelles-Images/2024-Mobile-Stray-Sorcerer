@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace Utils
@@ -35,9 +36,7 @@ namespace Utils
             Reset();
         }
 
-        public WaitForUIButtons(params Button[] aButtons) : this(null, aButtons)
-        {
-        }
+        public WaitForUIButtons(params Button[] aButtons) : this(null, aButtons) {}
 
         private void OnButtonPressed(Button button)
         {
@@ -50,15 +49,21 @@ namespace Utils
         private void InstallListeners()
         {
             foreach (ButtonCallback bc in m_Buttons)
-                if (bc.button != null)
+                if (bc.button)
                     bc.button.onClick.AddListener(bc.listener);
         }
 
         private void RemoveListeners()
         {
             foreach (ButtonCallback bc in m_Buttons)
-                if (bc.button != null)
+                if (bc.button)
                     bc.button.onClick.RemoveListener(bc.listener);
+        }
+
+        public void ForceReset()
+        {
+            PressedButton = null;
+            base.Reset();
         }
 
         public new WaitForUIButtons Reset()
@@ -67,6 +72,7 @@ namespace Utils
             PressedButton = null;
             InstallListeners();
             base.Reset();
+            InputSystem.Update();
             return this;
         }
 

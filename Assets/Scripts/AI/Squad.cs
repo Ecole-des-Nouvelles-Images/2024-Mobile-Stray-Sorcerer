@@ -92,8 +92,7 @@ namespace AI
                     {
                         if (_markerList[i].childCount > 0)
                         {
-                            _markerList[i].GetChild(0)?.gameObject.GetComponent<Monster>()
-                                .DefineTarget(Character.Instance.gameObject);
+                            _markerList[i].GetChild(0)?.gameObject.GetComponent<Monster>().DefineTarget(Character.Instance.gameObject);
                         }
                     }
                 }

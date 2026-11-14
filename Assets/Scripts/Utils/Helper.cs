@@ -38,6 +38,25 @@ namespace Utils
                 return true;
             return false;
         }
-        
+
+        public static void PlayAllParticles(ParticleSystem[] particles)
+        {
+            for (int i = 0; i < particles.Length; i++)
+            {
+                particles[i].Play();
+            }
+        }
+        public static void StopAllParticles(ParticleSystem[] particles)
+        {
+            for (int i = 0; i < particles.Length; i++)
+            {
+                particles[i].Stop();
+            }
+        }
+
+        public static float ScalingValueByPercent(float basedScale, float percentValue)
+        {
+            return basedScale * percentValue / 100;
+        }
     }
 }

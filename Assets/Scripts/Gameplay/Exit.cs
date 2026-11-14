@@ -1,21 +1,29 @@
-using Gameplay.GameData;
-using UI;
+using System;
+using Gameplay.GameSaveDataSystem;
 using UnityEngine;
 
 namespace Gameplay
 {
     public class Exit : MonoBehaviour
     {
+        /// <summary>Raised once the player stayed long enough on the exit teleporter (after save data is updated).</summary>
+        public static Action OnMazeExitReached;
+
         [SerializeField] private float _delay;
         [SerializeField] private GameObject[] _teleporteFX;
-        [SerializeField] private GameObject _endGameUI;
 
         private bool _exit;
+        private bool _completed;
         private float _timer;
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void OnRuntimeInitialization()
+        {
+            OnMazeExitReached = null;
+        }
 
         private void Awake()
         {
-            _endGameUI.SetActive(false);
             foreach (GameObject fx in _teleporteFX)
             {
                 fx.SetActive(false);
@@ -52,7 +60,7 @@ namespace Gameplay
         {
             if (_exit && _timer < _delay)
                 _timer += Time.deltaTime;
-            if (_timer >= _delay)
+            if (_timer >= _delay && !_completed)
             {
                 MazeComplete();
             }
@@ -60,13 +68,12 @@ namespace Gameplay
 
         private void MazeComplete()
         {
-            if(DataCollector.Instance)
-                DataCollector.OnMazeComplete?.Invoke();
-            Time.timeScale = 0;
+            _completed = true;
             ClockGame.Instance.ClockStop();
-            DataCollector.Instance.UpdateDataCollector();
-            _endGameUI.SetActive(true);
-            _endGameUI.transform.GetComponent<EndGameUI>().UpdateDisplay();
+            Time.timeScale = 0;
+            if(DataSaveSystem.Instance)
+                DataSaveSystem.OnMazeComplete?.Invoke();
+            OnMazeExitReached?.Invoke();
             _timer = 0;
         }
         

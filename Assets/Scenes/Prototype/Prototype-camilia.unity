@@ -14,7 +14,7 @@ OcclusionCullingSettings:
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 9
+  serializedVersion: 10
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -43,8 +43,8 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
-  m_GIWorkflowMode: 1
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -67,9 +67,6 @@ LightmapSettings:
     m_LightmapParameters: {fileID: 0}
     m_LightmapsBakeMode: 1
     m_TextureCompression: 1
-    m_FinalGather: 0
-    m_FinalGatherFiltering: 1
-    m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
     m_MixedBakeMode: 2
     m_BakeBackend: 1
@@ -318,12 +315,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b6ecb69e3cc0c34a99bfdf55e1e5603, type: 3}
---- !u!1 &1744013498 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5418051452702160395, guid: fe45c6aa9e3d93546a02d1b12d4e5fee,
-    type: 3}
-  m_PrefabInstance: {fileID: 8445244511044829659}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1750612884
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,7 +359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afda39724b564bd7a0d0b16a50025075, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _interfaceOverlay: {fileID: 1744013498}
+  _interfaceOverlay: {fileID: 0}
   _playerPrefab: {fileID: 7388351048592758067, guid: 87d190a34966ff6419b40305c7386849,
     type: 3}
   _playerSpawnPosition: {x: 0, y: 0, z: 0}
@@ -557,7 +548,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _optionsReturnButton
       value: 
-      objectReference: {fileID: 8445244511044829660}
+      objectReference: {fileID: 0}
     - target: {fileID: 5981655341893458157, guid: fe45c6aa9e3d93546a02d1b12d4e5fee,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -748,18 +739,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe45c6aa9e3d93546a02d1b12d4e5fee, type: 3}
---- !u!114 &8445244511044829660 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1925988301829359189, guid: fe45c6aa9e3d93546a02d1b12d4e5fee,
-    type: 3}
-  m_PrefabInstance: {fileID: 8445244511044829659}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

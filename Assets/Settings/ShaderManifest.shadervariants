@@ -1,0 +1,278 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!200 &20000000
+ShaderVariantCollection:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ShaderManifest
+  m_Shaders:
+  - first: {fileID: 10770, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+      - keywords: UNITY_UI_ALPHACLIP
+        passType: 0
+  - first: {fileID: 66, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+  - first: {fileID: 106, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: _SUNDISK_SIMPLE
+        passType: 0
+  - first: {fileID: 200, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+  - first: {fileID: 203, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+  - first: {fileID: 207, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+  - first: {fileID: 211, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: _ALPHABLEND_ON
+        passType: 0
+      - keywords: PROCEDURAL_INSTANCING_ON SHADOWS_DEPTH _ALPHABLEND_ON
+        passType: 8
+      - keywords: 
+        passType: 13
+  - first: {fileID: 9000, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+  - first: {fileID: 9001, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+  - first: {fileID: 9002, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+  - first: {fileID: 9003, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+  - first: {fileID: 9004, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+  - first: {fileID: 9007, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+  - first: {fileID: 9100, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: _UIE_FORCE_GAMMA
+        passType: 0
+  - first: {fileID: 9101, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+  - first: {fileID: 19011, guid: 0000000000000000f000000000000000, type: 0}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+  - first: {fileID: 4800000, guid: d6dae50ee9e1bfa4db75f19f99355220, type: 3}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+      - keywords: _OUTPUT_DEPTH
+        passType: 0
+  - first: {fileID: 4800000, guid: fe393ace9b354375a9cb14cdbbc28be4, type: 3}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+  - first: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+    second:
+      variants:
+      - keywords: 
+        passType: 8
+      - keywords: 
+        passType: 11
+      - keywords: _METALLICSPECGLOSSMAP
+        passType: 11
+      - keywords: DOTS_INSTANCING_ON
+        passType: 13
+      - keywords: DOTS_INSTANCING_ON USE_LEGACY_LIGHTMAPS _ALPHAPREMULTIPLY_ON _CLUSTER_LIGHT_LOOP
+          _DBUFFER_MRT3 _LIGHT_LAYERS _MAIN_LIGHT_SHADOWS _NORMALMAP _REFLECTION_PROBE_ATLAS
+          _REFLECTION_PROBE_BLENDING _SURFACE_TYPE_TRANSPARENT
+        passType: 13
+      - keywords: DOTS_INSTANCING_ON USE_LEGACY_LIGHTMAPS _CLUSTER_LIGHT_LOOP _DBUFFER_MRT3
+          _EMISSION _LIGHT_LAYERS _MAIN_LIGHT_SHADOWS _METALLICSPECGLOSSMAP _NORMALMAP
+          _REFLECTION_PROBE_ATLAS _REFLECTION_PROBE_BLENDING
+        passType: 13
+      - keywords: DOTS_INSTANCING_ON USE_LEGACY_LIGHTMAPS _CLUSTER_LIGHT_LOOP _DBUFFER_MRT3
+          _LIGHT_LAYERS _MAIN_LIGHT_SHADOWS _METALLICSPECGLOSSMAP _NORMALMAP _REFLECTION_PROBE_ATLAS
+          _REFLECTION_PROBE_BLENDING
+        passType: 13
+      - keywords: DOTS_INSTANCING_ON USE_LEGACY_LIGHTMAPS _CLUSTER_LIGHT_LOOP _DBUFFER_MRT3
+          _LIGHT_LAYERS _MAIN_LIGHT_SHADOWS _REFLECTION_PROBE_ATLAS _REFLECTION_PROBE_BLENDING
+        passType: 13
+      - keywords: DOTS_INSTANCING_ON _NORMALMAP
+        passType: 13
+      - keywords: USE_LEGACY_LIGHTMAPS _CLUSTER_LIGHT_LOOP _LIGHT_LAYERS _MAIN_LIGHT_SHADOWS
+          _METALLICSPECGLOSSMAP _NORMALMAP _REFLECTION_PROBE_ATLAS _REFLECTION_PROBE_BLENDING
+        passType: 13
+      - keywords: USE_LEGACY_LIGHTMAPS _CLUSTER_LIGHT_LOOP _LIGHT_LAYERS _MAIN_LIGHT_SHADOWS
+          _NORMALMAP
+        passType: 13
+  - first: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+      - keywords: DOTS_INSTANCING_ON _DBUFFER_MRT3
+        passType: 0
+      - keywords: 
+        passType: 11
+      - keywords: DOTS_INSTANCING_ON
+        passType: 13
+  - first: {fileID: -6465566751694194690, guid: ead5148dfcfff0149a2dbba870037ccf,
+      type: 3}
+    second:
+      variants:
+      - keywords: 
+        passType: 8
+      - keywords: 
+        passType: 13
+      - keywords: USE_LEGACY_LIGHTMAPS _CLUSTER_LIGHT_LOOP _DBUFFER_MRT3 _LIGHT_LAYERS
+          _MAIN_LIGHT_SHADOWS _REFLECTION_PROBE_ATLAS _REFLECTION_PROBE_BLENDING
+        passType: 13
+  - first: {fileID: 4800000, guid: 0406db5a14f94604a8c57ccfbc9f3b46, type: 3}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+      - keywords: _ALPHATEST_ON
+        passType: 0
+      - keywords: _ALPHATEST_ON _EMISSION
+        passType: 0
+      - keywords: _EMISSION _FLIPBOOKBLENDING_ON _SURFACE_TYPE_TRANSPARENT
+        passType: 0
+      - keywords: _ALPHATEST_ON
+        passType: 13
+  - first: {fileID: -6465566751694194690, guid: 1fa6e0a507ec37b4694ec9665f88028a,
+      type: 3}
+    second:
+      variants:
+      - keywords: USE_LEGACY_LIGHTMAPS _DBUFFER_MRT3
+        passType: 0
+  - first: {fileID: -6465566751694194690, guid: d9f281cbb7592f94598f7dc4d9df5599,
+      type: 3}
+    second:
+      variants:
+      - keywords: 
+        passType: 8
+      - keywords: DOTS_INSTANCING_ON USE_LEGACY_LIGHTMAPS _ALPHAPREMULTIPLY_ON _CLUSTER_LIGHT_LOOP
+          _DBUFFER_MRT3 _LIGHT_LAYERS _MAIN_LIGHT_SHADOWS _RECEIVE_SHADOWS_OFF _REFLECTION_PROBE_ATLAS
+          _REFLECTION_PROBE_BLENDING _SURFACE_TYPE_TRANSPARENT
+        passType: 13
+      - keywords: DOTS_INSTANCING_ON USE_LEGACY_LIGHTMAPS _CLUSTER_LIGHT_LOOP _MAIN_LIGHT_SHADOWS
+          _RECEIVE_SHADOWS_OFF
+        passType: 13
+  - first: {fileID: -6465566751694194690, guid: 04e5f833877e093489922b3f6797372e,
+      type: 3}
+    second:
+      variants:
+      - keywords: 
+        passType: 8
+      - keywords: 
+        passType: 11
+      - keywords: DOTS_INSTANCING_ON USE_LEGACY_LIGHTMAPS _CLUSTER_LIGHT_LOOP _DBUFFER_MRT3
+          _LIGHT_LAYERS _MAIN_LIGHT_SHADOWS _REFLECTION_PROBE_ATLAS _REFLECTION_PROBE_BLENDING
+        passType: 13
+      - keywords: DOTS_INSTANCING_ON USE_LEGACY_LIGHTMAPS _CLUSTER_LIGHT_LOOP _MAIN_LIGHT_SHADOWS
+        passType: 13
+  - first: {fileID: 4800000, guid: f7ada0af4f174f0694ca6a487b8f543d, type: 3}
+    second:
+      variants:
+      - keywords: SHADOWS_DEPTH
+        passType: 8
+  - first: {fileID: 4800000, guid: 68e6db2ebdc24f95958faec2be5558d6, type: 3}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+      - keywords: GLOW_ON UNDERLAY_ON
+        passType: 0
+  - first: {fileID: 4800000, guid: a02a7d8c237544f1962732b55a9aebf1, type: 3}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+  - first: {fileID: 4800000, guid: 93446b5c5339d4f00b85c159e1159b7c, type: 3}
+    second:
+      variants:
+      - keywords: 
+        passType: 0
+  - first: {fileID: 4800000, guid: 74b1585886a85614aa34e2c8e303c77a, type: 3}
+    second:
+      variants:
+      - keywords: DOTS_INSTANCING_ON
+        passType: 13
+  - first: {fileID: 4800000, guid: 7f888aff2ac86494babad1c2c5daeee2, type: 3}
+    second:
+      variants:
+      - keywords: DOTS_INSTANCING_ON
+        passType: 0
+  - first: {fileID: 4800002, guid: ca849f508dcd9e541a6768ac49f12ca6, type: 3}
+    second:
+      variants:
+      - keywords: INSTANCING_ON
+        passType: 13
+      - keywords: INSTANCING_ON _DBUFFER_MRT3
+        passType: 13
+  - first: {fileID: 4800004, guid: ca849f508dcd9e541a6768ac49f12ca6, type: 3}
+    second:
+      variants:
+      - keywords: INSTANCING_ON
+        passType: 13
+      - keywords: INSTANCING_ON _DBUFFER_MRT3
+        passType: 13
+  - first: {fileID: 4800000, guid: ca849f508dcd9e541a6768ac49f12ca6, type: 3}
+    second:
+      variants:
+      - keywords: INSTANCING_ON
+        passType: 13
+      - keywords: INSTANCING_ON _DBUFFER_MRT3
+        passType: 13
+  - first: {fileID: -6465566751694194690, guid: a3d800b099a06e0478fb790c5e79057a,
+      type: 3}
+    second:
+      variants:
+      - keywords: 
+        passType: 8
+  - first: {fileID: -6465566751694194690, guid: f7f32621151a4bb4bae82812743a9769,
+      type: 3}
+    second:
+      variants:
+      - keywords: USE_LEGACY_LIGHTMAPS _DBUFFER_MRT3
+        passType: 0
+      - keywords: 
+        passType: 8
+      - keywords: 
+        passType: 13

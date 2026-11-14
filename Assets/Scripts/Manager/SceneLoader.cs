@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Audio;
 using DG.Tweening;
 using UI;
 using UnityEngine;
@@ -35,6 +36,11 @@ namespace Manager
             _currentScene = _titleScreen;
         }
 
+        public void FullReload()
+        {
+            SceneManager.LoadScene(_setup, LoadSceneMode.Single);
+        }
+
         public void LoadTitleScreen()
         {
             StartCoroutine(LoadCoroutine(_titleScreen, false));
@@ -54,10 +60,14 @@ namespace Manager
             OnLaunchGame?.Invoke();
             StartCoroutine(ReloadGameSceneCoroutine());
         }
+        
+        #region Coroutines
 
         private IEnumerator LoadCoroutine(SceneField scene, bool isGameScene)
         {
+            AudioManager.Instance.MuteMaster();
             _loadingScreen.Show(true);
+            _loadingScreen.UpdateLog("LOADING_GAME_SCENE");
 
             yield return LoadSceneCoroutine(scene);
 
@@ -66,6 +76,7 @@ namespace Manager
 
             if (isGameScene)
             {
+                _loadingScreen.UpdateLog("WAITING_FOR_SCENE_BUILDER");
                 while (!LoadingBuilder) yield return null;
 
                 SceneManager.SetActiveScene(_loadingScene);
@@ -77,6 +88,7 @@ namespace Manager
                 yield return UnloadSceneCoroutine(_currentScene);
 
             _loadingScreen.Show(false);
+            AudioManager.Instance.UnmuteMaster();
             _currentScene = _loadingScene;
         }
 
@@ -112,22 +124,24 @@ namespace Manager
                 yield return null;
             }
         }
-        
+
         private IEnumerator ReloadGameSceneCoroutine()
         {
             Debug.Log($"Current scene <{_currentScene}> should be Game");
-    
+
+            AudioManager.Instance.MuteMaster();
             _loadingScreen.Show(true);
-    
+
             yield return UnloadSceneCoroutine(_currentScene);
 
             yield return LoadSceneCoroutine(_gameScene);
-    
+
             while (!LoadingBuilder) yield return null;
 
             yield return LoadingBuilder.Build(_loadingScreen);
 
             _loadingScreen.Show(false);
+            AudioManager.Instance.UnmuteMaster();
             _currentScene = _gameScene;
             SceneManager.SetActiveScene(_currentScene);
         }
@@ -141,5 +155,7 @@ namespace Manager
 
             return player;
         }
+        
+        #endregion
     }
 }

@@ -1,74 +1,217 @@
 using System;
-using System.Collections;
-using Cinemachine;
+using Manager;
+using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using Utils;
+using Vector2 = UnityEngine.Vector2;
 
 namespace Player
 {
+    [RequireComponent(typeof(PlayerInput))]
     public class PlayerController : MonoBehaviour
     {
+        public static PlayerInput PlayerInput { get; private set; }
+
         public static readonly int IsMoving = Animator.StringToHash("isMoving");
 
         [Header("Reference")]
         [SerializeField] private Animator _characterAnimator;
 
-        [Header("Inputs")]
-        [SerializeField] private PlayerInput _playerInput;
-        [SerializeField] private float _accelerometerSensibility = 0.01f;
-
-        [Tooltip("Internal modifier specific to the accelerometer")]
-        [SerializeField] private float _accModifier = 1f;
-
         [Header("Settings")]
-        [SerializeField] private float _cameraTransposerMaxOffset;
         [Tooltip("Delay in seconds of the duration of the offset transition")]
-        [SerializeField] private float _cameraTrackingReactivity = 0.5f;
+        [SerializeField] private float _cameraTransposerMaxOffset;
 
         public static Action<bool> OnControlMapChanged;
+        public static Action<float> OnPlayerMotion;
 
         public bool IsStandby { get; set; } = false;
 
-        private CinemachineFramingTransposer _cameraFramingTransposer;
+        private CinemachinePositionComposer _cameraFramingTransposer;
         private Rigidbody _rb;
+
+        private InputActionMap _playerActions;
+        private InputActionMap _uiActions;
+
         private Coroutine _cameraTrackingCoroutine;
 
         private float _currentForwardAmount;
-        private bool _isAccelerometerControlled = true;
+        private Vector2 _moveInput;
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        public static void OnRuntimeInitialization()
+        {
+            OnPlayerMotion = null;
+            OnControlMapChanged = null;
+        }
 
         private void Start()
         {
             _rb = GetComponent<Rigidbody>();
-            _cameraFramingTransposer = GameObject.Find("VCam Player").GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineFramingTransposer>();
+
+            PlayerInput = GetComponent<PlayerInput>();
+            _playerActions = PlayerInput.actions.FindActionMap("Player");
+            _uiActions = PlayerInput.actions.FindActionMap("UI");
+
+            ManageCallbacks(CallbackOperation.Subscribe);
+        }
+
+        private void OnDestroy()
+        {
+            ManageCallbacks(CallbackOperation.Unsubscribe);
+        }
+
+        private void FixedUpdate()
+        {
+            Vector2 value = IsStandby || !_playerActions.enabled ? Vector2.zero : _moveInput;
+            // Preserve the existing speed tuning (500 currently gives 10 units/second).
+            _rb.linearVelocity = new Vector3(value.x, 0, value.y) * Character.Instance.Speed * Time.fixedDeltaTime;
         }
 
         private void Update()
         {
-            _characterAnimator.SetBool(IsMoving, _rb.velocity != Vector3.zero);
-            if (_rb.velocity != Vector3.zero)
+            _characterAnimator.SetBool(IsMoving, _rb.linearVelocity != Vector3.zero);
+            if (_rb.linearVelocity != Vector3.zero)
             {
-                Quaternion targetRotation = Quaternion.LookRotation(_rb.velocity, Vector3.up);
+                Quaternion targetRotation = Quaternion.LookRotation(_rb.linearVelocity, Vector3.up);
                 _rb.MoveRotation(targetRotation);
             }
         }
 
-        public void SwitchController()
+        private void ManageCallbacks(CallbackOperation operation)
         {
-            if (_isAccelerometerControlled)
+            if (operation == CallbackOperation.Unsubscribe)
             {
-                _playerInput.SwitchCurrentActionMap("Tactile");
-                _isAccelerometerControlled = false;
-                OnControlMapChanged.Invoke(true);
+                if (UIManager.Instance)
+                    UIManager.Instance.OnTogglePauseState -= SwitchToUIActionMap;
+
+                _playerActions.FindAction("Move").performed -= OnMove;
+                _playerActions.FindAction("Move").canceled -= OnMove;
+                _playerActions.FindAction("Pause").started -= OnPause;
+
+                _uiActions.FindAction("Resume").started -= OnResume;
+                _uiActions.FindAction("Navigate").started -= OnNavigate;
+                _uiActions.FindAction("Submit").started -= OnSubmit;
+                _uiActions.FindAction("Cancel").started -= OnCancel;
             }
             else
             {
-                _playerInput.SwitchCurrentActionMap("Accelerometer");
-                _isAccelerometerControlled = true;
-                OnControlMapChanged.Invoke(false);
+                UIManager.Instance.OnTogglePauseState += SwitchToUIActionMap;
+
+                _playerActions.FindAction("Move").performed += OnMove;
+                _playerActions.FindAction("Move").canceled += OnMove;
+                _playerActions.FindAction("Pause").started += OnPause;
+
+                _uiActions.FindAction("Resume").started += OnResume;
+                _uiActions.FindAction("Navigate").started += OnNavigate;
+                _uiActions.FindAction("Submit").started += OnSubmit;
+                _uiActions.FindAction("Cancel").started += OnCancel;
             }
         }
 
-        public void AccelerometerMove(InputAction.CallbackContext ctx)
+        public void SwitchToUIActionMap(bool enable)
+        {
+            PlayerInput.SwitchCurrentActionMap(enable ? "UI" : "Player");
+        }
+
+        #region PlayerInputActions callbacks
+
+        public void OnMove(InputAction.CallbackContext context)
+        {
+            _moveInput = context.canceled || IsStandby ? Vector2.zero : context.ReadValue<Vector2>();
+
+            if (_moveInput == Vector2.zero)
+                _rb.linearVelocity = Vector3.zero;
+
+            OnPlayerMotion?.Invoke(_moveInput.y);
+        }
+
+        public void OnPause(InputAction.CallbackContext context)
+        {
+            UIManager.Instance.SwitchPausePanel();
+        }
+
+        public void OnResume(InputAction.CallbackContext context)
+        {
+            UIManager.Instance.SwitchPausePanel();
+        }
+
+        public void OnNavigate(InputAction.CallbackContext context)
+        {
+            AxisEventData data = new (EventSystem.current)
+            {
+                moveDir = context.ReadValue<Vector2>() switch
+                {
+                    { y: > 0.5f } => MoveDirection.Up,
+                    { y: < -0.5f } => MoveDirection.Down,
+                    { x: > 0.5f } => MoveDirection.Right,
+                    { x: < -0.5f } => MoveDirection.Left,
+                    _ => MoveDirection.None
+                },
+                selectedObject = EventSystem.current.currentSelectedGameObject
+            };
+
+            ExecuteEvents.Execute(data.selectedObject, data, ExecuteEvents.moveHandler);
+        }
+
+        public void OnSubmit(InputAction.CallbackContext context)
+        {
+            // Not used manually, used by UI Input Module
+        }
+
+        public void OnCancel(InputAction.CallbackContext context)
+        {
+            // Not used manually, used by UI Input Module
+        }
+
+        public void OnPoint(InputAction.CallbackContext context)
+        {
+            // Not used manually, used by UI Input Module
+        }
+
+        public void OnClick(InputAction.CallbackContext context)
+        {
+            // Not used manually, used by UI Input Module
+        }
+
+        public void OnRightClick(InputAction.CallbackContext context)
+        {
+            // Not used manually, used by UI Input Module
+        }
+
+        public void OnMiddleClick(InputAction.CallbackContext context)
+        {
+            // Not used manually, used by UI Input Module
+        }
+
+        public void OnScrollWheel(InputAction.CallbackContext context)
+        {
+            // Not used manually, used by UI Input Module
+        }
+
+        public void OnTrackedDevicePosition(InputAction.CallbackContext context)
+        {
+            // Not used manually, used by UI Input Module
+        }
+
+        public void OnTrackedDeviceOrientation(InputAction.CallbackContext context)
+        {
+            // Not used manually, used by UI Input Module
+        }
+
+        #endregion
+
+        #region Experimental
+
+        // [Header("Inputs")]
+        // [SerializeField] private float _accelerometerSensibility = 0.01f;
+        // [Tooltip("Internal modifier specific to the accelerometer")]
+        // [SerializeField] private float _accModifier = 1f;
+
+        // private bool _isAccelerometerControlled = true;
+
+        /*public void AccelerometerMove(InputAction.CallbackContext ctx)
         {
             if (IsStandby) return;
 
@@ -84,51 +227,9 @@ namespace Player
             else if (input.y < -_accelerometerSensibility)
                 direction.y = input.y;
 
-            _rb.velocity = new Vector3(direction.y * -1, 0, direction.x) * Character.Instance.Speed * _accModifier * Time.fixedDeltaTime;
-        }
+            _rb.linearVelocity = new Vector3(direction.y * -1, 0, direction.x) * Character.Instance.Speed * _accModifier * Time.fixedDeltaTime;
+        }*/
 
-        public void JoystickMove(InputAction.CallbackContext ctx)
-        {
-            if (IsStandby) return;
-
-            Vector2 value = ctx.ReadValue<Vector2>();
-
-            _rb.velocity = new Vector3(value.x, 0, value.y) * Character.Instance.Speed * Time.fixedDeltaTime;
-
-            if (_currentForwardAmount < 0.4f && value.y >= 0.4f)
-            {
-                if (_cameraTrackingCoroutine != null)
-                    StopAllCoroutines();
-                _cameraTrackingCoroutine = StartCoroutine(SmoothCameraTrackingOffset(1));
-            }
-            else if (_currentForwardAmount > -0.4f && value.y <= -0.4f)
-            {
-                if (_cameraTrackingCoroutine != null)
-                    StopAllCoroutines();
-                _cameraTrackingCoroutine = StartCoroutine(SmoothCameraTrackingOffset(1));
-            }
-            else if ((_currentForwardAmount < -0.4f && value.y is >= -0.4f and <= 0.4f)
-                     || (_currentForwardAmount > 0.4f && value.y is >= -0.4f and <= 0.4f))
-            {
-                if (_cameraTrackingCoroutine != null)
-                    StopAllCoroutines();
-                _cameraTrackingCoroutine = StartCoroutine(SmoothCameraTrackingOffset(0));
-            }
-
-            _currentForwardAmount = value.y;
-        }
-
-        private IEnumerator SmoothCameraTrackingOffset(int direction)
-        {
-            float t = 0f;
-            float startValue = _cameraFramingTransposer.m_TrackedObjectOffset.z;
-
-            while (t < 1)
-            {
-                t += Time.deltaTime / _cameraTrackingReactivity;
-                _cameraFramingTransposer.m_TrackedObjectOffset.z = Mathf.Lerp(startValue, _cameraTransposerMaxOffset * direction, t);
-                yield return null;
-            }
-        }
+        #endregion
     }
 }

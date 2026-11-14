@@ -1,0 +1,684 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: UIStrings_fr
+  m_EditorClassIdentifier: Unity.Localization::UnityEngine.Localization.Tables.StringTable
+  m_LocaleId:
+    m_Code: fr
+  m_SharedData: {fileID: 11400000, guid: ccd29d024de74f047ab433110c0b6609, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 823373824
+    m_Localized: Afficher ips
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711568
+  - m_Id: 840151040
+    m_Localized: "Appuyer sur \xAB Start \xBB pour Commencer"
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711569
+  - m_Id: 844345344
+    m_Localized: Atteind la sortie...
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711570
+  - m_Id: 844345345
+    m_Localized: Chargement...
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711571
+  - m_Id: 844345346
+    m_Localized: "Choississez une am\xE9lioration !"
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711572
+  - m_Id: 844345347
+    m_Localized: Constitution
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711573
+  - m_Id: 844345348
+    m_Localized: Continuer
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711574
+  - m_Id: 844345349
+    m_Localized: "\xC9volution de Sort !"
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711575
+  - m_Id: 844345350
+    m_Localized: "Labyrinthe compl\xE9t\xE9"
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711576
+  - m_Id: 844345351
+    m_Localized: "Labyrinthe compl\xE9t\xE9:"
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711577
+  - m_Id: 844345352
+    m_Localized: "Luminosit\xE9"
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711578
+  - m_Id: 844345353
+    m_Localized: Missile Arcanique
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711579
+  - m_Id: 844345354
+    m_Localized: "Monstres tu\xE9s :"
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711580
+  - m_Id: 844345355
+    m_Localized: "Monstre tu\xE9s :"
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711581
+  - m_Id: 844345356
+    m_Localized: Niv. 1
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711582
+  - m_Id: 844345357
+    m_Localized: "Niveau Sup\xE9rieur"
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711583
+  - m_Id: 844345358
+    m_Localized: Options
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711584
+  - m_Id: 844345359
+    m_Localized: "Parcours effectu\xE9"
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711585
+  - m_Id: 844345360
+    m_Localized: Pause
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711586
+  - m_Id: 844345361
+    m_Localized: Position du joystick (Gauche / Droite)
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711587
+  - m_Id: 844345362
+    m_Localized: Puissance
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711588
+  - m_Id: 844345363
+    m_Localized: Quitter
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711589
+  - m_Id: 844345364
+    m_Localized: Recommencer
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711590
+  - m_Id: 844345365
+    m_Localized: "Record effectu\xE9"
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711591
+  - m_Id: 844345366
+    m_Localized: Retour
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711592
+  - m_Id: 844345367
+    m_Localized: "Retourner \xE0 l'\xE9cran titre"
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711593
+  - m_Id: 844345368
+    m_Localized: "Sauvegarder \net quitter"
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711594
+  - m_Id: 844345369
+    m_Localized: 'Temps :'
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711595
+  - m_Id: 844345370
+    m_Localized: "Temps Pass\xE9 :"
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711596
+  - m_Id: 844345371
+    m_Localized: Test Clean Save
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711597
+  - m_Id: 844345372
+    m_Localized: Teste reset player
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711598
+  - m_Id: 844345373
+    m_Localized: Teste Save
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711599
+  - m_Id: 844345374
+    m_Localized: Trouvez la sortie !
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711600
+  - m_Id: 844345375
+    m_Localized: "Un jeu cr\xE9\xE9 par :"
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711601
+  - m_Id: 844345376
+    m_Localized: Vitesse d'attaque
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711602
+  - m_Id: 844345377
+    m_Localized: Volume de la musique
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711603
+  - m_Id: 844345378
+    m_Localized: Volume des sons
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711604
+  - m_Id: 844345379
+    m_Localized: Volume global
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711605
+  - m_Id: 844345380
+    m_Localized: Volume sonore
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711606
+  - m_Id: 844345381
+    m_Localized: "Vous avez p\xE9ri"
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711607
+  - m_Id: 844345382
+    m_Localized: "Retourner \xE0 l'\xE9cran titre"
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711608
+  - m_Id: 844345383
+    m_Localized: 04min. 33sec.
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711609
+  - m_Id: 844345384
+    m_Localized: "\"Si vous avez une crampe au pouce gauche, vous pouvez tr\xE8s
+      bien continuer avec votre pouce droit. Rendez-vous dans le menu option accessible
+      depuis le menu pause.\""
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711610
+  - m_Id: 844345385
+    m_Localized: Niv. {0}
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711611
+  - m_Id: 844345386
+    m_Localized: '{0:00} sec.'
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711612
+  - m_Id: 844345387
+    m_Localized: '{0:00} : {1:00}'
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711613
+  - m_Id: 844345388
+    m_Localized: '{0:0} : {1:00} : {2:00}'
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711614
+  - m_Id: 844345389
+    m_Localized: "Chargement de la sc\xE8ne de jeu..."
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711615
+  - m_Id: 844345390
+    m_Localized: "En attente du constructeur de sc\xE8ne..."
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711616
+  - m_Id: 844345391
+    m_Localized: Lancement du jeu...
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711617
+  - m_Id: 844345392
+    m_Localized: Construction du labyrinthe {0}...
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711618
+  - m_Id: 844345393
+    m_Localized: Ajout des decorations...
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711619
+  - m_Id: 844345394
+    m_Localized: Creation des monstres...
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711620
+  - m_Id: 844345395
+    m_Localized: Parametrage du NavMesh...
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711621
+  - m_Id: 844345396
+    m_Localized: "Les diablotins sont rapides, agiles et attaquent \xE0 distance,
+      mais ils sont fragiles et faciles \xE0 abattre."
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711622
+  - m_Id: 844345397
+    m_Localized: "Ne confondez pas vitesse et pr\xE9cipitation, ou les cr\xE9atures
+      des labyrinthes vous surprendront !"
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711623
+  - m_Id: 844345398
+    m_Localized: "Les minotaures sont plus r\xE9sistants que les diablotins. Augmentez
+      votre puissance pour les abattre d'un seul coup."
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711624
+  - m_Id: 844345399
+    m_Localized: "Les larves de la ruine, ou Doom Slugs, sont tr\xE8s r\xE9sistantes
+      et puissantes, mais lentes. Gardez vos distances face \xE0 ces monstruosit\xE9s."
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711625
+  - m_Id: 844345400
+    m_Localized: Si vous avez une crampe au pouce gauche, vous pouvez continuer avec
+      votre pouce droit. Rendez-vous dans le menu des options depuis le menu pause.
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711626
+  - m_Id: 844345401
+    m_Localized: "Si vous \xEAtes perdu, suivez le mur de droite. C'est une vraie
+      technique, croyez-moi !"
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711627
+  - m_Id: 844345402
+    m_Localized: "Qu'est-ce qui est petit, a de petites cornes et un gros \u0153il
+      qui lance des rayons laser ? Le diablotin !"
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711628
+  - m_Id: 844345403
+    m_Localized: Qu'est-ce qui est grand, a de grandes cornes et la peau rouge ?
+      Le minotaure !
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711629
+  - m_Id: 844345404
+    m_Localized: "Qu'est-ce qui est gigantesque, a une sale tronche et la langue
+      qui d\xE9passe ? La Doom Slug !"
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711630
+  - m_Id: 844345405
+    m_Localized: Oui, la sortie se trouvera toujours au bout du chemin le plus long.
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711631
+  - m_Id: 844345406
+    m_Localized: "Fl\xE8che magique"
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711632
+  - m_Id: 844345407
+    m_Localized: Tir rebondissant
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711633
+  - m_Id: 844345408
+    m_Localized: Tir invocateur
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711634
+  - m_Id: 844345409
+    m_Localized: Tir Magique
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711635
+  - m_Id: 844345410
+    m_Localized: Tir ultime
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711636
+  - m_Id: 844345411
+    m_Localized: T
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711637
+  - m_Id: 1344976171008
+    m_Localized: --------- h. -- min. -- sec.
+    m_Metadata:
+      m_Items:
+      - rid: 6807400074399711710
+  - m_Id: 79477330915328
+    m_Localized: Appuyer sur
+    m_Metadata:
+      m_Items: []
+  - m_Id: 113081679327232
+    m_Localized: Maintenir "Select" pour quitter
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 6807400074399711568
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Pause-menu toggle label.
+    - rid: 6807400074399711569
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Title-screen prompt; Start is the controller button.
+    - rid: 6807400074399711570
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Short gameplay objective shown in a prototype scene.
+    - rid: 6807400074399711571
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Loading-screen status.
+    - rid: 6807400074399711572
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Instruction shown above upgrade choices.
+    - rid: 6807400074399711573
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Upgrade choice for the player's maximum health.
+    - rid: 6807400074399711574
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Pause-menu button.
+    - rid: 6807400074399711575
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Title shown when a spell evolves.
+    - rid: 6807400074399711576
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: End-of-run title.
+    - rid: 6807400074399711577
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Label introducing the completed-maze record.
+    - rid: 6807400074399711578
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Graphics option label.
+    - rid: 6807400074399711579
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Name of the starting spell.
+    - rid: 6807400074399711580
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Singular kill-count label in the prototype end screen.
+    - rid: 6807400074399711581
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Kill-count label in the end-of-run screen.
+    - rid: 6807400074399711582
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Initial level display before runtime updates.
+    - rid: 6807400074399711583
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Upgrade panel heading.
+    - rid: 6807400074399711584
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Pause-menu button and options-panel title.
+    - rid: 6807400074399711585
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Achievement title shown in the prototype end screen.
+    - rid: 6807400074399711586
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Pause-menu heading.
+    - rid: 6807400074399711587
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Control-layout option label.
+    - rid: 6807400074399711588
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Upgrade choice for spell damage.
+    - rid: 6807400074399711589
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Pause-menu button.
+    - rid: 6807400074399711590
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Pause-menu button.
+    - rid: 6807400074399711591
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Achievement title shown in the prototype end screen.
+    - rid: 6807400074399711592
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Options-panel button.
+    - rid: 6807400074399711593
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Button that leaves the current run.
+    - rid: 6807400074399711594
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Prototype save-menu button.
+    - rid: 6807400074399711595
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: End-of-run time label.
+    - rid: 6807400074399711596
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Best-time label in the prototype end screen.
+    - rid: 6807400074399711597
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Developer test button in the prototype scene.
+    - rid: 6807400074399711598
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Developer test button in the prototype scene.
+    - rid: 6807400074399711599
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Developer test button in the prototype scene.
+    - rid: 6807400074399711600
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Gameplay objective shown at the start of a run.
+    - rid: 6807400074399711601
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Title-screen credits heading.
+    - rid: 6807400074399711602
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Upgrade choice for attack speed.
+    - rid: 6807400074399711603
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Audio-settings label.
+    - rid: 6807400074399711604
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Audio-settings label for sound effects.
+    - rid: 6807400074399711605
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Audio-settings label for overall volume.
+    - rid: 6807400074399711606
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Audio-settings heading.
+    - rid: 6807400074399711607
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Death-screen heading.
+    - rid: 6807400074399711608
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Death-screen return button.
+    - rid: 6807400074399711609
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Editor placeholder replaced with the completed run time.
+    - rid: 6807400074399711610
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Quoted loading-screen tip shown in the setup scene.
+    - rid: 6807400074399711611
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Dynamic level label; {0} is the current level number.
+    - rid: 6807400074399711612
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Completed-run duration under one minute; {0} is seconds.
+    - rid: 6807400074399711613
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Completed-run duration under one hour; {0} is minutes and
+          {1} is seconds.
+    - rid: 6807400074399711614
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Completed-run duration; arguments are hours, minutes, and
+          seconds.
+    - rid: 6807400074399711615
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Loading-screen status while a scene loads.
+    - rid: 6807400074399711616
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Loading-screen status while the maze is prepared.
+    - rid: 6807400074399711617
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Loading-screen status immediately before gameplay.
+    - rid: 6807400074399711618
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Loading-screen status; {0} is the generated seed phrase.
+    - rid: 6807400074399711619
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Loading-screen status while maze props are generated.
+    - rid: 6807400074399711620
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Loading-screen status while enemies are created.
+    - rid: 6807400074399711621
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Loading-screen status while navigation is prepared.
+    - rid: 6807400074399711622
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Loading-screen gameplay tip about imps.
+    - rid: 6807400074399711623
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Conversational loading-screen gameplay tip.
+    - rid: 6807400074399711624
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Loading-screen gameplay tip about minotaurs.
+    - rid: 6807400074399711625
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Loading-screen gameplay tip about Doom Slugs.
+    - rid: 6807400074399711626
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Loading-screen tip about touch controls.
+    - rid: 6807400074399711627
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Conversational loading-screen navigation tip.
+    - rid: 6807400074399711628
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Playful loading-screen riddle about imps.
+    - rid: 6807400074399711629
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Playful loading-screen riddle about minotaurs.
+    - rid: 6807400074399711630
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Playful loading-screen riddle about Doom Slugs.
+    - rid: 6807400074399711631
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Loading-screen navigation tip.
+    - rid: 6807400074399711632
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Spell name in the spell-evolution panel.
+    - rid: 6807400074399711633
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Spell name in the spell-evolution panel.
+    - rid: 6807400074399711634
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Spell name in the spell-evolution panel.
+    - rid: 6807400074399711635
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Spell name in the spell-evolution panel.
+    - rid: 6807400074399711636
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Spell name in the spell-evolution panel.
+    - rid: 6807400074399711637
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Untranslated developer test spell name.
+    - rid: 6807400074399711710
+      type: {class: Comment, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_CommentText: Prototype duration placeholder; the dashes will be replaced
+          by a run time.
