@@ -46,6 +46,8 @@ namespace Manager
 
         public void StartGame()
         {
+            Audio.AudioManager.Instance.MuteTemporarily();
+
             _camera.gameObject.SetActive(true);
             _ui.SetActive(true);
             UIManager.Instance.gameObject.SetActive(true);
@@ -55,6 +57,7 @@ namespace Manager
 
             SetupCamera();
 
+            OnGameStart?.Invoke();
             StartCoroutine(IntroductionAnimation());
         }
 

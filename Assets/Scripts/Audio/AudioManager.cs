@@ -28,10 +28,27 @@ namespace Audio
         private void PlayAmbient()
         {
             if (!_ambientSource)
-                _ambientSource = GameObject.Find("Player/AmbientAudioSource").GetComponent<AudioSource>();
+            {
+                GameObject player = GameObject.Find("Player");
+                if (player != null)
+                {
+                    Transform ambientTransform = player.transform.Find("AmbientAudioSource");
+                    if (ambientTransform != null)
+                    {
+                        _ambientSource = ambientTransform.GetComponent<AudioSource>();
+                    }
+                }
+            }
 
-            _ambientSource.Play();
-            _ambientSource.DOFade(_ambientVolume, 1f).SetUpdate(true);
+            if (_ambientSource != null)
+            {
+                _ambientSource.Play();
+                _ambientSource.DOFade(_ambientVolume, 1f).SetUpdate(true);
+            }
+            else
+            {
+                Debug.LogWarning("[AudioManager] Could not find 'AmbientAudioSource' as a child of 'Player'.");
+            }
         }
 
         private void DisableAmbient()
@@ -53,6 +70,15 @@ namespace Audio
         {
             float decibels = value <= 0f ? -80f : Mathf.Log10(value) * 20f;
             _mixer.SetFloat("SFXVolume", decibels);
+        }
+
+        public void MuteTemporarily(float muteDuration = 0.2f, float fadeDuration = 0.5f)
+        {
+            _mixer.SetFloat("MasterVolume", -80f);
+            DOVirtual.DelayedCall(muteDuration, () =>
+            {
+                _mixer.DOSetFloat("MasterVolume", 0f, fadeDuration).SetUpdate(true);
+            });
         }
     }
 }
