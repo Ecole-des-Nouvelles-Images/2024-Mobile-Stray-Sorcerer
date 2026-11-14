@@ -135,7 +135,6 @@ namespace Player
         private int _exp;
         private bool _isBoosted;
         private bool _isDelay;
-        private bool _isDead;
         private bool _rebootGame;
         private readonly float _boostMultiplicator = 1.3f;
         private float _boostTime;
@@ -222,25 +221,24 @@ namespace Player
         }
         private void LevelUp()
         {
+            if (!_allowedToLevelUp || HP <= 0) return;
+
             _characterAudioSource.clip = _characterAudioClips[1];
             _characterAudioSource.Play();
-            if (!_allowedToLevelUp) return;
-            if (HP > 0)
-            {
-                Level++;
+            
+            Level++;
 
-                if (Level % 5 == 0 && SpellUnlock < _spells.Length)
-                {
-                    UpdateSpell();
-                    OnSpellUnlock?.Invoke(CurrentSpellSo, NextSpellSo);
-                    SpellUnlock++;
-                    OnSpellIndexChange?.Invoke(SpellUnlock);
-                    UpdateSpell();
-                }
-                else
-                {
-                    OnDisplayUpgrade?.Invoke();
-                }
+            if (Level % 5 == 0 && SpellUnlock < _spells.Length)
+            {
+                UpdateSpell();
+                OnSpellUnlock?.Invoke(CurrentSpellSo, NextSpellSo);
+                SpellUnlock++;
+                OnSpellIndexChange?.Invoke(SpellUnlock);
+                UpdateSpell();
+            }
+            else
+            {
+                OnDisplayUpgrade?.Invoke();
             }
         }
         private void UpgradeStat(int indexStat)
@@ -310,12 +308,14 @@ namespace Player
         }
         public void TakeHeal(int amount)
         {
+            if (IsDead) return;
             HP += amount;
             OnHpChanged?.Invoke(HP);
         }
 
         public void GainEXP(int amount)
         {
+            if (IsDead) return;
             EXP += amount;
             OnExpChanged?.Invoke(EXP);
         }
@@ -335,6 +335,10 @@ namespace Player
             _myPlayerController.enabled = false;
             _myPlayerInput.enabled = false;
             _myAttackNearestFoesComponent.enabled = false;
+
+            if (TryGetComponent<Collider>(out var col))
+                col.enabled = false;
+
             _vfxGraph.Stop();
             foreach (ParticleSystem ps in _particleSystem)
                 ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
