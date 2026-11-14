@@ -147,6 +147,8 @@ namespace UI.GameOverlay
             _upgradeStatPanel.blocksRaycasts = false;
             _upgradeStatPanel.DOFade(0, 0.5f).SetUpdate(true);
 
+            PlayerController.PlayerInput.SwitchCurrentActionMap("Player");
+
             float t = 0f;
 
             while (t < 1)
@@ -156,7 +158,7 @@ namespace UI.GameOverlay
                 yield return null;
             }
 
-            PlayerController.PlayerInput.SwitchCurrentActionMap("Player");
+            Time.timeScale = 1f;
             UpgradeInProgress = false;
         }
 
@@ -193,6 +195,8 @@ namespace UI.GameOverlay
             _spellEvolutionPanel.blocksRaycasts = false;
             _spellEvolutionPanel.DOFade(0, 0.5f).SetUpdate(true);
 
+            PlayerController.PlayerInput.SwitchCurrentActionMap("Player");
+
             float t = 0f;
 
             while (t < 1)
@@ -202,7 +206,7 @@ namespace UI.GameOverlay
                 yield return null;
             }
 
-            PlayerController.PlayerInput.SwitchCurrentActionMap("Player");
+            Time.timeScale = 1f;
             UpgradeInProgress = false;
         }
 

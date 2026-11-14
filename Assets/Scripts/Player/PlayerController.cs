@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Manager;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -37,6 +37,7 @@ namespace Player
         private Coroutine _cameraTrackingCoroutine;
 
         private float _currentForwardAmount;
+        private Vector2 _moveInput;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         public static void OnRuntimeInitialization()
@@ -61,6 +62,13 @@ namespace Player
             ManageCallbacks(CallbackOperation.Unsubscribe);
         }
 
+        private void FixedUpdate()
+        {
+            Vector2 value = IsStandby || !_playerActions.enabled ? Vector2.zero : _moveInput;
+            // Preserve the existing speed tuning (500 currently gives 10 units/second).
+            _rb.linearVelocity = new Vector3(value.x, 0, value.y) * Character.Instance.Speed * Time.fixedDeltaTime;
+        }
+
         private void Update()
         {
             _characterAnimator.SetBool(IsMoving, _rb.linearVelocity != Vector3.zero);
@@ -79,6 +87,7 @@ namespace Player
                     UIManager.Instance.OnTogglePauseState -= SwitchToUIActionMap;
 
                 _playerActions.FindAction("Move").performed -= OnMove;
+                _playerActions.FindAction("Move").canceled -= OnMove;
                 _playerActions.FindAction("Pause").started -= OnPause;
 
                 _uiActions.FindAction("Resume").started -= OnResume;
@@ -91,6 +100,7 @@ namespace Player
                 UIManager.Instance.OnTogglePauseState += SwitchToUIActionMap;
 
                 _playerActions.FindAction("Move").performed += OnMove;
+                _playerActions.FindAction("Move").canceled += OnMove;
                 _playerActions.FindAction("Pause").started += OnPause;
 
                 _uiActions.FindAction("Resume").started += OnResume;
@@ -109,13 +119,12 @@ namespace Player
 
         public void OnMove(InputAction.CallbackContext context)
         {
-            if (IsStandby) return;
+            _moveInput = context.canceled || IsStandby ? Vector2.zero : context.ReadValue<Vector2>();
 
-            Vector2 value = context.ReadValue<Vector2>();
+            if (_moveInput == Vector2.zero)
+                _rb.linearVelocity = Vector3.zero;
 
-            _rb.linearVelocity = new Vector3(value.x, 0, value.y) * Character.Instance.Speed * Time.fixedDeltaTime;
-
-            OnPlayerMotion?.Invoke(value.y);
+            OnPlayerMotion?.Invoke(_moveInput.y);
         }
 
         public void OnPause(InputAction.CallbackContext context)
