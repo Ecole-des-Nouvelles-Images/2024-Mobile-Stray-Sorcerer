@@ -3,6 +3,7 @@ using Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UI;
 
 namespace UI
 {
@@ -34,11 +35,11 @@ namespace UI
                 _minutes -= 60 * _hour;
             }
             if (_hour == 0 && _minutes == 0)
-                _textToChange.text = string.Format("{0,00} sec.", _seconds);
+                LocalizationText.Set(_textToChange, "TIME_SECONDS", _seconds);
             else if(_hour == 0 && _minutes > 0)
-                _textToChange.text = string.Format("{0,00:00} : {1,1:00}",_minutes,_seconds);
+                LocalizationText.Set(_textToChange, "TIME_MINUTES_SECONDS", _minutes, _seconds);
             else
-                _textToChange.text = string.Format("{0,0:0} : {1,1:00} : {2,1:00}",_hour,_minutes,_seconds);
+                LocalizationText.Set(_textToChange, "TIME_HOURS_MINUTES_SECONDS", _hour, _minutes, _seconds);
         }
         private void SetupMazeCompleteStat()
         {

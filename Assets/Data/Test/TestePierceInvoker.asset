@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: TestePierceInvoker
   m_EditorClassIdentifier: 
   Name: T
+  LocalizedNameKey: SPELL_TEST
   ThrowingSound: {fileID: 0}
   ProjectilePrefab: {fileID: 4648639584283819804, guid: 4054c8225c29d7d478f2ea3575677e62,
     type: 3}
-  ImpactSound: {fileID: 0}
+  spellSprite: {fileID: 0}
   ImpactPrefab: {fileID: 0}
   Damage: 10
   Pierce: 1

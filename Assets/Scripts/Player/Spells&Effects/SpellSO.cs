@@ -6,6 +6,7 @@ namespace Player.Spells_Effects
     public class SpellSO : ScriptableObject
     {
         public string Name;
+        public string LocalizedNameKey;
         public AudioClip ThrowingSound;
         public GameObject ProjectilePrefab;
         public Sprite spellSprite;

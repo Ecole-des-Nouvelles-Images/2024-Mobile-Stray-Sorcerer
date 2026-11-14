@@ -6,6 +6,7 @@ using Player;
 using Player.Spells_Effects;
 using TMPro;
 using Utils;
+using UI;
 
 namespace UI.GameOverlay
 {
@@ -171,8 +172,8 @@ namespace UI.GameOverlay
 
             _currentSpell.sprite = oldSpellSo.spellSprite;
             _nextSpell.sprite = newSpellSo.spellSprite;
-            _currentSpellName.text = oldSpellSo.Name;
-            _newSpellName.text = newSpellSo.Name;
+            LocalizationText.Set(_currentSpellName, oldSpellSo.LocalizedNameKey);
+            LocalizationText.Set(_newSpellName, newSpellSo.LocalizedNameKey);
 
             _spellEvolutionPanel.DOFade(1, 0.5f).SetUpdate(true);
             _spellEvolutionPanel.interactable = true;

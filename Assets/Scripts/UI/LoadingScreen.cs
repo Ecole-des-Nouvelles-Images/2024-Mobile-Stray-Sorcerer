@@ -1,5 +1,6 @@
 using DG.Tweening;
 using TMPro;
+using UnityEngine.Localization.Components;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -23,6 +24,9 @@ namespace UI
         private void Awake()
         {
             _virtualCamera = GameObject.Find("Camera/VCam Player").transform;
+            if (!_tipsText.GetComponent<LocalizeStringEvent>())
+                throw new System.InvalidOperationException(
+                    $"The text object '{_tipsText.gameObject.name}' has no LocalizeStringEvent.");
             DisplayRandomTips();
             _timerTips = 10f;
         }
@@ -40,7 +44,8 @@ namespace UI
 
         private void DisplayRandomTips()
         {
-            _tipsText.text = _tips.TipsList[Random.Range(0, _tips.TipsList.Count - 1)];
+            var tipKey = _tips.TipsList[Random.Range(0, _tips.TipsList.Count)];
+            LocalizationText.Set(_tipsText, tipKey);
         }
 
         public void Show(bool status)
@@ -49,9 +54,9 @@ namespace UI
             _canvasGroup.DOFade(status ? 1 : 0, _fadeDuration).SetUpdate(true);
         }
 
-        public void UpdateLog(string message)
+        public void UpdateLog(string key, params object[] arguments)
         {
-            _statusInfoBox.text = message;
+            LocalizationText.Set(_statusInfoBox, key, arguments);
         }
     }
 }
