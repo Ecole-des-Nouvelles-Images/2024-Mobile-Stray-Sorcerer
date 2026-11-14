@@ -45,12 +45,14 @@ namespace Audio
 
         public void UpdateMusicVolume(float value)
         {
-            _mixer.SetFloat("AmbientVolume", value);
+            float decibels = value <= 0f ? -80f : Mathf.Log10(value) * 20f;
+            _mixer.SetFloat("AmbientVolume", decibels);
         }
 
         public void UpdateSFXVolume(float value)
         {
-            return;
+            float decibels = value <= 0f ? -80f : Mathf.Log10(value) * 20f;
+            _mixer.SetFloat("SFXVolume", decibels);
         }
     }
 }
