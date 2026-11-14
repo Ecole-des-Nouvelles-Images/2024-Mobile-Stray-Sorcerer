@@ -12,7 +12,9 @@ namespace UI
         [Header("Death Display")]
         [SerializeField] private GameObject _deathDisplay;
         [SerializeField] private CanvasGroup _canvasGroup;
+        [SerializeField] private CanvasGroup _title;
         [SerializeField] private CanvasGroup _fader;
+        [SerializeField] private GameObject _returnToTitle;
         [SerializeField] private Button _confirm;
         [SerializeField] float _fadeDuration = 1f;
 
@@ -44,6 +46,11 @@ namespace UI
 
             _canvasGroup.DOFade(1, _fadeDuration).SetUpdate(true).OnComplete(() =>
             {
+                _title.DOFade(1, _fadeDuration * 2).SetUpdate(true).OnComplete(() =>
+                {
+                    _returnToTitle.SetActive(true);
+                });
+
                 _canvasGroup.interactable = true;
                 _canvasGroup.blocksRaycasts = true;
                 EnableUIInputActions();
@@ -58,8 +65,8 @@ namespace UI
 
             ClockGame.Instance.Reset();
 
-            _canvasGroup.DOFade(0, _fadeDuration).SetUpdate(true);
-            _fader.DOFade(1, _fadeDuration).SetUpdate(true).OnComplete(() =>
+            _returnToTitle.SetActive(false);
+            _title.DOFade(0, _fadeDuration).SetUpdate(true).OnComplete(() =>
             {
                 Time.timeScale = 1;
                 SceneLoader.Instance.LoadTitleScreen();

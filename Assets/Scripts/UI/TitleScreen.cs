@@ -1,44 +1,124 @@
 using System;
+using Manager;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace UI
 {
-    [RequireComponent(typeof(Canvas))]
-    public class TitleScreen: MonoBehaviour
+    public class TitleScreen : MonoBehaviour
     {
-        private Canvas _canvas;
-        private Camera _mainCamera;
+        [SerializeField] private float _timerBeforeInteractable = 3f;
+        [Header("Gamepad redirects")]
+        [SerializeField] private InputAction _startAction;
+        [SerializeField] private InputAction _quitAction;
+        [SerializeField] private Image _holdGauge;
+
+        private Button _touchToPlay;
+        private bool _isQuitting;
+        private float _quitTimer;
+        private const float QuitHoldDuration = 3f;
 
         private void Awake()
         {
-            _mainCamera = GameObject.Find("Camera/CinemachineBrain").GetComponent<Camera>();
+            _startAction.Enable();
 
-            if (!_mainCamera)
-                throw new Exception("Title Screen setup: unable to find main camera");
-
-            InitializeCanvas();
-        }
-
-        private void InitializeCanvas()
-        {
-            _canvas = GetComponent<Canvas>();
-
-            _canvas.worldCamera = _mainCamera;
-            _canvas.planeDistance = 1;
-            _canvas.sortingLayerName = "UI";
-            _canvas.sortingOrder = 0;
-        }
-
-        private void OnValidate()
-        {
-            if (!_canvas)
-                InitializeCanvas();
-
-            if (_canvas.renderMode != RenderMode.ScreenSpaceCamera)
+            if (_quitAction.bindings.Count == 0)
             {
-                Debug.LogWarning("Title Screen canvas render mode is locked to Screen Space Camera");
-                _canvas.renderMode = RenderMode.ScreenSpaceCamera;
+                _quitAction.AddBinding("<Gamepad>/select").WithInteraction("hold(duration=3)");
+                _quitAction.AddBinding("<Gamepad>/start").WithInteraction("hold(duration=3)");
             }
+            _quitAction.Enable();
+        }
+
+        private void OnEnable()
+        {
+            _touchToPlay = GetComponent<Button>();
+            _touchToPlay.onClick.AddListener(StartGame);
+            _touchToPlay.onClick.AddListener(DisableButton);
+
+            _startAction.started += OnStartPerformed;
+            _quitAction.started += OnQuitStarted;
+            _quitAction.canceled += OnQuitCanceled;
+            _quitAction.performed += OnQuitPerformed;
+        }
+
+        private void OnDisable()
+        {
+            _touchToPlay.onClick.RemoveAllListeners();
+
+            _startAction.started -= OnStartPerformed;
+            _startAction.Disable();
+
+            _quitAction.started -= OnQuitStarted;
+            _quitAction.canceled -= OnQuitCanceled;
+            _quitAction.performed -= OnQuitPerformed;
+            _quitAction.Disable();
+        }
+
+        private void Update()
+        {
+            if (_timerBeforeInteractable > 0)
+                _timerBeforeInteractable -= Time.deltaTime;
+            else
+                _touchToPlay.interactable = true;
+
+            if (_isQuitting)
+            {
+                _quitTimer += Time.deltaTime;
+                if (_holdGauge != null)
+                {
+                    _holdGauge.fillAmount = Mathf.Clamp01(_quitTimer / QuitHoldDuration);
+                }
+            }
+        }
+
+        private void OnStartPerformed(InputAction.CallbackContext context)
+        {
+            StartGame();
+        }
+
+        private void OnQuitStarted(InputAction.CallbackContext context)
+        {
+            _isQuitting = true;
+            _quitTimer = 0f;
+        }
+
+        private void OnQuitCanceled(InputAction.CallbackContext context)
+        {
+            ResetQuitGauge();
+        }
+
+        private void OnQuitPerformed(InputAction.CallbackContext context)
+        {
+            ResetQuitGauge();
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
+        }
+
+        private void ResetQuitGauge()
+        {
+            _isQuitting = false;
+            _quitTimer = 0f;
+            if (_holdGauge != null)
+            {
+                _holdGauge.fillAmount = 0f;
+            }
+        }
+
+        private void StartGame()
+        {
+            SceneLoader.Instance.LaunchGame();
+            _startAction.Disable();
+        }
+
+        private void DisableButton()
+        {
+            _touchToPlay.onClick.RemoveAllListeners();
+            _touchToPlay.interactable = false;
         }
     }
 }

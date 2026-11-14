@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Audio;
 using DG.Tweening;
 using UI;
 using UnityEngine;
@@ -64,6 +65,7 @@ namespace Manager
 
         private IEnumerator LoadCoroutine(SceneField scene, bool isGameScene)
         {
+            AudioManager.Instance.MuteMaster();
             _loadingScreen.Show(true);
             _loadingScreen.UpdateLog("LOADING_GAME_SCENE");
 
@@ -86,6 +88,7 @@ namespace Manager
                 yield return UnloadSceneCoroutine(_currentScene);
 
             _loadingScreen.Show(false);
+            AudioManager.Instance.UnmuteMaster();
             _currentScene = _loadingScene;
         }
 
@@ -126,6 +129,7 @@ namespace Manager
         {
             Debug.Log($"Current scene <{_currentScene}> should be Game");
 
+            AudioManager.Instance.MuteMaster();
             _loadingScreen.Show(true);
 
             yield return UnloadSceneCoroutine(_currentScene);
@@ -137,6 +141,7 @@ namespace Manager
             yield return LoadingBuilder.Build(_loadingScreen);
 
             _loadingScreen.Show(false);
+            AudioManager.Instance.UnmuteMaster();
             _currentScene = _gameScene;
             SceneManager.SetActiveScene(_currentScene);
         }

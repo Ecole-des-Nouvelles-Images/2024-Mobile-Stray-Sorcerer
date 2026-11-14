@@ -1,5 +1,7 @@
 using DG.Tweening;
+using Gameplay;
 using Manager;
+using Player;
 using UnityEngine;
 using UnityEngine.Audio;
 using Utils;
@@ -18,11 +20,17 @@ namespace Audio
         private void OnEnable()
         {
             GameManager.OnGameStart += PlayAmbient;
+            GameManager.OnGameStart += FadeInSFXOnStart;
+            Character.OnPlayerDeath += FadeOutSFXOnDeath;
+            Gameplay.Exit.OnMazeExitReached += FadeOutSFXOnExit;
         }
 
         private void OnDisable()
         {
             GameManager.OnGameStart -= PlayAmbient;
+            GameManager.OnGameStart -= FadeInSFXOnStart;
+            Character.OnPlayerDeath -= FadeOutSFXOnDeath;
+            Gameplay.Exit.OnMazeExitReached -= FadeOutSFXOnExit;
         }
 
         private void PlayAmbient()
@@ -53,11 +61,13 @@ namespace Audio
 
         private void DisableAmbient()
         {
-            _ambientSource.DOFade(0, 1f).SetUpdate(true).OnComplete(() =>
+            if (_ambientSource != null)
             {
-                _ambientSource.Stop();
-            });
-
+                _ambientSource.DOFade(0, 1f).SetUpdate(true).OnComplete(() =>
+                {
+                    _ambientSource.Stop();
+                });
+            }
         }
 
         public void UpdateMusicVolume(float value)
@@ -72,12 +82,36 @@ namespace Audio
             _mixer.SetFloat("SFXVolume", decibels);
         }
 
-        public void MuteTemporarily(float muteDuration = 0.2f, float fadeDuration = 0.5f)
+        public void MuteMaster()
         {
             _mixer.SetFloat("MasterVolume", -80f);
+        }
+
+        public void UnmuteMaster(float fadeDuration = 0.5f)
+        {
+            _mixer.DOSetFloat("MasterVolume", 0f, fadeDuration).SetUpdate(true);
+        }
+
+        public void FadeOutSFX(float duration = 1.0f)
+        {
+            _mixer.DOSetFloat("SFXVolume", -80f, duration).SetUpdate(true);
+        }
+
+        public void FadeInSFX(float duration = 1.0f)
+        {
+            _mixer.DOSetFloat("SFXVolume", 0f, duration).SetUpdate(true);
+        }
+
+        private void FadeOutSFXOnDeath() => FadeOutSFX(1.5f);
+        private void FadeOutSFXOnExit() => FadeOutSFX(1.0f);
+        private void FadeInSFXOnStart() => FadeInSFX(0.5f);
+
+        public void MuteTemporarily(float muteDuration = 0.2f, float fadeDuration = 0.5f)
+        {
+            MuteMaster();
             DOVirtual.DelayedCall(muteDuration, () =>
             {
-                _mixer.DOSetFloat("MasterVolume", 0f, fadeDuration).SetUpdate(true);
+                UnmuteMaster(fadeDuration);
             });
         }
     }

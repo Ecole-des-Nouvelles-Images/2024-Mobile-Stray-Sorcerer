@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UI.Effects
 {
-    public class SmoothBlink : MonoBehaviour
+    public class SmoothBlinkText : MonoBehaviour
     {
         [SerializeField] private TMP_Text _text;
         [SerializeField] private float _duration = 1f;

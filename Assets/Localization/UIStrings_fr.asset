@@ -214,12 +214,12 @@ MonoBehaviour:
       m_Items:
       - rid: 6807400074399711606
   - m_Id: 844345381
-    m_Localized: "Vous \xEAtes mort"
+    m_Localized: "Vous avez p\xE9ri"
     m_Metadata:
       m_Items:
       - rid: 6807400074399711607
   - m_Id: 844345382
-    m_Localized: "Retourner \xE0\nl'\xE9cran titre"
+    m_Localized: "Retourner \xE0 l'\xE9cran titre"
     m_Metadata:
       m_Items:
       - rid: 6807400074399711608
@@ -276,17 +276,17 @@ MonoBehaviour:
       m_Items:
       - rid: 6807400074399711618
   - m_Id: 844345393
-    m_Localized: "Ajout des d\xE9corations..."
+    m_Localized: Ajout des decorations...
     m_Metadata:
       m_Items:
       - rid: 6807400074399711619
   - m_Id: 844345394
-    m_Localized: "Cr\xE9ation des monstres..."
+    m_Localized: Creation des monstres...
     m_Metadata:
       m_Items:
       - rid: 6807400074399711620
   - m_Id: 844345395
-    m_Localized: "Param\xE9trage du NavMesh..."
+    m_Localized: Parametrage du NavMesh...
     m_Metadata:
       m_Items:
       - rid: 6807400074399711621
@@ -384,6 +384,14 @@ MonoBehaviour:
     m_Metadata:
       m_Items:
       - rid: 6807400074399711710
+  - m_Id: 79477330915328
+    m_Localized: Appuyer sur
+    m_Metadata:
+      m_Items: []
+  - m_Id: 113081679327232
+    m_Localized: Maintenir "Select" pour quitter
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
