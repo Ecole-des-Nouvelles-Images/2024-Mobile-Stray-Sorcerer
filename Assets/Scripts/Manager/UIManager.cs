@@ -9,7 +9,6 @@ using Player;
 using UI.GameOverlay;
 using UnityEngine.InputSystem;
 using Utils;
-using Object = System.Object;
 
 namespace Manager
 {
@@ -124,11 +123,11 @@ namespace Manager
         {
             if (UpgradeOverlayUI.UpgradeInProgress)
                 return;
-            
+
             if (!InPause)
             {
                 PlayerController.PlayerInput.SwitchCurrentActionMap("UI");
-                
+
                 Time.timeScale = 0;
                 _pauseOverlay.gameObject.SetActive(true);
                 _pauseOverlay.DOFade(1, _panelSlideDuration).SetUpdate(true).SetEase(Ease.InOutCubic).OnComplete(() =>
@@ -137,7 +136,7 @@ namespace Manager
                     _pauseOverlay.blocksRaycasts = true;
                 });
                 InPause = true;
-                
+
                 _resumeButton.Select();
             }
             else
@@ -153,15 +152,15 @@ namespace Manager
                 });
                 InPause = false;
             }
-            
+
             OnTogglePauseState.Invoke(InPause);
         }
-        
+
         public void SwitchPausePanel(InputAction.CallbackContext ctx)
         {
             if (UpgradeOverlayUI.UpgradeInProgress)
                 return;
-            
+
             if (!InPause)
             {
                 Time.timeScale = 0;
@@ -270,7 +269,7 @@ namespace Manager
         {
             ClockGame.Instance.ClockStop();
             ClockGame.Instance.Reset();
-            
+
             _fader.DOFade(1, 1.5f).SetUpdate(true).OnComplete(() =>
             {
                 Time.timeScale = 1;
@@ -281,7 +280,7 @@ namespace Manager
         public void QuitGame()
         {
             Application.Quit();
-            
+
             #if UNITY_EDITOR
             UnityEditor.EditorApplication.ExitPlaymode();
             #endif

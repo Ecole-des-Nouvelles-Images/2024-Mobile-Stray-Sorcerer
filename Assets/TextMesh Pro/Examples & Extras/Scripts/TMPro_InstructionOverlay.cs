@@ -1,7 +1,7 @@
-﻿using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace TextMesh_Pro.Examples___Extras.Scripts
+
+namespace TMPro.Examples
 {
     
     public class TMPro_InstructionOverlay : MonoBehaviour

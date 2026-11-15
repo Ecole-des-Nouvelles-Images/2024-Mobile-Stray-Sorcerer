@@ -2,7 +2,6 @@ using Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UI;
 
 namespace UI.GameOverlay
 {

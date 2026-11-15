@@ -1,7 +1,7 @@
-using TMPro;
 using UnityEngine;
 
-namespace TextMesh_Pro.Examples___Extras.Scripts
+
+namespace TMPro.Examples
 {
 
     public class Benchmark04 : MonoBehaviour

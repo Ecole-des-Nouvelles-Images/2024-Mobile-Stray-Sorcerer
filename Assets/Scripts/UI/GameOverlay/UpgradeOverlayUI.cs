@@ -6,7 +6,6 @@ using Player;
 using Player.Spells_Effects;
 using TMPro;
 using Utils;
-using UI;
 
 namespace UI.GameOverlay
 {
@@ -61,40 +60,70 @@ namespace UI.GameOverlay
             _spellEvolutionPanel.alpha = 0;
         }
 
+        private DG.Tweening.Tween _timeWarpTween;
+
+        private static bool CanUpgrade => Character.Instance != null && !Character.Instance.IsDead && Character.Instance.HP > 0;
+
         private void OnEnable()
         {
             Character.OnDisplayUpgrade += UpgradeDisplay;
             Character.OnSpellUnlock += SpellUpgradeDisplay;
+            Character.OnPlayerDeathStarted += CancelUpgradeOnDeath;
         }
         
         private void OnDisable()
         {
             Character.OnDisplayUpgrade -= UpgradeDisplay;
             Character.OnSpellUnlock -= SpellUpgradeDisplay;
-            
-            StopAllCoroutines();
-
-            UpgradeInProgress = false;
+            Character.OnPlayerDeathStarted -= CancelUpgradeOnDeath;
+            CancelUpgrade();
         }
 
-        private void OnDestroy()
+        private void CancelUpgradeOnDeath()
         {
-            Character.OnDisplayUpgrade -= UpgradeDisplay;
-            Character.OnSpellUnlock -= SpellUpgradeDisplay;
-            
+            CancelUpgrade();
+            gameObject.SetActive(false);
+        }
+
+        private void CancelUpgrade()
+        {
             StopAllCoroutines();
-            
+            _timeWarpTween?.Kill();
+            _timeWarpTween = null;
+
+            _upgradeStatPanel.DOKill();
+            _upgradeStatPanel.interactable = false;
+            _upgradeStatPanel.blocksRaycasts = false;
+            _upgradeStatPanel.alpha = 0;
+
+            _spellEvolutionPanel.DOKill();
+            _spellEvolutionPanel.interactable = false;
+            _spellEvolutionPanel.blocksRaycasts = false;
+            _spellEvolutionPanel.alpha = 0;
+
+            var eventSystem = UnityEngine.EventSystems.EventSystem.current;
+            if (eventSystem != null && eventSystem.currentSelectedGameObject != null &&
+                eventSystem.currentSelectedGameObject.transform.IsChildOf(transform))
+                eventSystem.SetSelectedGameObject(null);
+
+            // Only release time owned by this upgrade. DeathUI pauses separately later.
+            if (UpgradeInProgress)
+                Time.timeScale = 1f;
             UpgradeInProgress = false;
         }
 
         private void UpgradeDisplay()
         {
+            if (!CanUpgrade || UpgradeInProgress) return;
+
             UpgradeInProgress = true;
             StartCoroutine(WaitForPlayerUpgradeChoice());
         }
 
         private void SpellUpgradeDisplay(SpellSO oldSpellSo, SpellSO newSpellSo)
         {
+            if (!CanUpgrade || UpgradeInProgress) return;
+
             UpgradeInProgress = true;
             StartCoroutine(WaitForPlayerSpellConfirmation(oldSpellSo, newSpellSo));
         }
@@ -103,7 +132,7 @@ namespace UI.GameOverlay
         {
             PlayerController.PlayerInput.SwitchCurrentActionMap("UI");
             
-            DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 0, _timeWarpDuration).SetUpdate(true).SetEase(Ease.InCirc);
+            _timeWarpTween = DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 0, _timeWarpDuration).SetUpdate(true).SetEase(Ease.InCirc);
 
             // Update panels
             _constitutionOldValue.text = Character.Instance.Constitution.ToString();
@@ -168,7 +197,7 @@ namespace UI.GameOverlay
             
             _upgradeOverlayAnimator.Play("SpellEvolution");
             
-            DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 0, _timeWarpDuration).SetUpdate(true).SetEase(Ease.InCirc);
+            _timeWarpTween = DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 0, _timeWarpDuration).SetUpdate(true).SetEase(Ease.InCirc);
 
             yield return new WaitForSecondsRealtime(1.7f);
 
@@ -212,16 +241,19 @@ namespace UI.GameOverlay
 
         public void UpgradeConst()
         {
+            if (!CanUpgrade || !isActiveAndEnabled) return;
             Character.OnUpgradeStat?.Invoke(1);
         }
 
         public void UpgradeSwiftness()
         {
+            if (!CanUpgrade || !isActiveAndEnabled) return;
             Character.OnUpgradeStat?.Invoke(2);
         }
 
         public void UpgradePower()
         {
+            if (!CanUpgrade || !isActiveAndEnabled) return;
             Character.OnUpgradeStat?.Invoke(3);
         }
     }

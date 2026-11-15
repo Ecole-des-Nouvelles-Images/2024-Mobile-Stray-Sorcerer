@@ -1,5 +1,4 @@
 using DG.Tweening;
-using Gameplay;
 using Manager;
 using Player;
 using UnityEngine;

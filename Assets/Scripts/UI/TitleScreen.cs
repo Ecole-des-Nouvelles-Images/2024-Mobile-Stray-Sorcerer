@@ -1,4 +1,3 @@
-using System;
 using Manager;
 using UnityEngine;
 using UnityEngine.InputSystem;

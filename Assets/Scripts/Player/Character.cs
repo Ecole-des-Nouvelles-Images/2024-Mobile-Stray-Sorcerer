@@ -19,6 +19,7 @@ namespace Player
         public static readonly int Dissolve = Shader.PropertyToID("_State");
 
         public static Action OnPlayerDeath;
+        public static Action OnPlayerDeathStarted;
         public static Action<int> OnHpChanged;
         public static Action<int> OnMaxHpChanged;
         public static Action<int> OnExpChanged;
@@ -150,6 +151,7 @@ namespace Player
         private static void OnRuntimeInitialization()
         {
             OnPlayerDeath = null;
+            OnPlayerDeathStarted = null;
             OnHpChanged = null;
             OnMaxHpChanged = null;
             OnExpChanged = null;
@@ -221,19 +223,25 @@ namespace Player
         }
         private void LevelUp()
         {
-            if (!_allowedToLevelUp || HP <= 0) return;
+            if (!_allowedToLevelUp || IsDead || HP <= 0) return;
 
             _characterAudioSource.clip = _characterAudioClips[1];
             _characterAudioSource.Play();
             
             Level++;
 
+            if (!_allowedToLevelUp || IsDead || HP <= 0) return;
+
             if (Level % 5 == 0 && SpellUnlock < _spells.Length)
             {
                 UpdateSpell();
                 OnSpellUnlock?.Invoke(CurrentSpellSo, NextSpellSo);
+                if (!_allowedToLevelUp || IsDead || HP <= 0) return;
+
                 SpellUnlock++;
                 OnSpellIndexChange?.Invoke(SpellUnlock);
+                if (!_allowedToLevelUp || IsDead || HP <= 0) return;
+
                 UpdateSpell();
             }
             else
@@ -243,6 +251,8 @@ namespace Player
         }
         private void UpgradeStat(int indexStat)
         {
+            if (!_allowedToLevelUp || IsDead || HP <= 0) return;
+
             Debug.Log("[Character] Upgrade Stat call made !");
             switch (indexStat)
             {
@@ -293,6 +303,8 @@ namespace Player
         }
         public void TakeDamage(int damage)
         {
+            if (IsDead) return;
+
             _characterAudioSource.clip = _characterAudioClips[0];
             _characterAudioSource.Play();
             HP -= damage;
@@ -322,6 +334,11 @@ namespace Player
 
         private void Death()
         {
+            if (IsDead) return;
+
+            IsDead = true;
+            _allowedToLevelUp = false;
+            OnPlayerDeathStarted?.Invoke();
             StartCoroutine(DeathAnimationCoroutine());
         }
 
@@ -330,7 +347,6 @@ namespace Player
             float t = 0f;
             List<Material> materials = new();
 
-            IsDead = true;
             _playerAnimator.SetBool(DeathState, true);
             _myPlayerController.enabled = false;
             _myPlayerInput.enabled = false;
